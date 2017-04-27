@@ -23,7 +23,8 @@ $ npm install meetyou-angular-ui --save
 $ yarn add meetyou-angular-ui
 ```
 如果你的网络环境不佳，推荐使用 [cnpm](https://github.com/cnpm/cnpm)。
-
+  
+  
 > ## 浏览器引入
 在浏览器中使用 script 和 link 标签直接引入文件，并使用全局变量 meetyou-angular-ui。
 我们在 npm 发布包内的 meetyou-angular-ui/dist 目录下提供了 meetyou-angular-ui.js meetyou-angular-ui.css 以及 meetyou-angular-ui.min.js meetyou-angular-ui.min.css。你也可以通过 CDNJS 或 UNPKG 进行下载。
