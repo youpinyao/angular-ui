@@ -1,0 +1,12 @@
+{
+  "extends": "stylelint-config-standard",
+  configFile: ".stylelintrc",
+  "ignoreFiles": [
+    "node_modules/**/*.css",
+    "front/assets/*.css",
+    "front/stylesheets/libs/*.css"
+  ],
+  "rules": {
+    "selector-pseudo-element-colon-notation": null
+  }
+}
