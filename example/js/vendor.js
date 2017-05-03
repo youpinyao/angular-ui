@@ -1,1 +1,2 @@
-require('jquery');
+require('angular');
+require('@uirouter/angularjs');

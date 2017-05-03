@@ -1,0 +1,134 @@
+@import "./variable.scss";
+@import "./reset.scss";
+
+
+body {
+  font-size: 14px;
+  font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
+  line-height: 21px;
+  color: $base;
+}
+
+.clearfix:after {
+  content: "\200B";
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+a {
+  color: $link;
+}
+
+*:before, *:after,
+* {
+  box-sizing: border-box;
+}
+
+$paddings: (pb: bottom, pl: left, pt: top, pr: right);
+$margins: (mb: bottom, ml: left, mt: top, mr: right);
+
+@each $header, $size in $paddings {
+  .#{$header}-20 {
+    padding-#{$size}: 20px;
+  }
+}
+
+@each $header, $size in $margins {
+  .#{$header}-20 {
+    margin-#{$size}: 20px;
+  }
+}
+
+@each $header, $size in $paddings {
+  .#{$header}-10 {
+    padding-#{$size}: 10px;
+  }
+}
+
+@each $header, $size in $margins {
+  .#{$header}-10 {
+    margin-#{$size}: 10px;
+  }
+}
+
+.col-2,
+.col-3,
+.col-4,
+.col-6,
+.col-12 {
+  float: left;
+}
+
+.col-2 {
+  width: 16.6666%;
+}
+
+.col-2-5 {
+  width: 20%;
+}
+
+.col-3 {
+  width: 25%;
+}
+
+.col-4 {
+  width: 33.3333%;
+}
+
+.col-6 {
+  width: 50%;
+}
+
+.col-12 {
+  width: 100%;
+}
+
+.form-horizontal {
+
+}
+
+.form-horizontal {
+  .control-label {
+    float: left;
+    width: 160px;
+    padding-top: 7px;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: right;
+  }
+}
+
+.form-horizontal {
+  .controls {
+    margin-left: 180px;
+    position: relative;
+  }
+}
+
+.form-vertical {
+
+}
+
+.form-vertical {
+  .control-label {
+    margin-bottom: 5px;
+  }
+}
+
+.form-horizontal {
+  .controls {
+    position: relative;
+  }
+}
+

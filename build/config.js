@@ -1,7 +1,7 @@
 module.exports = {
   src: '../../example',
   host: 'localhost',
-  port: '8080',
+  port: '8686',
   publicPath: '../',
   path: '../../dist/example',
   entrys: [{
