@@ -1,5 +1,5 @@
 
-require('./stylesheets/meetyou-angular-ui.scss');
+require('./scss/app.scss');
 
 angular.module('meetyou-angular-ui', []);
 angular.module('meetyou-angular-ui').config(function() {});

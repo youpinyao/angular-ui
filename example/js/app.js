@@ -1,6 +1,7 @@
 require('./vendor.js');
 require('../../src/index.js');
 
+const routerConfig = require('./routerConfig.js');
 const app = angular.module('app', [
   'meetyou-angular-ui',
   'ui.router',
@@ -17,7 +18,13 @@ function run() {
 config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
 
 function config($stateProvider, $urlRouterProvider, $httpProvider) {
-  // $stateProvider.state('state', {
-  //   url
-  // });
+  angular.forEach(routerConfig, function (value) {
+    $stateProvider
+      .state(value.state, {
+        url: value.url,
+        template: value.template,
+        templateUrl: value.templateUrl,
+        controller: value.controller
+      });
+  });
 }

@@ -1,0 +1,26 @@
+@mixin transition($value: all 300ms ease) {
+  transition: $value;
+  -webkit-transtion: $value;
+}
+
+@mixin transform($prop) {
+  transform: $prop;
+  -webkit-transform: $prop;
+  -ms-transform: $prop;
+  -moz-transform: $prop
+}
+
+@mixin lineClamp($line) {
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal;
+}
+
+@mixin ellipsis() {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+}

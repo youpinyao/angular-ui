@@ -1,6 +1,6 @@
-@import "./variable.scss";
-@import "./reset.scss";
-
+@import "constant";
+@import "reset";
+@import "mixin";
 
 body {
   font-size: 14px;
@@ -21,9 +21,7 @@ body {
 }
 
 .ellipsis {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  @include ellipsis();
 }
 
 .center {
@@ -66,36 +64,19 @@ $margins: (mb: bottom, ml: left, mt: top, mr: right);
   }
 }
 
-.col-2,
-.col-3,
-.col-4,
-.col-6,
-.col-12 {
-  float: left;
+$colList: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;
+@each $col in $colList {
+  .col-#{$col} {
+    float: left;
+    width: (100%/12*$col);
+  }
 }
 
-.col-2 {
-  width: 16.6666%;
-}
-
-.col-2-5 {
-  width: 20%;
-}
-
-.col-3 {
-  width: 25%;
-}
-
-.col-4 {
-  width: 33.3333%;
-}
-
-.col-6 {
-  width: 50%;
-}
-
-.col-12 {
-  width: 100%;
+.container-fluid {
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .form-horizontal {
@@ -107,7 +88,7 @@ $margins: (mb: bottom, ml: left, mt: top, mr: right);
     float: left;
     width: 160px;
     padding-top: 7px;
-    font-size: 14px;
+    font-size: $font14;
     font-weight: normal;
     text-align: right;
   }
@@ -136,3 +117,10 @@ $margins: (mb: bottom, ml: left, mt: top, mr: right);
   }
 }
 
+/* 头部 */
+.header {
+  background-color: $headerColor;
+  .container-fluid {
+    height: 80px;
+  }
+}
