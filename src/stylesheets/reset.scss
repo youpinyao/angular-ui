@@ -120,7 +120,7 @@ strong {
 img {
   color: transparent;
   font-size: 0;
-  vertical-align: middle;
+  vertical-align: top;
   -ms-interpolation-mode: bicubic;
 }
 
@@ -142,7 +142,6 @@ th,
 td,
 caption {
   font-weight: normal;
-  vertical-align: top;
   text-align: left;
 }
 
