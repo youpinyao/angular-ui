@@ -1,2 +1,2 @@
-require('angular');
-require('@uirouter/angularjs');
+import 'angular';
+import '@uirouter/angularjs';

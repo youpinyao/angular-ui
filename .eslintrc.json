@@ -2,6 +2,10 @@
   "extends": "airbnb/legacy",
   "parserOptions": {
     "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
     "ecmaFeatures": {
       "globalReturn": true,
       "impliedStrict": true,
@@ -10,9 +14,7 @@
   },
   "globals": {
     "$": true,
-    "angular": true,
-    "app": true,
-    "moment": true
+    "angular": true
   },
   "rules": {
     "max-len": 0,
@@ -24,13 +26,20 @@
     "guard-for-in": 0,
     "no-unused-vars": 0,
     /* TODO */
-    "comma-dangle": 0, /* 拖尾分号代码阅读性更高，也更便于维护*/
-    "no-console": 0, /* 在生成环境构建时去掉 console */
-    "no-param-reassign": 0, /* Angular 存在大量对参数属性修改的代码，例如：$scope*/
-    "no-plusplus": 0, /* 待处理 */
-    "no-shadow": 0, /* 待处理 */
-    "no-tabs": 0, /* 目前代码里存在大量 tab，一时难以修正（是否有工具自动修复？） */
-    "no-underscore-dangle": 0, /* 待处理 */
+    "comma-dangle": 0,
+    /* 拖尾分号代码阅读性更高，也更便于维护*/
+    "no-console": 0,
+    /* 在生成环境构建时去掉 console */
+    "no-param-reassign": 0,
+    /* Angular 存在大量对参数属性修改的代码，例如：$scope*/
+    "no-plusplus": 0,
+    /* 待处理 */
+    "no-shadow": 0,
+    /* 待处理 */
+    "no-tabs": 0,
+    /* 目前代码里存在大量 tab，一时难以修正（是否有工具自动修复？） */
+    "no-underscore-dangle": 0,
+    /* 待处理 */
     "global-require": 0,
     "no-debugger": 0
   }

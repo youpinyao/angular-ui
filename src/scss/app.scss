@@ -5,7 +5,7 @@
 body {
   font-size: 14px;
   font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
-  line-height: 21px;
+  line-height: 20px;
   color: $base;
 }
 
@@ -30,6 +30,7 @@ body {
 
 a {
   color: $link;
+  text-decoration: none;
 }
 
 *:before, *:after,
@@ -69,6 +70,7 @@ $colList: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;
   .col-#{$col} {
     float: left;
     width: (100%/12*$col);
+    min-height: 1px;
   }
 }
 
@@ -77,6 +79,7 @@ $colList: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;
   padding-left: 20px;
   margin-right: auto;
   margin-left: auto;
+  float: none;
 }
 
 .form-horizontal {
@@ -118,9 +121,135 @@ $colList: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;
 }
 
 /* 头部 */
+$headerHeight: 80px;
+
 .header {
   background-color: $headerColor;
-  .container-fluid {
-    height: 80px;
+  > .container-fluid {
+    height: $headerHeight;
+    min-width: $minWidth;
+    .logo {
+      display: table;
+      color: $white;
+      float: left;
+      height: 100%;
+      min-width: 200px;
+      font-size: $font18;
+      > div {
+        vertical-align: middle;
+        display: table-cell;
+        > div {
+          float: left;
+          > div {
+            font-size: $font14;
+            padding-bottom: 3px;
+            line-height: 18px;
+          }
+        }
+      }
+      .logo-icon {
+        float: left;
+        margin-right: 10px;
+      }
+    }
+    .nav {
+      float: left;
+      ul {
+        float: left;
+        li {
+          float: left;
+          font-size: $font18;
+          opacity: 0.5;
+          line-height: $headerHeight;
+          text-align: center;
+          padding: 0px 30px;
+          @include transition(opacity 300ms ease);
+          a {
+            color: $white;
+            position: relative;
+            display: inline-block;
+
+            &:after {
+              @include transition();
+              @include transform(translate(0px, 10px));
+              opacity: 0;
+              content: "";
+              display: block;
+              height: 4px;
+              width: 100%;
+              border-radius: 10px;
+              background-color: $primary;
+              position: absolute;
+              left: 0px;
+              bottom: 12px;
+            }
+          }
+          &:hover {
+            opacity: 1;
+          }
+        }
+        li.active {
+          opacity: 1;
+          a:after {
+            @include transform(translate(0px, 0px));
+            opacity: 1;
+          }
+        }
+
+      }
+    }
+    .info {
+      line-height: $headerHeight;
+      float: right;
+      font-size: $font16;
+      color: $white;
+
+      a {
+        display: inline-block;
+        color: #ffffff;
+      }
+      .nickname {
+        @include ellipsis();
+        display: inline-block;
+        max-width: 100px;
+        vertical-align: top;
+      }
+      .head {
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 48px;
+        overflow: hidden;
+        width: 48px;
+        height: 48px;
+        margin-right: 20px;
+        position: relative;
+        top: -2px;
+      }
+      .head img {
+        width: 100%;
+        height: auto;
+        vertical-align: top;
+      }
+    }
+  }
+}
+
+.main {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  > .col-10 {
+    min-width: $minWidth;
+  }
+}
+
+.header-fixed {
+  > .header {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+  }
+  > .main {
+    margin-top: $headerHeight;
   }
 }

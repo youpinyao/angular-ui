@@ -1,21 +1,21 @@
-require('./vendor.js');
-require('../../src/index.js');
+import '../../src/scss/app.scss';
+import './vendor.js';
+import meetAngularUI from '../../src';
 
-const routerConfig = require('./routerConfig.js');
 const app = angular.module('app', [
-  'meetyou-angular-ui',
+  meetAngularUI,
   'ui.router',
 ]);
+const routerConfig = require('./routerConfig.js');
 
-app.run(run).config(config);
+config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
 
 angular.bootstrap(document, ['app']);
+app.run(run).config(config);
 
 function run() {
 
 }
-
-config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
 
 function config($stateProvider, $urlRouterProvider, $httpProvider) {
   angular.forEach(routerConfig, function (value) {
@@ -24,7 +24,8 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
         url: value.url,
         template: value.template,
         templateUrl: value.templateUrl,
-        controller: value.controller
+        controller: value.controller,
       });
   });
 }
+

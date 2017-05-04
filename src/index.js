@@ -1,6 +1,9 @@
+import menu from './components/menu';
 
-require('./scss/app.scss');
+const moduleName = 'meetyou.angular.ui';
 
-angular.module('meetyou-angular-ui', []);
-angular.module('meetyou-angular-ui').config(function() {});
-angular.module('meetyou-angular-ui').run(['$rootScope', function($rootScope) {}]);
+angular.module(moduleName, [
+  menu,
+]).config(function () {}).run(function () {});
+
+module.exports = moduleName;
