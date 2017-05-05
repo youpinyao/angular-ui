@@ -1,0 +1,53 @@
+@import "../../../scss/constant";
+@import "../../../scss/mixin";
+
+/* 顶部菜单样式 */
+.header {
+  > .container-fluid {
+    .nav {
+      float: left;
+      ul {
+        float: left;
+        li {
+          float: left;
+          font-size: $font18;
+          opacity: 0.5;
+          line-height: $headerHeight;
+          text-align: center;
+          padding: 0px 30px;
+          @include transition(opacity 300ms ease);
+          a {
+            color: $white;
+            position: relative;
+            display: inline-block;
+
+            &:after {
+              @include transition();
+              @include transform(translate(0px, 10px));
+              opacity: 0;
+              content: "";
+              display: block;
+              height: 4px;
+              width: 100%;
+              border-radius: 10px;
+              background-color: $primary;
+              position: absolute;
+              left: 0px;
+              bottom: 12px;
+            }
+          }
+          &:hover {
+            opacity: 1;
+          }
+        }
+        li.active {
+          opacity: 1;
+          a:after {
+            @include transform(translate(0px, 0px));
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}

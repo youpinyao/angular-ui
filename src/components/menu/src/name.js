@@ -1,1 +1,1 @@
-module.exports = 'meetyou.angular.ui.menu';
+export default 'meetyou.angular.ui.menu';

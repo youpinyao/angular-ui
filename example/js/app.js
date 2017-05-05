@@ -1,4 +1,3 @@
-import '../../src/scss/app.scss';
 import './vendor.js';
 import meetAngularUI from '../../src';
 
@@ -9,12 +8,13 @@ const app = angular.module('app', [
 const routerConfig = require('./routerConfig.js');
 
 config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
+run.$inject = ['$rootScope'];
 
+app.config(config).run(run);
 angular.bootstrap(document, ['app']);
-app.run(run).config(config);
 
-function run() {
-
+function run($rootScope) {
+  $rootScope.routerConfig = routerConfig;
 }
 
 function config($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -27,5 +27,6 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
         controller: value.controller,
       });
   });
+  $urlRouterProvider.otherwise(routerConfig[0].state);
 }
 

@@ -121,8 +121,6 @@ $colList: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;
 }
 
 /* 头部 */
-$headerHeight: 80px;
-
 .header {
   background-color: $headerColor;
   > .container-fluid {
@@ -150,52 +148,6 @@ $headerHeight: 80px;
       .logo-icon {
         float: left;
         margin-right: 10px;
-      }
-    }
-    .nav {
-      float: left;
-      ul {
-        float: left;
-        li {
-          float: left;
-          font-size: $font18;
-          opacity: 0.5;
-          line-height: $headerHeight;
-          text-align: center;
-          padding: 0px 30px;
-          @include transition(opacity 300ms ease);
-          a {
-            color: $white;
-            position: relative;
-            display: inline-block;
-
-            &:after {
-              @include transition();
-              @include transform(translate(0px, 10px));
-              opacity: 0;
-              content: "";
-              display: block;
-              height: 4px;
-              width: 100%;
-              border-radius: 10px;
-              background-color: $primary;
-              position: absolute;
-              left: 0px;
-              bottom: 12px;
-            }
-          }
-          &:hover {
-            opacity: 1;
-          }
-        }
-        li.active {
-          opacity: 1;
-          a:after {
-            @include transform(translate(0px, 0px));
-            opacity: 1;
-          }
-        }
-
       }
     }
     .info {

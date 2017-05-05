@@ -1,14 +1,32 @@
 import moduleName from './name.js';
 
-angular.module(moduleName).directive('maState', maState);
+angular.module(moduleName)
+  .directive('maMenu', maMenu);
 
-maState.$inject = [];
+maMenu.$inject = ['$state'];
 
-function maState() {
+function maMenu($state) {
   return {
-    restrict: 'A',
-    link: function (scope, element, attrs, ctrl) {
-      console.log('menu directive of maState');
+    restrict: 'E',
+    replace: true,
+    scope: {
+      routers: '=maRouters',
+    },
+    template: `<div class="nav">
+      <ul>
+        <li
+          ng-repeat="router in routers"
+          ng-class="{active: $state.current.name === router.state}"
+        >
+          <a
+            href="javascript:void(0)"
+            ma-click="$state.go(router.state)"
+          >{{router.title}}</a>
+        </li>
+      </ul>
+    </div>`,
+    link: function (scope, element, attrs, controllers) {
+      scope.$state = $state;
     }
   };
 }

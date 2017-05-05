@@ -1,13 +1,14 @@
 const controller = 'mainCtrl';
+
+
 angular.module('app').controller(controller, mainCtrl);
 
 mainCtrl.$inject = [];
-
 function mainCtrl() {
 
 }
 
-module.exports = {
+export default {
   template: require('./index.html'),
   controller,
 };

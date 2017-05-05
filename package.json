@@ -24,7 +24,7 @@
   "homepage": "https://github.com/youpinyao/meetyou-angular-ui#readme",
   "dependencies": {
     "@uirouter/angularjs": "1.0.0",
-    "angular": "1.5.8"
+    "angular": "^1.6.4"
   },
   "devDependencies": {
     "angular2-template-loader": "0.6.2",
