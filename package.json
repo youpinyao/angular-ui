@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/youpinyao/meetyou-angular-ui#readme",
   "dependencies": {
-    "@uirouter/angularjs": "1.0.0",
+    "@uirouter/angularjs": "^1.0.1",
     "angular": "^1.6.4"
   },
   "devDependencies": {
