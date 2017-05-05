@@ -10,6 +10,13 @@
   -moz-transform: $prop
 }
 
+@mixin transform-origin($prop: top center) {
+  transform-origin: $prop;
+  -webkit-transform-origin: $prop;
+  -ms-transform-origin: $prop;
+  -moz-transform-origin: $prop
+}
+
 @mixin lineClamp($line) {
   display: -webkit-box;
   -webkit-line-clamp: $line;

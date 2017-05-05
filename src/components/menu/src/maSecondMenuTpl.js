@@ -1,4 +1,4 @@
-export default `<div class="second-nav" ng-show="hasSecondNav">
+export default `<div class="second-nav" ng-class="{show: hasSecondNav}">
   <ul>
     <li
       ng-repeat="router in routers"

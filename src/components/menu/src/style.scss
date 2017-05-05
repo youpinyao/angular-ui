@@ -49,6 +49,11 @@
 
   /* 二级菜单样式 */
   .second-nav {
+    opacity: 0;
+    visibility: hidden;
+    @include transform-origin();
+    @include transform(scaleY(0));
+    @include transition();
     position: fixed;
     z-index: 10;
     left: 0px;
@@ -75,6 +80,13 @@
       }
     }
   }
+
+  .second-nav.show {
+    opacity: 1;
+    visibility: visible;
+    @include transform(scaleY(1));
+  }
+
 }
 
 .has-second-nav {
@@ -94,6 +106,8 @@
     margin-top: $headerHeight + 20px;
   }
 }
+
+
 
 .header-fixed.has-second-nav {
   > .main {
