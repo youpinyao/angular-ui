@@ -6,6 +6,7 @@ $font14: 14px !global;
 $font12: 12px !global;
 
 /* 全局颜色 */
+$black: #000000 !global;
 $white: #FFFFFF !global;
 $primary: #FF74B9 !global;
 $warning: #F6A623 !global;
@@ -17,6 +18,8 @@ $grey: #999999 !global;
 $outlines: #CCCCCC !global;
 $disabled: #E5E5E5 !global;
 $hover: #F5F5F5 !global;
+$background: #F5F5F5 !global;
+$shadow: #DDDDDD !global;
 
 /* 容器最小宽度 */
 $minWidth: 1240px !global;
@@ -26,3 +29,6 @@ $headerColor: #2c3147 !global;
 
 /* 头部高度 */
 $headerHeight: 80px !global;
+
+/* 二级导航高度 */
+$secondNavHeight: 40px !global;

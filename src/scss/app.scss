@@ -7,6 +7,12 @@ body {
   font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
   line-height: 20px;
   color: $base;
+  background-color: $background;
+  overflow: auto;
+}
+
+*[ui-view] {
+  position: relative;
 }
 
 .clearfix:after {
@@ -122,6 +128,8 @@ $colList: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;
 
 /* 头部 */
 .header {
+  position: relative;
+  z-index: 10;
   background-color: $headerColor;
   > .container-fluid {
     height: $headerHeight;
@@ -186,22 +194,14 @@ $colList: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;
   }
 }
 
-.main {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  > .col-10 {
-    min-width: $minWidth;
-  }
-}
-
-.header-fixed {
-  > .header {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-  }
-  > .main {
-    margin-top: $headerHeight;
+body > .main {
+  margin-top: 20px;
+  min-width: $minWidth;
+  > div {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: $white;
+    box-shadow: 0 0 4px 0 rgba($black, 0.05);
+    border-radius: 5px;
   }
 }

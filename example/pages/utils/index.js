@@ -1,4 +1,4 @@
-const controller = 'mainCtrl';
+const controller = 'utilsCtrl';
 
 
 angular.module('app').controller(controller, mainCtrl);

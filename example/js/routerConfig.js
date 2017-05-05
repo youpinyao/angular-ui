@@ -1,25 +1,56 @@
-import main from '../pages/main';
+import components from '../pages/components';
+import global from '../pages/components/global';
+import layout from '../pages/components/layout';
 
-const routes = [{
-  title: 'Global 全局',
-  state: 'main',
-  url: '/main',
-  ...main,
+import services from '../pages/services';
+import utils from '../pages/utils';
+
+const routers = [{
+  title: 'Components 组件',
+  state: 'components',
+  url: '/components',
+  ...components,
+  routers: [{
+    title: 'Global 全局',
+    state: 'components.global',
+    url: '/global',
+    ...global,
+  }, {
+    title: 'Layout 布局',
+    state: 'components.layout',
+    url: '/layout',
+    ...layout,
+  }]
+}, {
+  title: 'Services 服务',
+  state: 'services',
+  url: '/services',
+  ...services,
+}, {
+  title: 'Utils 工具',
+  state: 'utils',
+  url: '/utils',
+  ...utils,
 }];
 
-function flatten(routes, level) {
+function flatten(routers, level, parent) {
   let flattenRoutes = [];
   if (!level) {
-    level = 0;
+    level = 1;
+  } else {
+    level++;
   }
 
-  routes.forEach((route) => {
+  routers.forEach((route) => {
     flattenRoutes.push(route);
     route.level = level;
-    flattenRoutes = flattenRoutes.concat(flatten(route.routes || [], ++level));
+    route.parent = parent;
+    if (route.routers && route.routers.length) {
+      flattenRoutes = flattenRoutes.concat(flatten(route.routers, level, route));
+    }
   });
 
   return flattenRoutes;
 }
 
-module.exports = flatten(routes);
+module.exports = flatten(routers);

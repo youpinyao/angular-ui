@@ -18,6 +18,8 @@ function run($rootScope) {
 }
 
 function config($stateProvider, $urlRouterProvider, $httpProvider) {
+  $urlRouterProvider.rule(routerRule);
+
   angular.forEach(routerConfig, function (value) {
     $stateProvider
       .state(value.state, {
@@ -27,6 +29,25 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
         controller: value.controller,
       });
   });
-  $urlRouterProvider.otherwise(routerConfig[0].state);
 }
 
+function routerRule($injector, $location) {
+  let path = $location.path();
+  let toState = null;
+
+  if (!path) {
+    return routerConfig[0].url;
+  }
+
+  routerConfig.forEach(router => {
+    if (router.url === path) {
+      toState = router;
+    }
+  });
+
+  if (toState && toState.routers && toState.routers.length) {
+    return toState.url + toState.routers[0].url;
+  }
+
+  return undefined;
+}

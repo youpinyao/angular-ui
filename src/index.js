@@ -11,7 +11,6 @@ angular.module(moduleName, [
 ]).config(function () {}).run(function () {});
 
 export default moduleName;
-
 export {
   menu,
   button,

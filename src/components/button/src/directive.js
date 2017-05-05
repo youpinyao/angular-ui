@@ -16,7 +16,7 @@ function maClick($parse, $timeout) {
         element.addClass('ma-click-disabled');
 
         scope.$event = e;
-        scope.$parent.$eval(attrs.cmClick, scope);
+        scope.$parent.$eval(attrs.maClick, scope);
 
         $timeout(function () {});
 
