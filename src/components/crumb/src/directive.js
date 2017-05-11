@@ -1,6 +1,10 @@
 import moduleName from './name.js';
 import $ from 'jquery';
 
+import maCrumbAutoTpl from './maCrumbAutoTpl.html';
+import maCrumbItemTpl from './maCrumbItemTpl.html';
+import maCrumbTpl from './maCrumbTpl.html';
+
 angular.module(moduleName)
   .directive('maCrumb', maCrumb)
   .directive('maCrumbItem', maCrumbItem)
@@ -14,8 +18,7 @@ function maCrumb($state) {
     transclude: true,
     replace: true,
     scope: true,
-    template: `<div class="crumb" ng-transclude>
-    </div>`,
+    template: maCrumbTpl,
     controller: ['$scope', function ($scope) {
       $scope.$state = $state;
     }],
@@ -36,15 +39,7 @@ function maCrumbItem($state) {
     scope: {
       href: '@maHref',
     },
-    template: `
-    <span class="crumb-item">
-      <span>
-        <a ng-if="href" href="{{href}}" ng-transclude></a>
-        <span ng-if="!href" ng-transclude></span>
-      </span>
-      <span>/</span>
-    </span>
-    `,
+    template: maCrumbItemTpl,
     controller: ['$scope', function ($scope) {
       $scope.$state = $state;
     }],
@@ -64,22 +59,7 @@ function maCrumbAuto($state, $rootScope) {
     scope: {
 
     },
-    template: `<div class="crumb">
-      <span class="crumb-item" ng-repeat="item in crumbItems" ng-if="!$last">
-        <span>
-          <a href="javascript:void(0)" ng-click="$state.go(item.state, item.params)">{{item.title}}</a>
-        </span>
-        <span>/</span>
-      </span>
-      <span class="crumb-item" ng-repeat="item in crumbItems" ng-if="$last && showCurrent === true">
-        <span>{{item.title}}</span>
-        <span>/</span>
-      </span>
-      <span class="crumb-item">
-        <span ng-transclude></span>
-        <span>/</span>
-      </span>
-    </div>`,
+    template: maCrumbAutoTpl,
     controller: ['$scope', function ($scope) {
       $scope.$state = $state;
     }],
