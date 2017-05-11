@@ -71,6 +71,18 @@ $margins: (mb: bottom, ml: left, mt: top, mr: right);
   }
 }
 
+@each $header, $size in $paddings {
+  .#{$header}-0 {
+    padding-#{$size}: 0px;
+  }
+}
+
+@each $header, $size in $margins {
+  .#{$header}-0 {
+    margin-#{$size}: 0px;
+  }
+}
+
 $colList: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;
 @each $col in $colList {
   .col-#{$col} {
@@ -195,14 +207,27 @@ $colList: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;
 }
 
 body > .main {
-  margin-top: 20px;
   @include transition(margin 300ms ease);
   min-width: $minWidth;
-  > div {
+  div.container {
     padding-top: 20px;
     padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
     background-color: $white;
     box-shadow: 0 0 4px 0 rgba($black, 0.05);
     border-radius: 5px;
+  }
+}
+
+.header-fixed {
+  > .header {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+  }
+  > .main {
+    margin-top: $headerHeight;
   }
 }

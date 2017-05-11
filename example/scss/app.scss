@@ -1,0 +1,35 @@
+@import '../../src/scss/constant';
+
+h3 {
+  font-size: $font18;
+  font-weight: normal;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+h2 {
+  font-size: $font24;
+  font-weight: normal;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.p,
+p {
+  color: $grey;
+  padding-bottom: 30px;
+  font-size: $font14;
+  code {
+    display: block;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+    background-color: $background;
+    white-space: pre-wrap;
+  }
+}
+
+.p:last-child,
+p:last-child {
+  padding-bottom: 10px;
+}
+

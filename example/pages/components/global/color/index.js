@@ -1,4 +1,6 @@
-const controller = 'golbalCtrl';
+import './index.scss';
+
+const controller = 'colorCtrl';
 
 angular.module('app').controller(controller, mainCtrl);
 

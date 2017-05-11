@@ -1,9 +1,12 @@
-const controller = 'golbalCtrl';
+import './index.scss';
+
+const controller = 'fontCtrl';
 
 angular.module('app').controller(controller, mainCtrl);
 
-mainCtrl.$inject = [];
-function mainCtrl() {
+mainCtrl.$inject = ['$scope'];
+
+function mainCtrl($scope) {
 
 }
 

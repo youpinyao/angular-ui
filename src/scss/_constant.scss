@@ -1,5 +1,8 @@
 
 /* 全局字号 */
+$font24: 24px !global;
+$font22: 22px !global;
+$font20: 20px !global;
 $font18: 18px !global;
 $font16: 16px !global;
 $font14: 14px !global;
@@ -21,11 +24,14 @@ $hover: #F5F5F5 !global;
 $background: #F5F5F5 !global;
 $shadow: #DDDDDD !global;
 
-/* 容器最小宽度 */
-$minWidth: 1240px !global;
-
-/* 主题颜色 */
+$siderBg: #FFF0F7 !global;
 $headerColor: #2c3147 !global;
+
+/* 容器最小宽度 */
+$minWidth: 1220px !global;
+
+/* 侧边栏宽度 */
+$siderWidth: 220px !global;
 
 /* 头部高度 */
 $headerHeight: 80px !global;

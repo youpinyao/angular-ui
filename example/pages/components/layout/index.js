@@ -1,6 +1,5 @@
 const controller = 'layoutCtrl';
 
-
 angular.module('app').controller(controller, mainCtrl);
 
 mainCtrl.$inject = [];

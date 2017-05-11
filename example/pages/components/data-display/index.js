@@ -1,4 +1,5 @@
-const controller = 'golbalCtrl';
+const controller = 'dataDisplayCtrl';
+
 
 angular.module('app').controller(controller, mainCtrl);
 

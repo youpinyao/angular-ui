@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const config = require('../config/config.js');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const modules = require('../util/modules.js');
+const modules = require('./module.config.js');
 
 const plugins = [
   // 输出 css

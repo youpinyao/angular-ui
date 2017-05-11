@@ -1,6 +1,8 @@
 import './vendor.js';
 import meetAngularUI from '../../src';
 
+import '../scss/app.scss';
+
 const app = angular.module('app', [
   meetAngularUI,
   'ui.router',
@@ -14,13 +16,13 @@ app.config(config).run(run);
 angular.bootstrap(document, ['app']);
 
 function run($rootScope) {
-  $rootScope.routerConfig = routerConfig;
+  $rootScope.routerConfig = angular.flattenRouter(routerConfig);
 }
 
 function config($stateProvider, $urlRouterProvider, $httpProvider) {
   $urlRouterProvider.rule(routerRule);
 
-  angular.forEach(routerConfig, function (value) {
+  angular.forEach(angular.flattenRouter(routerConfig), function (value) {
     $stateProvider
       .state(value.state, {
         url: value.url,
@@ -34,19 +36,36 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
 function routerRule($injector, $location) {
   let path = $location.path();
   let toState = null;
+  let toUrl = '';
 
   if (!path) {
     return routerConfig[0].url;
   }
 
-  routerConfig.forEach(router => {
-    if (router.url === path) {
-      toState = router;
-    }
-  });
+  eachRouter(routerConfig, '');
 
-  if (toState && toState.routers && toState.routers.length) {
-    return toState.url + toState.routers[0].url;
+  function eachRouter(routers, pUrl) {
+    routers.forEach(router => {
+      let rUrl = pUrl + router.url;
+
+      if (rUrl === path) {
+        toState = router;
+        toUrl += pUrl + toState.url;
+      }
+
+      if (router.routers) {
+        eachRouter(router.routers, rUrl);
+      }
+    });
+  }
+
+  while (toState && toState.routers && toState.routers.length) {
+    toState = toState.routers[0];
+    toUrl += toState.url;
+  }
+
+  if (toUrl && toUrl !== path) {
+    return toUrl;
   }
 
   return undefined;

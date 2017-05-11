@@ -3,11 +3,11 @@ export default `<div class="nav">
     <li
       ng-repeat="router in routers"
       ng-if="!router.parent"
-      ng-class="{active: $state.current.name === router.state || $state.current.name.indexOf(router.state + '.') !== -1}"
+      ng-class="{active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params) || $state.current.name.indexOf(router.state + '.') !== -1}"
     >
       <a
         href="javascript:void(0)"
-        ma-click="$state.go(router.state)"
+        ma-click="$state.go(router.state, router.params)"
       >{{router.title}}</a>
     </li>
   </ul>

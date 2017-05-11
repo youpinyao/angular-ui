@@ -59,6 +59,7 @@
     left: 0px;
     top: $headerHeight;
     width: 100%;
+    min-width: $minWidth;
     background: $white;
     box-shadow: inset 0 -1px 0 0 $shadow;
     padding-left: 250px;
@@ -95,23 +96,99 @@
   }
 }
 
-.header-fixed {
-  > .header {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-  }
-  > .main {
-    margin-top: $headerHeight + 20px;
-  }
-}
-
-
-
 .header-fixed.has-second-nav {
   > .main {
     margin-top: $headerHeight + $secondNavHeight + 20px;
   }
 }
 
+/* 侧边菜单 */
+body.has-sider-menu > .main {
+  position: relative;
+  z-index: 1;
+  margin-right: 0px;
+  margin-left: $siderWidth;
+  min-width: $minWidth - $siderWidth;
+  width: auto;
+  @include transition(none);
+}
+
+@mixin siderContentPadding($count: 1){
+  @if $count < 4 {
+  > .sider-menu-content {
+      > .sider-menu-item {
+        > a {
+          padding: 10px 0px 10px (30px + 10px * $count);
+        }
+        @include siderContentPadding($count + 1);
+      }
+    }
+  }
+}
+.sider-menu {
+  overflow: hidden;
+  z-index: 10;
+  width: $siderWidth;
+  position: fixed;
+  left: 0px;
+  top: $headerHeight;
+  bottom: 0px;
+  margin: auto;
+  background-color: $white;
+  box-shadow: 0 0 4px 0 rgba($black, 0.05);
+  overflow: auto;
+  .sider-menu-title {
+    font-size: $font18;
+    padding: 20px 30px;
+  }
+  .sider-menu-content {
+    overflow: hidden;
+    @include transition();
+    &.hide {
+      height: 0 !important;
+      opacity: 0 !important;
+      display: none\9\0 !important;
+    }
+  }
+  > .sider-menu-content {
+    box-shadow: inset 0 -1px 0 0 $shadow;
+    .sider-menu-item {
+      a {
+        position: relative;
+        color: $black;
+        display: block;
+        font-size: $font14;
+        @include transition();
+        &.active {
+          background-color: $siderBg;
+        }
+        &.active,
+        &:hover {
+          color: $primary;
+        }
+        i.iconfont {
+          display: block;
+          height: 20px;
+          line-height: 20px;
+          font-size: $font12;
+          position: absolute;
+          right: 20px;
+          top: 0px;
+          bottom: 0px;
+          margin: auto;
+        }
+        &.arrow {
+          padding-right: 30px !important;
+        }
+      }
+    }
+    > .sider-menu-item {
+      > a {
+        box-shadow: inset 0 1px 0 0 $shadow;
+        font-size: $font16;
+        padding: 15px 0px 15px 30px;
+      }
+      @include siderContentPadding();
+    }
+  }
+}

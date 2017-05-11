@@ -1,0 +1,29 @@
+@import '../../../../../src/scss/constant';
+
+.global-font-page {
+  .font {
+    padding: 0px 20px 20px 0px;
+    display: inline-block;
+  }
+  .font-12 {
+    font-size: $font12;
+  }
+  .font-14 {
+    font-size: $font14;
+  }
+  .font-16 {
+    font-size: $font16;
+  }
+  .font-18 {
+    font-size: $font18;
+  }
+  .font-20 {
+    font-size: $font20;
+  }
+  .font-22 {
+    font-size: $font22;
+  }
+  .font-24 {
+    font-size: $font24;
+  }
+}

@@ -28,7 +28,6 @@ module.exports = {
     const plugins = [];
 
     entrys.forEach(v => {
-
       const htmlName = this.getName(v.html);
       const jsName = this.getName(v.js);
       const chunks = [jsName];
@@ -45,16 +44,12 @@ module.exports = {
         chunks,
         inject: 'body', // true | 'head' | 'body' | false
       }));
-
     });
-
     return plugins;
   },
   entrys(isDev) {
     const entry = {};
-
     entrys.forEach(v => {
-
       const jsName = this.getName(v.js);
 
       entry[jsName] = [v.js];
@@ -66,10 +61,8 @@ module.exports = {
 
         ]);
       }
-
     });
 
     return entry;
-
   }
 };

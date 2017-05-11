@@ -1,0 +1,66 @@
+@import '../../../../../src/scss/constant';
+
+.global-color-page {
+  .colors{
+    letter-spacing: -0.31rem;
+    .color {
+      letter-spacing: normal;
+      text-align: center;
+      padding: 40px 0px 40px 0px;
+      width: 19%;
+      margin: 0px 1% 1% 0px;
+      display: inline-block;
+      &.black {
+        background-color: $black;
+        color: $white;
+      }
+      &.base {
+        background-color: $base;
+        color: $white;
+      }
+      &.grey {
+        background-color: $grey;
+        color: $white;
+      }
+      &.outlines {
+        background-color: $outlines;
+        color: $white;
+      }
+      &.shadow {
+        background-color: $shadow;
+      }
+      &.disabled {
+        background-color: $disabled;
+      }
+      &.hover {
+        background-color: $hover;
+      }
+      &.background {
+        background-color: $background;
+      }
+      &.white {
+        background-color: $white;
+      }
+      &.primary {
+        background-color: $primary;
+        color: $white;
+      }
+      &.warning {
+        background-color: $warning;
+        color: $white;
+      }
+      &.success {
+        background-color: $success;
+        color: $white;
+      }
+      &.danger {
+        background-color: $danger;
+        color: $white;
+      }
+      &.link {
+        background-color: $link;
+        color: $white;
+      }
+    }
+  }
+}

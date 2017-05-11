@@ -29,20 +29,21 @@
             </div>
           </div>
         </div>
-        <ma-menu
+        <ma-first-menu
           class="container-fluid"
           ma-routers="$root.routerConfig">
-            <ma-second-menu
-              ma-routers="$root.routerConfig"></ma-second-menu>
-        </ma-menu>
+<!--           <ma-second-menu
+            ma-routers="$root.routerConfig"></ma-second-menu> -->
+        </ma-first-menu>
         <div class="info">
           <div class="head"><img src="./images/ybb-icon.png" /></div>
           <span class="nickname">美柚</span> | <a class="logout-font" href="#">退出</a>
         </div>
       </div>
     </div>
+
     <div class="container-fluid col-10 main clearfix">
-      <div class="container-fluid" ui-view></div>
+      <div ui-view></div>
     </div>
   </body>
 
