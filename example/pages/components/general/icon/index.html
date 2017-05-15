@@ -1,0 +1,32 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="general-icon-page">
+  <div class="container" ma-full-container>
+    <h2>Icon 图标</h2>
+    <p>语义化的矢量图形。</p>
+    <h3>来源</h3>
+    <p><a href="https://ant.design/components/icon-cn/" target="_blank">https://ant.design/components/icon-cn/</a></p>
+    <h3>如何使用</h3>
+    <div class="p">
+      <code ng-bind="iconSampleCode"></code>
+    </div>
+    <h3>图标列表</h3>
+    <div class="p clearfix ml--5 mr--5">
+      <p>点击图标复制代码。</p>
+      <div class="center pb-20">
+        <input type="text" class="ma-input center" ng-model="searchKey" placeholder="搜索">
+      </div>
+      <div class="icon-item col-4 mb-10 pr-5 pl-5" ng-repeat="icon in icons | filter: searchKey : icon.text">
+        <div>
+          <ma-icon type="{{icon.text}}"></ma-icon>
+          <div>{{icon.text}}</div>
+          <div class="status" ng-class="{show: icon.status}">{{icon.status}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -35,7 +35,6 @@ function getPlugins(isDev) {
 }
 
 module.exports = function (isDev) {
-
   return {
     entry: util.entrys(isDev),
     output: {

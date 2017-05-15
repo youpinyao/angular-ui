@@ -1,9 +1,9 @@
 import moduleName from './name.js';
 import $ from 'jquery';
 
-import maCrumbAutoTpl from './maCrumbAutoTpl.html';
-import maCrumbItemTpl from './maCrumbItemTpl.html';
-import maCrumbTpl from './maCrumbTpl.html';
+import maCrumbAutoTpl from './maCrumbAutoTpl.js';
+import maCrumbItemTpl from './maCrumbItemTpl.js';
+import maCrumbTpl from './maCrumbTpl.js';
 
 angular.module(moduleName)
   .directive('maCrumb', maCrumb)

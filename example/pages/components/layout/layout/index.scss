@@ -1,0 +1,20 @@
+@import '../../../../scss/theme';
+
+.layout-layout-page {
+  div[class*="col-"] {
+    padding: 30px 0px;
+    text-align: center;
+    background-color: $primary;
+    color: $white;
+
+    &.sider {
+      background-color: rgba($primary, 0.8);
+      padding: 80px 0px;
+    }
+
+    &.content {
+      background-color: rgba($primary, 0.6);
+      padding: 80px 0px;
+    }
+  }
+}

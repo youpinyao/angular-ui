@@ -1,0 +1,12 @@
+@import '../../../../scss/theme';
+
+.layout-grid-page {
+  div[class*="col-"] {
+    > div {
+      padding: 20px 0px;
+      text-align: center;
+      background-color: $primary;
+      color: $white;
+    }
+  }
+}

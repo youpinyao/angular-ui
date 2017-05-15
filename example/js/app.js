@@ -1,4 +1,5 @@
 import './vendor.js';
+
 import meetAngularUI from '../../src';
 
 import '../scss/app.scss';

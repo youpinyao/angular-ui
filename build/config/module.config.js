@@ -1,4 +1,5 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 
 module.exports = function (isDev) {
   return {
@@ -61,7 +62,6 @@ module.exports = function (isDev) {
             'transform-es3-property-literals',
             'transform-es3-member-expression-literals'
           ]
-
         }
       }]
     }, {

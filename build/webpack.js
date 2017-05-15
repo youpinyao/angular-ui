@@ -17,62 +17,60 @@ const configs = {
 let webpackConfig = configs[type];
 
 switch (type) {
-case 'dll':
-
-  util.delDll();
-  webpack(webpackConfig()).run(runCallback);
-  console.log(chalk.green('\r\nbuild dll complete \r\n'));
-
-  break;
-case 'build':
-
-  util.delDist();
-  webpack(webpackConfig()).run((err, stats) => {
-    if (runCallback(err, stats)) {
-      require('./util/build.after.js')();
-      console.log(chalk.green('\r\nbuild dist complete \r\n'));
-    }
-  });
-
-  break;
-case 'dev':
-  {
-    const dllCompiler = webpack(configs.dll());
+  case 'dll':
 
     util.delDll();
+    webpack(webpackConfig()).run(runCallback);
+    console.log(chalk.green('\r\nbuild dll complete \r\n'));
 
-    dllCompiler.run((err, stats) => {
+    break;
+  case 'build':
+
+    util.delDist();
+    webpack(webpackConfig()).run((err, stats) => {
       if (runCallback(err, stats)) {
-
-        console.log(chalk.green('\r\nbuild dll complete \r\n'));
-
-        webpackConfig = webpackConfig();
-        const compiler = webpack(webpackConfig);
-
-        // compiler.outputFileSystem = fs;
-
-        compiler.run(runCallback);
-
-        const devServer = new WebpackDevServer(compiler, webpackConfig.devServer);
-
-        devServer.listen(webpackConfig.devServer.port, webpackConfig.devServer.host, function (serr) {
-          if (serr) {
-            console.log(serr);
-            return;
-          }
-          clearConsole();
-          console.log(chalk.cyan('\r\n\r\nStarting the development server...\r\n'));
-        });
+        require('./util/build.after.js')();
+        console.log(chalk.green('\r\nbuild dist complete \r\n'));
       }
     });
-  }
-  break;
-default:
+
+    break;
+  case 'dev':
+    {
+      const dllCompiler = webpack(configs.dll());
+
+      util.delDll();
+
+      dllCompiler.run((err, stats) => {
+        if (runCallback(err, stats)) {
+          console.log(chalk.green('\r\nbuild dll complete \r\n'));
+
+          webpackConfig = webpackConfig();
+          const compiler = webpack(webpackConfig);
+
+          // compiler.outputFileSystem = fs;
+
+          compiler.run(runCallback);
+
+          const devServer = new WebpackDevServer(compiler, webpackConfig.devServer);
+
+          devServer.listen(webpackConfig.devServer.port, webpackConfig.devServer.host, function (serr) {
+            if (serr) {
+              console.log(serr);
+              return;
+            }
+            clearConsole();
+            console.log(chalk.cyan('\r\n\r\nStarting the development server...\r\n'));
+          });
+        }
+      });
+    }
+    break;
+  default:
 }
 
 
 function runCallback(err, stats) {
-
   if (err) {
     console.error(chalk.red(err.stack || err));
     if (err.details) {

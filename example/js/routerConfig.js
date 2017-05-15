@@ -1,11 +1,16 @@
 import components from '../pages/components';
 
+import general from '../pages/components/general';
+import icon from '../pages/components/general/icon';
+
 import global from '../pages/components/global';
 import font from '../pages/components/global/font';
 import color from '../pages/components/global/color';
 
 import layout from '../pages/components/layout';
-import general from '../pages/components/general';
+import grid from '../pages/components/layout/grid';
+import layoutLayout from '../pages/components/layout/layout';
+
 import feedback from '../pages/components/feedback';
 import navigation from '../pages/components/navigation';
 import dataEntry from '../pages/components/data-entry';
@@ -20,6 +25,17 @@ const routers = [{
   url: '/components',
   ...components,
   routers: [{
+    title: 'General 一般',
+    state: 'components.general',
+    url: '/general',
+    ...general,
+    routers: [{
+      title: 'Icon 图标',
+      state: 'components.general.icon',
+      url: '/icon',
+      ...icon,
+    }]
+  }, {
     title: 'Global 全局',
     state: 'components.global',
     url: '/global',
@@ -40,11 +56,17 @@ const routers = [{
     state: 'components.layout',
     url: '/layout',
     ...layout,
-  }, {
-    title: 'General 一般',
-    state: 'components.general',
-    url: '/general',
-    ...general,
+    routers: [{
+      title: 'Grid 栅格',
+      state: 'components.layout.grid',
+      url: '/grid',
+      ...grid,
+    }, {
+      title: 'Layout 布局',
+      state: 'components.layout.layout',
+      url: '/layout',
+      ...layoutLayout,
+    }],
   }, {
     title: 'Feedback 反馈',
     state: 'components.feedback',

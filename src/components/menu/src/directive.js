@@ -7,11 +7,30 @@ import maSiderMenuTpl from './maSiderMenuTpl.js';
 import maSiderMenuContentTpl from './maSiderMenuContentTpl.js';
 
 angular.module(moduleName)
+  .directive('maUiTransition', maUiTransition)
   .directive('maFirstMenu', maFirstMenu)
   .directive('maSecondMenu', maSecondMenu)
   .directive('maSiderMenu', maSiderMenu)
   .directive('maSiderMenuContent', maSiderMenuContent)
   .directive('maFullContainer', maFullContainer);
+
+maUiTransition.$inject = ['$state', '$rootScope', '$timeout'];
+
+function maUiTransition($state, $rootScope, $timeout) {
+  return {
+    restrict: 'A',
+    link(scope, element, attrs, controllers) {
+      scope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams) => {
+        element.removeClass('fade-in');
+      });
+      scope.$on('$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) => {
+        $timeout(() => {
+          element.addClass('fade-in');
+        });
+      });
+    }
+  };
+}
 
 maFirstMenu.$inject = ['$state', '$rootScope'];
 
@@ -179,6 +198,7 @@ function maFullContainer($state, $timeout) {
     link(scope, element, attrs, controllers) {
       element = $(element);
       scope.$applyAsync(updateMinHeight);
+
       function updateMinHeight() {
         element.css({
           minHeight: $(window).height() - element.offset().top,
