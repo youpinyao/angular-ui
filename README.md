@@ -20,7 +20,7 @@
   
 > ## 支持环境
 - 现代浏览器和 IE9 及以上。
-- angular 1.5.8
+- angular 1.6.4
   
 > ## 安装
 我们推荐使用 npm 或 yarn 的方式进行开发，不仅可在开发环境轻松调试，也可放心地在生产环境打包部署使用，享受整个生态圈和工具链带来的诸多好处。
@@ -47,3 +47,6 @@ angular.module('app', [
 在浏览器中使用 script 和 link 标签直接引入文件，并使用全局变量 meetyou-angular-ui。
 我们在 npm 发布包内的 meetyou-angular-ui/dist 目录下提供了 meetyou-angular-ui.js meetyou-angular-ui.css 以及 meetyou-angular-ui.min.js meetyou-angular-ui.min.css。
 > 强烈不推荐使用已构建文件，这样无法按需加载，而且难以获得底层依赖模块的 bug 快速修复支持。
+
+> ## 主题配色修改
+在webpack，sass-loader中拦截 import 并将主题配置文件替换成自己需要的（范例：example/config/modules.config.js）。

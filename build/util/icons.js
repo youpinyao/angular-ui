@@ -13,7 +13,7 @@ let icons = [];
 
 cssObj.stylesheet.rules.forEach(rule => {
   if (rule.type === 'rule') {
-    selector = rule.selectors[0];
+    let selector = rule.selectors[0];
     if (selector.indexOf('.icon-') !== -1) {
       selector = selector.split('.icon-')[1];
       selector = selector.split(':before')[0];

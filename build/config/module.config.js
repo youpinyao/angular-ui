@@ -1,5 +1,13 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
+const fs = require('fs');
+const config = require('../config.js');
+
+const themePath = path.resolve(__dirname, config.theme);
+const themeContent = fs.readFileSync(themePath, {
+  encoding: 'utf-8',
+});
+
 
 module.exports = function (isDev) {
   return {
@@ -34,19 +42,35 @@ module.exports = function (isDev) {
                 require('autoprefixer')({
                   browsers: [
                     '>1%',
-                    'last 4 versions',
+                    'last 2 versions',
                     'Firefox ESR',
-                    'not ie < 8', // doesn't support IE8 anyway
+                    'not ie < 9', // doesn't support IE8 anyway
                   ]
                 })
               ];
             }
           }
-        }, 'resolve-url-loader', 'sass-loader']
+        }, 'resolve-url-loader', {
+          loader: 'sass-loader',
+          options: {
+            importer(url, prev, done) {
+              const preThemePath = path.resolve(__dirname, url);
+
+              if (/theme/g.test(preThemePath) && config.theme) {
+                done({
+                  file: themePath,
+                  contents: themeContent,
+                });
+              } else {
+                done();
+              }
+            },
+          },
+        }]
       })
     }, {
       test: /\.js$/,
-      exclude: isDev ? /(node_modules)/ : /(asdfsdfghjkldfghjk)/,
+      exclude: isDev ? /(node_modules)/ : /(6666666666)/,
       use: [{
         loader: 'babel-loader',
         options: {
@@ -65,7 +89,7 @@ module.exports = function (isDev) {
         }
       }]
     }, {
-      test: /\.js?$/,
+      test: /\.js$/,
       enforce: 'pre',
       loader: 'eslint-loader',
       exclude: /(node_modules|tools)/
@@ -79,13 +103,6 @@ module.exports = function (isDev) {
           limit: 10000
         }
       }]
-    }, {
-      test: /\.ts$/,
-      use: [
-        'awesome-typescript-loader',
-        'angular2-template-loader'
-      ],
-      exclude: [/\.(spec|e2e)\.ts$/, /(node_modules)/]
     }]
   };
 };
