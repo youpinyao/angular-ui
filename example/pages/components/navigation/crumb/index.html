@@ -1,0 +1,54 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="navigation-crumb-page">
+  <div class="container" ma-full-container>
+    <h2>Breadcrumb 面包屑</h2>
+    <p>显示当前页面在系统层级结构中的位置，并能向上返回。</p>
+
+    <h3>何时使用</h3>
+    <div class="p">
+      当系统拥有超过两级以上的层级结构时；<br/>
+      当需要告知用户『你在哪里』时；<br/>
+      当需要向上导航的功能时。
+    </div>
+
+    <h3>代码演示</h3>
+    <div class="p">
+      <h4>1. 通过手动配置</h4>
+      <ma-crumb>
+        <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+        <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+        <ma-crumb-item>Font 文字</ma-crumb-item>
+      </ma-crumb>
+      <code ng-bind="normalCrumb"></code>
+    </div>
+    <h4>API</h4>
+    <div class="p">
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>ma-href</td>
+          <td>设置面包屑点击触发的跳转链接</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+      </table>
+    </div>
+    <div class="p">
+      <h4 class="mt-20">2. 通过路由配置自动生成</h4>
+      <ma-crumb-auto></ma-crumb-auto>
+      <code ng-bind="autoCrumb" class="mb-10"></code>
+      自动生成面包屑需要在 $rootScope 下赋值 routerConfig，路由配置及赋值详见 example/js/routerConfig.js 和 example/js/app.js
+    </div>
+  </div>
+</div>
+

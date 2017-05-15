@@ -1,10 +1,18 @@
 @import "theme";
+h4 {
+  font-size: $font14;
+  font-weight: normal;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: $base;
+}
 
 h3 {
   font-size: $font18;
   font-weight: normal;
   padding-top: 10px;
   padding-bottom: 20px;
+  color: $base;
 }
 
 h2 {
@@ -12,6 +20,7 @@ h2 {
   font-weight: normal;
   padding-top: 10px;
   padding-bottom: 20px;
+  color: $base;
 }
 
 .p,

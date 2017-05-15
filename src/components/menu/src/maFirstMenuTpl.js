@@ -2,7 +2,7 @@ export default `<div class="nav">
   <ul>
     <li
       ng-repeat="router in routers"
-      ng-if="!router.parent"
+      ng-if="!router.parent && router.hidden !== true"
       ng-class="{active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params) || $state.current.name.indexOf(router.state + '.') !== -1}"
     >
       <a

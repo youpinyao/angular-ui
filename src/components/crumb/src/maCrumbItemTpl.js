@@ -3,5 +3,5 @@ export default `<span class="crumb-item">
     <a ng-if="href" href="{{href}}" ng-transclude></a>
     <span ng-if="!href" ng-transclude></span>
   </span>
-  <span>/</span>
+  <span>{{separator}}</span>
 </span>`;

@@ -1,0 +1,46 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="navigation-crumb-page">
+  <div class="container" ma-full-container>
+    <h2>Menu 菜单</h2>
+    <p>为页面和功能提供导航的菜单列表。</p>
+
+    <h3>代码演示</h3>
+    <div class="p">
+      <h4>当路由只显示两级的时候使用</h4>
+      <code ng-bind="firstSecondMenu"></code>
+      <div class="mt-10">菜单配置详见 example/index.html</div>
+      <div>自动生成菜单需要在 $rootScope 下赋值 routerConfig，路由配置及赋值详见 example/js/routerConfig.js 和 example/js/app.js</div>
+    </div>
+    <div class="p">
+      <h4>侧边栏菜单</h4>
+      <code ng-bind="siderMenu"></code>
+      <h4>API</h4>
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>ma-title</td>
+          <td>设置侧边栏菜单标题</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-routers</td>
+          <td>配置菜单内容</td>
+          <td>Array</td>
+          <td>-</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+

@@ -17,10 +17,17 @@ function maCrumb($state) {
     restrict: 'E',
     transclude: true,
     replace: true,
-    scope: true,
+    scope: {
+      separator: '@maSeparator',
+    },
     template: maCrumbTpl,
     controller: ['$scope', function ($scope) {
       $scope.$state = $state;
+      if (!$scope.separator) {
+        $scope.separator = '/';
+      }
+
+      this.separator = $scope.separator;
     }],
     link: function (scope, element, attrs, controllers) {
 
@@ -44,7 +51,7 @@ function maCrumbItem($state) {
       $scope.$state = $state;
     }],
     link: function (scope, element, attrs, controllers) {
-
+      scope.separator = controllers[0].separator;
     }
   };
 }
@@ -57,11 +64,14 @@ function maCrumbAuto($state, $rootScope) {
     transclude: true,
     replace: true,
     scope: {
-
+      separator: '@maSeparator',
     },
     template: maCrumbAutoTpl,
     controller: ['$scope', function ($scope) {
       $scope.$state = $state;
+      if (!$scope.separator) {
+        $scope.separator = '/';
+      }
     }],
     link: function (scope, element, attrs, controllers) {
       if (!$rootScope.routerConfig) {

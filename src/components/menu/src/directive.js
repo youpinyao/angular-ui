@@ -1,5 +1,6 @@
 import moduleName from './name.js';
 import $ from 'jquery';
+import utils from '../../../utils';
 
 import maFirstMenuTpl from './maFirstMenuTpl.js';
 import maSecondMenuTpl from './maSecondMenuTpl.js';
@@ -39,12 +40,14 @@ function maFirstMenu($state, $rootScope) {
     restrict: 'E',
     replace: true,
     transclude: true,
-    scope: {
-      routers: '=maRouters',
-    },
     template: maFirstMenuTpl,
     controller: ['$scope', function ($scope) {
       $scope.$state = $state;
+
+      if (!$rootScope.routerConfig) {
+        console.error('请在 $rootScope 下赋值 routerConfig');
+      }
+      $scope.routers = $rootScope.routerConfig;
     }],
     link(scope, element, attrs, controllers) {
 
@@ -58,12 +61,17 @@ function maSecondMenu($state, $rootScope) {
   return {
     restrict: 'E',
     replace: true,
-    scope: {
-      routers: '=maRouters',
-    },
+    require: ['^maFirstMenu'],
     template: maSecondMenuTpl,
     controller: ['$scope', function ($scope) {
-      $rootScope.$on('$stateChangeSuccess', function () {
+      $scope.$state = $state;
+
+      if (!$rootScope.routerConfig) {
+        console.error('请在 $rootScope 下赋值 routerConfig');
+      }
+      $scope.routers = $rootScope.routerConfig;
+
+      $scope.$on('$stateChangeSuccess', function () {
         const cls = 'has-second-nav';
         let hasSecondNav = false;
 
@@ -85,8 +93,6 @@ function maSecondMenu($state, $rootScope) {
 
         $scope.hasSecondNav = hasSecondNav;
       });
-
-      $scope.$state = $state;
     }],
     link(scope, element, attrs, controllers) {
 
@@ -95,9 +101,9 @@ function maSecondMenu($state, $rootScope) {
   };
 }
 
-maSiderMenu.$inject = ['$state'];
+maSiderMenu.$inject = ['$state', '$rootScope'];
 
-function maSiderMenu($state) {
+function maSiderMenu($state, $rootScope) {
   return {
     restrict: 'E',
     replace: true,
@@ -123,9 +129,9 @@ function maSiderMenu($state) {
   };
 }
 
-maSiderMenuContent.$inject = ['$state', '$timeout'];
+maSiderMenuContent.$inject = ['$state', '$timeout', '$rootScope'];
 
-function maSiderMenuContent($state, $timeout) {
+function maSiderMenuContent($state, $timeout, $rootScope) {
   return {
     restrict: 'E',
     replace: true,
@@ -137,7 +143,14 @@ function maSiderMenuContent($state, $timeout) {
     controller: ['$scope', function ($scope) {
       $scope.$state = $state;
       $scope.itemClick = itemClick;
+      $scope.hasRouters = hasRouters;
       expandCurrentMenu();
+      bindStateChangeSuccess();
+
+
+      function bindStateChangeSuccess() {
+        $scope.$on('$stateChangeSuccess', expandCurrentMenu);
+      }
 
       function expandCurrentMenu() {
         const cState = $state.current.name;
@@ -145,8 +158,6 @@ function maSiderMenuContent($state, $timeout) {
 
         if ($scope.routers) {
           angular.each($scope.routers, router => {
-            const rUrl = $state.href(router.state, router.params);
-
             if (cState.indexOf(router.state + '.') !== -1) {
               router.expand = true;
             }
@@ -154,8 +165,20 @@ function maSiderMenuContent($state, $timeout) {
         }
       }
 
+      function hasRouters(routers) {
+        let count = 0;
+
+        utils.each(routers, d => {
+          if (d.hidden !== true) {
+            count++;
+          }
+        });
+
+        return count > 0;
+      }
+
       function itemClick(router, $event) {
-        if (router.routers && router.routers.length) {
+        if (hasRouters(router.routers)) {
           toggleMenu(router, $event);
         } else {
           $state.go(router.state, router.params);

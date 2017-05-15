@@ -8,5 +8,8 @@ module.exports = {
   entrys: [{
     html: './example/index.html',
     js: './example/js/app.js',
+  }, {
+    html: './example/404.html',
+    js: './example/js/404.js',
   }]
 };

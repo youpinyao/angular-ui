@@ -12,7 +12,11 @@ import grid from '../pages/components/layout/grid';
 import layoutLayout from '../pages/components/layout/layout';
 
 import feedback from '../pages/components/feedback';
+
 import navigation from '../pages/components/navigation';
+import crumb from '../pages/components/navigation/crumb';
+import menu from '../pages/components/navigation/menu';
+
 import dataEntry from '../pages/components/data-entry';
 import dataDisplay from '../pages/components/data-display';
 
@@ -25,17 +29,6 @@ const routers = [{
   url: '/components',
   ...components,
   routers: [{
-    title: 'General 一般',
-    state: 'components.general',
-    url: '/general',
-    ...general,
-    routers: [{
-      title: 'Icon 图标',
-      state: 'components.general.icon',
-      url: '/icon',
-      ...icon,
-    }]
-  }, {
     title: 'Global 全局',
     state: 'components.global',
     url: '/global',
@@ -50,6 +43,17 @@ const routers = [{
       state: 'components.global.color',
       url: '/color',
       ...color,
+    }]
+  }, {
+    title: 'General 一般',
+    state: 'components.general',
+    url: '/general',
+    ...general,
+    routers: [{
+      title: 'Icon 图标',
+      state: 'components.general.icon',
+      url: '/icon',
+      ...icon,
     }]
   }, {
     title: 'Layout 布局',
@@ -77,6 +81,17 @@ const routers = [{
     state: 'components.navigation',
     url: '/navigation',
     ...general,
+    routers: [{
+      title: 'Breadcrumb 面包屑',
+      state: 'components.navigation.crumb',
+      url: '/crumb',
+      ...crumb,
+    }, {
+      title: 'Menu 菜单',
+      state: 'components.navigation.menu',
+      url: '/menu',
+      ...menu,
+    }]
   }, {
     title: 'Data Entry 数据输入',
     state: 'components.dataEntry',
