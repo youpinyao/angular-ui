@@ -6,7 +6,8 @@
 ## 组建命名
 1. 组件模块命名：meetyou.angular.ui.xxxx，例如：meetyou.angular.ui.button、meetyou.angular.ui.menu。
 2. 指令命名：ma 开头，例如：maButton，maMenu。
-3. 样式命名：ma 开头，例如：.ma-input、.ma-menu。
+3. 指令参数命名：ma 开头，例如：maType，maMin，maMax。
+4. 样式命名：ma 开头，例如：.ma-input、.ma-menu。
 ## 组件新建步骤
 1. 在 src/components下按照自己所要开发组件的名称新建一个目录(组件目录下文件分布基础结构按照src/components/sample)。
 2. 对应组件样式按照 scss 语法书写，在 src/scss 下新建组件名对应的 scss 文件，下划线开头（例如：_button.scss），之后在 src/scss/app.scss 下引入。
