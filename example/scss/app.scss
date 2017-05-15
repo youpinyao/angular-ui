@@ -34,3 +34,17 @@ p:last-child {
   padding-bottom: 10px;
 }
 
+
+table {
+  width: 100%;
+  font-size: $font12;
+  border:1px solid $disabled;
+  th,td {
+    padding: 5px 10px;
+    border: 1px solid $disabled;
+  }
+  th {
+    background-color: $background;
+    color: $base;
+  }
+}

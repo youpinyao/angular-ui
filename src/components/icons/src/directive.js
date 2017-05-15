@@ -10,7 +10,7 @@ function maIcon() {
     restrict: 'E',
     replace: true,
     scope: {
-      type: '@type',
+      type: '@maType',
     },
     template: '<i class="iconfont icon-{{type}}"></i>',
     link: function (scope, element, attrs, controllers) {

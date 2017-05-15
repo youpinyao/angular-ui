@@ -14,6 +14,23 @@
     <div class="p">
       <code ng-bind="iconSampleCode"></code>
     </div>
+    <h3>API</h3>
+    <div class="p">
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>ma-type</td>
+          <td>设置 icon 类型，按照图标列表名称</td>
+          <td>string</td>
+          <td>-</td>
+        </tr>
+      </table>
+    </div>
     <h3>图标列表</h3>
     <div class="p clearfix ml--5 mr--5">
       <p>点击图标复制代码。</p>
@@ -22,7 +39,7 @@
       </div>
       <div class="icon-item col-4 mb-10 pr-5 pl-5" ng-repeat="icon in icons | filter: searchKey : icon.text">
         <div>
-          <ma-icon type="{{icon.text}}"></ma-icon>
+          <ma-icon ma-type="{{icon.text}}"></ma-icon>
           <div>{{icon.text}}</div>
           <div class="status" ng-class="{show: icon.status}">{{icon.status}}</div>
         </div>
