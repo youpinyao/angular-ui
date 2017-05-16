@@ -17,7 +17,7 @@
   -moz-transform-origin: $prop
 }
 
-@mixin lineClamp($line) {
+@mixin line-clamp($line: 2) {
   display: -webkit-box;
   -webkit-line-clamp: $line;
   -webkit-box-orient: vertical;
@@ -30,4 +30,13 @@
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   overflow: hidden;
+}
+
+@mixin unselect() {
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -ms-touch-action: none;
+  -moz-user-select: -moz-none;
 }

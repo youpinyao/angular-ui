@@ -8,7 +8,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const modules = require('./module.config.js');
 const util = require('../util/util.js');
-const config = require('../config/config.js');
+const config = require('./config.js');
 
 function getPlugins(isDev) {
   const pluginHtmls = util.htmls(isDev);

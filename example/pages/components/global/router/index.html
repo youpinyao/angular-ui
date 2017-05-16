@@ -1,0 +1,93 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="global-router-page">
+  <div class="container" ma-full-container>
+    <h2>Router 路由</h2>
+    <p>angular 路由配置</p>
+    <h3>代码演示</h3>
+    <div class="p">
+    <div class="mb-20">example/js/routerConfig.js</div>
+    <code ng-bind="routerConfigDemo"></code>
+    </div>
+    <h3>API</h3>
+    <div class="p">
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+          <th>必填</th>
+        </tr>
+        <tr>
+          <td>title</td>
+          <td>路由对应页面的标题</td>
+          <td>String</td>
+          <td>-</td>
+          <td>YES</td>
+        </tr>
+        <tr>
+          <td>state</td>
+          <td>路由状态配置名称</td>
+          <td>String</td>
+          <td>-</td>
+          <td>YES</td>
+        </tr>
+        <tr>
+          <td>url</td>
+          <td>页面对应的链接</td>
+          <td>String</td>
+          <td>-</td>
+          <td>YES</td>
+        </tr>
+        <tr>
+          <td>controller</td>
+          <td>控制器名称</td>
+          <td>String</td>
+          <td>-</td>
+          <td>YES</td>
+        </tr>
+        <tr>
+          <td>controllerAs</td>
+          <td>控制器别名</td>
+          <td>String</td>
+          <td>-</td>
+          <td>NO</td>
+        </tr>
+        <tr>
+          <td>templateUrl</td>
+          <td>页面模板 URL 路径</td>
+          <td>String</td>
+          <td>-</td>
+          <td>NO</td>
+        </tr>
+        <tr>
+          <td>template</td>
+          <td>页面模板内容</td>
+          <td>String</td>
+          <td>-</td>
+          <td>NO</td>
+        </tr>
+        <tr>
+          <td>params</td>
+          <td>在进行页面跳转时要传的参数的值，JSON 结构</td>
+          <td>Object / JSON</td>
+          <td>-</td>
+          <td>NO</td>
+        </tr>
+        <tr>
+          <td>routers</td>
+          <td>当面页面的子页面路由配置，结构同上</td>
+          <td>Object / Array</td>
+          <td>-</td>
+          <td>NO</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+

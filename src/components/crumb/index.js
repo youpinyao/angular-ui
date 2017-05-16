@@ -1,6 +1,10 @@
 import moduleName from './src/name.js';
 
-angular.module(moduleName, []).config(function () {}).run(function () {});
+import button from '../button';
+
+angular.module(moduleName, [
+  button,
+]).config(function () {}).run(function () {});
 
 require('./src/directive.js');
 

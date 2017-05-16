@@ -9,6 +9,7 @@ import '../scss/app.scss';
 const app = angular.module('app', [
   meetAngularUI,
   'ui.router',
+  'ngSanitize',
 ]);
 const routerConfig = require('./routerConfig.js');
 

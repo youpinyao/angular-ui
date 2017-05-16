@@ -2,6 +2,7 @@ import components from '../pages/components';
 
 import general from '../pages/components/general';
 import icon from '../pages/components/general/icon';
+import button from '../pages/components/general/button';
 
 import global from '../pages/components/global';
 import font from '../pages/components/global/font';
@@ -10,6 +11,7 @@ import color from '../pages/components/global/color';
 import layout from '../pages/components/layout';
 import grid from '../pages/components/layout/grid';
 import layoutLayout from '../pages/components/layout/layout';
+import cls from '../pages/components/layout/cls';
 
 import feedback from '../pages/components/feedback';
 
@@ -54,6 +56,11 @@ const routers = [{
       state: 'components.general.icon',
       url: '/icon',
       ...icon,
+    }, {
+      title: 'Button 按钮',
+      state: 'components.general.button',
+      url: '/button',
+      ...button,
     }]
   }, {
     title: 'Layout 布局',
@@ -70,6 +77,11 @@ const routers = [{
       state: 'components.layout.layout',
       url: '/layout',
       ...layoutLayout,
+    }, {
+      title: 'Class 预设样式',
+      state: 'components.layout.cls',
+      url: '/cls',
+      ...cls,
     }],
   }, {
     title: 'Feedback 反馈',

@@ -1,0 +1,92 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="general-icon-page">
+  <div class="container" ma-full-container>
+    <h2>Button 按钮</h2>
+    <p>按钮用于开始一个即时操作。</p>
+    <h3>代码演示</h3>
+    <div class="p clearfix">
+      <div class="col-24">
+        <h4>Size</h4>
+        <div class="ma-button-group">
+          <ma-button ma-active="{{sizeModel == 'large'}}" ma-click="sizeModel = 'large'">Large</ma-button>
+          <ma-button ma-active="{{sizeModel == 'default'}}" ma-click="sizeModel = 'default'">Default</ma-button>
+          <ma-button ma-active="{{sizeModel == 'small'}}" ma-click="sizeModel = 'small'">Small</ma-button>
+        </div>
+      </div>
+      <div class="col-12">
+        <h4>Default</h4>
+        <ma-button ma-size="{{sizeModel}}"><ma-icon ma-type="download"></ma-icon>Default</ma-button>
+        <ma-button ma-size="{{sizeModel}}" ma-disabled="true">Default</ma-button>
+
+        <h4>Primary</h4>
+        <ma-button ma-size="{{sizeModel}}" ma-type="primary">Primary</ma-button>
+        <ma-button ma-size="{{sizeModel}}" ma-type="primary" ma-disabled="true">Primary</ma-button>
+
+        <h4>Danger</h4>
+        <ma-button ma-size="{{sizeModel}}" ma-type="danger">Danger</ma-button>
+        <ma-button ma-size="{{sizeModel}}" ma-type="danger" ma-disabled="true">Danger</ma-button>
+      </div>
+
+      <div class="col-12">
+        <h4>Default Flat</h4>
+        <ma-button ma-size="{{sizeModel}}" ma-flat="true">Default</ma-button>
+        <ma-button ma-size="{{sizeModel}}" ma-flat="true" ma-disabled="true">Default</ma-button>
+
+        <h4>Primary Flat</h4>
+        <ma-button ma-size="{{sizeModel}}" ma-flat="true" ma-type="primary">Primary</ma-button>
+        <ma-button ma-size="{{sizeModel}}" ma-flat="true" ma-type="primary" ma-disabled="true">Primary</ma-button>
+
+        <h4>Danger Flat</h4>
+        <ma-button ma-size="{{sizeModel}}" ma-flat="true" ma-type="danger">Danger</ma-button>
+        <ma-button ma-size="{{sizeModel}}" ma-flat="true" ma-type="danger" ma-disabled="true">Danger</ma-button>
+      </div>
+    </div>
+
+    <h3>API</h3>
+    <div class="p">
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>ma-size</td>
+          <td>按钮尺寸 large default small</td>
+          <td>String</td>
+          <td>default</td>
+        </tr>
+        <tr>
+          <td>ma-type</td>
+          <td>按钮类型 default primary danger</td>
+          <td>String</td>
+          <td>default</td>
+        </tr>
+        <tr>
+          <td>ma-flat</td>
+          <td>是否开启无背景模式</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>ma-active</td>
+          <td>是否是活动状态</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>ma-disabled</td>
+          <td>是否为不可用状态</td>
+          <td>Boolean</td>
+          <td>false</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

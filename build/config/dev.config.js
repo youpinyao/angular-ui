@@ -7,7 +7,7 @@ const fs = require('fs');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const commonConfig = require('./base.config.js');
-const config = require('../config/config.js');
+const config = require('./config.js');
 
 const dllCssPath = './.dll/vendor.dll.css';
 const assets = ['./.dll/vendor.dll.js'];

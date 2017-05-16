@@ -1,7 +1,7 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const fs = require('fs');
-const config = require('../config.js');
+const config = require('./config.js');
 
 const themePath = path.resolve(__dirname, config.theme);
 const themeContent = fs.readFileSync(themePath, {
