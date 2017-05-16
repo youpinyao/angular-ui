@@ -24,9 +24,9 @@
   "homepage": "https://github.com/youpinyao/meetyou-angular-ui#readme",
   "dependencies": {
     "angular": "^1.6.4",
-    "angular-sanitize": "1.6.4",
+    "angular-sanitize": "^1.6.4",
     "angular-ui-router": "^0.3.2",
-    "clipboard": "1.6.1",
+    "clipboard": "^1.6.1",
     "jquery": "^1.12.4"
   },
   "devDependencies": {
