@@ -99,7 +99,7 @@ module.exports = function (isDev) {
       use: [{
         loader: 'url-loader',
         options: {
-          name: '[path][name].[hash].[ext]',
+          name: 'assets/[name].[hash].[ext]',
           limit: 10000
         }
       }]

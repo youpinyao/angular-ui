@@ -6,7 +6,7 @@ const modules = require('./module.config.js');
 
 const plugins = [
   // 输出 css
-  new ExtractTextPlugin('../../.dll/[name].dll.css'),
+  new ExtractTextPlugin('[name].dll.css'),
   new webpack.DllPlugin({
     /**
      * path

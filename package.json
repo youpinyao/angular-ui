@@ -4,7 +4,9 @@
   "description": "Here is the Meetyou presents implementation, product development and service in the enterprise the background",
   "main": "./src/index.js",
   "scripts": {
-    "build": "node ./build/webpack build",
+    "build:example": "node ./build/webpack build",
+    "build:lib": "node ./build/webpack lib",
+    "build:dll": "node ./build/webpack dll",
     "start": "node ./build/webpack dev"
   },
   "repository": {

@@ -5,6 +5,12 @@ const path = require('path');
 const config = require('../config/config.js');
 
 module.exports = {
+  delLib() {
+    del.sync(['lib'], {
+      force: true
+    });
+    console.log('\r\ndelete lib complete\r\n');
+  },
   delDll() {
     del.sync(['.dll'], {
       force: true

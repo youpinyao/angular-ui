@@ -7,7 +7,7 @@ import menu from './components/menu';
 import button from './components/button';
 import crumb from './components/crumb';
 
-const moduleName = 'meetyou.angular.ui';
+const moduleName = require('./name.js');
 
 angular.module(moduleName, [
   icons,

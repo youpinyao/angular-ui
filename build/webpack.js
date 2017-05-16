@@ -13,10 +13,18 @@ const configs = {
   build: require('./config/build.config.js'),
   dev: require('./config/dev.config.js'),
   dll: require('./config/dll.config.js'),
+  lib: require('./config/lib.config.js'),
 };
 let webpackConfig = configs[type];
 
 switch (type) {
+  case 'lib':
+
+    util.delLib();
+    webpack(webpackConfig()).run(runCallback);
+    console.log(chalk.green('\r\nbuild lib complete \r\n'));
+
+    break;
   case 'dll':
 
     util.delDll();
