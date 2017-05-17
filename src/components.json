@@ -3,5 +3,6 @@
   "menu": "./components/menu",
   "button": "./components/button",
   "crumb": "./components/crumb",
-  "tabs": "./components/tabs"
+  "tabs": "./components/tabs",
+  "steps": "./components/steps"
 }

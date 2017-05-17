@@ -19,6 +19,7 @@ import navigation from '../pages/components/navigation';
 import crumb from '../pages/components/navigation/crumb';
 import menu from '../pages/components/navigation/menu';
 import tabs from '../pages/components/navigation/tabs';
+import steps from '../pages/components/navigation/steps';
 
 import dataEntry from '../pages/components/data-entry';
 import dataDisplay from '../pages/components/data-display';
@@ -109,6 +110,11 @@ const routers = [{
       state: 'components.navigation.tabs',
       url: '/tabs',
       ...tabs,
+    }, {
+      title: 'Steps 步骤条',
+      state: 'components.navigation.steps',
+      url: '/steps',
+      ...steps,
     }]
   }, {
     title: 'Data Entry 数据输入',

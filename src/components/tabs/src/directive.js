@@ -26,7 +26,6 @@ function maTabs() {
     controller: ['$scope', function ($scope) {
       this.model = $scope.model;
       this.type = 'default';
-      console.log($scope);
     }],
     link: function (scope, element, attrs, ctrl) {
 

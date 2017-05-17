@@ -1,0 +1,41 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="navigation-menu-page">
+  <div class="container" ma-full-container>
+    <h2>Steps 步骤条</h2>
+    <p>引导用户按照流程完成任务的导航条。</p>
+    <h3>代码演示</h3>
+    <div class="p">
+      <ma-steps ma-index="{{stepIndex}}">
+        <ma-step>步骤一</ma-step>
+        <ma-step>步骤二</ma-step>
+        <ma-step>步骤三</ma-step>
+        <ma-step>步骤四</ma-step>
+        <ma-step>步骤五</ma-step>
+      </ma-steps>
+      <code class="mt-20" ng-bind="stepType1Code"></code>
+    </div>
+    <h3>API</h3>
+    <div class="p">
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>ma-index</td>
+          <td>定位当前步骤</td>
+          <td>Int</td>
+          <td>-</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
