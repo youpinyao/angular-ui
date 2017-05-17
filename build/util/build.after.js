@@ -6,14 +6,12 @@ const cheerio = require('cheerio');
 const buildPath = path.resolve(__dirname, config.path);
 
 module.exports = function () {
-
   fs.readdir(buildPath, (err, files) => {
     if (err) {
       throw err;
     }
 
     files.forEach(filename => {
-
       fs.stat(path.join(buildPath, filename), (ferr, fstats) => {
         if (ferr) {
           throw ferr;
@@ -58,7 +56,6 @@ module.exports = function () {
       fs.writeFile(filePath, $.html(), {
         encoding: 'utf-8'
       });
-
     });
   }
 };

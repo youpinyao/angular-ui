@@ -21,15 +21,28 @@ switch (type) {
 case 'lib':
 
   util.delLib();
-  webpack(webpackConfig()).run(runCallback);
-  console.log(chalk.green('\r\nbuild lib complete \r\n'));
+  clearConsole();
+  console.log(chalk.green('\r\nbuild lib ing \r\n'));
+  webpack(webpackConfig().uncompressed).run((err, stats) => {
+    if (runCallback(err, stats)) {
+      console.log(chalk.green('\r\nbuild lib uncompressed complete \r\n'));
+    }
+  });
+  webpack(webpackConfig().compressed).run((err, stats) => {
+    if (runCallback(err, stats)) {
+      console.log(chalk.green('\r\nbuild lib compressed complete \r\n'));
+    }
+  });
 
   break;
 case 'dll':
 
   util.delDll();
-  webpack(webpackConfig()).run(runCallback);
-  console.log(chalk.green('\r\nbuild dll complete \r\n'));
+  webpack(webpackConfig()).run((err, stats) => {
+    if (runCallback(err, stats)) {
+      console.log(chalk.green('\r\nbuild dll complete \r\n'));
+    }
+  });
 
   break;
 case 'build':

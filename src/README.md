@@ -11,7 +11,8 @@
 ## 组件新建步骤
 1. 在 src/components下按照自己所要开发组件的名称新建一个目录(组件目录下文件分布基础结构按照src/components/sample)。
 2. 对应组件样式按照 scss 语法书写，在 src/scss 下新建组件名对应的 scss 文件，下划线开头（例如：_button.scss），之后在 src/scss/app.scss 下引入。
-3. 在src/index.js 下注入对应组件模块。
+3. 在 src/index.js 下注入对应组件模块。
+4. 在 src/components.json 维护组建路径，用于构建。
 ## 范例开发
 ### 启动
 

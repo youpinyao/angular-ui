@@ -3,6 +3,7 @@ const config = require('./config.js');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const commonConfig = require('./base.config.js');
+const uglifyPlugins = require('./uglify.config.js');
 
 module.exports = function () {
   return webpackMerge(commonConfig(), {
@@ -30,22 +31,7 @@ module.exports = function () {
         }
       }),
 
-      new webpack.optimize.UglifyJsPlugin({
-        sourceMap: false,
-        beautify: false,
-        comments: false,
-        mangle: {
-          screw_ie8: false,
-          keep_fnames: false
-        },
-        compress: {
-          screw_ie8: false,
-          warnings: false
-        },
-        output: {
-          screw_ie8: false
-        }
-      })
+      uglifyPlugins,
     ]
   });
 };

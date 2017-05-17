@@ -4,23 +4,45 @@ const config = require('./config.js');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const modules = require('./module.config.js');
 
-const moduleName = require('../../src/name.js');
+const uglifyPlugins = require('./uglify.config.js');
 
-const plugins = [
-  // 输出 css
-  new ExtractTextPlugin('[name].css'),
-];
+const moduleName = require('../../src/name.js');
+const components = require('../../src/components.json');
+
+const plugins = [];
+
+const entry = {
+  [moduleName]: path.join(__dirname, '../../src/index.js'),
+};
+
+Object.keys(components).forEach(data => {
+  entry[data] = path.join(__dirname, '../../src', components[data], 'index.js');
+});
 
 module.exports = function () {
   return {
-    entry: {
-      [moduleName]: path.join(__dirname, '../../src/index.js'),
+    uncompressed: {
+      entry,
+      output: {
+        path: path.join(__dirname, '../../lib'),
+        filename: '[name].js',
+      },
+      module: modules(true),
+      plugins: plugins.concat([
+        new ExtractTextPlugin('[name].css'),
+      ]),
     },
-    output: {
-      path: path.join(__dirname, '../../lib'),
-      filename: '[name].js',
+    compressed: {
+      entry,
+      output: {
+        path: path.join(__dirname, '../../lib'),
+        filename: '[name].min.js',
+      },
+      module: modules(),
+      plugins: plugins.concat([
+        new ExtractTextPlugin('[name].min.css'),
+        uglifyPlugins,
+      ]),
     },
-    module: modules(true),
-    plugins,
   };
 };
