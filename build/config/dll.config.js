@@ -27,7 +27,7 @@ const plugins = [
 module.exports = function () {
   return {
     entry: {
-      vendor: [path.join(__dirname, config.src, './js/vendor.js')]
+      vendor: [path.join(__dirname, '../../example/js/vendor.js')]
     },
     output: {
       path: path.join(__dirname, '../../.dll'),

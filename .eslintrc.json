@@ -17,6 +17,7 @@
     "angular": true
   },
   "rules": {
+    "indent": ["error", 2],
     "max-len": 0,
     "vars-on-top": 0,
     "func-names": 0,

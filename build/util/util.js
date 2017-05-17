@@ -2,9 +2,33 @@ const entrys = require('../config.js').entrys;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const del = require('delete');
 const path = require('path');
+const fs = require('fs');
+const md5 = require('md5');
 const config = require('../config/config.js');
 
 module.exports = {
+  compareDll(filePath, output) {
+    let version = {
+      hash: '',
+    };
+    const options = {
+      encoding: 'utf-8',
+    };
+    const venderPath = path.join(output, 'version.json');
+
+    if (fs.existsSync(venderPath)) {
+      version = JSON.parse(fs.readFileSync(venderPath, options));
+    }
+    const file = fs.readFileSync(filePath, options);
+    const fileHash = md5(file);
+
+    if (version.hash === fileHash) {
+      return false;
+    }
+    version.hash = fileHash;
+    fs.writeFileSync(venderPath, JSON.stringify(version), options);
+    return true;
+  },
   delLib() {
     del.sync(['lib'], {
       force: true

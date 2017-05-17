@@ -1,5 +1,4 @@
 module.exports = {
-  src: '../../example',
   host: 'localhost',
   port: '8686',
   publicPath: '../',
