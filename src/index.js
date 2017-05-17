@@ -6,6 +6,8 @@ import icons from './components/icons';
 import menu from './components/menu';
 import button from './components/button';
 import crumb from './components/crumb';
+import tabs from './components/tabs';
+
 
 const moduleName = require('./name.js');
 
@@ -14,12 +16,7 @@ angular.module(moduleName, [
   menu,
   button,
   crumb,
+  tabs
 ]).config(function () {}).run(function () {});
 
 export default moduleName;
-export {
-  icons,
-  menu,
-  button,
-  crumb,
-};

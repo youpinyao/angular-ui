@@ -2,5 +2,6 @@
   "icons": "./components/icons",
   "menu": "./components/menu",
   "button": "./components/button",
-  "crumb": "./components/crumb"
+  "crumb": "./components/crumb",
+  "tabs": "./components/tabs"
 }

@@ -138,10 +138,10 @@ $disabledOpacity: 0.6;
   }
 }
 
-
 .ma-button-group {
   letter-spacing: -0.31em;
-  .ma-button {
+
+  > .ma-button {
     letter-spacing: normal;
     border-radius: 0px;
     border-right-width: 0px;

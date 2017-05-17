@@ -1,9 +1,5 @@
 import components from '../pages/components';
 
-import general from '../pages/components/general';
-import icon from '../pages/components/general/icon';
-import button from '../pages/components/general/button';
-
 import global from '../pages/components/global';
 import font from '../pages/components/global/font';
 import color from '../pages/components/global/color';
@@ -13,11 +9,16 @@ import grid from '../pages/components/layout/grid';
 import layoutLayout from '../pages/components/layout/layout';
 import cls from '../pages/components/layout/cls';
 
+import general from '../pages/components/general';
+import icon from '../pages/components/general/icon';
+import button from '../pages/components/general/button';
+
 import feedback from '../pages/components/feedback';
 
 import navigation from '../pages/components/navigation';
 import crumb from '../pages/components/navigation/crumb';
 import menu from '../pages/components/navigation/menu';
+import tabs from '../pages/components/navigation/tabs';
 
 import dataEntry from '../pages/components/data-entry';
 import dataDisplay from '../pages/components/data-display';
@@ -47,22 +48,6 @@ const routers = [{
       ...color,
     }]
   }, {
-    title: 'General 一般',
-    state: 'components.general',
-    url: '/general',
-    ...general,
-    routers: [{
-      title: 'Icon 图标',
-      state: 'components.general.icon',
-      url: '/icon',
-      ...icon,
-    }, {
-      title: 'Button 按钮',
-      state: 'components.general.button',
-      url: '/button',
-      ...button,
-    }]
-  }, {
     title: 'Layout 布局',
     state: 'components.layout',
     url: '/layout',
@@ -84,6 +69,22 @@ const routers = [{
       ...cls,
     }],
   }, {
+    title: 'General 一般',
+    state: 'components.general',
+    url: '/general',
+    ...general,
+    routers: [{
+      title: 'Icon 图标',
+      state: 'components.general.icon',
+      url: '/icon',
+      ...icon,
+    }, {
+      title: 'Button 按钮',
+      state: 'components.general.button',
+      url: '/button',
+      ...button,
+    }]
+  }, {
     title: 'Feedback 反馈',
     state: 'components.feedback',
     url: '/feedback',
@@ -103,6 +104,11 @@ const routers = [{
       state: 'components.navigation.menu',
       url: '/menu',
       ...menu,
+    }, {
+      title: 'Tabs 标签页',
+      state: 'components.navigation.tabs',
+      url: '/tabs',
+      ...tabs,
     }]
   }, {
     title: 'Data Entry 数据输入',
