@@ -1,0 +1,56 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="data-display-table-page">
+  <div class="container"
+    ma-full-container>
+    <h2>Table 表格</h2>
+    <p>
+      当有大量结构化的数据需要展现时；<br/> 当需要对数据进行排序、搜索、分页、自定义操作等复杂行为时。
+    </p>
+    <h3>代码演示</h3>
+    <div class="mb-20">
+      <ma-button ma-click="selectAll()">全选</ma-button>
+      <ma-button ma-click="unSelectAll()">全不选</ma-button>
+      <ma-button ma-click="setSelect()">选择部分</ma-button>
+      <ma-button ma-click="setUnSelect()">不选择部分</ma-button>
+    </div>
+    <div class="p clearfix mb-20">
+      <h4>传统table</h4>
+      <ma-table ma-config="tableConfig1">
+      </ma-table>
+    </div>
+
+    <div class="p clearfix">
+      <h4>左右漂浮table</h4>
+      <ma-table ma-config="tableConfig2">
+      </ma-table>
+    </div>
+
+    <div class="p">
+      <h4>ma-config</h4>
+      <code ng-bind="configText"></code>
+    </div>
+
+    <h3>API</h3>
+    <div class="p">
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>ma-config</td>
+          <td>table 配置</td>
+          <td>JSON</td>
+          <td>-</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

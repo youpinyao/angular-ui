@@ -1,0 +1,116 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="data-entry-transfer-page">
+  <div class="container" ma-full-container>
+    <h2>Transfer 穿梭框</h2>
+    <p>
+      双栏穿梭选择框。
+    </p>
+    <h3>代码演示</h3>
+    <div class="p clearfix">
+      <div class="col-24 mb-20">
+        <h4>disabled</h4>
+        <ma-switch
+          ng-model="disabled"
+        ></ma-switch>
+      </div>
+
+      <div class="col-24 mb-20">
+        <h4>普通穿梭框</h4>
+        <ma-transfer
+          ng-model="selectValue"
+
+          ma-data="data"
+          ma-value-key="value"
+          ma-text-key="text"
+
+          ma-left-title="所有"
+          ma-right-title="选中"
+
+          ng-disabled="disabled"
+        ></ma-transfer>
+      </div>
+
+      <div class="col-24">
+        <h4>树形穿梭框</h4>
+        <ma-tree-transfer
+          ng-model="selectTreeValue"
+
+          ma-data="treeData"
+          ma-value-key="value"
+          ma-text-key="text"
+          ma-sub-key="sub"
+
+          ma-left-title="所有"
+          ma-right-title="选中"
+
+          ng-disabled="disabled"
+        ></ma-tree-transfer>
+      </div>
+
+    </div>
+    <h3>API</h3>
+    <div class="p">
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>name</td>
+          <td>非必填</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ng-model</td>
+          <td>必填</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-text-key</td>
+          <td>每一项显示文本关键字</td>
+          <td>String</td>
+          <td>text</td>
+        </tr>
+        <tr>
+          <td>ma-value-key</td>
+          <td>每一项对应值关键字</td>
+          <td>String</td>
+          <td>value</td>
+        </tr>
+        <tr>
+          <td>ma-sub-key</td>
+          <td>每一项对应子列表关键字</td>
+          <td>String</td>
+          <td>sub</td>
+        </tr>
+        <tr>
+          <td>ma-left-title</td>
+          <td>非必填</td>
+          <td>String</td>
+          <td>所有</td>
+        </tr>
+        <tr>
+          <td>ma-right-title</td>
+          <td>非必填</td>
+          <td>String</td>
+          <td>选中</td>
+        </tr>
+        <tr>
+          <td>ma-data</td>
+          <td>选填，下拉所要显示的列表</td>
+          <td>Array</td>
+          <td>-</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -20,19 +20,8 @@ let webpackConfig = configs[type];
 switch (type) {
 case 'lib':
 
-  util.delLib();
-  clearConsole();
-  console.log(chalk.green('\r\nbuild lib ing \r\n'));
-  webpack(webpackConfig().uncompressed).run((err, stats) => {
-    if (runCallback(err, stats)) {
-      console.log(chalk.green('\r\nbuild lib uncompressed complete \r\n'));
-    }
-  });
-  webpack(webpackConfig().compressed).run((err, stats) => {
-    if (runCallback(err, stats)) {
-      console.log(chalk.green('\r\nbuild lib compressed complete \r\n'));
-    }
-  });
+  util.delDist();
+  buildLib();
 
   break;
 case 'dll':
@@ -52,34 +41,67 @@ case 'build':
     if (runCallback(err, stats)) {
       require('./util/build.after.js')();
       console.log(chalk.green('\r\nbuild dist complete \r\n'));
+
+      buildLib();
     }
   });
 
   break;
 case 'dev':
   {
-    const dllHasChange = util.compareDll(configs.dll().entry.vendor[0], configs.dll().output.path);
+    // const dllHasChange = util.compareDll(configs.dll().entry.vendor[0], configs.dll().output.path);
 
-    if (dllHasChange) {
-      const dllCompiler = webpack(configs.dll());
+    // if (dllHasChange) {
 
-      dllCompiler.run((err, stats) => {
-        if (runCallback(err, stats)) {
-          console.log(chalk.green('\r\nbuild dll complete \r\n'));
-          runDev();
-        }
-      });
-    } else {
-      runDev();
-    }
+    util.delDll();
+
+    const dllCompiler = webpack(configs.dll());
+
+    dllCompiler.run((err, stats) => {
+      if (runCallback(err, stats)) {
+        console.log(chalk.green('\r\nbuild dll complete \r\n'));
+        runDev();
+      }
+    });
+    // } else {
+    //   runDev();
+    // }
   }
   break;
 default:
 }
 
+function buildLib() {
+  const webpackConfig = configs.lib;
+
+  console.log(chalk.green('\r\nbuild lib ing \r\n'));
+
+  webpack(webpackConfig().all_uncompressed).run((err, stats) => {
+    if (runCallback(err, stats)) {
+      console.log(chalk.green('\r\nbuild lib all_uncompressed complete \r\n'));
+    }
+  });
+  webpack(webpackConfig().all_compressed).run((err, stats) => {
+    if (runCallback(err, stats)) {
+      console.log(chalk.green('\r\nbuild lib all_compressed complete \r\n'));
+    }
+  });
+  webpack(webpackConfig().uncompressed).run((err, stats) => {
+    if (runCallback(err, stats)) {
+      console.log(chalk.green('\r\nbuild lib uncompressed complete \r\n'));
+    }
+  });
+  webpack(webpackConfig().compressed).run((err, stats) => {
+    if (runCallback(err, stats)) {
+      console.log(chalk.green('\r\nbuild lib compressed complete \r\n'));
+    }
+  });
+}
+
 function runDev() {
   webpackConfig = webpackConfig();
   const compiler = webpack(webpackConfig);
+  let cDate = +new Date();
 
   // compiler.outputFileSystem = fs;
 
@@ -87,6 +109,7 @@ function runDev() {
 
   compiler.plugin('invalid', function () {
     clearConsole();
+    cDate = +new Date();
     console.log(chalk.green('Compiling'));
   });
 
@@ -94,7 +117,8 @@ function runDev() {
   // Whether or not you have warnings or errors, you will get this event.
   compiler.plugin('done', function (stats) {
     clearConsole();
-    console.log(chalk.green('Compiled'));
+    const ncDate = +new Date();
+    console.log(chalk.green(`Compiled ${ncDate - cDate}ms`));
   });
 
   const devServer = new WebpackDevServer(compiler, webpackConfig.devServer);

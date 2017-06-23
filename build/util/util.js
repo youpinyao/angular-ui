@@ -18,6 +18,9 @@ module.exports = {
 
     if (fs.existsSync(venderPath)) {
       version = JSON.parse(fs.readFileSync(venderPath, options));
+    } else {
+      this.delDll();
+      fs.mkdirSync('.dll');
     }
     const file = fs.readFileSync(filePath, options);
     const fileHash = md5(file);
@@ -29,12 +32,6 @@ module.exports = {
     fs.writeFileSync(venderPath, JSON.stringify(version), options);
     return true;
   },
-  delLib() {
-    del.sync(['lib'], {
-      force: true
-    });
-    console.log('\r\ndelete lib complete\r\n');
-  },
   delDll() {
     del.sync(['.dll'], {
       force: true
@@ -42,7 +39,7 @@ module.exports = {
     console.log('\r\ndelete .dll complete\r\n');
   },
   delDist() {
-    del.sync(['dist/example'], {
+    del.sync(['dist'], {
       force: true
     });
     console.log('\r\ndelete dist complete\r\n');
@@ -86,9 +83,8 @@ module.exports = {
 
       if (isDev) {
         entry[jsName] = entry[jsName].concat([
-          'webpack/hot/dev-server',
           `webpack-dev-server/client?http://${config.host}:${config.port}/`,
-
+          'webpack/hot/dev-server',
         ]);
       }
     });

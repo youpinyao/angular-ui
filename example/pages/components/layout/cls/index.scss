@@ -1,13 +1,2 @@
 @import '../../../../../src/scss/theme';
 @import '../../../../../src/scss/mixin';
-
-.layout-grid-page {
-  div[class*="col-"] {
-    > div {
-      padding: 20px 0px;
-      text-align: center;
-      background-color: $primary;
-      color: $white;
-    }
-  }
-}

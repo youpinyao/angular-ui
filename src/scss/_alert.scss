@@ -1,0 +1,38 @@
+.ma-alert {
+  position: relative;
+  padding: 10px 34px 10px 20px;
+  line-height: 20px;
+  min-height: 40px;
+  font-size: $font14;
+  border-radius: 4px;
+  word-break: break-all;
+  overflow: hidden;
+  @include transition();
+  &.hide {
+    opacity: 0;
+    height: 0px;
+    min-height: 0px;
+    padding: 0px;
+    margin: 0px;
+  }
+  i {
+    font-size: $font20;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: $grey;
+    cursor: pointer;
+  }
+  &.ma-alert-success {
+    background-color: $successBg;
+    color: $green;
+  }
+  &.ma-alert-warning {
+    background-color: $warningBg;
+    color: $warning;
+  }
+  &.ma-alert-danger {
+    background-color: $dangerBg;
+    color: $danger;
+  }
+}

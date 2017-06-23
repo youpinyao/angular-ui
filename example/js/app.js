@@ -1,32 +1,37 @@
 import './vendor.js';
 
 import $ from 'jquery';
-import meetAngularUI from '../../src';
-import utils from '../../src/utils';
+import meetyou from '../../src';
 
 import '../scss/app.scss';
 
+import loginService from './services/loginService.js';
+import requestService from './services/requestService.js';
+
 const app = angular.module('app', [
-  meetAngularUI,
+  meetyou,
+  loginService,
+  requestService,
   'ui.router',
   'ngSanitize',
 ]);
 const routerConfig = require('./routerConfig.js');
 
-config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
-run.$inject = ['$rootScope'];
-
 app.config(config).run(run);
 angular.bootstrap(document, ['app']);
 
-function run($rootScope) {
+run.$inject = ['$rootScope', 'loginService', '$request'];
+
+function run($rootScope, loginService, $request, $loading) {
   $rootScope.routerConfig = flattenRouter(routerConfig);
 }
+
+config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
 
 function config($stateProvider, $urlRouterProvider, $httpProvider) {
   $urlRouterProvider.rule(routerRule);
 
-  angular.forEach(flattenRouter(routerConfig), function (value) {
+  angular.forEach(flattenRouter(routerConfig), function(value) {
     $stateProvider
       .state(value.state, {
         url: value.url,
@@ -43,7 +48,7 @@ function routerRule($injector, $location) {
   let toUrl = '';
 
   if (!path || path === '/') {
-    utils.each(routerConfig, d => {
+    angular.each(routerConfig, d => {
       if (d.hidden !== true && !toUrl) {
         toUrl = d.url;
       }
@@ -56,7 +61,7 @@ function routerRule($injector, $location) {
   function hasRouters(routers) {
     let count = 0;
 
-    utils.each(routers, d => {
+    angular.each(routers, d => {
       if (d.hidden !== true) {
         count++;
       }

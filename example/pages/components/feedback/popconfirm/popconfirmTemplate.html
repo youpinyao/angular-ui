@@ -1,0 +1,31 @@
+<form name="PopconformForm"
+  class="form-horizontal mini">
+  <div class="control-group">
+    <div class="control-label">PV：</div>
+    <div class="controls">
+      <ma-input name="input1"
+        style="width: 140px;"
+        validator="required"
+        valid-method="submit"
+        ng-model="inputValue"></ma-input>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="control-label">Click：</div>
+    <div class="controls">
+      <ma-input name="input2"
+        style="width: 140px;"
+        validator="required"
+        valid-method="submit"
+        ng-model="inputValue"></ma-input>
+    </div>
+  </div>
+  <div class="form-buttons">
+    <ma-button ma-size="mini"
+      ma-click="save()"
+      ma-type="primary">保存</ma-button>
+    <ma-button ma-size="mini"
+      ma-click="cancel()"
+      ma-type="default">取消</ma-button>
+  </div>
+</form>

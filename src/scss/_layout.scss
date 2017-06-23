@@ -1,4 +1,3 @@
-
 body {
   font-size: 14px;
   font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
@@ -8,20 +7,26 @@ body {
   overflow: auto;
 }
 
+
 /* 定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸 */
+
 *::-webkit-scrollbar {
   width: 5px;
   height: 5px;
   background-color: $background;
 }
 
+
 /* 定义滚动条轨道 内阴影+圆角 */
+
 *::-webkit-scrollbar-track {
   border-radius: 5px;
   background-color: $white;
 }
 
+
 /* 定义滑块 内阴影+圆角 */
+
 *::-webkit-scrollbar-thumb {
   border-radius: 5px;
   background-color: $shadow;
@@ -37,26 +42,31 @@ body {
 
 *.fade-in[ma-ui-transition] {
   opacity: 1;
+  -webkit-animation: fadeIn 0.3s ease forwards;
   animation: fadeIn 0.3s ease forwards;
 }
 
 *.fade-in[ma-ui-transition="left"] {
   opacity: 1;
+  -webkit-animation: fadeInLeftSmall 0.3s ease forwards;
   animation: fadeInLeftSmall 0.3s ease forwards;
 }
 
 *.fade-in[ma-ui-transition="right"] {
   opacity: 1;
+  -webkit-animation: fadeInRightSmall 0.3s ease forwards;
   animation: fadeInRightSmall 0.3s ease forwards;
 }
 
 *.fade-in[ma-ui-transition="up"] {
   opacity: 1;
+  -webkit-animation: fadeInUpSmall 0.3s ease forwards;
   animation: fadeInUpSmall 0.3s ease forwards;
 }
 
 *.fade-in[ma-ui-transition="down"] {
   opacity: 1;
+  -webkit-animation: fadeInDownSmall 0.3s ease forwards;
   animation: fadeInDownSmall 0.3s ease forwards;
 }
 
@@ -71,12 +81,20 @@ body {
   *zoom: 1;
 }
 
-.ellipsis {
-  @include ellipsis();
-}
-
 .center {
   text-align: center;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.ellipsis {
+  @include ellipsis();
 }
 
 a {
@@ -84,15 +102,16 @@ a {
   text-decoration: none;
 }
 
-*:before, *:after,
+*:before,
+*:after,
 * {
   box-sizing: border-box;
 }
 
 $paddings: (pb: bottom, pl: left, pt: top, pr: right);
 $margins: (mb: bottom, ml: left, mt: top, mr: right);
-
-@each $header, $size in $paddings {
+@each $header,
+$size in $paddings {
   .#{$header}-20 {
     padding-#{$size}: 20px;
   }
@@ -107,7 +126,8 @@ $margins: (mb: bottom, ml: left, mt: top, mr: right);
   }
 }
 
-@each $header, $size in $margins {
+@each $header,
+$size in $margins {
   .#{$header}-20 {
     margin-#{$size}: 20px;
   }
@@ -120,7 +140,6 @@ $margins: (mb: bottom, ml: left, mt: top, mr: right);
   .#{$header}-0 {
     margin-#{$size}: 0px;
   }
-
   .#{$header}--20 {
     margin-#{$size}: -20px;
   }
@@ -150,45 +169,103 @@ $colCount: 24;
 }
 
 .form-horizontal {
-
-}
-
-.form-horizontal {
+  .control-group {
+    margin-bottom: 20px;
+  }
   .control-label {
     float: left;
     width: 160px;
-    padding-top: 7px;
     font-size: $font14;
     font-weight: normal;
     text-align: right;
+    color: $base;
+    line-height: 32px;
+  }
+}
+
+.form-horizontal {
+  &.mini {
+    .control-group {
+      margin-bottom: 10px;
+    }
+    .control-label {
+      width: 50px;
+    }
+    .controls {
+      margin-left: 60px;
+    }
+    .form-error-text {
+      display: none !important;
+    }
   }
 }
 
 .form-horizontal {
   .controls {
-    margin-left: 180px;
+    margin-left: 170px;
     position: relative;
+    line-height: 32px;
   }
 }
 
 .form-vertical {
-
+  .control-group {
+    margin-bottom: 20px;
+  }
 }
 
 .form-vertical {
   .control-label {
     margin-bottom: 5px;
+    color: $base;
   }
 }
 
-.form-horizontal {
+.form-vertical {
   .controls {
     position: relative;
+    line-height: 32px;
   }
 }
 
+.form-horizontal,
+.form-vertical {
+  padding: 10px 0px;
+  @include clearfix();
+  .control-group {
+    @include clearfix();
+  }
+  .form-buttons {
+    padding-top: 10px;
+    text-align: center;
+    letter-spacing: -0.31em;
+    .ma-button {
+      letter-spacing: normal;
+      margin: 0px 10px;
+    }
+  }
+  .controls .form-error-text {
+    font-size: $font12;
+    color: $danger;
+    position: absolute;
+    left: 0px;
+    bottom: -17px;
+    line-height: normal;
+    font-weight: normal;
+    z-index: 10;
+    overflow: visible;
+    white-space: nowrap;
+  }
+  .controls.controls-flex.content-three .ma-input-error .form-error-text,
+  .controls.controls-flex.content-three .ma-input-error .form-error-text {
+    display: none;
+  }
+}
+
+
 /* 头部 */
-.header {
+
+body > .header {
   position: relative;
   z-index: 10;
   background-color: $headerColor;
@@ -224,7 +301,6 @@ $colCount: 24;
       float: right;
       font-size: $font16;
       color: $white;
-
       a {
         display: inline-block;
         color: #ffffff;
@@ -256,7 +332,7 @@ $colCount: 24;
 }
 
 body > .main {
-  @include transition(margin 300ms ease);
+  /* @include transition(margin 300ms ease);*/
   min-width: $minWidth;
   div.container {
     padding-top: 20px;

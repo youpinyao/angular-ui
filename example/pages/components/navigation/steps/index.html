@@ -4,21 +4,30 @@
   <ma-crumb-item>Font 文字</ma-crumb-item>
 </ma-crumb> -->
 <ma-crumb-auto></ma-crumb-auto>
-<div class="navigation-menu-page">
+<div class="navigation-steps-page">
   <div class="container" ma-full-container>
     <h2>Steps 步骤条</h2>
     <p>引导用户按照流程完成任务的导航条。</p>
     <h3>代码演示</h3>
     <div class="p">
-      <ma-steps ma-index="{{stepIndex}}">
-        <ma-step>步骤一</ma-step>
-        <ma-step>步骤二</ma-step>
-        <ma-step>步骤三</ma-step>
-        <ma-step>步骤四</ma-step>
-        <ma-step>步骤五</ma-step>
+      <ma-steps ma-index="{{stepIndex}}" ma-type="default">
+        <ma-step ma-click="setStepIndex(0)">步骤一<span>说明说明说明说明说明说明说明说明</span></ma-step>
+        <ma-step ma-click="setStepIndex(1)">步骤二<span>说明说明说明说明</span></ma-step>
+        <ma-step ma-click="setStepIndex(2)">步骤三<span>说明说明说明说明</span></ma-step>
+        <ma-step ma-click="setStepIndex(3)">步骤四</ma-step>
+      </ma-steps>
+      <code class="mt-20" ng-bind="stepType2Code"></code>
+    </div>
+    <div class="p">
+      <ma-steps ma-index="{{stepIndex}}" ma-type="mini">
+        <ma-step ma-click="setStepIndex(0)">步骤一</ma-step>
+        <ma-step ma-click="setStepIndex(1)">步骤二</ma-step>
+        <ma-step ma-click="setStepIndex(2)">步骤三</ma-step>
+        <ma-step ma-click="setStepIndex(3)">步骤四</ma-step>
       </ma-steps>
       <code class="mt-20" ng-bind="stepType1Code"></code>
     </div>
+
     <h3>API</h3>
     <div class="p">
       <table>
@@ -27,6 +36,12 @@
           <th>说明</th>
           <th>类型</th>
           <th>默认值</th>
+        </tr>
+        <tr>
+          <td>ma-type</td>
+          <td>步骤条类型 default mini</td>
+          <td>String</td>
+          <td>default</td>
         </tr>
         <tr>
           <td>ma-index</td>

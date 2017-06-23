@@ -1,0 +1,27 @@
+
+<div class="upload-file-items">
+  <div class="upload-file-item" ng-class="{error: file.error}" data-id="{{file.id}}" ng-repeat="file in ngModel track by file.id">
+    <ma-progress
+      ma-type="circle"
+      ma-status="danger"
+      ma-size="10"
+      ma-stroke-width="10"
+      ma-percent="{{file.progress}}"
+      ng-show="file.progress !== undefined && file.progress !== 100"
+    ></ma-progress>
+    <ma-icon
+      ng-show="file.progress === undefined || file.progress === 100"
+      ma-type="paperclip"
+    ></ma-icon>
+    <a href="javascript:void(0)" ma-click="viewFile(file)">{{file.name}}</a>
+    <ma-icon
+      class="close"
+      ma-type="close"
+      ma-click="delFile(file, $index)"
+      ng-show="showDelete !== 'false' && file.showDelete !== false && (file.progress === undefined || file.progress === 100)"
+    ></ma-icon>
+    <!--div class="upload-item-progress" ng-if="file.progress !== undefined && file.progress !== 100">
+      <span ng-style="{width: file.progress + '%'}"></span>
+    </div-->
+  </div>
+</div>

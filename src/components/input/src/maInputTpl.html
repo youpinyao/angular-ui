@@ -1,0 +1,40 @@
+<div class="ma-input">
+  <input
+    ng-show="type !== 'textarea'"
+    type="{{type}}"
+    ng-model="model"
+    maxlength="{{maxlength}}"
+    placeholder="{{placeholder}}"
+    accept="{{accept}}"
+    pattern="{{pattern}}"
+    min="{{min}}"
+    max="{{max}}"
+    step="{{step}}"
+    ng-readonly="readonly"
+    ng-disabled="disabled"
+  />
+
+  <textarea
+    ng-show="type === 'textarea'"
+    type="{{type}}"
+    ng-model="model"
+    maxlength="{{maxlength}}"
+    placeholder="{{placeholder}}"
+    accept="{{accept}}"
+    pattern="{{pattern}}"
+    min="{{min}}"
+    max="{{max}}"
+    step="{{step}}"
+    ng-readonly="readonly"
+    ng-disabled="disabled"
+  ></textarea>
+
+  <ma-icon
+    class="clear"
+    ng-show="clear && model"
+    ma-type="close"
+    ma-click="$ctrl.clearClick($event)"
+  ></ma-icon>
+
+  <div ng-transclude></div>
+</div>

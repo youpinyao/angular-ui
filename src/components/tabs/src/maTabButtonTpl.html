@@ -1,0 +1,11 @@
+<div
+  ng-class="{active: parentScope.model == value}"
+>
+<ma-button
+  ma-size="{{size}}"
+  ma-active="{{parentScope.model == value}}"
+  ma-click="parentScope.model = value"
+  >
+  <span ng-transclude></span>
+</ma-button>
+</div>

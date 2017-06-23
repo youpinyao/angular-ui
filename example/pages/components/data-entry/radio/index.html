@@ -1,0 +1,53 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="data-entry-radio-page">
+  <div class="container" ma-full-container>
+    <h2>Radio 单选框</h2>
+    <p>
+      用于在多个备选项中选中单个状态。<br/>
+      和 Select 的区别是，Radio 所有选项默认可见，方便用户在比较中选择，因此选项不宜过多。
+    </p>
+    <h3>代码演示</h3>
+    <div class="p">
+      <div class="mb-10">
+        <ma-button ma-type="primary" ma-click="radioDisabled = !radioDisabled">Toggle disabled {{!!radioDisabled}}</ma-button>
+      </div>
+      <ma-radio name="selectRadio" value="1" ng-model="selectRadio" ng-disabled="radioDisabled">选择1</ma-radio>
+      <ma-radio name="selectRadio" value="2" ng-model="selectRadio" ng-disabled="radioDisabled">选择2</ma-radio>
+      <ma-radio name="selectRadio" value="3" ng-model="selectRadio" ng-disabled="radioDisabled">选择3</ma-radio>
+    </div>
+    <h3>API</h3>
+    <div class="p">
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>name</td>
+          <td>必填</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>value</td>
+          <td>必填</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ng-model</td>
+          <td>必填</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

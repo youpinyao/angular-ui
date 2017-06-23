@@ -11,16 +11,20 @@ $font12: 12px;
 /* 全局颜色 */
 $black: #000000;
 $white: #FFFFFF;
+$green: #417505;
 $primary: #FF74B9;
-$warning: #F6A623;
 $success: #87D068;
+$warning: #F6A623;
 $danger: #FF5073;
+$successBg: #EDF8E9;
+$warningBg: #FEF8E1;
+$dangerBg: #FFE5EA;
 $link: #34ABFF;
 $base: #323232;
 $grey: #999999;
 $outlines: #CCCCCC;
 $disabled: #E5E5E5;
-$hover: #F5F5F5;
+$hover: #F5F5F5 !global;
 $background: #F5F5F5;
 $shadow: #DDDDDD;
 

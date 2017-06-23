@@ -1,0 +1,53 @@
+
+<div class="upload-image-items">
+  <div class="upload-image-item" ng-class="{error: file.error}" data-id="{{file.id}}" ng-repeat="file in ngModel track by file.id">
+    <div
+      class="handle-box"
+      ng-show="file.progress === undefined || file.progress === 100"
+    >
+      <ma-icon
+        class="close"
+        ma-type="eyeo"
+        ma-click="viewFile(ngModel, $index)"
+      ></ma-icon>
+      <ma-icon
+        class="close"
+        ma-type="delete"
+        ma-click="delFile(file, $index)"
+        ng-show="showDelete != 'false' && file.showDelete !== false && (file.progress === undefined || file.progress === 100)"
+      ></ma-icon>
+    </div>
+
+
+    <div class="image"
+      ng-if="file.url"
+      ng-style="{
+        'background-image': 'url({{file.url}})'
+      }"
+    ></div>
+    <div class="image"
+      ng-if="!file.url"
+      ng-style="{
+        'background-image': 'url({{$ctrl.uploadConfig.viewUrl + '?file_id=' + file.id}})'
+      }"
+    ></div>
+
+    <ma-progress
+      ma-type="circle"
+      ma-status="danger"
+      ma-size="70"
+      ma-stroke-width="5"
+      ma-percent="{{file.progress}}"
+      ng-show="file.progress !== undefined && file.progress !== 100"
+    ></ma-progress>
+  </div>
+
+  <div class="upload-image-item add"
+    ng-hide="$ctrl.uploadConfig.limit <= ngModel.length"
+  >
+    <ma-icon
+      ma-type="plus"
+    ></ma-icon>
+    <div>上传照片</div>
+   </div>
+</div>

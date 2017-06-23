@@ -1,0 +1,48 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="feedback-popconfirm-page">
+  <div class="container"
+    ma-full-container>
+    <h2>Popconfirm 气泡确认框</h2>
+    <p>
+      目标元素的操作需要用户进一步的确认时，在目标元素附近弹出浮层提示，询问用户。<br/> 和 confirm 弹出的全屏居中模态对话框相比，交互形式更轻量。
+    </p>
+    <h3>代码演示</h3>
+    <div class="p clearfix">
+      <div class="col-12">
+        <ma-popconfirm ma-template="popconfirmTemplate"
+          ma-direction="tr">
+          <a href="javascript:void(0)">点我我是气泡确认框</a>
+        </ma-popconfirm>
+      </div>
+      <div class="col-12">
+        <ma-popconfirm ma-template="popconfirmTemplateText"
+          ma-direction="tr">
+          <a href="javascript:void(0)">点我我是气泡文本框</a>
+        </ma-popconfirm>
+      </div>
+    </div>
+
+    <h3>API</h3>
+    <div class="p">
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>$modal.open(config)</td>
+          <td>config </td>
+          <td>JSON</td>
+          <td>defaultConfig</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

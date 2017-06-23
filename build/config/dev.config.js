@@ -9,8 +9,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const commonConfig = require('./base.config.js');
 const config = require('./config.js');
 
-const dllCssPath = './.dll/vendor.dll.css';
-const assets = ['./.dll/vendor.dll.js'];
+const dllCssPath = '.dll/vendor.dll.css';
+const assets = ['.dll/vendor.dll.js'];
 
 if (fs.existsSync(dllCssPath)) {
   assets.push(dllCssPath);
@@ -20,7 +20,6 @@ module.exports = function () {
   const execCommonConfig = commonConfig(true);
 
   return webpackMerge(execCommonConfig, {
-    cache: false,
     devtool: 'inline-source-map',
     devServer: {
       port: config.port,
@@ -49,6 +48,8 @@ module.exports = function () {
         append: false,
         hash: true,
       }),
+
+      new webpack.HotModuleReplacementPlugin(),
 
       new webpack.DllReferencePlugin({
         context: path.resolve(__dirname),

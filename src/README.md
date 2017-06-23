@@ -13,7 +13,9 @@
 2. 对应组件样式按照 scss 语法书写，在 src/scss 下新建组件名对应的 scss 文件，下划线开头（例如：_button.scss），之后在 src/scss/app.scss 下引入。
 3. 在 src/index.js 下注入对应组件模块。
 4. 在 src/components.json 维护组建路径，用于构建。
+
 ## 范例开发
+
 ### 启动
 
 ```

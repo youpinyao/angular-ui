@@ -1,0 +1,124 @@
+.ma-checkbox {
+  display: inline;
+  width: 100%;
+  text-align: left !important;
+  cursor: pointer;
+  letter-spacing: -0.31em;
+  margin-right: 10px;
+  @include unselect();
+
+  > span {
+    font-size: $font14;
+    font-weight: normal;
+    color: $base;
+    letter-spacing: normal;
+    display: inline-block;
+    padding: 0px 10px;
+  }
+
+  input[type="checkbox"] {
+    display: none;
+    & + .checkbox-appearance {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 1px solid $primary;
+      border-radius: 4px;
+      position: relative;
+      top: -1px;
+      vertical-align: middle;
+      cursor: pointer;
+      transition: transform 300ms ease, -webkit-transform 300ms ease, opacity 300ms ease, background-color 300ms ease;
+      -webkit-transition: transform 300ms ease, -webkit-transform 300ms ease, opacity 300ms ease, background-color 300ms ease;
+
+      &:after {
+        opacity: 0;
+        @include transform(scale(0) rotate(45deg));
+        @include transition();
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 1px;
+        width: 6px;
+        height: 9px;
+        border: 2px solid $white;
+        border-top: 0px;
+        border-left: 0px;
+      }
+    }
+    &:checked + .checkbox-appearance {
+      border-color: $primary;
+      background-color: $primary;
+      &:after {
+        opacity: 1;
+        @include transform(scale(1) rotate(45deg));
+      }
+    }
+
+    &[disabled] + .checkbox-appearance {
+      border-color: $shadow;
+      cursor: not-allowed;
+      & + span {
+        cursor: not-allowed;
+      }
+    }
+
+    &[disabled] + .checkbox-appearance {
+      &:after {
+        border-color: $shadow;
+      }
+    }
+
+    &:checked[disabled] + .checkbox-appearance {
+      opacity: 0.4;
+      border-color: $primary;
+    }
+
+    &:checked[disabled] + .checkbox-appearance {
+      &:after{
+        border-color: $white;
+        background-color: $primary;
+      }
+    }
+  }
+
+  &.has-sub {
+    input[type="checkbox"] {
+      & + .checkbox-appearance {
+        border-color: $primary;
+        background-color: $primary;
+        &:after {
+          opacity: 1;
+          width: 8px;
+          height: 2px;
+          right: 0px;
+          bottom: 0px;
+          top: 0px;
+          left: 0px;
+          margin: auto;
+          background-color: $white;
+          border: 0px;
+          @include transform(scale(1));
+        }
+      }
+    }
+  }
+
+  &.has-parent {
+    input[type="checkbox"] {
+      & + .checkbox-appearance {
+        border-color: $primary;
+        background-color: $primary;
+        &:after {
+          opacity: 1;
+          @include transform(scale(1) rotate(45deg));
+        }
+      }
+    }
+  }
+
+  &:hover .checkbox-appearance {
+    border-color:$primary;
+  }
+}
+

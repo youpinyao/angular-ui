@@ -1,0 +1,87 @@
+.ma-radio {
+  display: inline;
+  width: 100%;
+  text-align: left !important;
+  cursor: pointer;
+  letter-spacing: -0.31em;
+  margin-right: 10px;
+  @include unselect();
+
+  span {
+    font-size: $font14;
+    font-weight: normal;
+    color: $base;
+    letter-spacing: normal;
+    display: inline-block;
+    padding: 0px 10px;
+  }
+
+  input[type="radio"] {
+    display: none;
+    & + .radio-appearance {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 1px solid $primary;
+      border-radius: 100%;
+      position: relative;
+      top: -1px;
+      vertical-align: middle;
+      cursor: pointer;
+      @include transition();
+
+      &:after {
+        opacity: 0;
+        @include transform(scale(0));
+        @include transition();
+        content: "";
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background-color: $primary;
+        left: 50%;
+        top: 50%;
+        margin: -3px;
+        border-radius: 100%;
+      }
+    }
+
+    &:checked + .radio-appearance {
+      border-color: $primary;
+      &:after {
+        opacity: 1;
+        @include transform(scale(1));
+      }
+    }
+
+    &[disabled] + .radio-appearance {
+      border-color: $shadow;
+      cursor: not-allowed;
+      & + span {
+        cursor: not-allowed;
+      }
+    }
+
+    &[disabled] + .radio-appearance {
+      &:after {
+        background-color: $shadow;
+      }
+    }
+
+    &:checked[disabled] + .radio-appearance {
+      opacity: 0.4;
+      border-color: $primary;
+    }
+
+    &:checked[disabled] + .radio-appearance {
+      &:after{
+        background-color: $primary;
+      }
+    }
+  }
+
+  &:hover .radio-appearance {
+    border-color:$primary;
+  }
+}
+

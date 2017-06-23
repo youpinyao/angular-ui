@@ -6,12 +6,14 @@
   url('../fonts/iconfont.svg?t=1494214640693#iconfont') format('svg'); /* iOS 4.1- */
 }
 
+.ma-circle {
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
 .iconfont {
-  font-family:"iconfont" !important;
-  font-size: $font16;
-  font-style:normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @include iconfont();
 }
 
 .icon-stepforward:before { content: "\ee31"; }

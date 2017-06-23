@@ -1,42 +1,61 @@
-@mixin transition($value: all 300ms ease) {
-  transition: $value;
-  -webkit-transtion: $value;
-}
+  @mixin transition($value: all 300ms ease) {
+    -webkit-transition: $value;
+    transition: $value;
+    -webkit-transtion: $value;
+  }
 
-@mixin transform($prop) {
-  transform: $prop;
-  -webkit-transform: $prop;
-  -ms-transform: $prop;
-  -moz-transform: $prop
-}
+  @mixin transform($prop) {
+    transform: $prop;
+    -webkit-transform: $prop;
+    -ms-transform: $prop;
+    -moz-transform: $prop
+  }
 
-@mixin transform-origin($prop: top center) {
-  transform-origin: $prop;
-  -webkit-transform-origin: $prop;
-  -ms-transform-origin: $prop;
-  -moz-transform-origin: $prop
-}
+  @mixin transform-origin($prop: top center) {
+    transform-origin: $prop;
+    -webkit-transform-origin: $prop;
+    -ms-transform-origin: $prop;
+    -moz-transform-origin: $prop
+  }
 
-@mixin line-clamp($line: 2) {
-  display: -webkit-box;
-  -webkit-line-clamp: $line;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  white-space: normal;
-}
+  @mixin line-clamp($line: 2) {
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+  }
 
-@mixin ellipsis() {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-  overflow: hidden;
-}
+  @mixin ellipsis() {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    overflow: hidden;
+  }
 
-@mixin unselect() {
-  -webkit-touch-callout: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -ms-touch-action: none;
-  -moz-user-select: -moz-none;
-}
+  @mixin unselect() {
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -ms-touch-action: none;
+    -moz-user-select: -moz-none;
+  }
+
+  @mixin iconfont() {
+    font-family: "iconfont" !important;
+    font-size: $font16;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @mixin clearfix() {
+    &:after {
+      content: "\200B";
+      display: block;
+      height: 0;
+      clear: both;
+      *zoom: 1;
+    }
+  }

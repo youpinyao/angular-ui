@@ -1,11 +1,10 @@
 import moduleName from './name.js';
 import $ from 'jquery';
-import utils from '../../../utils';
 
-import maFirstMenuTpl from './maFirstMenuTpl.js';
-import maSecondMenuTpl from './maSecondMenuTpl.js';
-import maSiderMenuTpl from './maSiderMenuTpl.js';
-import maSiderMenuContentTpl from './maSiderMenuContentTpl.js';
+import maFirstMenuTpl from './maFirstMenuTpl.html';
+import maSecondMenuTpl from './maSecondMenuTpl.html';
+import maSiderMenuTpl from './maSiderMenuTpl.html';
+import maSiderMenuContentTpl from './maSiderMenuContentTpl.html';
 
 angular.module(moduleName)
   .directive('maUiTransition', maUiTransition)
@@ -41,7 +40,7 @@ function maFirstMenu($state, $rootScope) {
     replace: true,
     transclude: true,
     template: maFirstMenuTpl,
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', function($scope) {
       $scope.$state = $state;
 
       if (!$rootScope.routerConfig) {
@@ -63,7 +62,7 @@ function maSecondMenu($state, $rootScope) {
     replace: true,
     require: ['^maFirstMenu'],
     template: maSecondMenuTpl,
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', function($scope) {
       $scope.$state = $state;
 
       if (!$rootScope.routerConfig) {
@@ -71,7 +70,7 @@ function maSecondMenu($state, $rootScope) {
       }
       $scope.routers = $rootScope.routerConfig;
 
-      $scope.$on('$stateChangeSuccess', function () {
+      $scope.$on('$stateChangeSuccess', function() {
         const cls = 'has-second-nav';
         let hasSecondNav = false;
 
@@ -112,7 +111,7 @@ function maSiderMenu($state, $rootScope) {
       title: '@maTitle',
     },
     template: maSiderMenuTpl,
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', function($scope) {
       const cls = 'has-sider-menu';
 
       $scope.$state = $state;
@@ -140,7 +139,7 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       routers: '=maRouters',
     },
     template: maSiderMenuContentTpl,
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', function($scope) {
       $scope.$state = $state;
       $scope.itemClick = itemClick;
       $scope.hasRouters = hasRouters;
@@ -168,7 +167,7 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       function hasRouters(routers) {
         let count = 0;
 
-        utils.each(routers, d => {
+        angular.each(routers, d => {
           if (d.hidden !== true) {
             count++;
           }
@@ -196,12 +195,12 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
 
         content = el.next('.sider-menu-content');
 
-        content.find('> *').each(function () {
+        content.find('> *').each(function() {
           height += $(this).outerHeight();
         });
 
         content.height(height);
-        $timeout(function () {
+        $timeout(function() {
           router.expand = !router.expand;
         });
       }
@@ -220,7 +219,9 @@ function maFullContainer($state, $timeout) {
     replace: true,
     link(scope, element, attrs, controllers) {
       element = $(element);
-      scope.$applyAsync(updateMinHeight);
+
+      $timeout(updateMinHeight);
+      $(window).resize(updateMinHeight);
 
       function updateMinHeight() {
         element.css({

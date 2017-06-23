@@ -1,4 +1,7 @@
 import moduleName from './name.js';
+import maTabsTpl from './maTabsTpl.html';
+import maTabTpl from './maTabTpl.html';
+import maTabButtonTpl from './maTabButtonTpl.html';
 
 angular.module(moduleName)
   .directive('maTabs', maTabs)
@@ -12,13 +15,7 @@ function maTabs() {
     restrict: 'E',
     transclude: true,
     replace: true,
-    template: `<div class="ma-tabs"
-      ng-class="{
-        'ma-button-group': $ctrl.type === 'button',
-        'default': $ctrl.type === 'default',
-      }"
-      ng-transclude>
-    </div>`,
+    template: maTabsTpl,
     scope: {
       model: '=ngModel',
     },
@@ -26,6 +23,10 @@ function maTabs() {
     controller: ['$scope', function ($scope) {
       this.model = $scope.model;
       this.type = 'default';
+
+      $scope.$watch('$ctrl.model', d => {
+        $scope.model = d;
+      });
     }],
     link: function (scope, element, attrs, ctrl) {
 
@@ -41,11 +42,7 @@ function maTab() {
     transclude: true,
     replace: true,
     require: ['^maTabs'],
-    template: `<div class="ma-tab"
-      ng-class="{active: parentScope.model == value}"
-      ma-click="parentScope.model = value"
-      ng-transclude>
-    </div>`,
+    template: maTabTpl,
     scope: {
       value: '@maValue',
     },
@@ -64,18 +61,10 @@ function maTabButton() {
     transclude: true,
     replace: true,
     require: ['^maTabs'],
-    template: `<div
-      ng-class="{active: parentScope.model == value}"
-    >
-    <ma-button
-      ma-active="{{parentScope.model == value}}"
-      ma-click="parentScope.model = value"
-      >
-      <span ng-transclude></span>
-    </ma-button>
-    </div>`,
+    template: maTabButtonTpl,
     scope: {
       value: '@maValue',
+      size: '@maSize',
     },
     link: function (scope, element, attrs, ctrl) {
       scope.parentScope = ctrl[0];

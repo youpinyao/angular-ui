@@ -1,0 +1,33 @@
+<div
+  class="ma-modal"
+  ng-class="{
+    show: config.show,
+    confirm: config.isConfirm,
+    alert: config.isAlert,
+  }">
+  <div
+    class="ma-modal-mask"
+    ng-if="config.clickMaskClose"
+    ng-click="$ctrl.close($event)"
+  ></div>
+  <div
+    class="ma-modal-mask"
+    ng-if="!config.clickMaskClose"
+  ></div>
+  <div class="ma-modal-container">
+    <div class="ma-modal-head" ng-show="config.title || config.showClose != false">
+      <span class="ma-modal-title" ng-show="config.title" ng-bind-html="config.title + '&nbsp;'"></span>
+      <ma-icon ma-type="close" ng-show="config.showClose != false" ma-click="$ctrl.close($event)"></ma-icon>
+    </div>
+    <div class="ma-modal-body"></div>
+    <div class="ma-modal-footer" ng-show="config.buttons.length">
+      <ma-button
+        ng-repeat="button in config.buttons"
+        ma-type="{{button.type || 'default'}}"
+        ma-size="{{button.size || 'default'}}"
+        ng-disabled="button.disabled"
+        ma-click="$ctrl.buttonClick($event, button.callback)"
+      >{{button.text}}</ma-button>
+    </div>
+  </div>
+</div>

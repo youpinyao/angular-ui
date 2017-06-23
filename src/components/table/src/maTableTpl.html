@@ -1,0 +1,204 @@
+<div class="ma-table">
+  <div class="data-table">
+
+    <script type="text/ng-template"
+      id="headerCheckbox.html">
+      <ma-checkbox type="checkbox"
+        id="ck_all"
+        ng-model="$tableCtrl.checkboxes.checked"
+        class="select-all"
+        ng-class="{
+          'has-sub' : $tableCtrl.tableParams.getSelected().length && $tableCtrl.tableParams.getSelected().length < $tableCtrl.tableParams.data.length
+        }"
+        value="">
+      </ma-checkbox>
+    </script>
+    <script type="text/ng-template"
+      id="header1.html">
+      <ng-table-group-row>
+      </ng-table-group-row>
+      <ng-table-sorter-row>
+      </ng-table-sorter-row>
+      <ng-table-filter-row>
+      </ng-table-filter-row>
+    </script>
+    <!-- class="col-md-6" -->
+    <div>
+
+      <!-- 左边漂浮 table -->
+      <div class="float-left-table"
+        style="width: {{$tableCtrl.floatLeftBoxWidth}}px; height: {{$tableCtrl.floatTableHeight}}px;"
+        ng-show="$tableCtrl.floatLeftCols.length">
+        <div style="width: {{$tableCtrl.floatTableWidth}}px;">
+          <table template-header='header1.html'
+            ng-table-dynamic="$tableCtrl.tableParams with $tableCtrl.cols"
+            class="table table-condensed table-bordered table-striped">
+            <colgroup ng-if="$tableCtrl.colsGroup && $tableCtrl.colsGroup.length == $tableCtrl.cols.length">
+              <col ng-repeat="group in $tableCtrl.colsGroup"
+                width="{{group.width}}"
+                align="{{group.align}}"
+                valign="{{group.valign}}"
+                ng-style="{{group.styles}}" />
+            </colgroup>
+            <!-- <tr ng-repeat="row in $tableCtrl.$data"> -->
+            <tr ng-repeat="row in $data"
+              ng-class='$tableCtrl.getClass(row)'>
+
+              <td ng-repeat="col in $columns"
+                ng-switch="col.field"
+                ng-class='col.colClass'>
+                <!-- <input ng-switch-when="selector" type="checkbox" ng-model="$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]"/> -->
+                <div ng-switch-when="selector">
+                  <ma-checkbox id="ck_{{row.id}}"
+                    type="checkbox"
+                    ng-model="$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]">
+                  </ma-checkbox>
+                </div>
+
+
+                <div ng-if='col.render'
+                  common-table-col-render="col.render(this, row)"></div>
+
+                <div ng-if='!col.render && col.customHtml'
+                  ng-bind-html="col.customHtml(this, row)"></div>
+
+                <div ng-if='!col.render && !col.customHtml'>
+                  <span ng-switch-default>{{row[col.field]}}</span>
+                </div>
+              </td>
+
+            </tr>
+          </table>
+        </div>
+      </div>
+
+
+      <!-- 右边漂浮 table -->
+      <div class="float-right-table"
+        style="width: {{$tableCtrl.floatRightBoxWidth}}px; height: {{$tableCtrl.floatTableHeight}}px;"
+        ng-show="$tableCtrl.floatRightCols.length">
+
+        <div style="width: {{$tableCtrl.floatTableWidth}}px;">
+          <table template-header='header1.html'
+            ng-table-dynamic="$tableCtrl.tableParams with $tableCtrl.cols"
+            class="table table-condensed table-bordered table-striped">
+            <colgroup ng-if="$tableCtrl.colsGroup && $tableCtrl.colsGroup.length == $tableCtrl.cols.length">
+              <col ng-repeat="group in $tableCtrl.colsGroup"
+                width="{{group.width}}"
+                align="{{group.align}}"
+                valign="{{group.valign}}"
+                ng-style="{{group.styles}}" />
+            </colgroup>
+            <!-- <tr ng-repeat="row in $tableCtrl.$data"> -->
+            <tr ng-repeat="row in $data"
+              ng-class='$tableCtrl.getClass(row)'>
+
+              <td ng-repeat="col in $columns"
+                ng-switch="col.field"
+                ng-class='col.colClass'>
+                <!-- <input ng-switch-when="selector" type="checkbox" ng-model="$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]"/> -->
+                <div ng-switch-when="selector">
+                  <ma-checkbox id="ck_{{row.id}}"
+                    ng-model="$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]">
+                  </ma-checkbox>
+                </div>
+
+
+                <div ng-if='col.render'
+                  common-table-col-render="col.render(this, row)"></div>
+
+                <div ng-if='!col.render && col.customHtml'
+                  ng-bind-html="col.customHtml(this, row)"></div>
+
+                <div ng-if='!col.render && !col.customHtml'>
+                  <span ng-switch-default>{{row[col.field]}}</span>
+                </div>
+              </td>
+
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="main-table-container">
+        <table template-header='header1.html'
+          ng-table-dynamic="$tableCtrl.tableParams with $tableCtrl.cols"
+          class="table table-condensed table-bordered table-striped main-table"
+          ng-class="{'has-float-table': $tableCtrl.floatLeftCols.length || $tableCtrl.floatRightCols.length}"
+          style="width: {{$tableCtrl.tableWidth && $tableCtrl.tableWidth > $tableCtrl.mainContainerWidth ? $tableCtrl.tableWidth + 'px' : '100%'}}">
+          <colgroup ng-if="$tableCtrl.colsGroup && $tableCtrl.colsGroup.length == $tableCtrl.cols.length">
+            <col ng-repeat="group in $tableCtrl.colsGroup"
+              width="{{group.width}}"
+              align="{{group.align}}"
+              valign="{{group.valign}}"
+              ng-style="{{group.styles}}" />
+          </colgroup>
+          <!-- <tr ng-repeat="row in $tableCtrl.$data"> -->
+          <tr ng-repeat="row in $data"
+            ng-class='$tableCtrl.getClass(row)'>
+
+            <td ng-repeat="col in $columns"
+              ng-switch="col.field"
+              ng-class='col.colClass'>
+              <!-- <input ng-switch-when="selector" type="checkbox" ng-model="$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]"/> -->
+              <div ng-switch-when="selector">
+                <ma-checkbox id="ck_{{row.id}}"
+                  ng-model="$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]">
+                </ma-checkbox>
+              </div>
+
+
+              <div ng-if='col.render'
+                common-table-col-render="col.render(this, row)"></div>
+
+              <div ng-if='!col.render && col.customHtml'
+                ng-bind-html="col.customHtml(this, row)"></div>
+
+              <div ng-if='!col.render && !col.customHtml'>
+                <span ng-switch-default>{{row[col.field]}}</span>
+              </div>
+            </td>
+
+          </tr>
+
+          <tr ng-if="$data.length <= 0">
+            <td colspan="{{$columns.length}}"
+              style="text-align:center;">暂无数据</td>
+          </tr>
+        </table>
+      </div>
+      <!-- <script type="text/ng-template" id="templatePagination.html"> -->
+      <form class="form-inline"
+        novalidate
+        ng-show="$tableCtrl.enablePagination">
+        <div class="form-group">
+          <span>跳至第</span>
+          <input class="form-control"
+            id="page"
+            min="1"
+            placeholder=""
+            ng-model="$tableCtrl.nextPageNum"
+            ng-init="1"
+            ng-enter="$tableCtrl.changePage($tableCtrl.nextPageNum)">
+          <span>页</span>
+        </div>
+        <div class="form-group page-select-form-group">
+          <!--         <select id="pageSizeBinding" class="form-control" ng-model="$tableCtrl.newPageSize" ng-init="$tableCtrl.newPageSize=$tableCtrl.PageSize[0]" ng-options="size + '条/页 ' for size in $tableCtrl.PageSize" ng-change="$tableCtrl.changePageSize($tableCtrl.newPageSize)"></select> -->
+
+          <ma-select id="pageSizeBinding"
+            class="form-control"
+            ng-model="$tableCtrl.newPageSize"
+            ma-data="$tableCtrl._PageSize"></ma-select>
+
+          <!-- <i class="page-select-arrow"></i> -->
+        </div>
+      </form>
+      <!-- </script> -->
+    </div>
+
+    <div class="loading data-table-loading"
+      ng-class="{show: $tableCtrl.isLoading}">
+      <ma-spin ma-size="50"></ma-spin>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,120 @@
+.ma-dropdown {
+  display: inline-block;
+  position: relative;
+
+  &.right .ma-dropdown-container{
+    right: 0px;
+    left: auto;
+  }
+
+  &.top .ma-dropdown-container {
+    top: auto;
+    bottom: 100%;
+    border-bottom: 1px solid $shadow;
+    border-radius: 4px 4px 0 0;
+    @include transform-origin(bottom center);
+  }
+
+  .ma-dropdown-container {
+    position: absolute;
+    z-index: 10;
+    min-width: 100%;
+    background-color: $white;
+    border-top: 1px solid $shadow;
+    -webkit-box-shadow: 0 1px 3px 0 rgba($black, 0.25);
+    box-shadow: 0 1px 3px 0 rgba($black, 0.25);
+    left: 0px;
+    top: 100%;
+    opacity:0;
+    visibility: hidden;
+    @include transform(scaleY(0));
+    @include transform-origin(top center);
+    -webkit-transition: opacity 300ms ease, visibility 300ms ease, transform 300ms ease, -webkit-transform 300ms ease;
+    transition: opacity 300ms ease, visibility 300ms ease, transform 300ms ease, -webkit-transform 300ms ease;
+
+    border-radius: 0 0 4px 4px;
+
+
+    &.show {
+      opacity: 1;
+      visibility: visible;
+      @include transform(scaleY(1));
+    }
+    .ma-dropdown-item {
+      white-space: nowrap;
+      line-height: $font20;
+      height: 32px;
+      color: $base;
+      padding: 6px 10px 6px 15px;
+      text-align: justify;
+      cursor: pointer;
+      @include transition(background-color 300ms ease);
+      @include unselect();
+
+      &:hover {
+        background-color: $hover;
+        &.active.is-multiple {
+          background-color: $hover;
+        }
+      }
+      &.active {
+        background-color: $disabled;
+        &.is-multiple {
+          background-color: inherit;
+        }
+      }
+
+      &.is-multiple {
+        padding-left: 10px;
+      }
+
+      &.null-text {
+        text-align: center;
+        pointer-events: none;
+      }
+
+      &.hide {
+        opacity: 0;
+        height: 0px;
+        padding: 0px;
+        overflow: hidden;
+        visibility: hidden;
+        @include transform(scaleY(1));
+      }
+
+      .ma-checkbox {
+        display: block;
+        pointer-events: none;
+      }
+    }
+    .ma-dropdown-container-content {
+      max-height: 32px * 5;
+      overflow: auto;
+    }
+
+    .ma-dropdown-buttons {
+      text-align: right;
+      border-top: 1px solid $disabled;
+      padding: 5px;
+    }
+
+    .ma-dropdown-search-bar {
+      padding: 5px;
+      .ma-input {
+        width: 100%;
+        input {
+          width: 100%;
+          border-color: $disabled;
+          &:hover,
+          &:focus {
+            border-color: $outlines;
+          }
+        }
+
+        &.ma-input-search-normal:before {
+          color: $outlines;
+        }
+      }
+    }
+  }
+}

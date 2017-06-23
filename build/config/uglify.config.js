@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 
 module.exports = new webpack.optimize.UglifyJsPlugin({
-  sourceMap: false,
+  sourceMap: true,
   beautify: false,
   comments: false,
   mangle: {

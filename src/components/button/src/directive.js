@@ -9,22 +9,45 @@ maClick.$inject = ['$parse', '$timeout'];
 function maClick($parse, $timeout) {
   return {
     restrict: 'A',
-    link: function (scope, element, attrs, ctrl) {
-      element.bind('click', function (e) {
-        if (element.hasClass('ma-click-disabled') || element.hasClass('disabled')) {
+    link: function(scope, element, attrs, ctrl) {
+      element.bind('click', function(e) {
+        if (element.hasClass('ma-click-disabled') || element.hasClass(
+            'disabled')) {
           return;
         }
         element.addClass('ma-click-disabled');
 
-        scope.$event = e;
-        scope.$parent.$eval(attrs.maClick, scope);
+        if (attrs.maClick) {
+          if (scope.$odd !== undefined || scope.$even !== undefined ||
+            scope.$last !== undefined || scope.$index !== undefined ||
+            scope.$middle !== undefined) {
+            scope.$event = e;
+            scope.$parent.$eval(attrs.maClick, scope);
+          } else {
+            scope.$event = e;
+            scope.$eval(attrs.maClick, scope);
+          }
+        }
 
-        $timeout(function () {});
+        $timeout();
 
-        $timeout(function () {
+        $timeout(function() {
           element.removeClass('ma-click-disabled');
-        }, attrs.delay || 50);
+        }, parseInt(attrs.delay, 10) || 50);
       });
+
+      function hasFn(fn, sc) {
+        let _hasFn = false;
+        angular.each(fn, d => {
+          if (sc[d]) {
+            _hasFn = true;
+          } else {
+            _hasFn = false;
+          }
+          sc = sc[d];
+        });
+        return _hasFn;
+      }
     }
   };
 }
@@ -38,7 +61,7 @@ function maButton() {
     template: `<div
     class="ma-button {{size}} {{type}}"
     ng-class="{
-      disabled: disabled === 'true',
+      disabled: disabled,
       flat: flat === 'true',
       active: active === 'true',
     }"
@@ -48,10 +71,10 @@ function maButton() {
       type: '@maType',
       flat: '@maFlat',
       active: '@maActive',
-      disabled: '@maDisabled',
+      disabled: '=ngDisabled',
     },
     replace: true,
-    link: function (scope, element, attrs, ctrl) {
+    link: function(scope, element, attrs, ctrl) {
 
     }
   };

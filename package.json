@@ -2,11 +2,9 @@
   "name": "meetyou-angular-ui",
   "version": "0.0.1",
   "description": "Here is the Meetyou presents implementation, product development and service in the enterprise the background",
-  "main": "./src/index.js",
+  "main": "./lib/meetyou.angular.ui.min.js",
   "scripts": {
-    "build:example": "node ./build/webpack build",
-    "build:lib": "node ./build/webpack lib",
-    "build:dll": "node ./build/webpack dll",
+    "build": "node ./build/webpack build",
     "start": "node ./build/webpack dev"
   },
   "repository": "git+https://youpinyao@github.com/youpinyao/meetyou-angular-ui.git",
@@ -23,10 +21,20 @@
   "homepage": "https://github.com/youpinyao/meetyou-angular-ui#readme",
   "dependencies": {
     "angular": "^1.6.4",
+    "angular-datepicker-custom": "2.1.5",
+    "angular-file-upload": "2.5.0",
     "angular-sanitize": "^1.6.4",
     "angular-ui-router": "^0.3.2",
+    "angular-validation": "1.4.4",
     "clipboard": "^1.6.1",
-    "jquery": "^1.12.4"
+    "debounce": "1.0.2",
+    "jquery": "^1.12.4",
+    "jquery-date-range-picker": "^1.0.0",
+    "lightgallery.js": "1.0.1",
+    "moment": "2.18.1",
+    "ng-table": "3.0.1",
+    "ui-select": "0.19.8",
+    "uuid": "3.0.1"
   },
   "devDependencies": {
     "angular2-template-loader": "0.6.2",
@@ -59,6 +67,7 @@
     "express": "4.15.2",
     "extract-text-webpack-plugin": "2.1.0",
     "file-loader": "0.11.1",
+    "happypack": "3.1.0",
     "html-loader": "0.4.5",
     "html-webpack-include-assets-plugin": "0.0.5",
     "html-webpack-plugin": "2.28.0",

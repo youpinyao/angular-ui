@@ -1,0 +1,130 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="feedback-progress-page">
+  <div class="container" ma-full-container>
+    <h2>Progress 进度条</h2>
+    <p>
+      在操作需要较长时间才能完成时，为用户显示该操作的当前进度和状态。<br/>
+      当一个操作会打断当前界面，或者需要在后台运行，且耗时可能超过2秒时；<br/>
+      当需要显示一个操作完成的百分比时。
+    </p>
+    <h3>代码演示</h3>
+    <div class="p">
+      <ma-input-number
+        ng-model="percent"
+        min="0"
+        max="100"
+        step="10"
+      ></ma-input-number>
+    </div>
+    <div class="p clearfix">
+      <ma-progress
+        ma-percent="{{percent}}"
+        ma-stroke-width="6"
+        ma-size="120"
+        ma-status="success"
+        ma-type="circle"
+        class="mr-20"
+      >
+      {{percent}}%
+      </ma-progress>
+      <ma-progress
+        ma-percent="{{percent}}"
+        ma-stroke-width="6"
+        ma-size="120"
+        ma-status="danger"
+        ma-type="circle"
+        class="mr-20"
+      >
+      {{percent}}%
+      </ma-progress>
+      <ma-progress
+        ma-percent="{{percent}}"
+        ma-stroke-width="6"
+        ma-size="120"
+        ma-status="warning"
+        ma-type="circle"
+        class="mr-20"
+      >
+      {{percent}}%
+      </ma-progress>
+
+      <ma-progress
+        ma-percent="{{percent}}"
+        ma-stroke-width="6"
+        ma-size="120"
+        ma-status="success"
+        ma-type="line"
+        class="mr-20"
+      >
+      {{percent}}%
+      </ma-progress>
+      <ma-progress
+        ma-percent="{{percent}}"
+        ma-stroke-width="6"
+        ma-size="120"
+        ma-status="danger"
+        ma-type="line"
+        class="mr-20"
+      >
+      {{percent}}%
+      </ma-progress>
+      <ma-progress
+        ma-percent="{{percent}}"
+        ma-stroke-width="6"
+        ma-size="120"
+        ma-status="warning"
+        ma-type="line"
+        class="mr-20"
+      >
+      {{percent}}%
+      </ma-progress>
+    </div>
+
+    <h3>API</h3>
+    <div class="p">
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>ma-size</td>
+          <td>尺寸</td>
+          <td>Int</td>
+          <td>120</td>
+        </tr>
+        <tr>
+          <td>ma-type</td>
+          <td>类型 line circle</td>
+          <td>String</td>
+          <td>line</td>
+        </tr>
+        <tr>
+          <td>ma-status</td>
+          <td>颜色状态 success danger warning</td>
+          <td>String</td>
+          <td>success</td>
+        </tr>
+        <tr>
+          <td>ma-percent</td>
+          <td>进度百分比</td>
+          <td>Int</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>ma-stroke-width</td>
+          <td>填充线条宽度</td>
+          <td>Int</td>
+          <td>6</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

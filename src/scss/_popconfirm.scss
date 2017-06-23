@@ -1,0 +1,35 @@
+.ma-popconfirm {
+  display: inline-block;
+}
+
+.ma-popconfirm-tooltip {
+  max-width: 260px;
+  .ma-tooltip-content {
+    padding: 12px 15px;
+    background-color: $white;
+    box-shadow: 0 1px 6px 1px rgba(0, 0, 0, 0.20);
+    border-radius: 4px;
+    font-size: $font14;
+    color: $base;
+    &:after,
+    &:before {
+      border-color: rgba(0, 0, 0, 0.20);
+    }
+    &:after {
+      border-color: $white;
+      display: block;
+    }
+    &[data-direction^="t"]:before {
+      bottom: -11px;
+    }
+    &[data-direction^="l"]:before {
+      right: -11px;
+    }
+    &[data-direction^="r"]:before {
+      left: -11px;
+    }
+    &[data-direction^="b"]:before {
+      top: -11px;
+    }
+  }
+}

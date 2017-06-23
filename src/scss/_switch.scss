@@ -1,0 +1,57 @@
+$width: 44px;
+$height: 22px;
+
+.ma-switch {
+  position: relative;
+  cursor: pointer;
+
+  input {
+    display: none;
+  }
+  display: inline-block;
+  vertical-align: middle;
+  height: $height;
+  width: $width;
+
+  .switch-appearance {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    border-radius: $height;
+    background-color: $outlines;
+    @include transition();
+
+    &:before {
+      content: "";
+      display: block;
+      width: $height - 4px;
+      height: $height - 4px;
+      border-radius: $height - 4px;
+      background-color: $white;
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      @include transition();
+    }
+  }
+
+  input:checked + .switch-appearance {
+    background-color: $primary;
+    &:before {
+      left: 24px;
+    }
+  }
+
+  input[disabled] + .switch-appearance {
+    background-color: $disabled;
+    cursor: not-allowed;
+  }
+
+  input:checked[disabled] + .switch-appearance {
+    background-color: $primary;
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}

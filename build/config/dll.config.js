@@ -3,8 +3,9 @@ const webpack = require('webpack');
 const config = require('./config.js');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const modules = require('./module.config.js');
+const pluginHappy = require('./happy.config.js');
 
-const plugins = [
+let plugins = [
   // 输出 css
   new ExtractTextPlugin('[name].dll.css'),
   new webpack.DllPlugin({
@@ -23,6 +24,8 @@ const plugins = [
     name: '[name]_library'
   })
 ];
+
+plugins = plugins.concat(pluginHappy);
 
 module.exports = function () {
   return {

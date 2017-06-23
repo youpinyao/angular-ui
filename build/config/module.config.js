@@ -10,22 +10,29 @@ const themeContent = fs.readFileSync(themePath, {
 
 
 module.exports = function (isDev) {
+  const exclude = isDev ? '/node_modules/' : '/all_modules/';
+  let include = [
+    path.join(__dirname, '../../node_modules/lightgallery.js'),
+    path.join(__dirname, '../../node_modules/angular-datepicker-custom'),
+    path.join(__dirname, '../../node_modules/ng-table'),
+    path.join(__dirname, '../../src'),
+    path.join(__dirname, '../../example'),
+  ];
+
+  if (!isDev) {
+    include = undefined;
+  }
+
   return {
     rules: [{
       test: /\.html$/,
-      exclude: /(node_modules)/,
-      use: [{
-        loader: 'html-loader',
-        options: {
-          interpolate: true,
-          ignoreCustomFragments: [/\{\{.*?}}/],
-          attrs: ['img:src', 'link:href', 'audio:src', 'video:src', 'script:src', 'div:data-src'],
-          minimize: false
-        }
-      }]
+      exclude,
+      include,
+      use: ['happypack/loader?id=html']
     }, {
       test: /\.(css|scss)$/,
-      exclude: /(node_modules)/,
+      exclude,
+      include,
       use: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [{
@@ -70,32 +77,19 @@ module.exports = function (isDev) {
       })
     }, {
       test: /\.js$/,
-      exclude: isDev ? /(node_modules)/ : /(6666666666)/,
-      use: [{
-        loader: 'babel-loader',
-        options: {
-          cacheDirectory: true,
-          presets: [
-            ['es2015', 'stage-0']
-          ],
-          plugins: [
-            'syntax-dynamic-import', ['transform-es2015-classes', {
-              loose: true
-            }],
-            'transform-es2015-object-super',
-            'transform-es3-property-literals',
-            'transform-es3-member-expression-literals'
-          ]
-        }
-      }]
+      exclude,
+      include,
+      use: ['happypack/loader?id=js']
     }, {
       test: /\.js$/,
       enforce: 'pre',
       loader: 'eslint-loader',
-      exclude: /(node_modules|tools)/
+      exclude,
+      include,
     }, {
       test: /\.(jpg|png|gif|woff|woff2|eot|ttf|svg|ico|mp3|mp4)$/,
-      exclude: /(node_modules)/,
+      exclude,
+      include,
       use: [{
         loader: 'url-loader',
         options: {

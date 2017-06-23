@@ -1,0 +1,115 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="data-entry-page">
+  <div class="container" ma-full-container>
+    <h2>Dropdown 下拉菜单</h2>
+    <p>
+      当页面上的操作命令过多时，用此组件可以收纳操作元素。点击或移入触点，会出现一个下拉菜单。可在列表中进行选择，并执行相应的命令。
+    </p>
+    <h3>代码演示</h3>
+    <div class="p clearfix">
+
+      <div class="col-12">
+        <ma-dropdown
+          class="mb-20"
+          ma-show-hover
+          ma-selected-hide
+          ma-data="dropdownItems"
+          ma-item-click="dropdownItemClick($event, $item)"
+          ma-text-key="text"
+          ma-value-key="value"
+          ma-show="showDropDown1"
+          ng-model="dropdownActiveItems"
+        >鼠标覆盖显示下拉</ma-dropdown>
+      </div>
+      <div class="col-12">
+        <ma-dropdown
+          ma-show-click
+          ma-selected-hide
+          ma-data="dropdownItems"
+          ma-item-click="dropdownItemClick($event, $item)"
+          ma-text-key="text"
+          ma-value-key="value"
+          ma-show="showDropDown2"
+          ng-model="dropdownActiveItems"
+        >鼠标点击显示下拉</ma-dropdown>
+      </div>
+
+    </div>
+    <h3>API</h3>
+    <div class="p">
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>ng-model</td>
+          <td>必填</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-show</td>
+          <td>下拉菜单是否显示，双向绑定</td>
+          <td>boolean</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>ma-text-key</td>
+          <td>下拉菜单每一项显示文本关键字</td>
+          <td>String</td>
+          <td>text</td>
+        </tr>
+        <tr>
+          <td>ma-value-key</td>
+          <td>下拉菜单每一项对值关键字</td>
+          <td>String</td>
+          <td>value</td>
+        </tr>
+        <tr>
+          <td>ma-show-hover</td>
+          <td>鼠标覆盖显示下拉</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-show-click</td>
+          <td>鼠标点击显示下拉</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-show-hover</td>
+          <td>选中下拉后关闭下拉</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-items</td>
+          <td>下拉内容</td>
+          <td>JSON Array</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-item-click</td>
+          <td>下拉项点击事件</td>
+          <td>Function</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-null-text</td>
+          <td>没下拉数据时显示的内容，默认为暂无数据，不配不显示</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

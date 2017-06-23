@@ -1,0 +1,105 @@
+.ma-modal {
+  position: fixed;
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  text-align: center;
+  @include transition();
+  visibility: hidden;
+  opacity: 0;
+  overflow: auto;
+  .ma-modal-mask {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($black, 0);
+    z-index: 1;
+    @include transition();
+    opacity: 0;
+    visibility: hidden;
+  }
+  .ma-modal-container {
+    position: relative;
+    display: inline-block;
+    width: 400px;
+    text-align: left;
+    margin: 200px auto 50px auto;
+    z-index: 2;
+    background: $white;
+    box-shadow: 0 2px 6px 1px rgba($black, 0.20);
+    border-radius: 4px;
+    @include transition();
+    opacity: 0;
+    visibility: hidden;
+    @include transform(translate(0px, -50px));
+    .ma-modal-head {
+      padding: 15px 40px 13px 20px;
+      border-bottom: 1px solid $shadow;
+      .ma-modal-title {
+        font-size: $font16;
+        color: $grey;
+      }
+      .icon-close {
+        color: $grey;
+        cursor: pointer;
+        position: absolute;
+        font-size: $font20;
+        right: 15px;
+        top: 15px;
+      }
+    }
+    .ma-modal-body {
+      word-break: break-all;
+      padding: 30px 40px;
+      .ma-confirm-title {
+        font-size: $font16;
+        color: $primary;
+        padding-top: 10px;
+        padding-bottom: 20px;
+      }
+    }
+    .ma-modal-footer {
+      text-align: right;
+      border-top: 1px solid $shadow;
+      padding: 10px 15px;
+      .ma-button {
+        & + .ma-button {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+  &.confirm .ma-modal-container .ma-modal-footer {
+    border-top: 0px;
+    padding: 0px 30px 30px 10px;
+  }
+  &.alert .ma-modal-container {
+    width: 300px;
+    .ma-alert-content {
+      padding-top: 10px;
+      text-align: center;
+    }
+    .ma-modal-footer {
+      border-top: 0px;
+      padding: 0px 0px 20px 0px;
+      text-align: center;
+    }
+  }
+  &.show {
+    visibility: visible;
+    opacity: 1;
+    .ma-modal-mask {
+      visibility: visible;
+      opacity: 1;
+    }
+    .ma-modal-container {
+      visibility: visible;
+      opacity: 1;
+      @include transform(translate(0px, 0px));
+    }
+  }
+}

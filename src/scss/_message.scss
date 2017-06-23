@@ -1,0 +1,79 @@
+/*弱提示*/
+
+.weak-tip {
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  z-index: 1100;
+  right: 0px;
+  top: 100px;
+  padding: 0px 10px 0px 10px;
+}
+
+.weak-tip>div>div {
+  vertical-align: top;
+  display: inline-block;
+  opacity: 0;
+  position: relative;
+  line-height: 22px;
+  font-size: 14px;
+  color: $green;
+  border-radius: 4px;
+  text-align: left;
+  padding: 0px 65px 0px 20px;
+  height: 0px;
+  overflow: hidden;
+  margin-bottom: 0px;
+  border: 1px solid $success;
+  border-width: 0px;
+  background-color: $successBg;
+  box-shadow: 0 2px 5px 0 rgba($success, 0.20);
+  min-width: 350px;
+  max-width: 350px;
+  @include transition(all 600ms ease);
+  @include transform(translateY(-30px));
+}
+
+.weak-tip>div>div:after {
+  content: "关闭";
+  line-height: 38px;
+  display: block;
+  font-size: 14px;
+  position: absolute;
+  right: 20px;
+  top: 0px;
+  color: $green;
+  cursor: pointer;
+}
+
+.weak-tip>div>div.show-in {
+  @include transition(all 300ms ease);
+  @include transform(translateY(0px));
+  opacity: 1;
+  padding: 8px 65px 8px 20px;
+  border-width: 1px;
+  height: 38px;
+  margin-bottom: 10px;
+}
+
+.weak-tip>div>div.weak-tip-danger {
+  border-color: $danger;
+  background-color: $dangerBg;
+  color: $danger;
+  box-shadow: 0 2px 5px 0 rgba($danger, 0.20);
+}
+
+.weak-tip>div>div.weak-tip-danger:after {
+  color: $danger;
+}
+
+.weak-tip>div>div.weak-tip-warning {
+  border-color: $warning;
+  background-color: $warningBg;
+  color: $warning;
+  box-shadow: 0 2px 5px 0 rgba($warning, 0.20);
+}
+
+.weak-tip>div>div.weak-tip-warning:after {
+  color: $warning;
+}

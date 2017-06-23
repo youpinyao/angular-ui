@@ -1,0 +1,33 @@
+<div class="ma-auto-complete"
+  ng-class="{
+    show: $ctrl.showDropDown
+  }"
+>
+  <ma-input
+    name="{{name}}"
+    type="{{type}}"
+    ng-model="model"
+    maxlength="{{maxlength}}"
+    placeholder="{{placeholder}}"
+    accept="{{accept}}"
+    pattern="{{pattern}}"
+    min="{{min}}"
+    max="{{max}}"
+    step="{{step}}"
+    ng-readonly="readonly"
+    ng-disabled="disabled"
+
+    ma-clear="clear"
+  >
+  </ma-input>
+  <ma-dropdown
+    ma-selected-hide
+    ma-text-key="{{textKey}}"
+    ma-value-key="{{valueKey}}"
+    ma-data="dropdownItems"
+    ma-item-click="$ctrl.dropdownItemClick($event, $item)"
+    ma-show="$ctrl.showDropDown"
+    ng-model="model"
+  >
+  </ma-dropdown>
+</div>

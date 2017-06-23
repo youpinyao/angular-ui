@@ -1,0 +1,12 @@
+<div class="ma-step" ng-class="{
+        active: index > _index,
+        current: index == _index,
+      }">
+
+  <i ng-if="type === 'default' && index <= _index">{{_index + 1}}</i>
+  <ma-icon ma-type="check" ng-if="type === 'default' && index > _index"></ma-icon>
+
+  <i ng-if="type === 'mini'"></i>
+  <span class="text" ng-transclude></span>
+  <span class="line"></span>
+</div>

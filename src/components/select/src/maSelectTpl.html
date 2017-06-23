@@ -1,0 +1,62 @@
+<div class="ma-select"
+  ng-class="{
+    'show': $ctrl.showDropDown || static == 'true',
+    'is-multiple': multiple,
+    'top': $ctrl.direction == 'top',
+  }"
+>
+  <ma-input
+    ng-class="{
+      'ma-input-arrow-down': !$ctrl.showDropDown,
+      'ma-input-arrow-up': $ctrl.showDropDown
+    }"
+    type="text"
+    ng-model="model[textKey]"
+    placeholder="{{placeholder}}"
+    ng-readonly="true"
+    ng-disabled="disabled"
+  >
+    <div
+      class="ma-select-multiple-result"
+      ng-if="multiple"
+      ng-class="{
+        'has-selected': model.length
+      }"
+    >
+      <div
+        ng-if="model.length"
+        ng-repeat="item in model"
+        class="multiple-item"
+        ma-click="$ctrl.stopPropagation($event)"
+      >
+        <span ng-bind-html="item[textKey]"></span>
+        <ma-icon
+          ma-type="closecircle"
+          ma-click="$ctrl.removeItem($event, item)"
+          ></ma-icon>
+      </div>
+    </div>
+
+  </ma-input>
+  <ma-dropdown
+    ma-selected-hide
+    ma-text-key="{{textKey}}"
+    ma-value-key="{{valueKey}}"
+    ma-data="dropdownItems"
+    ma-item-click="$ctrl.dropdownItemClick($event, $item)"
+    ma-show="$ctrl.showDropDown"
+    ma-static="{{static}}"
+    ng-model="model"
+    ng-disabled="disabled"
+
+    ma-null-text="true"
+    ma-search="{{searchBar}}"
+    ma-search-key="searchKey"
+    ma-clear="{{clear}}"
+    ma-multiple="{{multiple}}"
+
+    ma-direction="$ctrl.direction"
+  >
+  </ma-dropdown>
+
+</div>

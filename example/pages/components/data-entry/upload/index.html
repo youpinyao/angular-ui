@@ -1,0 +1,98 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="data-entry-upload-page">
+  <div class="container" ma-full-container>
+    <h2>Upload 上传</h2>
+    <p>
+     上传是将信息（网页、文字、图片、视频等）通过网页或者上传工具发布到远程服务器上的过程。<br/>
+      当需要上传一个或一些文件时。<br/>
+      当需要展现上传的进度时。<br/>
+      当需要使用拖拽交互时。
+    </p>
+    <h3>代码演示</h3>
+    <div class="p clearfix">
+      <div class="mb-20 clearfix">
+        <div class="col-12 pr-20">
+          <div ma-upload ng-model="uploadValue"></div>
+        </div>
+        <div class="col-12">
+          <ma-button>
+            <div ma-upload ng-model="uploadValue">上传文件</div>
+          </ma-button>
+        </div>
+      </div>
+      <div class="col-24">
+        <div ma-upload-image ng-model="uploadValue"></div>
+      </div>
+    </div>
+    <div class="p">
+      <code>
+        ng-model 数据结构
+        [{
+          id: '',
+          name: '',
+          progress: 100, //选填
+          showDelete: false, //选填
+        }]
+      </code>
+      <code>
+        ma-upload-config 配置详细
+        {
+          url: '/upload/index',
+          viewUrl: '/upload/download',
+          alias: 'file',
+          headers: {},
+          queue: [],
+          progress: 0,
+          autoUpload: true,
+          removeAfterUpload: false,
+          method: 'POST',
+          filters: [],
+          formData: [],
+          queueLimit: Number.MAX_VALUE,
+          withCredentials: false,
+          disableMultipart: false
+
+          multiple: false
+          limit: Number.MAX_VALUE,
+          size: 10 * 1024 * 1000,
+          accept: '',
+        }
+      </code>
+    </div>
+
+    <h3>API</h3>
+    <div class="p">
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>ng-model</td>
+          <td>必填</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-upload-config</td>
+          <td>必填</td>
+          <td>JSON</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-show-delete</td>
+          <td>必填</td>
+          <td>Boolean</td>
+          <td>true</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+@import '../../../../../src/scss/theme';
+@import '../../../../../src/scss/mixin';
+.data-display-tooptip-page {
+  .buttons {
+    letter-spacing: -0.31em;
+    .ma-button {
+      letter-spacing: normal;
+      margin: 10px 10px;
+    }
+  }
+}

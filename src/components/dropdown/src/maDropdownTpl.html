@@ -1,0 +1,57 @@
+<div class="ma-dropdown">
+  <div ng-transclude></div>
+  <div class="ma-dropdown-container"
+    ng-class="{
+      show: show || static == 'true'
+    }"
+    >
+    <div
+      class="ma-dropdown-search-bar"
+      ng-show="searchBar == 'true'"
+    >
+      <ma-input
+        ng-model="searchKey"
+        class="ma-input-search-normal"
+      ></ma-input>
+    </div>
+    <div class="ma-dropdown-item null-text" ng-if="(nullText || nullText == 'true') && data.length <= 0">{{nullText == 'true' ? '暂无数据' : nullText}}</div>
+
+    <div class="ma-dropdown-container-content">
+      <div
+        class="ma-dropdown-item"
+        ng-repeat="item in data | filter : searchKey"
+        ma-click="_itemClick($event, item)"
+        ng-class="{
+          active: _activeItems.indexOf(item[valueKey]) !== -1,
+          'is-multiple': multiple == 'true',
+          hide: item.hide === true
+        }"
+        >
+          <ma-checkbox
+            ng-disabled="disabled"
+            ng-show="multiple == 'true'"
+            ng-model="item.checked"
+          >
+            <span ng-bind-html="item[textKey]"></span>
+          </ma-checkbox>
+
+          <span
+            ng-show="multiple != 'true'"
+            ng-bind-html="item[textKey]"
+          ></span>
+
+      </div>
+    </div>
+
+    <div
+      class="ma-dropdown-buttons"
+      ng-show="clear == 'true'"
+      ma-click="$ctrl.clearValue()"
+    >
+      <ma-button
+        ma-size="mini"
+        ma-type="primary"
+      >清空</ma-button>
+    </div>
+  </div>
+</div>

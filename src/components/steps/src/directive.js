@@ -1,4 +1,6 @@
 import moduleName from './name.js';
+import maStepTpls from './maStepsTpl.html';
+import maStepTpl from './maStepTpl.html';
 
 angular.module(moduleName)
   .directive('maSteps', maSteps)
@@ -11,15 +13,18 @@ function maSteps() {
     restrict: 'E',
     replace: true,
     transclude: true,
-    template: `<div class="ma-steps"
-      ng-transclude>
-    </div>`,
+    template: maStepTpls,
     scope: {
       index: '@maIndex',
+      type: '@maType',
     },
     controllerAs: '$ctrl',
     controller: ['$scope', function ($scope) {
       $scope._index = -1;
+
+      if (!$scope.type) {
+        $scope.type = 'default';
+      }
     }],
     link: function (scope, element, attrs, ctrl) {
 
@@ -27,24 +32,15 @@ function maSteps() {
   };
 }
 
-maStep.$inject = [];
+maStep.$inject = ['$timeout'];
 
-function maStep() {
+function maStep($timeout) {
   return {
     restrict: 'E',
     replace: true,
     transclude: true,
     require: ['^maSteps'],
-    template: `<div
-      class="ma-step"
-      ng-class="{
-        active: index > _index,
-        current: index == _index,
-      }"
-      >
-      <i></i>
-      <span ng-transclude></span>
-    </div>`,
+    template: maStepTpl,
     scope: true,
     link: function (scope, element, attrs, ctrl) {
       const parentScope = scope.$parent.$parent;
@@ -54,6 +50,9 @@ function maStep() {
 
       parentScope.$watch('index', d => {
         scope.index = d;
+      });
+      parentScope.$watch('type', d => {
+        scope.type = d;
       });
     }
   };

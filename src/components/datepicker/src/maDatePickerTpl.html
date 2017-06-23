@@ -1,0 +1,17 @@
+<div class="ma-input ma-date-picker">
+  <input class="ma-input"
+    date-time
+    ng-readonly="true"
+    ng-model="model"
+    view="{{view}}"
+    date-change="changeValue"
+    min-view="{{minView}}"
+    format="{{format}}">
+  <ma-icon ma-type="calendar"></ma-icon>
+  <ma-icon ma-type="close" ma-click="clear()" ng-show="!!model" class="clear"></ma-icon>
+  <!--<div date-picker
+    view="{{view}}"
+    ng-model="model"
+    min-view="{{minView}}"
+    format="{{format}}"></div>-->
+</div>

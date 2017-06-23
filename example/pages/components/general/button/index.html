@@ -4,7 +4,7 @@
   <ma-crumb-item>Font 文字</ma-crumb-item>
 </ma-crumb> -->
 <ma-crumb-auto></ma-crumb-auto>
-<div class="general-icon-page">
+<div class="general-button-page">
   <div class="container" ma-full-container>
     <h2>Button 按钮</h2>
     <p>按钮用于开始一个即时操作。</p>
@@ -16,34 +16,35 @@
           <ma-button ma-active="{{sizeModel == 'large'}}" ma-click="sizeModel = 'large'">Large</ma-button>
           <ma-button ma-active="{{sizeModel == 'default'}}" ma-click="sizeModel = 'default'">Default</ma-button>
           <ma-button ma-active="{{sizeModel == 'small'}}" ma-click="sizeModel = 'small'">Small</ma-button>
+          <ma-button ma-active="{{sizeModel == 'mini'}}" ma-click="sizeModel = 'mini'">Mini</ma-button>
         </div>
       </div>
       <div class="col-12">
         <h4>Default</h4>
         <ma-button ma-size="{{sizeModel}}"><ma-icon ma-type="download"></ma-icon>Default</ma-button>
-        <ma-button ma-size="{{sizeModel}}" ma-disabled="true">Default</ma-button>
+        <ma-button ma-size="{{sizeModel}}" ng-disabled="true">Default</ma-button>
 
         <h4>Primary</h4>
         <ma-button ma-size="{{sizeModel}}" ma-type="primary">Primary</ma-button>
-        <ma-button ma-size="{{sizeModel}}" ma-type="primary" ma-disabled="true">Primary</ma-button>
+        <ma-button ma-size="{{sizeModel}}" ma-type="primary" ng-disabled="true">Primary</ma-button>
 
         <h4>Danger</h4>
         <ma-button ma-size="{{sizeModel}}" ma-type="danger">Danger</ma-button>
-        <ma-button ma-size="{{sizeModel}}" ma-type="danger" ma-disabled="true">Danger</ma-button>
+        <ma-button ma-size="{{sizeModel}}" ma-type="danger" ng-disabled="true">Danger</ma-button>
       </div>
 
       <div class="col-12">
         <h4>Default Flat</h4>
         <ma-button ma-size="{{sizeModel}}" ma-flat="true">Default</ma-button>
-        <ma-button ma-size="{{sizeModel}}" ma-flat="true" ma-disabled="true">Default</ma-button>
+        <ma-button ma-size="{{sizeModel}}" ma-flat="true" ng-disabled="true">Default</ma-button>
 
         <h4>Primary Flat</h4>
         <ma-button ma-size="{{sizeModel}}" ma-flat="true" ma-type="primary">Primary</ma-button>
-        <ma-button ma-size="{{sizeModel}}" ma-flat="true" ma-type="primary" ma-disabled="true">Primary</ma-button>
+        <ma-button ma-size="{{sizeModel}}" ma-flat="true" ma-type="primary" ng-disabled="true">Primary</ma-button>
 
         <h4>Danger Flat</h4>
         <ma-button ma-size="{{sizeModel}}" ma-flat="true" ma-type="danger">Danger</ma-button>
-        <ma-button ma-size="{{sizeModel}}" ma-flat="true" ma-type="danger" ma-disabled="true">Danger</ma-button>
+        <ma-button ma-size="{{sizeModel}}" ma-flat="true" ma-type="danger" ng-disabled="true">Danger</ma-button>
       </div>
     </div>
 
@@ -55,6 +56,12 @@
           <th>说明</th>
           <th>类型</th>
           <th>默认值</th>
+        </tr>
+        <tr>
+          <td>ma-click</td>
+          <td>点击触发事件，除了 button 其他地方也可以使用，只要注入 button 组件</td>
+          <td>String</td>
+          <td>-</td>
         </tr>
         <tr>
           <td>ma-size</td>
@@ -81,7 +88,7 @@
           <td>false</td>
         </tr>
         <tr>
-          <td>ma-disabled</td>
+          <td>ng-disabled</td>
           <td>是否为不可用状态</td>
           <td>Boolean</td>
           <td>false</td>

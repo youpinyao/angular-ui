@@ -1,24 +1,17 @@
 import './scss/app.scss';
 
-import utils from './utils';
-
-import icons from './components/icons';
-import menu from './components/menu';
-import button from './components/button';
-import crumb from './components/crumb';
-import tabs from './components/tabs';
-import steps from './components/steps';
-
+import './utils/src/angular-locale_zh-ch.js';
 
 const moduleName = require('./name.js');
 
+import utils from './utils';
+import components from './components/index.js';
+
 angular.module(moduleName, [
-  icons,
-  menu,
-  button,
-  crumb,
-  tabs,
-  steps,
-]).config(function () {}).run(function () {});
+  utils,
+  components,
+]).config(['$qProvider', function($qProvider) {
+  $qProvider.errorOnUnhandledRejections(false);
+}]).run(function() {});
 
 export default moduleName;

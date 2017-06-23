@@ -1,1 +1,1 @@
-module.exports = 'meetyou.angular.ui';
+module.exports = 'meetyou.angular';

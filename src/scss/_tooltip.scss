@@ -1,0 +1,169 @@
+$arrowWidth: 5px;
+.ma-tooltip {
+  position: absolute;
+  z-index: 10;
+  top: 0px;
+  left: 0px;
+  color: $white;
+  font-size: $font12;
+  padding: 10px;
+  -webkit-transition: opacity 300ms ease, visibility 300ms ease, -webkit-transform 300ms ease;
+  transition: opacity 300ms ease, visibility 300ms ease, -webkit-transform 300ms ease;
+  transition: opacity 300ms ease, transform 300ms ease, visibility 300ms ease;
+  transition: opacity 300ms ease, transform 300ms ease, visibility 300ms ease, -webkit-transform 300ms ease;
+  opacity: 0;
+  visibility: hidden;
+  max-width: 200px;
+  &[data-direction^="tc"] {
+    -webkit-transform-origin: bottom center;
+    transform-origin: bottom center;
+    @include transform(translate(0, 10px) scale(1));
+  }
+  &[data-direction^="tl"] {
+    -webkit-transform-origin: bottom left;
+    transform-origin: bottom left;
+    @include transform(translate(0, 10px) scale(1));
+  }
+  &[data-direction^="tr"] {
+    -webkit-transform-origin: bottom right;
+    transform-origin: bottom right;
+    @include transform(translate(0, 10px) scale(1));
+  }
+  &[data-direction^="lc"] {
+    -webkit-transform-origin: right center;
+    transform-origin: right center;
+    @include transform(translate(10px, 0) scale(1));
+  }
+  &[data-direction^="lt"] {
+    -webkit-transform-origin: right top;
+    transform-origin: right top;
+    @include transform(translate(10px, 0) scale(1));
+  }
+  &[data-direction^="lb"] {
+    -webkit-transform-origin: right bottom;
+    transform-origin: right bottom;
+    @include transform(translate(10px, 0) scale(1));
+  }
+  &[data-direction^="rc"] {
+    -webkit-transform-origin: left center;
+    transform-origin: left center;
+    @include transform(translate(-10px, 0) scale(1));
+  }
+  &[data-direction^="rt"] {
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+    @include transform(translate(-10px, 0) scale(1));
+  }
+  &[data-direction^="rb"] {
+    -webkit-transform-origin: left bottom;
+    transform-origin: left bottom;
+    @include transform(translate(-10px, 0) scale(1));
+  }
+  &[data-direction^="bc"] {
+    -webkit-transform-origin: top center;
+    transform-origin: top center;
+    @include transform(translate(0, -10px) scale(1));
+  }
+  &[data-direction^="bl"] {
+    -webkit-transform-origin: top left;
+    transform-origin: top left;
+    @include transform(translate(0, -10px) scale(1));
+  }
+  &[data-direction^="br"] {
+    -webkit-transform-origin: top right;
+    transform-origin: top right;
+    @include transform(translate(0, -10px) scale(1));
+  }
+  .ma-tooltip-content {
+    position: relative;
+    background-color: rgba($black, 0.8);
+    border-radius: 4px;
+    padding: 5px 10px 6px 10px;
+    word-break: break-all;
+    text-align: justify;
+    &:after,
+    &:before {
+      position: absolute;
+      margin: auto;
+      content: "";
+      display: block;
+      width: 0px;
+      height: 0px;
+      border: $arrowWidth solid rgba($black, 0.8);
+    }
+    &:after {
+      display: none;
+    }
+    &[data-direction^="t"]:after,
+    &[data-direction^="t"]:before {
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      bottom: -($arrowWidth * 2);
+    }
+    &[data-direction^="l"]:after,
+    &[data-direction^="l"]:before {
+      border-bottom-color: transparent;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      right: -($arrowWidth * 2);
+    }
+    &[data-direction^="r"]:after,
+    &[data-direction^="r"]:before {
+      border-bottom-color: transparent;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      left: -($arrowWidth * 2);
+    }
+    &[data-direction^="b"]:after,
+    &[data-direction^="b"]:before {
+      border-top-color: transparent;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      top: -($arrowWidth * 2);
+    }
+    &[data-direction="bc"]:after,
+    &[data-direction="tc"]:after,
+    &[data-direction="bc"]:before,
+    &[data-direction="tc"]:before {
+      left: 0px;
+      right: 0px;
+    }
+    &[data-direction="bl"]:after,
+    &[data-direction="tl"]:after,
+    &[data-direction="bl"]:before,
+    &[data-direction="tl"]:before {
+      left: 15%;
+    }
+    &[data-direction="br"]:after,
+    &[data-direction="tr"]:after,
+    &[data-direction="br"]:before,
+    &[data-direction="tr"]:before {
+      right: 15%;
+    }
+    &[data-direction="rc"]:after,
+    &[data-direction="lc"]:after,
+    &[data-direction="rc"]:before,
+    &[data-direction="lc"]:before {
+      top: 0px;
+      bottom: 0px;
+    }
+    &[data-direction="rt"]:after,
+    &[data-direction="lt"]:after,
+    &[data-direction="rt"]:before,
+    &[data-direction="lt"]:before {
+      top: 15%;
+    }
+    &[data-direction="rb"]:after,
+    &[data-direction="lb"]:after,
+    &[data-direction="rb"]:before,
+    &[data-direction="lb"]:before {
+      bottom: 15%;
+    }
+  }
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    @include transform(translate(0px, 0px) scale(1));
+  }
+}

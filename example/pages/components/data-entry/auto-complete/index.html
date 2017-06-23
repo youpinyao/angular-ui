@@ -1,0 +1,84 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="data-entry-page">
+  <div class="container" ma-full-container>
+    <h2>AutoComplete 自动完成</h2>
+    <p>
+      输入框自动完成功能。
+    </p>
+    <h3>代码演示</h3>
+    <div class="p clearfix">
+      <div class="col-12">
+        <h4>static data</h4>
+        <div>
+          <ma-auto-complete
+            ma-clear="true"
+            ng-model="autoCompleteValue"
+            placeholder="auto complete"
+
+            ma-value-key="value"
+            ma-text-key="text"
+            ma-data="data"
+          >
+          </ma-auto-complete>
+        </div>
+      </div>
+      <div class="col-12">
+        <h4>dynamic data</h4>
+        <div>
+          <ma-auto-complete
+            ma-clear="true"
+            ng-model="autoCompleteValue"
+            placeholder="auto complete dynamic"
+
+            ma-value-key="value"
+            ma-text-key="text"
+            ma-get-data="getData($searchKey)"
+          >
+          </ma-auto-complete>
+        </div>
+      </div>
+
+    </div>
+    <h3>API</h3>
+    <div class="p">
+      <div class="p mb-20">同 <a href="#!/components/data-enpty/input">Input</a> 配置相同多出以下配置</div>
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>ma-text-key</td>
+          <td>每一项显示文本关键字</td>
+          <td>String</td>
+          <td>text</td>
+        </tr>
+        <tr>
+          <td>ma-value-key</td>
+          <td>每一项对应值关键字</td>
+          <td>String</td>
+          <td>value</td>
+        </tr>
+        <tr>
+          <td>ma-data</td>
+          <td>选填，下拉所要显示的列表</td>
+          <td>Array</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-get-data</td>
+          <td>选填，返回下拉所要显示的列表，可以是 promise，也可以是Array， @params {$searchKey: String}</td>
+          <td>Function</td>
+          <td>-</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
