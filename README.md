@@ -40,10 +40,10 @@ $ yarn add meetyou-angular-ui
 > ## 项目注入
 
 ```
-import meetyouAngularUI from 'meetyou-angular-ui';
+import meetyou from 'meetyou-angular-ui';
 
 angular.module('app', [
-  meetyouAngularUI,
+  meetyou,
 ]);
 ```
   

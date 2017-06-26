@@ -1,4 +1,5 @@
 .dll
+.happypack
 .idea/
 .project
 .buildpath
@@ -11,4 +12,3 @@
 .svn/
 node_modules/
 .eslintcache
-dist

@@ -1,0 +1,1162 @@
+webpackJsonp([4,6,11,22,27],{
+
+/***/ "+Ovo":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _name = __webpack_require__("g5ku");
+
+var _name2 = _interopRequireDefault(_name);
+
+var _maInputTpl = __webpack_require__("6vUj");
+
+var _maInputTpl2 = _interopRequireDefault(_maInputTpl);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default']).directive('maInput', maInput).directive('maNum', maNum);
+
+maInput.$inject = [];
+
+function maInput() {
+  return {
+    restrict: 'E',
+    replace: true,
+    transclude: true,
+    scope: {
+      name: '@name',
+      type: '@type',
+      model: '=ngModel',
+
+      maxlength: '@maxlength',
+      placeholder: '@placeholder',
+      accept: '@accept',
+      pattern: '@pattern',
+      min: '@min',
+      max: '@max',
+      step: '@step',
+      readonly: '=ngReadonly',
+      disabled: '=ngDisabled',
+
+      clear: '=maClear'
+    },
+    template: _maInputTpl2['default'],
+    controllerAs: '$ctrl',
+    controller: ['$scope', function ($scope) {
+      this.clearClick = function () {
+        $scope.model = '';
+      };
+    }],
+    link: function link(scope, element, attrs, ctrl) {}
+  };
+}
+
+maNum.$inbject = ['$filter', '$timeout', '$parse'];
+
+function maNum($filter, $timeout, $parse) {
+  return {
+    restrict: 'A',
+    link: function link(scope, elem, attrs, controller) {
+      var decimal = attrs.maDecimal !== undefined;
+      var ngModel = $parse(attrs.ngModel);
+      var min = parseFloat(attrs.min);
+      var max = parseFloat(attrs.max);
+
+      attrs.$observe('min', function (d) {
+        min = d || undefined;
+      });
+      attrs.$observe('max', function (d) {
+        max = d || undefined;
+      });
+
+      if (!isNaN(parseInt(attrs.maDecimal, 10))) {
+        decimal = parseInt(attrs.maDecimal, 10);
+      }
+
+      if (decimal === 0 || attrs.maDecimal === '') {
+        decimal = false;
+      }
+
+      if (decimal === true) {
+        decimal = 2;
+      }
+
+      if (elem[0].tagName.toLowerCase() !== 'input') {
+        elem.find('input').bind('keyup', keyup);
+      } else {
+        elem.bind('keyup', keyup);
+      }
+
+      function keyup(e) {
+        var _this = this;
+
+        var v = this.value + '';
+
+        v = v.split('');
+
+        var str = [];
+        var decimalCount = 0;
+
+        if (v[0] === '-' && v.length === 1) {
+          // 为一个负号时不处理
+          str = v;
+        } else {
+          angular.forEach(v, function (d, k) {
+            if (decimal && d == '。') {
+              d = '.';
+            }
+
+            if (decimal && k !== 0 && d == '.' && decimalCount === 0) {
+              str.push(d);
+              decimalCount++;
+            }
+
+            if (!isNaN(parseInt(d, 10))) {
+              str.push(d);
+            }
+
+            if (k === 0 && d === '-') {
+              str.push(d);
+            }
+          });
+
+          if (str[str.length - 1] !== '.' && (!isNaN(min) || !isNaN(max))) {
+            str = parseFloat(str.join(''));
+
+            if (isNaN(str)) {
+              str = '';
+            }
+
+            if ((str || str === 0) && !isNaN(min) && str < min) {
+              str = min;
+            }
+            if ((str || str === 0) && !isNaN(max) && str > max) {
+              str = max;
+            }
+
+            str = (str + '').split('');
+          }
+        }
+
+        $timeout(function () {
+          _this.value = str.join('') || '';
+
+          if (!isNaN(decimal) && _this.value && _this.value.split('.')[1] && _this.value.split('.')[1].length > decimal) {
+            _this.value = parseFloat(_this.value).toFixed(decimal);
+          }
+          if (ngModel && typeof ngModel.assign === 'function') {
+            ngModel.assign(scope, _this.value);
+          }
+        });
+      }
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "/cD4":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _name = __webpack_require__("brJl");
+
+var _name2 = _interopRequireDefault(_name);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default'], []).config(function () {}).run(function () {});
+
+__webpack_require__("qSUM");
+
+exports['default'] = _name2['default'];
+
+/***/ }),
+
+/***/ "6vUj":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"ma-input\">\n  <input\n    ng-show=\"type !== 'textarea'\"\n    type=\"{{type}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    placeholder=\"{{placeholder}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  />\n\n  <textarea\n    ng-show=\"type === 'textarea'\"\n    type=\"{{type}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    placeholder=\"{{placeholder}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  ></textarea>\n\n  <ma-icon\n    class=\"clear\"\n    ng-show=\"clear && model\"\n    ma-type=\"close\"\n    ma-click=\"$ctrl.clearClick($event)\"\n  ></ma-icon>\n\n  <div ng-transclude></div>\n</div>\n";
+
+/***/ }),
+
+/***/ "Cs5U":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _name = __webpack_require__("g5ku");
+
+var _name2 = _interopRequireDefault(_name);
+
+var _icons = __webpack_require__("/cD4");
+
+var _icons2 = _interopRequireDefault(_icons);
+
+var _button = __webpack_require__("lkey");
+
+var _button2 = _interopRequireDefault(_button);
+
+__webpack_require__("RFlv");
+
+__webpack_require__("gU1X");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default'], [_icons2['default'], _button2['default'], 'validation', 'validation.rule']).config(function () {}).run(function () {});
+
+__webpack_require__("+Ovo");
+
+exports['default'] = _name2['default'];
+
+/***/ }),
+
+/***/ "FnLJ":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports['default'] = 'meetyou.angular.ui.autoComplete';
+
+/***/ }),
+
+/***/ "K6Pd":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"ma-auto-complete\"\n  ng-class=\"{\n    show: $ctrl.showDropDown\n  }\"\n>\n  <ma-input\n    name=\"{{name}}\"\n    type=\"{{type}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    placeholder=\"{{placeholder}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n\n    ma-clear=\"clear\"\n  >\n  </ma-input>\n  <ma-dropdown\n    ma-selected-hide\n    ma-text-key=\"{{textKey}}\"\n    ma-value-key=\"{{valueKey}}\"\n    ma-data=\"dropdownItems\"\n    ma-item-click=\"$ctrl.dropdownItemClick($event, $item)\"\n    ma-show=\"$ctrl.showDropDown\"\n    ng-model=\"model\"\n  >\n  </ma-dropdown>\n</div>\n";
+
+/***/ }),
+
+/***/ "LJOD":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _name = __webpack_require__("YO30");
+
+var _name2 = _interopRequireDefault(_name);
+
+var _jquery = __webpack_require__("7t+N");
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _maDropdownTpl = __webpack_require__("lQqW");
+
+var _maDropdownTpl2 = _interopRequireDefault(_maDropdownTpl);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default']).directive('maDropdown', maDropdown);
+
+maDropdown.$inject = ['$timeout'];
+
+function maDropdown($timeout) {
+  return {
+    restrict: 'E',
+    replace: true,
+    transclude: true,
+    template: _maDropdownTpl2['default'],
+    scope: {
+      show: '=maShow',
+      showHover: '@maShowHover',
+      showClick: '@maShowClick',
+      data: '=maData',
+      itemClick: '&maItemClick',
+      valueKey: '@maValueKey',
+      textKey: '@maTextKey',
+      selectedHide: '@maSelectedHide',
+
+      activeItems: '=ngModel',
+
+      nullText: '@maNullText',
+      searchBar: '@maSearch',
+      searchKey: '=maSearchKey',
+      multiple: '@maMultiple',
+      clear: '@maClear',
+
+      direction: '=maDirection',
+      'static': '@maStatic',
+
+      disabled: '=ngDisabled'
+    },
+    controllerAs: '$ctrl',
+    controller: ['$scope', function ($scope) {
+      this.clearValue = function () {
+        $scope.activeItems = undefined;
+      };
+    }],
+    link: function link(scope, element, attrs, ctrl) {
+      var containerCls = '.ma-dropdown-container';
+      var showTimeout = null;
+
+      // item 点击事件
+      scope._itemClick = _itemClick;
+
+      // 鼠标覆盖显示
+      if (scope.showHover !== undefined) {
+        (0, _jquery2['default'])(element).hover(function () {
+          scope.show = true;
+          $timeout();
+        }, function () {
+          scope.show = false;
+          $timeout();
+        });
+      }
+
+      // 鼠标点击显示
+      if (scope.showClick !== undefined) {
+        (0, _jquery2['default'])(element).click(function (e) {
+          scope.show = true;
+          $timeout();
+          e.stopPropagation();
+        });
+        (0, _jquery2['default'])('body').on('click', function () {
+          scope.show = false;
+          $timeout();
+        });
+      }
+
+      // 监听show 变化
+      scope.$watch('show', function (d) {
+        var container = (0, _jquery2['default'])(containerCls);
+        var ww = (0, _jquery2['default'])(window).width();
+        var wh = (0, _jquery2['default'])(window).height();
+        var offset = (0, _jquery2['default'])(element).find(containerCls).offset();
+
+        if (d) {
+          $timeout.cancel(showTimeout);
+          if (offset.left + container.width() > ww) {
+            container.parent().addClass('right');
+          }
+          if (offset.top + container.height() > wh) {
+            container.parent().addClass('top');
+            setDirection('top');
+          }
+        } else {
+          showTimeout = $timeout(function () {
+            container.parent().removeClass('right').removeClass('top');
+
+            setDirection('');
+          }, 600);
+        }
+      });
+
+      scope.textKey = 'text';
+      scope.valueKey = 'value';
+      attrs.$observe('maTextKey', function (d) {
+        scope.textKey = d || 'text';
+      });
+      attrs.$observe('maValueKey', function (d) {
+        scope.valueKey = d || 'value';
+      });
+
+      scope.$watch('data', function (d) {
+        checkCheckbox();
+      });
+      scope.$watch('searchKey', function (d) {
+        checkCheckbox();
+      });
+
+      // 监听选中变化
+      scope.$watch('activeItems', function (d) {
+        var _activeItems = [];
+
+        if (!angular.isNull(d)) {
+          if (angular.isArray(d)) {
+            angular.each(d, function (v, k) {
+              if (!angular.isNull(v)) {
+                if (angular.isObject(v)) {
+                  _activeItems.push(v[scope.valueKey]);
+                } else {
+                  _activeItems.push(v);
+                  scope.activeItems[k] = getActiveItem(v);
+                }
+              }
+            });
+          } else if (angular.isObject(d)) {
+            _activeItems.push(d[scope.valueKey]);
+          } else {
+            _activeItems.push(d);
+          }
+        }
+
+        scope._activeItems = _activeItems;
+
+        checkCheckbox();
+      });
+
+      function _itemClick($event, item) {
+        if (scope.disabled) {
+          return;
+        }
+
+        scope.itemClick({
+          $event: $event,
+          $item: item
+        });
+
+        $event.stopPropagation();
+        if (scope.selectedHide !== undefined && scope.multiple != 'true') {
+          scope.show = false;
+          $timeout();
+        }
+      }
+
+      function checkCheckbox() {
+        // 所有 checked 为 false
+        if (scope.multiple) {
+          angular.each(scope.data, function (d) {
+            if (scope._activeItems && scope._activeItems.indexOf(d[scope.valueKey]) !== -1) {
+              d.checked = true;
+            } else {
+              d.checked = false;
+            }
+          });
+        }
+      }
+
+      function getActiveItem(value) {
+        var data = void 0;
+
+        angular.each(scope.data, function (d) {
+          if (d[scope.valueKey] == value) {
+            data = d;
+          }
+        });
+
+        return data;
+      }
+
+      function setDirection(direction) {
+        if ((0, _jquery2['default'])(element).attr('ma-direction')) {
+          try {
+            scope.direction = direction || '';
+          } catch (e) {
+            //
+          }
+        }
+      }
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "S1RN":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _name = __webpack_require__("g66R");
+
+var _name2 = _interopRequireDefault(_name);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default']).directive('maClick', maClick).directive('maButton', maButton);
+
+maClick.$inject = ['$parse', '$timeout'];
+
+function maClick($parse, $timeout) {
+  return {
+    restrict: 'A',
+    link: function link(scope, element, attrs, ctrl) {
+      element.bind('click', function (e) {
+        if (element.hasClass('ma-click-disabled') || element.hasClass('disabled')) {
+          return;
+        }
+        element.addClass('ma-click-disabled');
+
+        if (attrs.maClick) {
+          if (scope.$odd !== undefined || scope.$even !== undefined || scope.$last !== undefined || scope.$index !== undefined || scope.$middle !== undefined) {
+            scope.$event = e;
+            scope.$parent.$eval(attrs.maClick, scope);
+          } else {
+            scope.$event = e;
+            scope.$eval(attrs.maClick, scope);
+          }
+        }
+
+        $timeout();
+
+        $timeout(function () {
+          element.removeClass('ma-click-disabled');
+        }, parseInt(attrs.delay, 10) || 50);
+      });
+
+      function hasFn(fn, sc) {
+        var _hasFn = false;
+        angular.each(fn, function (d) {
+          if (sc[d]) {
+            _hasFn = true;
+          } else {
+            _hasFn = false;
+          }
+          sc = sc[d];
+        });
+        return _hasFn;
+      }
+    }
+  };
+}
+
+maButton.$inject = [];
+
+function maButton() {
+  return {
+    restrict: 'E',
+    transclude: true,
+    template: '<div\n    class="ma-button {{size}} {{type}}"\n    ng-class="{\n      disabled: disabled,\n      flat: flat === \'true\',\n      active: active === \'true\',\n    }"\n    ng-transclude></div>',
+    scope: {
+      size: '@maSize',
+      type: '@maType',
+      flat: '@maFlat',
+      active: '@maActive',
+      disabled: '=ngDisabled'
+    },
+    replace: true,
+    link: function link(scope, element, attrs, ctrl) {}
+  };
+}
+
+/***/ }),
+
+/***/ "UX8a":
+/***/ (function(module, exports) {
+
+module.exports = "<svg\n  class=\"ma-circle\"\n>\n  <circle\n    fill=\"none\"\n  ></circle>\n  <circle\n    fill=\"none\"\n  ></circle>\n</svg>\n";
+
+/***/ }),
+
+/***/ "YO30":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports['default'] = 'meetyou.angular.ui.dropdown';
+
+/***/ }),
+
+/***/ "brJl":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports['default'] = 'meetyou.angular.ui.icons';
+
+/***/ }),
+
+/***/ "fmJn":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _name = __webpack_require__("FnLJ");
+
+var _name2 = _interopRequireDefault(_name);
+
+var _debounce = __webpack_require__("HhAh");
+
+var _debounce2 = _interopRequireDefault(_debounce);
+
+var _jquery = __webpack_require__("7t+N");
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _maAutoCompleteTpl = __webpack_require__("K6Pd");
+
+var _maAutoCompleteTpl2 = _interopRequireDefault(_maAutoCompleteTpl);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default']).directive('maAutoComplete', maAutoComplete);
+
+maAutoComplete.$inject = ['$timeout'];
+
+function maAutoComplete($timeout) {
+  return {
+    restrict: 'E',
+    replace: true,
+    template: _maAutoCompleteTpl2['default'],
+    scope: {
+      name: '@name',
+      type: '@type',
+      model: '=ngModel',
+
+      maxlength: '@maxlength',
+      placeholder: '@placeholder',
+      accept: '@accept',
+      pattern: '@pattern',
+      min: '@min',
+      max: '@max',
+      step: '@step',
+      readonly: '=ngReadonly',
+      disabled: '=ngDisabled',
+      clear: '=maClear',
+
+      valueKey: '@maValueKey',
+      textKey: '@maTextKey',
+
+      // 获取数据接口
+      data: '=maData',
+      getData: '&maGetData'
+
+    },
+    controllerAs: '$ctrl',
+    controller: ['$scope', function ($scope) {
+      var _this = this;
+
+      this.showDropDown = false;
+
+      $scope.dropdownItems = [];
+
+      this.dropdownItemClick = dropdownItemClick;
+
+      var searchFn = (0, _debounce2['default'])(function () {
+        var promise = $scope.getData({
+          $searchKey: $scope.model
+        });
+        if (promise.then && promise['finally'] && promise['catch']) {
+          promise.then(function (data) {
+            $scope.dropdownItems = data;
+          });
+        } else {
+          $scope.dropdownItems = promise;
+        }
+        $timeout();
+      }, 300);
+
+      $scope.$watch('model', function (d) {
+        if (!$scope.data) {
+          searchFn();
+        }
+      });
+
+      $scope.$watch('data', function (d) {
+        $scope.dropdownItems = d;
+      });
+
+      function dropdownItemClick($event, $item) {
+        $scope.model = $item[$scope.textKey];
+      }
+    }],
+    link: function link(scope, element, attrs, ctrl) {
+      var $ctrl = scope.$ctrl;
+
+      scope.$watch('dropdownItems', function (d) {
+        if (d && d.length && (0, _jquery2['default'])(element).find('input:focus, textarea:focus').length) {
+          $ctrl.showDropDown = true;
+        } else {
+          $ctrl.showDropDown = false;
+        }
+      });
+
+      (0, _jquery2['default'])(element).find('input, textarea').on('focus', function () {
+        if (scope.dropdownItems && scope.dropdownItems.length) {
+          $ctrl.showDropDown = true;
+          $timeout();
+        }
+      }).on('click', function (e) {
+        e.stopPropagation();
+      }).on('blur', function (e) {
+        $timeout(function () {
+          $ctrl.showDropDown = false;
+        }, 100);
+      });
+
+      (0, _jquery2['default'])('body').on('click', function () {
+        $ctrl.showDropDown = false;
+        $timeout();
+      });
+
+      scope.textKey = 'text';
+      scope.valueKey = 'value';
+      attrs.$observe('maTextKey', function (d) {
+        scope.textKey = d || 'text';
+      });
+      attrs.$observe('maValueKey', function (d) {
+        scope.valueKey = d || 'value';
+      });
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "g5ku":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports['default'] = 'meetyou.angular.ui.input';
+
+/***/ }),
+
+/***/ "g66R":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports['default'] = 'meetyou.angular.ui.button';
+
+/***/ }),
+
+/***/ "gU1X":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+angular.module('validation.rule', []).config(['$validationProvider', function ($validationProvider) {
+  var expression = {
+    'null': function _null() {
+      return true;
+    },
+    required: function required(value) {
+      if (value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && value.length === 0) {
+        return false;
+      }
+      if (value === 0) {
+        return true;
+      }
+      return !!value;
+    },
+    url: /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[\w]*))?)/,
+    email: /^([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/,
+    number: /^\d+$/,
+    minlength: function minlength(value, scope, element, attrs, param) {
+      return value.length >= param;
+    },
+    maxlength: function maxlength(value, scope, element, attrs, param) {
+      return value.length <= param;
+    },
+    phone: function phone(value, scope, element, attrs, param) {
+      value += '';
+      if (!value) {
+        return false;
+      }
+      if (isNaN(value)) {
+        return false;
+      }
+      // 固话 位数
+      // 3 + 7
+      // 3 + 8
+      // 4 + 7
+      // 4 + 8
+      // 手机 位数
+      // 11
+      if (value.length !== 10 && value.length !== 11 && value.length !== 12) {
+        return false;
+      }
+
+      return true;
+    },
+    zipcode: function zipcode(value, scope, element, attrs, param) {
+      return (/^[1-9]\d{5}$/g.test(value)
+      );
+    },
+    bankcard: function bankcard(value, scope, element, attrs, param) {
+      return (/^([1-9]{1})(\d{11}|\d{14}|\d{15}|\d{17}|\d{18}|\d{19})$/g.test(value)
+      );
+    },
+    // 比例
+    ratio: function ratio(value, scope, element, attrs, param) {
+      return !value || value >= 0 && /^[1-9]\d*$/.test(String(value));
+    },
+    // 计数
+    count: function count(value, scope, element, attrs, param) {
+      return !value || String(value) === '0' || /^[1-9]\d*$/.test(String(value));
+    },
+    // 金额
+    currency: function currency(value, scope, element, attrs, param) {
+      return !value || String(value) === '0' || /^[0-9]+(.[0-9]{1,2})?$/.test(String(value));
+    },
+    // 百分比
+    percentage: function percentage(value, scope, element, attrs, param) {
+      return !value || String(value) === '0' || /^[0-9]+(.[0-9]{1,2})?$/.test(String(value));
+    },
+    // 自定义验证，param 是正则表达式
+    custom: function custom(value, scope, element, attrs, param) {
+      var regExp = new RegExp(param);
+      return !value || regExp.test(String(value));
+    }
+  };
+
+  var errorMsgTemplate = function errorMsgTemplate(element, attrs, param, msg) {
+    if (attrs.invalidMessage) {
+      return attrs.invalidMessage;
+    }
+    return msg;
+  };
+
+  var defaultMsg = {
+    'null': {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, 'OK');
+      },
+      success: 'OK'
+    },
+    phone: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '请输入正确的电话号码');
+      },
+      success: 'OK'
+    },
+    required: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '不能为空');
+      },
+      success: 'OK'
+    },
+    url: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '请输入URL链接');
+      },
+      success: 'OK'
+    },
+    email: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '请输入正确的邮箱地址');
+      },
+      success: 'OK'
+    },
+    number: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '请输入数字');
+      },
+      success: 'OK'
+    },
+    minlength: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '太长了');
+      },
+      success: 'OK'
+    },
+    maxlength: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '太短了');
+      },
+      success: 'OK'
+    },
+    zipcode: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '请输入正确的邮编');
+      },
+      success: 'OK'
+    },
+    bankcard: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '请输入正确的银行卡号');
+      },
+      success: 'OK'
+    },
+    ratio: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '请输入有效的比例数值');
+      },
+      success: 'OK'
+    },
+    count: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '请输入有效的计数数值');
+      },
+      success: 'OK'
+    },
+    currency: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '请输入有效的金额数值');
+      },
+      success: 'OK'
+    },
+    percentage: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '请输入有效的百分比数值');
+      },
+      success: 'OK'
+    },
+    custom: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '验证未通过');
+      },
+      success: 'OK'
+    }
+  };
+  $validationProvider.setExpression(expression).setDefaultMsg(defaultMsg);
+
+  $validationProvider.showSuccessMessage = true; // or true(default)
+  $validationProvider.showErrorMessage = true; // or true(default)
+
+  $validationProvider.setErrorHTML(function (msg) {
+    return '<b class="form-error-text">' + msg + '</b>';
+  });
+  $validationProvider.setSuccessHTML(function (msg) {
+    return '<i></i>';
+  });
+
+  angular.extend($validationProvider, {
+    validCallback: function validCallback(element) {
+      // console.log(element, 'validCallback');
+      element.addClass('ma-input-success').removeClass('ma-input-error');
+    },
+    invalidCallback: function invalidCallback(element) {
+      // console.log(element, 'invalidCallback');
+      element.removeClass('ma-input-success').addClass('ma-input-error');
+    },
+    resetCallback: function resetCallback(element) {
+      // console.log(element, 'resetCallback');
+      element.removeClass('ma-input-success').removeClass('ma-input-error');
+    }
+  });
+}]);
+
+/***/ }),
+
+/***/ "lQqW":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"ma-dropdown\">\n  <div ng-transclude></div>\n  <div class=\"ma-dropdown-container\"\n    ng-class=\"{\n      show: show || static == 'true'\n    }\"\n    >\n    <div\n      class=\"ma-dropdown-search-bar\"\n      ng-show=\"searchBar == 'true'\"\n    >\n      <ma-input\n        ng-model=\"searchKey\"\n        class=\"ma-input-search-normal\"\n      ></ma-input>\n    </div>\n    <div class=\"ma-dropdown-item null-text\" ng-if=\"(nullText || nullText == 'true') && data.length <= 0\">{{nullText == 'true' ? '暂无数据' : nullText}}</div>\n\n    <div class=\"ma-dropdown-container-content\">\n      <div\n        class=\"ma-dropdown-item\"\n        ng-repeat=\"item in data | filter : searchKey\"\n        ma-click=\"_itemClick($event, item)\"\n        ng-class=\"{\n          active: _activeItems.indexOf(item[valueKey]) !== -1,\n          'is-multiple': multiple == 'true',\n          hide: item.hide === true\n        }\"\n        >\n          <ma-checkbox\n            ng-disabled=\"disabled\"\n            ng-show=\"multiple == 'true'\"\n            ng-model=\"item.checked\"\n          >\n            <span ng-bind-html=\"item[textKey]\"></span>\n          </ma-checkbox>\n\n          <span\n            ng-show=\"multiple != 'true'\"\n            ng-bind-html=\"item[textKey]\"\n          ></span>\n\n      </div>\n    </div>\n\n    <div\n      class=\"ma-dropdown-buttons\"\n      ng-show=\"clear == 'true'\"\n      ma-click=\"$ctrl.clearValue()\"\n    >\n      <ma-button\n        ma-size=\"mini\"\n        ma-type=\"primary\"\n      >清空</ma-button>\n    </div>\n  </div>\n</div>\n";
+
+/***/ }),
+
+/***/ "lkey":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _name = __webpack_require__("g66R");
+
+var _name2 = _interopRequireDefault(_name);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default'], []).config(function () {}).run(function () {});
+
+__webpack_require__("S1RN");
+
+exports['default'] = _name2['default'];
+
+/***/ }),
+
+/***/ "qSUM":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _name = __webpack_require__("brJl");
+
+var _name2 = _interopRequireDefault(_name);
+
+var _maCircleTpl = __webpack_require__("UX8a");
+
+var _maCircleTpl2 = _interopRequireDefault(_maCircleTpl);
+
+var _jquery = __webpack_require__("7t+N");
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default']).directive('maIcon', maIcon);
+// .directive('maCircle', maCircle);
+
+maIcon.$inject = [];
+
+function maIcon() {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      type: '@maType',
+      size: '@maSize'
+    },
+    template: '\n    <i\n      class="iconfont icon-{{type}}"\n      ng-style="{fontSize: size + \'px\'}"\n    ></i>',
+    link: function link(scope, element, attrs, controllers) {}
+  };
+}
+
+// maCircle.$inject = [];
+
+// function maCircle() {
+//   return {
+//     restrict: 'E',
+//     replace: true,
+//     scope: {
+//       size: '@maSize',
+//       strokeWidth: '@maStrokeWidth',
+//       percent: '@maPercent',
+//       backStroke: '@maBackStroke',
+//       frontStroke: '@maFrontStoke',
+//     },
+//     template: maCircleTpl,
+//     link: function (scope, element, attrs, controllers) {
+//       scope.pi = Math.PI;
+//       scope.size = 12;
+//       scope.strokeWidth = 1;
+//       scope.percent = 0;
+//       scope.backStroke = '#FFFFFF';
+//       scope.frontStroke = '#FF74B9';
+//       updateCircle();
+
+//       attrs.$observe('maSize', d => {
+//         scope.size = d ? parseInt(d, 10) : 12;
+//         updateCircle();
+//       });
+//       attrs.$observe('maStrokeWidth', d => {
+//         scope.strokeWidth = d ? parseInt(d, 10) : 1;
+//         updateCircle();
+//       });
+//       attrs.$observe('maPercent', d => {
+//         scope.percent = d ? parseInt(d, 10) / 100 : 0;
+//         updateCircle();
+//       });
+//       attrs.$observe('maBackStroke', d => {
+//         scope.backStroke = d || '#FFFFFF';
+//         updateCircle();
+//       });
+//       attrs.$observe('maFrontStoke', d => {
+//         scope.frontStroke = d || '#FF74B9';
+//         updateCircle();
+//       });
+
+//       function updateCircle() {
+//         const circles = $(element).find('circle');
+//         const back = circles.eq(0);
+//         const front = circles.eq(1);
+
+//         element.attr('width', scope.size);
+//         element.attr('height', scope.size);
+
+//         back.attr('cx', scope.size / 2);
+//         back.attr('cy', scope.size / 2);
+//         back.attr('r', (scope.size / 2) - scope.strokeWidth);
+//         back.attr('stroke-width', (scope.size / 2) - scope.strokeWidth);
+//         back.attr('stroke', scope.backStroke);
+
+//         front.attr('cx', scope.size / 2);
+//         front.attr('cy', scope.size / 2);
+//         front.attr('r', (scope.size / 2) - scope.strokeWidth);
+//         front.attr('stroke-width', scope.strokeWidth);
+//         front.attr('stroke', scope.frontStroke);
+//         front.attr('transform', `matrix(0,-1,1,0,0,${scope.size})`);
+//         front.attr('stroke-dasharray',
+//           `${2 * Math.PI * ((scope.size / 2) - scope.strokeWidth) * scope.percent} ${2 * Math.PI * ((scope.size / 2) - scope.strokeWidth)}`
+//         );
+//       }
+//     }
+//   };
+// }
+
+/***/ }),
+
+/***/ "sq9m":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _name = __webpack_require__("FnLJ");
+
+var _name2 = _interopRequireDefault(_name);
+
+var _dropdown = __webpack_require__("zznV");
+
+var _dropdown2 = _interopRequireDefault(_dropdown);
+
+var _input = __webpack_require__("Cs5U");
+
+var _input2 = _interopRequireDefault(_input);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default'], [_dropdown2['default'], _input2['default']]).config(function () {}).run(function () {});
+
+__webpack_require__("fmJn");
+
+exports['default'] = _name2['default'];
+
+/***/ }),
+
+/***/ "zznV":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _name = __webpack_require__("YO30");
+
+var _name2 = _interopRequireDefault(_name);
+
+__webpack_require__("AFu3");
+
+var _button = __webpack_require__("lkey");
+
+var _button2 = _interopRequireDefault(_button);
+
+var _input = __webpack_require__("Cs5U");
+
+var _input2 = _interopRequireDefault(_input);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default'], ['ngSanitize', _button2['default'], _input2['default']]).config(function () {}).run(function () {});
+
+__webpack_require__("LJOD");
+
+exports['default'] = _name2['default'];
+
+/***/ })
+
+},["sq9m"]);
+//# sourceMappingURL=autoComplete.js.map
