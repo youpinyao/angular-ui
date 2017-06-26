@@ -6,7 +6,7 @@ angular.module('app').controller(controller, mainCtrl);
 
 mainCtrl.$inject = ['$scope', '$q', '$timeout', '$treeSelect'];
 
-function mainCtrl($scope, $q, $timeout) {
+function mainCtrl($scope, $q, $timeout, $treeSelect) {
   $scope.selectValue = ['6666', '66666'];
   $scope.selectTreeValue = ['6666', '7777', '8888', '9999'];
   $scope.disabled = false;

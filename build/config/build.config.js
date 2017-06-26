@@ -7,9 +7,9 @@ const uglifyPlugins = require('./uglify.config.js');
 
 module.exports = function () {
   return webpackMerge(commonConfig(), {
-    // entry: {
-    //   vendor: path.join(__dirname, '../../example/js/vendor.js')
-    // },
+    entry: {
+      // vendor: path.join(__dirname, '../../example/js/vendor.js')
+    },
     plugins: [
       new webpack.LoaderOptionsPlugin({
         minimize: false,

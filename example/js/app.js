@@ -17,16 +17,15 @@ const app = angular.module('app', [
 ]);
 const routerConfig = require('./routerConfig.js');
 
+config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
+run.$inject = ['$rootScope', 'loginService', '$request', '$loading'];
+
 app.config(config).run(run);
 angular.bootstrap(document, ['app']);
-
-run.$inject = ['$rootScope', 'loginService', '$request'];
 
 function run($rootScope, loginService, $request, $loading) {
   $rootScope.routerConfig = flattenRouter(routerConfig);
 }
-
-config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
 
 function config($stateProvider, $urlRouterProvider, $httpProvider) {
   $urlRouterProvider.rule(routerRule);

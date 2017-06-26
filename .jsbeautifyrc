@@ -1,0 +1,10 @@
+{
+  "space_around_combinator": true,
+  "selector_separator_newline": true,
+  "newline_between_rules": true,
+  "indent_size": 2,
+  "end_with_newline": true,
+  "wrap_attributes": "force",
+  "wrap_line_length": 100,
+  "unformatted": []
+}

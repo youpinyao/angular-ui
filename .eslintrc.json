@@ -17,10 +17,13 @@
     "angular": true
   },
   "rules": {
-    "indent": ["error", 2],
+    "indent": ["error", 2, {
+      "SwitchCase": 1
+    }],
     "max-len": 0,
     "vars-on-top": 0,
     "func-names": 0,
+    "default-case": 0,
     "space-before-function-paren": 0,
     "no-use-before-define": 0,
     "eqeqeq": 0,
