@@ -19,6 +19,8 @@ function maDatePicker() {
       minView: '@maMinView',
       model: '=ngModel',
       format: '@maFormat',
+      minDate: '=maMinDate',
+      maxDate: '=maMaxDate',
     },
     template: maDatePickerTpl,
     controllerAs: '$ctrl',
@@ -51,6 +53,8 @@ function maDateRangePicker($timeout) {
       model: '=ngModel',
       format: '@maFormat',
       config: '=maConfig',
+      minDate: '=maMinDate',
+      maxDate: '=maMaxDate',
     },
     template: maDateRangePickerTpl,
     controllerAs: '$ctrl',
@@ -71,6 +75,8 @@ function maDateRangePicker($timeout) {
         showTopbar: false,
         language: 'cn',
         seperator,
+        startDate: scope.minDate || false,
+        endDate: scope.maxDate || false,
         startOfWeek: 'monday',
         getValue() {
           if (scope.start && scope.end) {
@@ -93,14 +99,16 @@ function maDateRangePicker($timeout) {
         if (angular.isArray(d)) {
           scope.start = d[0];
           scope.end = d[1];
-          scope.dateText = `${moment(scope.start).format(format)} ${seperator} ${moment(scope.end).format(format)}`;
+          scope.dateText =
+            `${moment(scope.start).format(format)} ${seperator} ${moment(scope.end).format(format)}`;
         } else {
           scope.start = null;
           scope.end = null;
         }
       });
 
-      $(element).find('input').dateRangePicker(defaultConfig).bind('datepicker-change', function(evt, obj) {
+      $(element).find('input').dateRangePicker(defaultConfig).bind('datepicker-change', function(
+        evt, obj) {
         scope.model = [obj.date1, obj.date2];
         $timeout();
       });

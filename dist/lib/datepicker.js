@@ -3,7 +3,7 @@ webpackJsonp([15,27],{
 /***/ "IM9K":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-input ma-date-picker\">\n  <input class=\"ma-input\"\n    date-time\n    ng-readonly=\"true\"\n    ng-model=\"model\"\n    view=\"{{view}}\"\n    date-change=\"changeValue\"\n    min-view=\"{{minView}}\"\n    format=\"{{format}}\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\" ma-click=\"clear()\" ng-show=\"!!model\" class=\"clear\"></ma-icon>\n  <!--<div date-picker\n    view=\"{{view}}\"\n    ng-model=\"model\"\n    min-view=\"{{minView}}\"\n    format=\"{{format}}\"></div>-->\n</div>\n";
+module.exports = "<div class=\"ma-input ma-date-picker\">\n  <input class=\"ma-input\"\n    date-time\n    ng-readonly=\"true\"\n    ng-model=\"model\"\n    view=\"{{view}}\"\n    date-change=\"changeValue\"\n    min-view=\"{{minView}}\"\n    min-date=\"minDate\"\n    max-date=\"maxDate\"\n    format=\"{{format}}\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\" ma-click=\"clear()\" ng-show=\"!!model\" class=\"clear\"></ma-icon>\n  <!--<div date-picker\n    view=\"{{view}}\"\n    ng-model=\"model\"\n    min-view=\"{{minView}}\"\n    format=\"{{format}}\"></div>-->\n</div>\n";
 
 /***/ }),
 
@@ -181,7 +181,9 @@ function maDatePicker() {
       view: '@maView',
       minView: '@maMinView',
       model: '=ngModel',
-      format: '@maFormat'
+      format: '@maFormat',
+      minDate: '=maMinDate',
+      maxDate: '=maMaxDate'
     },
     template: _maDatePickerTpl2['default'],
     controllerAs: '$ctrl',
@@ -210,7 +212,9 @@ function maDateRangePicker($timeout) {
     scope: {
       model: '=ngModel',
       format: '@maFormat',
-      config: '=maConfig'
+      config: '=maConfig',
+      minDate: '=maMinDate',
+      maxDate: '=maMaxDate'
     },
     template: _maDateRangePickerTpl2['default'],
     controllerAs: '$ctrl',
@@ -231,6 +235,8 @@ function maDateRangePicker($timeout) {
         showTopbar: false,
         language: 'cn',
         seperator: seperator,
+        startDate: scope.minDate || false,
+        endDate: scope.maxDate || false,
         startOfWeek: 'monday',
         getValue: function getValue() {
           if (scope.start && scope.end) {
