@@ -6899,6 +6899,7 @@ input.ma-input {
   color: #323232;
   border-radius: 4px;
   padding: 5px 8px;
+  margin: 0;
   width: 240px;
   max-width: 100%;
   min-height: 32px;
@@ -9987,6 +9988,7 @@ disabled look for disabled choices in the results dropdown
 
 .ma-transfer .ma-transfer-left-result,
 .ma-transfer .ma-transfer-right-result {
+  width: 240px;
   border: 1px solid #CCCCCC;
   border-bottom-color: transparent;
   height: 32px;
@@ -10012,8 +10014,9 @@ disabled look for disabled choices in the results dropdown
 }
 
 .ma-transfer .ma-select {
-  top: -1px;
+  top: 0px;
   height: 0px;
+  display: block;
 }
 
 .ma-transfer .ma-select > .ma-input {
@@ -10372,6 +10375,12 @@ disabled look for disabled choices in the results dropdown
 
 .ma-spin svg {
   vertical-align: top;
+}
+
+.ma-spin .gif {
+  background: url(assets/spin.a178f37bb395795f22df5a9d8d0fb318.gif) no-repeat center center;
+  background-size: cover;
+  margin: auto;
 }
 
 .ma-loading {

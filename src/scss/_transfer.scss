@@ -18,6 +18,7 @@ $inputHeight: 32px;
 
   .ma-transfer-left-result,
   .ma-transfer-right-result {
+    width: 240px;
     border: 1px solid $outlines;
     border-bottom-color: transparent;
     height: $inputHeight;
@@ -42,14 +43,14 @@ $inputHeight: 32px;
   }
 
   .ma-select {
-    top: -1px;
+    top: 0px;
     height: 0px;
+    display: block;
     > .ma-input {
       height: 0px;
       overflow: hidden;
       border: 0px;
-      -webkit-box-shadow: none;
-              box-shadow: none;
+      box-shadow: none;
     }
 
     .ma-dropdown {
@@ -59,8 +60,7 @@ $inputHeight: 32px;
     }
 
     .ma-dropdown-container {
-      -webkit-box-shadow: none;
-              box-shadow: none;
+      box-shadow: none;
       border:1px solid $outlines;
       overflow: hidden;
       min-height: $transferHeight - $inputHeight;

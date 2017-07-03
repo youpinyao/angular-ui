@@ -17,6 +17,7 @@ function maSpin() {
     },
     link: function (scope, element, attrs, ctrl) {
       scope.size = 120;
+      scope.isIE = /msie/g.test(navigator.userAgent.toLocaleLowerCase());
       updateSpin();
 
       attrs.$observe('maSize', d => {
