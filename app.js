@@ -10,9 +10,6 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 //启动gzip压缩
 app.use(compression());
 
-//操作日期的插件
-// var moment = require('moment');
-
 //操作cookie的插件
 app.use(cookieParser());
 app.use(express.static('dist/example'));
@@ -37,5 +34,3 @@ app.use(function (req, res, next) {
 var port = process.env.PORT ? process.env.PORT : config.port;
 //监听端口
 app.listen(port);
-
-// console.log('%s | node server initializing | listening on port %s | process id %s | NODE_ENV is', moment().format('YYYY-MM-DD HH:mm:ss.SSS'), port, process.pid, process.env.NODE_ENV);
