@@ -1,6 +1,6 @@
 {
   "name": "meetyou-angular-ui",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Here is the Meetyou presents implementation, product development and service in the enterprise the background",
   "main": "src/index.js",
   "scripts": {
@@ -27,24 +27,24 @@
     "debug": "2.2.0",
     "es6-promise": "^3.1.2",
     "express": "^4.14.0",
-    "angular": "^1.6.4",
     "angular-datepicker-custom": "2.1.5",
     "angular-file-upload": "2.5.0",
-    "angular-sanitize": "^1.6.4",
-    "angular-ui-router": "^0.3.2",
     "angular-validation": "1.4.4",
     "uuid": "3.0.1",
+    "jquery": "^1.12.4",
     "moment": "2.18.1",
     "ng-table": "3.0.1",
     "ui-select": "0.19.8",
-    "jquery": "^1.12.4",
     "jquery-date-range-picker": "^1.0.0",
     "lightgallery.js": "1.0.1",
     "debounce": "1.0.2",
-    "babel-polyfill": "6.23.0",
-    "clipboard": "^1.6.1"
+    "babel-polyfill": "6.23.0"
   },
   "devDependencies": {
+    "clipboard": "^1.6.1",
+    "angular": "^1.6.4",
+    "angular-sanitize": "^1.6.4",
+    "angular-ui-router": "^0.3.2",
     "angular2-template-loader": "0.6.2",
     "autoprefixer": "6.7.7",
     "awesome-typescript-loader": "3.1.2",
