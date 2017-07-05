@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a5b3588e9b551b4a0edc"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bc3ed1b6acec8fa09a30"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -56498,6 +56498,13 @@ if(__webpack_require__("zgIt")(function(){ return $toString.call({source: 'a', f
 
 /***/ }),
 
+/***/ "Fhdu":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "FkIZ":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -58466,6 +58473,8 @@ __webpack_require__("PJh5");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 __webpack_require__("smqO");
+__webpack_require__("btq2");
+
 __webpack_require__("DHSv");
 __webpack_require__("rSyc");
 
@@ -77876,6 +77885,13 @@ exports['default'] = 'meetyou.angular.ui.icons';
 
 /***/ }),
 
+/***/ "btq2":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "c1x4":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -78064,6 +78080,13 @@ module.exports = __webpack_require__("0Rih")('Set', function(get){
     return strong.def(this, value = value === 0 ? 0 : value, value);
   }
 }, strong);
+
+/***/ }),
+
+/***/ "dTNh":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 
@@ -81804,7 +81827,7 @@ function maUploadController($scope, $lightGallery) {
     });
 
     if (/gif|png|jpg|jpeg|bmp|svg/g.test(file[0].name)) {
-      console.log($index || $index === 0 ? $index : false);
+      // console.log($index || $index === 0 ? $index : false);
       $lightGallery.preview(urls, {
         index: $index || $index === 0 ? $index : false
       });
@@ -81850,6 +81873,8 @@ var _select = __webpack_require__("2tft");
 var _select2 = _interopRequireDefault(_select);
 
 __webpack_require__("m79q");
+
+__webpack_require__("dTNh");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -85788,6 +85813,8 @@ Object.defineProperty(exports, "__esModule", {
 var _name = __webpack_require__("WTIP");
 
 var _name2 = _interopRequireDefault(_name);
+
+__webpack_require__("Fhdu");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 

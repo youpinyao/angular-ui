@@ -1,4 +1,5 @@
 import moduleName from './src/name.js';
+import 'lightgallery.js/dist/css/lightgallery.css';
 
 angular.module(moduleName, []).config(function () {}).run(function () {});
 

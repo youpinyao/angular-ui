@@ -629,7 +629,7 @@ function maUploadController($scope, $lightGallery) {
     });
 
     if (/gif|png|jpg|jpeg|bmp|svg/g.test(file[0].name)) {
-      console.log($index || $index === 0 ? $index : false);
+      // console.log($index || $index === 0 ? $index : false);
       $lightGallery.preview(urls, {
         index: $index || $index === 0 ? $index : false
       });

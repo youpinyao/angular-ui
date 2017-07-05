@@ -102,6 +102,7 @@ module.exports = function () {
       output: output('/lib'),
       module: modules(true),
       plugins: plugins.concat([
+        new ExtractTextPlugin('[name].css'),
         sourceMapPlugin('[name].js'),
       ]).concat(commonChunkPlugin),
     },
@@ -110,6 +111,7 @@ module.exports = function () {
       output: outputMin('/lib'),
       module: modules(),
       plugins: plugins.concat([
+        new ExtractTextPlugin('[name].min.css'),
         uglifyPlugins,
         sourceMapPlugin('[name].min.js'),
       ]).concat(commonChunkPlugin),

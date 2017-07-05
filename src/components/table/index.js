@@ -2,6 +2,7 @@ import moduleName from './src/name.js';
 import checkbox from '../checkbox';
 import select from '../select';
 import './src/lib/ng-table.js';
+import 'ng-table/bundles/ng-table.min.css';
 
 angular.module(moduleName, [
   'ngTable',
