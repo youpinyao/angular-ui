@@ -8,6 +8,7 @@
 #### [安装](#安装)
 #### [项目注入](#项目注入)
 #### [浏览器引入](#浏览器引入)
+#### [CLI](#CLI)
 ---
   
 > ## 原因
@@ -54,4 +55,8 @@ angular.module('app', [
 
 > ## 主题配色修改
 
-在webpack，sass-loader中拦截 import 并将主题配置文件替换成自己需要的（范例：example/config/modules.config.js）。
+在webpack，sass-loader中拦截 import 并将主题配置文件替换成自己需要的（范例：build/config/modules.config.js）。
+
+> ## CLI
+
+[meetyou-angular-cli](https://www.npmjs.com/package/meetyou-angular-cli)
