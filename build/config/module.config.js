@@ -11,17 +11,7 @@ const themeContent = fs.readFileSync(themePath, {
 
 module.exports = function (isDev) {
   const exclude = isDev ? '/node_modules/' : '/all_modules/';
-  let include = [
-    path.join(__dirname, '../../node_modules/lightgallery.js'),
-    path.join(__dirname, '../../node_modules/angular-datepicker-custom'),
-    path.join(__dirname, '../../node_modules/ng-table'),
-    path.join(__dirname, '../../src'),
-    path.join(__dirname, '../../example'),
-  ];
-
-  if (!isDev) {
-    include = undefined;
-  }
+  let include = undefined;
 
   return {
     rules: [{
@@ -31,8 +21,6 @@ module.exports = function (isDev) {
       use: ['happypack/loader?id=html']
     }, {
       test: /\.(css|scss)$/,
-      exclude,
-      include,
       use: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [{
@@ -88,8 +76,6 @@ module.exports = function (isDev) {
       include,
     }, {
       test: /\.(jpg|png|gif|woff|woff2|eot|ttf|svg|ico|mp3|mp4)$/,
-      exclude,
-      include,
       use: [{
         loader: 'url-loader',
         options: {

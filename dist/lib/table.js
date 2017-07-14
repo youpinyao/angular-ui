@@ -1782,8 +1782,6 @@ var _select2 = _interopRequireDefault(_select);
 
 __webpack_require__("m79q");
 
-__webpack_require__("dTNh");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 angular.module(_name2['default'], ['ngTable', _checkbox2['default'], _select2['default']]).config(function () {}).run(function () {});
