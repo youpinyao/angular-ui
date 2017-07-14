@@ -17,7 +17,6 @@ let plugins = [
 
   new webpack.optimize.OccurrenceOrderPlugin(),
   new webpack.NoEmitOnErrorsPlugin(),
-  new webpack.HotModuleReplacementPlugin(),
   new webpack.HashedModuleIdsPlugin(),
   new WebpackChunkHash(),
   new ProgressBarPlugin(),
