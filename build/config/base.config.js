@@ -52,7 +52,7 @@ module.exports = function (isDev) {
     },
     resolve: {
       extensions: ['.ts', '.js', '.json'],
-      modules: ['node_modules']
+      modules: ['node_modules'],
     },
     module: modules(isDev),
     plugins: getPlugins(isDev),
