@@ -33,6 +33,8 @@ __webpack_require__("smqO");
 __webpack_require__("DHSv");
 __webpack_require__("rSyc");
 
+__webpack_require__("btq2");
+
 angular.module(_name2['default'], ['datePicker', _button2['default']]).config(function () {}).run(function () {});
 
 __webpack_require__("XWBM");

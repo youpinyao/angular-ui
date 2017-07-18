@@ -1784,6 +1784,8 @@ __webpack_require__("m79q");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+__webpack_require__("dTNh");
+
 angular.module(_name2['default'], ['ngTable', _checkbox2['default'], _select2['default']]).config(function () {}).run(function () {});
 
 __webpack_require__("kAur");
