@@ -7012,8 +7012,8 @@ textarea.ma-input {
 }
 
 .ma-select .ma-dropdown .ma-dropdown-container .ma-dropdown-item {
-  word-break: break-all;
-  white-space: normal;
+  /* word-break: break-all;*/
+  /* white-space: normal;*/
 }
 
 /*!
