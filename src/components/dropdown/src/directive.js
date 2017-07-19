@@ -37,12 +37,12 @@ function maDropdown($timeout) {
       disabled: '=ngDisabled',
     },
     controllerAs: '$ctrl',
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', function($scope) {
       this.clearValue = () => {
         $scope.activeItems = undefined;
       };
     }],
-    link: function (scope, element, attrs, ctrl) {
+    link: function(scope, element, attrs, ctrl) {
       const containerCls = '.ma-dropdown-container';
       let showTimeout = null;
 
@@ -91,7 +91,7 @@ function maDropdown($timeout) {
             setDirection('top');
           }
         } else {
-          showTimeout = $timeout(function () {
+          showTimeout = $timeout(function() {
             container.parent().removeClass('right').removeClass('top');
 
             setDirection('');
@@ -139,7 +139,6 @@ function maDropdown($timeout) {
         }
 
         scope._activeItems = _activeItems;
-        scope.activeItems = _activeItems;
 
         checkCheckbox();
       });

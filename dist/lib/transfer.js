@@ -1172,7 +1172,6 @@ function maDropdown($timeout) {
         }
 
         scope._activeItems = _activeItems;
-        scope.activeItems = _activeItems;
 
         checkCheckbox();
       });

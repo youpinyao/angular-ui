@@ -7,7 +7,7 @@ angular.module('app').controller(controller, mainCtrl);
 mainCtrl.$inject = ['$scope', '$q', '$timeout'];
 
 function mainCtrl($scope, $q, $timeout) {
-  $scope.selectValue = ['6660', '6661', '6662'];
+  $scope.selectValue = ['6660'];
   $scope.disabled = false;
 
   $scope.getData = function ($searchKey, isPromise) {
