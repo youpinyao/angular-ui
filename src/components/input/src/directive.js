@@ -43,7 +43,7 @@ function maInput() {
 }
 
 
-maNum.$inbject = ['$filter', '$timeout', '$parse'];
+maNum.$inject = ['$filter', '$timeout', '$parse'];
 
 function maNum($filter, $timeout, $parse) {
   return {
