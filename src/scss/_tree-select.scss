@@ -1607,9 +1607,12 @@ disabled look for disabled choices in the results dropdown
 }
 
 .ma-tree-select {
+  width: 240px;
   display: inline-block;
   .custom-multi-select {
+    width: 100%;
     > .ma-input {
+      width: 100%;
       position: absolute;
       left: 0px;
       top: 0px;
