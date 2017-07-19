@@ -1,7 +1,11 @@
 <div class="ma-input ma-date-range-picker">
   <input class="ma-input"
     ng-readonly="true"
+    ma-placeholder="{{maPlaceholder}}"
     ng-model="dateText">
   <ma-icon ma-type="calendar"></ma-icon>
-  <ma-icon ma-type="close" ma-click="clear()" ng-show="dateText" class="clear"></ma-icon>
+  <ma-icon ma-type="close"
+    ma-click="clear()"
+    ng-show="dateText"
+    class="clear"></ma-icon>
 </div>
