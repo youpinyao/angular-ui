@@ -10,9 +10,9 @@
       opacity: 0.5;
       line-height: $headerHeight;
       text-align: center;
-      padding: 0px 30px;
       @include transition(opacity 300ms ease);
       a {
+        padding: 0 30px;
         color: $white;
         position: relative;
         display: inline-block;

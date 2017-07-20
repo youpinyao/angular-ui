@@ -5265,12 +5265,12 @@ body > .main div.container {
   opacity: 0.5;
   line-height: 80px;
   text-align: center;
-  padding: 0px 30px;
   transition: opacity 300ms ease;
   -webkit-transtion: opacity 300ms ease;
 }
 
 .nav > ul li a {
+  padding: 0 30px;
   color: #FFFFFF;
   position: relative;
   display: inline-block;
