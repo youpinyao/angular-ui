@@ -370,7 +370,7 @@ function maIcon() {
 /***/ "uaNH":
 /***/ (function(module, exports) {
 
-module.exports = "<div\n  class=\"ma-alert\"\n  ng-repeat=\"item in items\"\n  ng-class=\"{\n    'hide': item.hide,\n    'ma-alert-success': item.type === 'success',\n    'ma-alert-warning': item.type === 'warning',\n    'ma-alert-danger': item.type === 'danger',\n  }\">\n  <span ng-bind-html=\"item.text\"></span>\n  <ma-icon\n    ma-type=\"close\"\n    ma-click=\"$ctrl.remove(item, $index)\"\n  ></ma-icon>\n</div>\n";
+module.exports = "<div\n  class=\"ma-alert\"\n  ng-repeat=\"item in items\"\n  ng-class=\"{\n    'hide': item.hide,\n    'ma-alert-success': item.type === 'success',\n    'ma-alert-warning': item.type === 'warning',\n    'ma-alert-danger': item.type === 'danger',\n  }\">\n  <span ng-bind-html=\"item.text\"></span>\n  <ma-icon\n    ng-if=\"item.close !== false\"\n    ma-type=\"close\"\n    ma-click=\"$ctrl.remove(item, $index)\"\n  ></ma-icon>\n</div>\n";
 
 /***/ })
 

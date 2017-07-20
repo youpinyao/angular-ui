@@ -10,6 +10,7 @@ function mainCtrl($scope, $timeout, $interval, $message) {
   $scope.alertItems = [{
     type: 'success',
     text: '成功提示框，主要用来显示成功信息。',
+    close: false,
   }, {
     type: 'danger',
     text: '危险提示框，主要用来显示错误信息。',

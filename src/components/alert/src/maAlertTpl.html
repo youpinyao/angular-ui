@@ -9,6 +9,7 @@
   }">
   <span ng-bind-html="item.text"></span>
   <ma-icon
+    ng-if="item.close !== false"
     ma-type="close"
     ma-click="$ctrl.remove(item, $index)"
   ></ma-icon>
