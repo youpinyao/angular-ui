@@ -71,6 +71,7 @@ $inputRadius: 4px;
 .ma-input textarea,
 textarea.ma-input,
 input.ma-input {
+  vertical-align: top;
   border: 1px solid $outlines;
   background-color: $white;
   color: $base;

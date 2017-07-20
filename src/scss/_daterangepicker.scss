@@ -62,7 +62,8 @@ $daterangepickerhover: #ffedf1;
     padding: 0px;
     cursor: default;
     position: relative;
-    _overflow: hidden;
+    overflow: hidden;
+    width: auto !important;
   }
   &.date-picker-wrapper .month-wrapper table {
     width: 190px;

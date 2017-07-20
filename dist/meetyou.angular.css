@@ -5531,6 +5531,7 @@ body.has-sider-menu > .main {
 .ma-input textarea,
 textarea.ma-input,
 input.ma-input {
+  vertical-align: top;
   border: 1px solid #CCCCCC;
   background-color: #FFFFFF;
   color: #323232;
@@ -9782,7 +9783,8 @@ disabled look for disabled choices in the results dropdown
   padding: 0px;
   cursor: default;
   position: relative;
-  _overflow: hidden;
+  overflow: hidden;
+  width: auto !important;
 }
 
 .ma-date-range-picker-wrapper.date-picker-wrapper .month-wrapper table {
