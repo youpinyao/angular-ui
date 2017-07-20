@@ -15,6 +15,7 @@ function mainCtrl($scope) {
   ma-routers="routerConfig">
 
 // routerConfig
+// 这个配置和路由配置相仿，state参数，在路由上都要有对应的配置
 </ma-sider-menu>
 [{
   title: 'General 一般',
