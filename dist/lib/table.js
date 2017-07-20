@@ -935,6 +935,8 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
   self.dataset = $scope.tableConfig.dataset ? $scope.tableConfig.dataset : [];
   self.colsGroup = $scope.tableConfig.colsGroup ? $scope.tableConfig.colsGroup : [];
 
+  self.totalText = $scope.tableConfig.totalText === undefined ? '共{{params.total()}}条数据' : $scope.tableConfig.totalText;
+
   self.page = $scope.tableConfig.page || 1;
 
   self.tableWidth = $scope.tableConfig.tableWidth || 0;
@@ -1073,6 +1075,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     templateHeader: 'header1.html'
   }, {
     counts: [],
+    totalText: self.totalText,
     templateHeader: 'header1.html',
     paginationMaxBlocks: 4,
     paginationMinBlocks: 1,
@@ -1108,6 +1111,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     },
     dataset: self.dataset
   });
+
   self.checkboxes = {
     checked: false,
     items: {}
@@ -1335,6 +1339,13 @@ function tableService() {
     };
   }
 }
+
+/***/ }),
+
+/***/ "XVLJ":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"ng-cloak ng-table-pager\"\n  ng-if=\"params.data.length\">\n  <div ng-if=\"params.settings().counts.length\"\n    class=\"ng-table-counts btn-group pull-right\">\n    <button ng-repeat=\"count in params.settings().counts\"\n      type=\"button\"\n      ng-class=\"{\n        'active':params.count()==count\n      }\"\n      ng-click=\"params.count(count)\"\n      class=\"btn btn-default\">\n      <span ng-bind=\"count\"></span>\n    </button>\n  </div>\n  <ul ng-if=\"pages.length\"\n    class=\"pagination ng-table-pagination\">\n    <li class=\"total-text\" ng-if=\"params.settings().totalText !== false\">\n      <span ng-compile=\"params.settings().totalText\"></span>\n    </li>\n    <li class=\"page-item\"\n      ng-class=\"{\n        'disabled': !page.active && !page.current,\n        'active': page.current\n      }\"\n      ng-repeat=\"page in pages\"\n      ng-switch=\"page.type\">\n      <a class=\"page-link\"\n        ng-switch-when=\"prev\"\n        ng-click=\"params.page(page.number)\"\n        href=\"\">&laquo;</a>\n      <a class=\"page-link\"\n        ng-switch-when=\"first\"\n        ng-click=\"params.page(page.number)\"\n        href=\"\">\n        <span ng-bind=\"page.number\"></span>\n      </a>\n      <a class=\"page-link\"\n        ng-switch-when=\"page\"\n        ng-click=\"params.page(page.number)\"\n        href=\"\">\n        <span ng-bind=\"page.number\"></span>\n      </a>\n      <a class=\"page-link\"\n        ng-switch-when=\"more\"\n        ng-click=\"params.page(page.number)\"\n        href=\"\">&#8230;</a>\n      <a class=\"page-link\"\n        ng-switch-when=\"last\"\n        ng-click=\"params.page(page.number)\"\n        href=\"\">\n        <span ng-bind=\"page.number\"></span>\n      </a>\n      <a class=\"page-link\"\n        ng-switch-when=\"next\"\n        ng-click=\"params.page(page.number)\"\n        href=\"\">&raquo;</a>\n    </li>\n  </ul>\n</div>\n";
 
 /***/ }),
 
@@ -1620,13 +1631,24 @@ var _maTableTpl = __webpack_require__("0bzt");
 
 var _maTableTpl2 = _interopRequireDefault(_maTableTpl);
 
+var _pager = __webpack_require__("XVLJ");
+
+var _pager2 = _interopRequireDefault(_pager);
+
 var _maTableController = __webpack_require__("TDH+");
 
 var _maTableController2 = _interopRequireDefault(_maTableController);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-angular.module(_name2['default']).directive('maTable', maTable).directive('commonTableColRender', commonTableColRender).directive('ngEnter', ngEnter);
+var pagerPath = 'ng-table/pager.html';
+
+angular.module('ng').run(['$templateCache', function (c) {
+  c.remove(pagerPath);
+  c.put(pagerPath, _pager2['default']);
+}]);
+
+angular.module(_name2['default']).directive('maTable', maTable).directive('commonTableColRender', commonTableColRender).directive('ngEnter', ngEnter).directive('ngCompile', ngCompile);
 
 /**
   数据表组件
@@ -1720,6 +1742,23 @@ function ngEnter($timeout) {
           scope.$eval(attrs.ngEnter, scope);
           $timeout();
         }
+      });
+    }
+  };
+}
+
+ngCompile.$inject = ['$timeout', '$compile'];
+
+function ngCompile($timeout, $compile) {
+  return {
+    restrict: 'A',
+    scope: {
+      content: '=ngCompile'
+    },
+    link: function link(scope, elem, attrs, controller) {
+      scope.$watch('content', function (d) {
+        elem.html(d);
+        $compile(elem.contents())(scope.$parent);
       });
     }
   };

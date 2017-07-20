@@ -4174,6 +4174,11 @@ a {
   float: none;
 }
 
+.controls .control-tip {
+  color: #999999;
+  padding-left: 10px;
+}
+
 .form-horizontal .control-group {
   margin-bottom: 20px;
 }
@@ -4185,6 +4190,12 @@ a {
   font-weight: normal;
   text-align: right;
   color: #323232;
+  line-height: 32px;
+}
+
+.form-horizontal .controls {
+  margin-left: 170px;
+  position: relative;
   line-height: 32px;
 }
 
@@ -4202,12 +4213,6 @@ a {
 
 .form-horizontal.mini .form-error-text {
   display: none !important;
-}
-
-.form-horizontal .controls {
-  margin-left: 170px;
-  position: relative;
-  line-height: 32px;
 }
 
 .form-vertical .control-group {
@@ -10352,6 +10357,10 @@ disabled look for disabled choices in the results dropdown
 .ma-table .pagination > li {
   display: inline-block;
   vertical-align: top;
+}
+
+.ma-table .pagination > li.total-text span {
+  border: 0;
 }
 
 .ma-table .pagination > li > a,

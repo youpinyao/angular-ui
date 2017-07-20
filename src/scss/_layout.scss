@@ -176,6 +176,13 @@ $colCount: 24;
   float: none;
 }
 
+.controls {
+  .control-tip {
+    color: $grey;
+    padding-left: 10px;
+  }
+}
+
 .form-horizontal {
   .control-group {
     margin-bottom: 20px;
@@ -187,6 +194,11 @@ $colCount: 24;
     font-weight: normal;
     text-align: right;
     color: $base;
+    line-height: 32px;
+  }
+  .controls {
+    margin-left: 170px;
+    position: relative;
     line-height: 32px;
   }
 }
@@ -205,14 +217,6 @@ $colCount: 24;
     .form-error-text {
       display: none !important;
     }
-  }
-}
-
-.form-horizontal {
-  .controls {
-    margin-left: 170px;
-    position: relative;
-    line-height: 32px;
   }
 }
 
