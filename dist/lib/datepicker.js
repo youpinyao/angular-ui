@@ -267,6 +267,7 @@ function maDateRangePicker($timeout) {
         } else {
           scope.start = null;
           scope.end = null;
+          scope.dateText = '';
         }
       });
 

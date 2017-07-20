@@ -201,10 +201,24 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
     }];
   }
 
-  $scope.configText = `/**
+  $scope.configText = `
+<ma-table ma-config="tableConfig"></ma-table>
+/**
   数据表组件
   @param： {
     tableConfig : {
+      tableId: 'table1',
+      colsGroup: [{
+        width: '20%'
+      }, {
+        width: '20%'
+      }, {
+        width: '20%'
+      }, {
+        width: '20%'
+      }, {
+        width: '20%'
+      }],
       cols: 表单头，形式数组，例子：[{
           field: 'selector',
           title: '',
@@ -223,6 +237,32 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
       enableCheckbox: 使能checkbox选框模式，类型boolean，默认false,
       enablePagination: 使能翻页，默认为true,
       tableWidth: Number // 设定这个值让 table 定宽，超出左右滚动
+      getData: function (params) { // @return Array or Promise
+        params.total(20);
+        // console.log('load data', params.page(), params.count())
+
+        return [{
+          user_id: 1,
+          real_name: 'dsfd',
+          shows: 103,
+          remain_amount: 101
+        }, {
+          user_id: 2,
+          real_name: 'dsfd',
+          shows: 102,
+          remain_amount: 102
+        }, {
+          user_id: 3,
+          real_name: 'dsfd',
+          shows: 101,
+          remain_amount: 103
+        }, {
+          user_id: 4,
+          real_name: 'dsfd',
+          shows: 10,
+          remain_amount: 104
+        }];
+      }
     }
   }
 */`;
