@@ -73,7 +73,7 @@ function routerRule($injector, $location) {
     routers.forEach(router => {
       let rUrl = pUrl + router.url;
 
-      if (rUrl === path) {
+      if (sameUrl(rUrl, path)) {
         toState = router;
         toUrl += pUrl + toState.url;
       }
@@ -84,12 +84,25 @@ function routerRule($injector, $location) {
     });
   }
 
+  function sameUrl(url1, url2) {
+    url1 = url1 ? url1.split('/') : [];
+    url2 = url2 ? url2.split('/') : [];
+
+    let count = 0;
+
+    url1.forEach((d, i) => {
+      if (d === url2[i] || (d.indexOf(':') !== -1 && url2[i])) {
+        count++;
+      }
+    });
+  }
+
   while (toState && hasRouters(toState.routers)) {
     toState = toState.routers[0];
     toUrl += toState.url;
   }
 
-  if (toUrl && toUrl !== path) {
+  if (toUrl && !sameUrl(toUrl, path)) {
     return toUrl;
   }
 
