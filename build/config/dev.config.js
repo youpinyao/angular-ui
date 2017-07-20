@@ -20,7 +20,7 @@ module.exports = function () {
   const execCommonConfig = commonConfig(true);
 
   return webpackMerge(execCommonConfig, {
-    devtool: 'inline-source-map',
+    devtool: 'eval',
     devServer: {
       port: config.port,
       host: config.host,

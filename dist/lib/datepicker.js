@@ -246,7 +246,7 @@ function maDateRangePicker($timeout) {
           if (scope.start && scope.end) {
             return (0, _moment2['default'])(scope.start).format(format) + ' to ' + (0, _moment2['default'])(scope.end).format(format);
           }
-          return '';
+          return null;
         },
         setValue: function setValue(data) {
           if (!data) {
@@ -268,6 +268,7 @@ function maDateRangePicker($timeout) {
           scope.start = null;
           scope.end = null;
           scope.dateText = '';
+          scope.dateRangePicker.clear();
         }
       });
 

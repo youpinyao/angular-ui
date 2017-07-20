@@ -84,7 +84,7 @@ function maDateRangePicker($timeout) {
           if (scope.start && scope.end) {
             return `${moment(scope.start).format(format)} to ${moment(scope.end).format(format)}`;
           }
-          return '';
+          return null;
         },
         setValue(data) {
           if (!data) {
@@ -107,6 +107,7 @@ function maDateRangePicker($timeout) {
           scope.start = null;
           scope.end = null;
           scope.dateText = '';
+          scope.dateRangePicker.clear();
         }
       });
 
