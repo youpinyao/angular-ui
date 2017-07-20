@@ -1,8 +1,11 @@
 import $ from 'jquery';
 
-maTableController.$inject = ['NgTableParams', '$scope', '$element', '$interpolate', '$sce', '$table', '$timeout', '$attrs'];
+maTableController.$inject = ['NgTableParams', '$scope', '$element', '$interpolate', '$sce',
+  '$table', '$timeout', '$attrs'
+];
 
-function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, $table, $timeout, $attrs) {
+function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, $table, $timeout,
+  $attrs) {
   var self = this;
 
   // var dataset = [{ id: 1, name: 'christian', age: 21 }, { id: 2, name: 'anthony', age: 88 },
@@ -19,17 +22,22 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
   }
   self.cols = $scope.tableConfig.cols ? $scope.tableConfig.cols : [];
   self.getClass = function(row) {
-    return (self.checkboxes.items[row[self.dataflagId]] ? 'selected-row' : '') + ' ' + ($scope.tableConfig.rowCustomClass ? $scope.tableConfig.rowCustomClass : '');
+    return (self.checkboxes.items[row[self.dataflagId]] ? 'selected-row' : '') + ' ' + ($scope.tableConfig
+      .rowCustomClass ? $scope.tableConfig.rowCustomClass : '');
   };
   self.evtAgent = $scope.tableConfig.evtAgent ? $scope.tableConfig.evtAgent : [];
   self.dataflagId = $scope.tableConfig.dataflagId ? $scope.tableConfig.dataflagId : 'id';
   self.count = $scope.tableConfig.count ? $scope.tableConfig.count : 10;
   self.sorting = $scope.tableConfig.sorting ? $scope.tableConfig.sorting : {};
   self.PageSize = $scope.tableConfig.counts ? $scope.tableConfig.counts : [10, 20, 30];
-  self.enableCheckbox = angular.isNull($scope.tableConfig.enablePagination) ? false : $scope.tableConfig.enableCheckbox;
-  self.enablePagination = angular.isNull($scope.tableConfig.enablePagination) ? true : $scope.tableConfig.enablePagination;
+  self.enableCheckbox = angular.isNull($scope.tableConfig.enablePagination) ? false : $scope.tableConfig
+    .enableCheckbox;
+  self.enablePagination = angular.isNull($scope.tableConfig.enablePagination) ? true : $scope.tableConfig
+    .enablePagination;
   self.dataset = $scope.tableConfig.dataset ? $scope.tableConfig.dataset : [];
   self.colsGroup = $scope.tableConfig.colsGroup ? $scope.tableConfig.colsGroup : [];
+
+  self.totalText = $scope.tableConfig.totalText === undefined ? '共{{params.total()}}条数据' : $scope.tableConfig.totalText;
 
   self.page = $scope.tableConfig.page || 1;
 
@@ -171,6 +179,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     templateHeader: 'header1.html'
   }, {
     counts: [],
+    totalText: self.totalText,
     templateHeader: 'header1.html',
     paginationMaxBlocks: 4,
     paginationMinBlocks: 1,
@@ -206,6 +215,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     },
     dataset: self.dataset
   });
+
   self.checkboxes = {
     checked: false,
     items: {}
@@ -234,7 +244,8 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       self.checkboxes.checked = (checked == total) && (total != 0);
     }
     // grayed checkbox
-    angular.element($($element).find('.main-table').get(0).getElementsByClassName('select-all')).prop('indeterminate', (checked != 0 && unchecked != 0));
+    angular.element($($element).find('.main-table').get(0).getElementsByClassName('select-all'))
+      .prop('indeterminate', (checked != 0 && unchecked != 0));
   }, true);
 
 

@@ -208,6 +208,7 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
   @param： {
     tableConfig : {
       tableId: 'table1',
+      totalText: '共{{params.total()}}条数据',
       colsGroup: [{
         width: '20%'
       }, {

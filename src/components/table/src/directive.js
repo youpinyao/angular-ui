@@ -1,12 +1,21 @@
 import moduleName from './name.js';
 import $ from 'jquery';
 import maTableTpl from './maTableTpl.html';
+import pagerTpl from './pager.html';
 import maTableController from './maTableController.js';
+
+const pagerPath = 'ng-table/pager.html';
+
+angular.module('ng').run(['$templateCache', function(c) {
+  c.remove(pagerPath);
+  c.put(pagerPath, pagerTpl);
+}]);
 
 angular.module(moduleName)
   .directive('maTable', maTable)
   .directive('commonTableColRender', commonTableColRender)
-  .directive('ngEnter', ngEnter);
+  .directive('ngEnter', ngEnter)
+  .directive('ngCompile', ngCompile);
 
 /**
   数据表组件
@@ -80,8 +89,10 @@ function commonTableColRender($compile) {
         },
         function(value) {
           value += '';
-          value = value.replace(/ng-click="/g, 'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.');
-          value = value.replace(/cm-click="/g, 'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.');
+          value = value.replace(/ng-click="/g,
+            'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.');
+          value = value.replace(/cm-click="/g,
+            'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.');
 
           element.html(value);
           $compile(element.contents())(scope);
@@ -103,6 +114,24 @@ function ngEnter($timeout) {
           scope.$eval(attrs.ngEnter, scope);
           $timeout();
         }
+      });
+    }
+  };
+}
+
+
+ngCompile.$inject = ['$timeout', '$compile'];
+
+function ngCompile($timeout, $compile) {
+  return {
+    restrict: 'A',
+    scope: {
+      content: '=ngCompile',
+    },
+    link: function(scope, elem, attrs, controller) {
+      scope.$watch('content', d => {
+        elem.html(d);
+        $compile(elem.contents())(scope.$parent);
       });
     }
   };

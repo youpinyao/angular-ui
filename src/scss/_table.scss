@@ -1,4 +1,3 @@
-
 .ma-table {
   display: block;
   padding-bottom: 52px;
@@ -176,6 +175,11 @@
     border-color: #f2f2f2;
   }
   .pagination > li {
+    &.total-text {
+      span {
+        border: 0;
+      }
+    }
     display: inline-block;
     vertical-align: top;
   }
