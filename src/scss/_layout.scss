@@ -252,6 +252,10 @@ $colCount: 24;
     padding-top: 10px;
     text-align: center;
     letter-spacing: -0.31em;
+    &.left {
+      text-align: left;
+      padding-left: 160px;
+    }
     .ma-button {
       letter-spacing: normal;
       margin: 0px 10px;

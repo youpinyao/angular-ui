@@ -4267,6 +4267,12 @@ a {
   letter-spacing: -0.31em;
 }
 
+.form-horizontal .form-buttons.left,
+.form-vertical .form-buttons.left {
+  text-align: left;
+  padding-left: 160px;
+}
+
 .form-horizontal .form-buttons .ma-button,
 .form-vertical .form-buttons .ma-button {
   letter-spacing: normal;

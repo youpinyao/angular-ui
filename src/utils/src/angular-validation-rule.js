@@ -60,16 +60,26 @@ angular
       },
       // 金额
       currency: function(value, scope, element, attrs, param) {
-        return !value || String(value) === '0' || /^[0-9]+(.[0-9]{1,2})?$/.test(String(value));
+        return !value || String(value) === '0' || /^[0-9]+(.[0-9]{1,2})?$/.test(String(
+          value));
       },
       // 百分比
       percentage: function(value, scope, element, attrs, param) {
-        return !value || String(value) === '0' || /^[0-9]+(.[0-9]{1,2})?$/.test(String(value));
+        return !value || String(value) === '0' || /^[0-9]+(.[0-9]{1,2})?$/.test(String(
+          value));
       },
       // 自定义验证，param 是正则表达式
       custom: function(value, scope, element, attrs, param) {
         var regExp = new RegExp(param);
         return !value || regExp.test(String(value));
+      },
+      password(value) {
+        if (value) {
+          var pwdReg = /^[a-zA-Z0-9_!@#$%^&*]{6,16}$/;
+          var num = /^[0-9]{1,9}$/;
+          return pwdReg.test(value) && !num.test(value);
+        }
+        return false;
       },
     };
 
@@ -170,6 +180,12 @@ angular
           return errorMsgTemplate(element, attrs, param, '验证未通过');
         },
         success: 'OK',
+      },
+      password: {
+        error: function(element, attrs, param) {
+          return errorMsgTemplate(element, attrs, param, '长度为6-16个字符，不能包含空格，不能是9位以下纯数字');
+        },
+        success: 'OK'
       },
     };
     $validationProvider.setExpression(expression).setDefaultMsg(defaultMsg);

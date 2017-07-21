@@ -1708,6 +1708,14 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
     custom: function custom(value, scope, element, attrs, param) {
       var regExp = new RegExp(param);
       return !value || regExp.test(String(value));
+    },
+    password: function password(value) {
+      if (value) {
+        var pwdReg = /^[a-zA-Z0-9_!@#$%^&*]{6,16}$/;
+        var num = /^[0-9]{1,9}$/;
+        return pwdReg.test(value) && !num.test(value);
+      }
+      return false;
     }
   };
 
@@ -1806,6 +1814,12 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
     custom: {
       error: function error(element, attrs, param) {
         return errorMsgTemplate(element, attrs, param, '验证未通过');
+      },
+      success: 'OK'
+    },
+    password: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '长度为6-16个字符，不能包含空格，不能是9位以下纯数字');
       },
       success: 'OK'
     }
