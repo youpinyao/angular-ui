@@ -178,7 +178,6 @@ $colCount: 24;
 
 .controls {
   @include clearfix();
-
   .control-tip {
     color: $grey;
     padding-left: 10px;
@@ -283,9 +282,9 @@ body > .header {
   position: relative;
   z-index: 10;
   background-color: $headerColor;
+  min-width: $minWidth;
   > .container-fluid {
     height: $headerHeight;
-    min-width: $minWidth;
     .logo {
       display: table;
       color: $white;
