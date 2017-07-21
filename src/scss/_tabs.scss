@@ -4,7 +4,6 @@
   letter-spacing: -0.31em;
   border-bottom: 1px solid $outlines;
   @include unselect();
-
   .ma-tab {
     letter-spacing: normal;
     display: inline-block;
@@ -15,12 +14,11 @@
     position: relative;
     top: 1px;
     cursor: pointer;
-    @include transition();
-
+    -webkit-transition: color 300ms ease, border-color 300ms ease;
+    transition: color 300ms ease, border-color 300ms ease;
     a {
       color: $grey;
     }
-
     &.active {
       color: $primary;
       border-bottom-color: $primary;
@@ -28,17 +26,14 @@
   }
 }
 
-
 .ma-tabs.ma-button-group {
   > div {
     display: inline-block;
-
     &.active {
       + div .ma-button {
         border-left-color: $primary;
       }
     }
-
     .ma-button {
       letter-spacing: normal;
       border-radius: 0px;
@@ -53,7 +48,6 @@
         background-color: transparent;
       }
     }
-
     &:first-child .ma-button {
       border-top-left-radius: 4px;
       border-bottom-left-radius: 4px;
