@@ -4230,19 +4230,12 @@ function maTabs() {
       this.model = $scope.model;
       this.type = 'default';
 
-      var conflit = false;
-
       $scope.$watch('model', function (d) {
-        if (conflit) {
-          conflit = false;
-          return;
-        }
         _this.model = d;
       });
 
       $scope.$watch('$ctrl.model', function (d) {
         $scope.model = d;
-        conflit = true;
       });
     }],
     link: function link(scope, element, attrs, ctrl) {}

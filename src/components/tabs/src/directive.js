@@ -24,19 +24,12 @@ function maTabs() {
       this.model = $scope.model;
       this.type = 'default';
 
-      let conflit = false;
-
       $scope.$watch('model', d => {
-        if (conflit) {
-          conflit = false;
-          return;
-        }
         this.model = d;
       });
 
       $scope.$watch('$ctrl.model', d => {
         $scope.model = d;
-        conflit = true;
       });
     }],
     link: function(scope, element, attrs, ctrl) {
