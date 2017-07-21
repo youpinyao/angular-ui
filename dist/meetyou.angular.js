@@ -4225,11 +4225,24 @@ function maTabs() {
     },
     controllerAs: '$ctrl',
     controller: ['$scope', function ($scope) {
+      var _this = this;
+
       this.model = $scope.model;
       this.type = 'default';
 
+      var conflit = false;
+
+      $scope.$watch('model', function (d) {
+        if (conflit) {
+          conflit = false;
+          return;
+        }
+        _this.model = d;
+      });
+
       $scope.$watch('$ctrl.model', function (d) {
         $scope.model = d;
+        conflit = true;
       });
     }],
     link: function link(scope, element, attrs, ctrl) {}
@@ -45807,7 +45820,7 @@ module.exports = "\n<div class=\"ma-transfer\">\n  <div class=\"fl\">\n    <div 
 /***/ "Nd+X":
 /***/ (function(module, exports) {
 
-module.exports = "<div\n  class=\"ma-tab\"\n  ng-class=\"{active: parentScope.model == value}\"\n  ma-click=\"parentScope.model = value\"\n  ng-transclude>\n</div>\n";
+module.exports = "<div class=\"ma-tab\"\n  ng-class=\"{active: parentScope.model == value}\">\n  <div ma-click=\"parentScope.model = value\"\n    ng-transclude>\n\n  </div>\n</div>\n";
 
 /***/ }),
 

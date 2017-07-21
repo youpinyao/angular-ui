@@ -8,7 +8,6 @@
     letter-spacing: normal;
     display: inline-block;
     margin-right: 30px;
-    padding: 10px 0px;
     color: $grey;
     border-bottom: 2px solid transparent;
     position: relative;
@@ -16,6 +15,9 @@
     cursor: pointer;
     -webkit-transition: color 300ms ease, border-color 300ms ease;
     transition: color 300ms ease, border-color 300ms ease;
+    > div {
+      padding: 10px 0px;
+    }
     a {
       color: $grey;
     }

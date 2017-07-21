@@ -20,15 +20,26 @@ function maTabs() {
       model: '=ngModel',
     },
     controllerAs: '$ctrl',
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', function($scope) {
       this.model = $scope.model;
       this.type = 'default';
 
+      let conflit = false;
+
+      $scope.$watch('model', d => {
+        if (conflit) {
+          conflit = false;
+          return;
+        }
+        this.model = d;
+      });
+
       $scope.$watch('$ctrl.model', d => {
         $scope.model = d;
+        conflit = true;
       });
     }],
-    link: function (scope, element, attrs, ctrl) {
+    link: function(scope, element, attrs, ctrl) {
 
     }
   };
@@ -46,7 +57,7 @@ function maTab() {
     scope: {
       value: '@maValue',
     },
-    link: function (scope, element, attrs, ctrl) {
+    link: function(scope, element, attrs, ctrl) {
       scope.parentScope = ctrl[0];
       scope.parentScope.type = 'default';
     }
@@ -66,7 +77,7 @@ function maTabButton() {
       value: '@maValue',
       size: '@maSize',
     },
-    link: function (scope, element, attrs, ctrl) {
+    link: function(scope, element, attrs, ctrl) {
       scope.parentScope = ctrl[0];
       scope.parentScope.type = 'button';
     }
