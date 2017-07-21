@@ -100,6 +100,14 @@ function maTooltip($timeout, $compile) {
 
       attrs.$observe('maTooltip', function (d) {
         content.html(d);
+        el.css({
+          width: '',
+          height: ''
+        });
+        $timeout(function () {
+          el.width(el.width() + 1);
+          el.height(el.height() + 1);
+        }, 50);
         $compile(content.contents())(scope.contentScope || scope);
       });
       attrs.$observe('maPopconfirm', function (d) {
@@ -118,13 +126,14 @@ function maTooltip($timeout, $compile) {
       attrs.$observe('maDirection', setDirection);
 
       setDirection(defaultDirection);
+
       function setDirection(d) {
         direction = d || defaultDirection;
         el.attr('data-direction', d || defaultDirection);
         content.attr('data-direction', d || defaultDirection);
         $timeout(function () {
-          el.width(el.width());
-          el.height(el.height());
+          el.width(el.width() + 1);
+          el.height(el.height() + 1);
         });
       }
 
