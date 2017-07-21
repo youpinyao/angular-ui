@@ -113,13 +113,15 @@ function maClick($parse, $timeout) {
         element.addClass('ma-click-disabled');
 
         if (attrs.maClick) {
-          if (scope.$odd !== undefined || scope.$even !== undefined || scope.$last !== undefined || scope.$index !== undefined || scope.$middle !== undefined) {
-            scope.$event = e;
-            scope.$parent.$eval(attrs.maClick, scope);
-          } else {
-            scope.$event = e;
-            scope.$eval(attrs.maClick, scope);
-          }
+          // if (scope.$odd !== undefined || scope.$even !== undefined ||
+          //   scope.$last !== undefined || scope.$index !== undefined ||
+          //   scope.$middle !== undefined) {
+          //   scope.$event = e;
+          //   $parse(attrs.maClick)(scope);
+          // } else {
+          scope.$event = e;
+          $parse(attrs.maClick)(scope);
+          // }
         }
 
         $timeout();

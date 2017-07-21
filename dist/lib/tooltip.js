@@ -115,7 +115,10 @@ function maTooltip($timeout, $compile) {
         el.remove();
         (0, _jquery2['default'])('body').off('mousemove', hideTip);
       });
-      attrs.$observe('maDirection', function (d) {
+      attrs.$observe('maDirection', setDirection);
+
+      setDirection(defaultDirection);
+      function setDirection(d) {
         direction = d || defaultDirection;
         el.attr('data-direction', d || defaultDirection);
         content.attr('data-direction', d || defaultDirection);
@@ -123,7 +126,7 @@ function maTooltip($timeout, $compile) {
           el.width(el.width());
           el.height(el.height());
         });
-      });
+      }
 
       function showTip(newDirection) {
         var offsetTop = (0, _jquery2['default'])(element).offset().top;

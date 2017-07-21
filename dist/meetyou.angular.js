@@ -52792,13 +52792,15 @@ function maClick($parse, $timeout) {
         element.addClass('ma-click-disabled');
 
         if (attrs.maClick) {
-          if (scope.$odd !== undefined || scope.$even !== undefined || scope.$last !== undefined || scope.$index !== undefined || scope.$middle !== undefined) {
-            scope.$event = e;
-            scope.$parent.$eval(attrs.maClick, scope);
-          } else {
-            scope.$event = e;
-            scope.$eval(attrs.maClick, scope);
-          }
+          // if (scope.$odd !== undefined || scope.$even !== undefined ||
+          //   scope.$last !== undefined || scope.$index !== undefined ||
+          //   scope.$middle !== undefined) {
+          //   scope.$event = e;
+          //   $parse(attrs.maClick)(scope);
+          // } else {
+          scope.$event = e;
+          $parse(attrs.maClick)(scope);
+          // }
         }
 
         $timeout();
@@ -74884,7 +74886,10 @@ function maTooltip($timeout, $compile) {
         el.remove();
         (0, _jquery2['default'])('body').off('mousemove', hideTip);
       });
-      attrs.$observe('maDirection', function (d) {
+      attrs.$observe('maDirection', setDirection);
+
+      setDirection(defaultDirection);
+      function setDirection(d) {
         direction = d || defaultDirection;
         el.attr('data-direction', d || defaultDirection);
         content.attr('data-direction', d || defaultDirection);
@@ -74892,7 +74897,7 @@ function maTooltip($timeout, $compile) {
           el.width(el.width());
           el.height(el.height());
         });
-      });
+      }
 
       function showTip(newDirection) {
         var offsetTop = (0, _jquery2['default'])(element).offset().top;
