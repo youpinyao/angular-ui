@@ -4174,6 +4174,14 @@ a {
   float: none;
 }
 
+.controls:after {
+  content: "\200B";
+  display: block;
+  height: 0;
+  clear: both;
+  *zoom: 1;
+}
+
 .controls .control-tip {
   color: #999999;
   padding-left: 10px;

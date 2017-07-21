@@ -177,6 +177,8 @@ $colCount: 24;
 }
 
 .controls {
+  @include clearfix();
+
   .control-tip {
     color: $grey;
     padding-left: 10px;
