@@ -512,10 +512,6 @@ function maTreeSelect($treeSelect) {
 
         angular.each(data, function (d) {
           newItems.push(d);
-          newItems[newItems.length - 1].text = d[$scope.textKey];
-          newItems[newItems.length - 1].value = d[$scope.valueKey];
-          newItems[newItems.length - 1].sub = d[$scope.subKey];
-
           setContent(newItems[newItems.length - 1]);
         });
 
@@ -525,10 +521,6 @@ function maTreeSelect($treeSelect) {
           item.text = item[$scope.textKey];
           item.value = item[$scope.valueKey];
           item.sub = item[$scope.subKey];
-
-          delete item[$scope.textKey];
-          delete item[$scope.valueKey];
-          delete item[$scope.subKey];
 
           if (item.sub && item.sub.length) {
             angular.each(item.sub, function (dd) {
@@ -1538,10 +1530,6 @@ var util = {
     angular.forEach(hiddenItem, function (d) {
       hiddenValues.push(d.value);
     });
-
-    // console.log(hiddenValues)
-
-
     function hideItem(items) {
       angular.forEach(items, function (d) {
         if (!hiddenItem) {

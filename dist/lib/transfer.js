@@ -224,7 +224,7 @@ exports['default'] = _name2['default'];
 /***/ "5Rsw":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"ma-transfer\">\n  <div class=\"fl\">\n    <div class=\"ma-transfer-left-result\">\n      <ma-checkbox\n        ng-disabled=\"disabled\"\n        ng-class=\"{\n          'has-sub': $ctrl.leftSelectedCount > 0 && $ctrl.leftSelectedCount < $ctrl.leftShowCount\n        }\"\n        ng-model=\"$ctrl.leftCheckbox\"\n      >\n      </ma-checkbox>\n\n      <span class=\"ma-transfer-title\">{{leftTitle || '所有'}}</span>\n    </div>\n\n    <ma-tree-select\n      ma-data=\"$ctrl.leftData\"\n      ma-search=\"true\"\n      ng-disabled=\"disabled\"\n      ma-value-key=\"{{valueKey}}\"\n      ma-text-key=\"{{textKey}}\"\n      ma-static=\"true\"\n\n      ng-model=\"$ctrl.leftSelected\"\n    ></ma-tree-select>\n  </div>\n  <div class=\"fl ma-transfer-center\">\n    <div class=\"mb-20\">\n      <ma-button\n        ng-disabled=\"$ctrl.leftButtonDisabled\"\n        ma-click=\"$ctrl.toRight($event)\"\n      >\n        <span>添加</span>\n        <ma-icon ma-type=\"arrowright\"></ma-icon>\n      </ma-button>\n    </div>\n    <div>\n      <ma-button\n        ng-disabled=\"$ctrl.rightButtonDisabled\"\n        ma-click=\"$ctrl.toLeft($event)\"\n      >\n        <ma-icon ma-type=\"arrowleft\"></ma-icon>\n        <span>删除</span>\n      </ma-button>\n    </div>\n  </div>\n  <div class=\"fl\">\n    <div class=\"ma-transfer-right-result\">\n      <ma-checkbox\n        ng-disabled=\"disabled\"\n        ng-class=\"{\n          'has-sub': $ctrl.rightSelectedCount > 0 && $ctrl.rightSelectedCount < $ctrl.rightShowCount\n        }\"\n        ng-model=\"$ctrl.rightCheckbox\"\n      >\n      </ma-checkbox>\n\n      <span class=\"ma-transfer-title\">{{rightTitle || '选中'}}</span>\n    </div>\n\n    <ma-tree-select\n      ma-data=\"$ctrl.rightData\"\n      ma-search=\"true\"\n      ng-disabled=\"disabled\"\n      ma-value-key=\"{{valueKey}}\"\n      ma-text-key=\"{{textKey}}\"\n      ma-static=\"true\"\n\n      ng-model=\"$ctrl.rightSelected\"\n    ></ma-tree-select>\n  </div>\n</div>\n\n";
+module.exports = "\n<div class=\"ma-transfer\">\n  <div class=\"fl\">\n    <div class=\"ma-transfer-left-result\">\n      <ma-checkbox\n        ng-disabled=\"disabled\"\n        ng-class=\"{\n          'has-sub': $ctrl.leftSelectedCount > 0 && $ctrl.leftSelectedCount < $ctrl.leftShowCount\n        }\"\n        ng-model=\"$ctrl.leftCheckbox\"\n      >\n      </ma-checkbox>\n\n      <span class=\"ma-transfer-title\">{{leftTitle || '所有'}}</span>\n    </div>\n\n    <ma-tree-select\n      ma-data=\"$ctrl.leftData\"\n      ma-search=\"true\"\n      ng-disabled=\"disabled\"\n      ma-static=\"true\"\n\n      ng-model=\"$ctrl.leftSelected\"\n    ></ma-tree-select>\n  </div>\n  <div class=\"fl ma-transfer-center\">\n    <div class=\"mb-20\">\n      <ma-button\n        ng-disabled=\"$ctrl.leftButtonDisabled\"\n        ma-click=\"$ctrl.toRight($event)\"\n      >\n        <span>添加</span>\n        <ma-icon ma-type=\"arrowright\"></ma-icon>\n      </ma-button>\n    </div>\n    <div>\n      <ma-button\n        ng-disabled=\"$ctrl.rightButtonDisabled\"\n        ma-click=\"$ctrl.toLeft($event)\"\n      >\n        <ma-icon ma-type=\"arrowleft\"></ma-icon>\n        <span>删除</span>\n      </ma-button>\n    </div>\n  </div>\n  <div class=\"fl\">\n    <div class=\"ma-transfer-right-result\">\n      <ma-checkbox\n        ng-disabled=\"disabled\"\n        ng-class=\"{\n          'has-sub': $ctrl.rightSelectedCount > 0 && $ctrl.rightSelectedCount < $ctrl.rightShowCount\n        }\"\n        ng-model=\"$ctrl.rightCheckbox\"\n      >\n      </ma-checkbox>\n\n      <span class=\"ma-transfer-title\">{{rightTitle || '选中'}}</span>\n    </div>\n\n    <ma-tree-select\n      ma-data=\"$ctrl.rightData\"\n      ma-search=\"true\"\n      ng-disabled=\"disabled\"\n      ma-static=\"true\"\n\n      ng-model=\"$ctrl.rightSelected\"\n    ></ma-tree-select>\n  </div>\n</div>\n\n";
 
 /***/ }),
 
@@ -310,7 +310,7 @@ function maTreeTransfer($treeSelect, $timeout) {
           data: data,
           text: $scope.textKey,
           value: $scope.valueKey,
-          sub: 'sub'
+          sub: $scope.subKey
         });
       }
 
@@ -478,8 +478,8 @@ function maTreeTransfer($treeSelect, $timeout) {
               });
               pushedValues.push(d.value);
 
-              if (d[$scope.subKey] && d[$scope.subKey].length) {
-                getSelectedValues(d[$scope.subKey]);
+              if (d.sub && d.sub.length) {
+                getSelectedValues(d.sub);
               }
             }
           });
@@ -518,10 +518,10 @@ function maTreeTransfer($treeSelect, $timeout) {
 
         function getSelectedValues(items) {
           angular.forEach(items, function (d) {
-            rightSelectedValues.push(d[$scope.valueKey]);
+            rightSelectedValues.push(d.value);
 
-            if (d[$scope.subKey] && d[$scope.subKey].length) {
-              getSelectedValues(d[$scope.subKey]);
+            if (d.sub && d.sub.length) {
+              getSelectedValues(d.sub);
             }
             if (d._parent) {
               getParent(d._parent);
@@ -530,7 +530,7 @@ function maTreeTransfer($treeSelect, $timeout) {
         }
 
         function getParent(parent) {
-          rightSelectedValues.push(parent[$scope.valueKey]);
+          rightSelectedValues.push(parent.value);
           if (parent._parent) {
             getParent(parent._parent);
           }
@@ -1587,10 +1587,6 @@ function maTreeSelect($treeSelect) {
 
         angular.each(data, function (d) {
           newItems.push(d);
-          newItems[newItems.length - 1].text = d[$scope.textKey];
-          newItems[newItems.length - 1].value = d[$scope.valueKey];
-          newItems[newItems.length - 1].sub = d[$scope.subKey];
-
           setContent(newItems[newItems.length - 1]);
         });
 
@@ -1600,10 +1596,6 @@ function maTreeSelect($treeSelect) {
           item.text = item[$scope.textKey];
           item.value = item[$scope.valueKey];
           item.sub = item[$scope.subKey];
-
-          delete item[$scope.textKey];
-          delete item[$scope.valueKey];
-          delete item[$scope.subKey];
 
           if (item.sub && item.sub.length) {
             angular.each(item.sub, function (dd) {
@@ -2626,10 +2618,6 @@ var util = {
     angular.forEach(hiddenItem, function (d) {
       hiddenValues.push(d.value);
     });
-
-    // console.log(hiddenValues)
-
-
     function hideItem(items) {
       angular.forEach(items, function (d) {
         if (!hiddenItem) {

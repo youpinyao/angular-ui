@@ -134,11 +134,6 @@ const util = {
     angular.forEach(hiddenItem, function (d) {
       hiddenValues.push(d.value);
     });
-
-
-    // console.log(hiddenValues)
-
-
     function hideItem(items) {
       angular.forEach(items, function (d) {
         if (!hiddenItem) {

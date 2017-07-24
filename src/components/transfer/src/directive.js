@@ -44,7 +44,7 @@ function maTreeTransfer($treeSelect, $timeout) {
           data,
           text: $scope.textKey,
           value: $scope.valueKey,
-          sub: 'sub'
+          sub: $scope.subKey,
         });
       }
 
@@ -192,7 +192,6 @@ function maTreeTransfer($treeSelect, $timeout) {
         $scope.rightData = $treeSelect.hiddenSelectTreeData($ctrl.rightData, $scope.model);
         $scope.rightData = $treeSelect.hiddenSelectTreeDataReverse($ctrl.rightData);
 
-
         $ctrl.leftSelected = [];
         $ctrl.rightSelected = [];
 
@@ -217,8 +216,8 @@ function maTreeTransfer($treeSelect, $timeout) {
               });
               pushedValues.push(d.value);
 
-              if (d[$scope.subKey] && d[$scope.subKey].length) {
-                getSelectedValues(d[$scope.subKey]);
+              if (d.sub && d.sub.length) {
+                getSelectedValues(d.sub);
               }
             }
           });
@@ -258,10 +257,10 @@ function maTreeTransfer($treeSelect, $timeout) {
 
         function getSelectedValues(items) {
           angular.forEach(items, function (d) {
-            rightSelectedValues.push(d[$scope.valueKey]);
+            rightSelectedValues.push(d.value);
 
-            if (d[$scope.subKey] && d[$scope.subKey].length) {
-              getSelectedValues(d[$scope.subKey]);
+            if (d.sub && d.sub.length) {
+              getSelectedValues(d.sub);
             }
             if (d._parent) {
               getParent(d._parent);
@@ -270,7 +269,7 @@ function maTreeTransfer($treeSelect, $timeout) {
         }
 
         function getParent(parent) {
-          rightSelectedValues.push(parent[$scope.valueKey]);
+          rightSelectedValues.push(parent.value);
           if (parent._parent) {
             getParent(parent._parent);
           }
