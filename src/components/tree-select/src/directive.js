@@ -44,7 +44,7 @@ function maTreeSelect($treeSelect) {
       clear: '@maClear',
       static: '@maStatic',
     },
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', function($scope) {
       $scope.newItems = [];
       $scope.newModel = [];
       $scope.textKey = 'text';
@@ -59,12 +59,30 @@ function maTreeSelect($treeSelect) {
           newItems[newItems.length - 1].text = d[$scope.textKey];
           newItems[newItems.length - 1].value = d[$scope.valueKey];
           newItems[newItems.length - 1].sub = d[$scope.subKey];
+
+          setContent(newItems[newItems.length - 1]);
         });
 
         $scope.newItems = newItems;
+
+        function setContent(item) {
+          item.text = item[$scope.textKey];
+          item.value = item[$scope.valueKey];
+          item.sub = item[$scope.subKey];
+
+          delete item[$scope.textKey];
+          delete item[$scope.valueKey];
+          delete item[$scope.subKey];
+
+          if (item.sub && item.sub.length) {
+            angular.each(item.sub, (dd) => {
+              setContent(dd);
+            });
+          }
+        }
       });
 
-      $scope.$watch('model', function () {
+      $scope.$watch('model', function() {
         if ($scope.isInnerWatch) {
           $scope.isInnerWatch = false;
           return;
@@ -73,12 +91,12 @@ function maTreeSelect($treeSelect) {
           $scope.model);
       });
 
-      $scope.$watch('newModel', function (d) {
+      $scope.$watch('newModel', function(d) {
         $scope.model = d;
         $scope.isInnerWatch = true;
       });
     }],
-    link: function (scope, element, attrs, ctrl) {
+    link: function(scope, element, attrs, ctrl) {
       attrs.$observe('maTextKey', d => {
         scope.textKey = d || 'text';
       });
@@ -107,7 +125,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
     replace: true,
     template: multiSelectTpl,
     controllerAs: '$select',
-    link: function (scope, element, attrs, controller) {
+    link: function(scope, element, attrs, controller) {
       var $select = scope.$select;
 
       $select._multiselectId = angular.uuid();
@@ -118,30 +136,30 @@ function cmultiselect($parse, $window, $document, $timeout) {
       });
 
 
-      attrs.$observe('tree', function (d) {
+      attrs.$observe('tree', function(d) {
         scope.$select.isTree = true;
       });
 
-      attrs.$observe('clear', function (d) {
+      attrs.$observe('clear', function(d) {
         scope.$select.clear = d;
       });
 
-      attrs.$observe('static', function (d) {
+      attrs.$observe('static', function(d) {
         scope.$select.isStatic = d == 'true';
       });
 
       // attrs.$observe('ngItems', function(d) {
       //   scope.$select.selectItems = $parse(d)(scope.$parent);
       // })
-      attrs.$observe('searchEnabled', function (d) {
+      attrs.$observe('searchEnabled', function(d) {
         scope.$select.searchEnabled = $parse(d)(scope.$parent);
       });
 
-      attrs.$observe('limit', function (d) {
+      attrs.$observe('limit', function(d) {
         scope.$select.limit = parseInt($parse(d)(scope.$parent), 10);
       });
 
-      attrs.$observe('placeholder', function (d) {
+      attrs.$observe('placeholder', function(d) {
         scope.$select.placeholder = d;
       });
 
@@ -149,7 +167,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
       var dropdown = null;
       var directionUpClassName = 'direction-up';
 
-      var setDropdownPosUp = function (offset, offsetDropdown) {
+      var setDropdownPosUp = function(offset, offsetDropdown) {
         offset = offset || uisOffset(element);
         offsetDropdown = offsetDropdown || uisOffset(dropdown);
 
@@ -158,7 +176,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
         element.addClass(directionUpClassName);
       };
 
-      var uisOffset = function (element) {
+      var uisOffset = function(element) {
         var boundingClientRect = element[0].getBoundingClientRect();
         return {
           width: boundingClientRect.width || element.prop('offsetWidth'),
@@ -170,7 +188,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
         };
       };
 
-      var setDropdownPosDown = function (offset, offsetDropdown) {
+      var setDropdownPosDown = function(offset, offsetDropdown) {
         element.removeClass(directionUpClassName);
 
         offset = offset || uisOffset(element);
@@ -180,9 +198,9 @@ function cmultiselect($parse, $window, $document, $timeout) {
         dropdown[0].style.top = '';
       };
 
-      var calculateDropdownPosAfterAnimation = function () {
+      var calculateDropdownPosAfterAnimation = function() {
         // Delay positioning the dropdown until all choices have been added so its height is correct.
-        $timeout(function () {
+        $timeout(function() {
           if ($select.dropdownPosition === 'up') {
             // Go UP
             setDropdownPosUp();
@@ -215,7 +233,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
 
       // var opened = false;
 
-      scope.calculateDropdownPos = function () {
+      scope.calculateDropdownPos = function() {
         // if ($select.open) {
         dropdown = angular.element(element).querySelectorAll(
           '.ui-select-dropdown');
@@ -234,7 +252,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
           .on && $select.$animate.enabled(dropdown)) {
           var needsCalculated = true;
 
-          $select.$animate.on('enter', dropdown, function (elem, phase) {
+          $select.$animate.on('enter', dropdown, function(elem, phase) {
             if (phase === 'close' && needsCalculated) {
               calculateDropdownPosAfterAnimation();
               needsCalculated = false;
@@ -256,7 +274,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
         // }
       };
     },
-    controller: ['$scope', '$timeout', function ($scope, $timeout) {
+    controller: ['$scope', '$timeout', function($scope, $timeout) {
       const _this = this;
       const $select = this;
       this.searchEnabled = false;
@@ -280,27 +298,27 @@ function cmultiselect($parse, $window, $document, $timeout) {
         }
       }
 
-      $scope.$on('$destroy', function () {
+      $scope.$on('$destroy', function() {
         $('body').unbind('click', bodyClick);
       });
 
       $('body').bind('click', bodyClick);
 
-      $scope.$watch('selectDisabled', function (d) {
+      $scope.$watch('selectDisabled', function(d) {
         $scope.$select.selectDisabled = d;
       });
 
-      $scope.$parent.$watch($scope.ngModel, function (d) {
+      $scope.$parent.$watch($scope.ngModel, function(d) {
         $scope.$select.selectModel = d;
         $scope.$select.fixSelected();
       });
 
-      $scope.$parent.$watch($scope.ngItems, function (d) {
+      $scope.$parent.$watch($scope.ngItems, function(d) {
         var items = angular.extend([], d);
         var newitems = [];
 
         function getSub(items, parentItem, treeLevel) {
-          angular.forEach(items, function (item) {
+          angular.forEach(items, function(item) {
             newitems.push(item);
 
             item._treeLevel = treeLevel;
@@ -309,7 +327,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
               item.tagId = parentItem ? parentItem.tagId + '_' +
                 angular.uuid() : 'treeTag_' + angular.uuid();
               item._treeLinkTo = item.tagId;
-              angular.forEach(item.sub, function (it) {
+              angular.forEach(item.sub, function(it) {
                 it._parent = item;
                 it._treeLinkFrom = item.tagId;
               });
@@ -326,12 +344,12 @@ function cmultiselect($parse, $window, $document, $timeout) {
       });
 
 
-      $scope.$watch('$select.selectModel', function (d) {
+      $scope.$watch('$select.selectModel', function(d) {
         let model = $parse($scope.ngModel);
         let hasOther = false;
 
         function setSelectedFalse(items) {
-          angular.forEach(items, function (d) {
+          angular.forEach(items, function(d) {
             d._selected = false;
             if (d.sub && d.sub.length) {
               setSelectedFalse(d.sub);
@@ -341,7 +359,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
 
         setSelectedFalse($scope.$select.selectItems);
 
-        angular.forEach(d, function (dd) {
+        angular.forEach(d, function(dd) {
           if (angular.isObject(dd)) {
             dd._selected = true;
           } else {
@@ -422,7 +440,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
         this.selectModel = newSelected;
       };
 
-      this.getParents = function (item) {
+      this.getParents = function(item) {
         let parents = [];
 
         function getParent(p) {
@@ -603,9 +621,9 @@ function cmultiselect($parse, $window, $document, $timeout) {
 
 
       this.hasSubNotHidden = item => {
-        let subHidden = function (sub) {
+        let subHidden = function(sub) {
           let ret = false;
-          angular.forEach(sub, function (d) {
+          angular.forEach(sub, function(d) {
             if (d.isHidden !== true) {
               ret = true;
             } else if (d.sub && d.sub.length) {

@@ -143,6 +143,7 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
     controller: ['$scope', function($scope) {
       $scope.$state = $state;
       $scope.itemClick = itemClick;
+      $scope.iconClick = iconClick;
       $scope.hasRouters = hasRouters;
       expandCurrentMenu();
       bindStateChangeSuccess();
@@ -187,6 +188,11 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
         if (hasRouters(router.routers)) {
           router.expand = true;
         }
+      }
+
+      function iconClick(router, $event) {
+        $event.stopPropagation();
+        toggleMenu(router, $event);
       }
 
       function toggleMenu(router, $event) {

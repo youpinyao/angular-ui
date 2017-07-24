@@ -515,9 +515,27 @@ function maTreeSelect($treeSelect) {
           newItems[newItems.length - 1].text = d[$scope.textKey];
           newItems[newItems.length - 1].value = d[$scope.valueKey];
           newItems[newItems.length - 1].sub = d[$scope.subKey];
+
+          setContent(newItems[newItems.length - 1]);
         });
 
         $scope.newItems = newItems;
+
+        function setContent(item) {
+          item.text = item[$scope.textKey];
+          item.value = item[$scope.valueKey];
+          item.sub = item[$scope.subKey];
+
+          delete item[$scope.textKey];
+          delete item[$scope.valueKey];
+          delete item[$scope.subKey];
+
+          if (item.sub && item.sub.length) {
+            angular.each(item.sub, function (dd) {
+              setContent(dd);
+            });
+          }
+        }
       });
 
       $scope.$watch('model', function () {

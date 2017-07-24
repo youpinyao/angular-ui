@@ -40598,6 +40598,7 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
     controller: ['$scope', function ($scope) {
       $scope.$state = $state;
       $scope.itemClick = itemClick;
+      $scope.iconClick = iconClick;
       $scope.hasRouters = hasRouters;
       expandCurrentMenu();
       bindStateChangeSuccess();
@@ -40641,6 +40642,11 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
         if (hasRouters(router.routers)) {
           router.expand = true;
         }
+      }
+
+      function iconClick(router, $event) {
+        $event.stopPropagation();
+        toggleMenu(router, $event);
       }
 
       function toggleMenu(router, $event) {
@@ -46895,7 +46901,7 @@ module.exports = function (it) {
 /***/ "PIS4":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sider-menu-content\">\n  <div\n    class=\"sider-menu-item\"\n    ng-repeat=\"router in routers\"\n    ng-if=\"router.hidden !== true\">\n    <a\n    href=\"javascript:void(0);\"\n    ng-class=\"{\n      active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params),\n      arrow: router.routers && router.routers.length\n    }\"\n    ma-click=\"itemClick(router, $event)\">\n      <span>{{router.title}}</span>\n      <ma-icon ma-type=\"{{router.expand ? 'up' : 'down'}}\" ng-if=\"hasRouters(router.routers)\"></ma-icon>\n    </a>\n    <ma-sider-menu-content ng-class=\"{hide: !router.expand}\" ng-if=\"router.routers && router.routers.length\" ma-routers=\"router.routers\"></ma-sider-menu-content>\n  </div>\n</div>\n";
+module.exports = "<div class=\"sider-menu-content\">\n  <div class=\"sider-menu-item\"\n    ng-repeat=\"router in routers\"\n    ng-if=\"router.hidden !== true\">\n    <a href=\"javascript:void(0);\"\n      ng-class=\"{\n      active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params),\n      arrow: router.routers && router.routers.length\n    }\"\n      ma-click=\"itemClick(router, $event)\">\n      <span>{{router.title}}</span>\n      <ma-icon ma-type=\"{{router.expand ? 'up' : 'down'}}\"\n        ng-if=\"hasRouters(router.routers)\"\n        ma-click=\"iconClick(router, $event)\"></ma-icon>\n    </a>\n    <ma-sider-menu-content ng-class=\"{hide: !router.expand}\"\n      ng-if=\"router.routers && router.routers.length\"\n      ma-routers=\"router.routers\"></ma-sider-menu-content>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -57322,9 +57328,27 @@ function maTreeSelect($treeSelect) {
           newItems[newItems.length - 1].text = d[$scope.textKey];
           newItems[newItems.length - 1].value = d[$scope.valueKey];
           newItems[newItems.length - 1].sub = d[$scope.subKey];
+
+          setContent(newItems[newItems.length - 1]);
         });
 
         $scope.newItems = newItems;
+
+        function setContent(item) {
+          item.text = item[$scope.textKey];
+          item.value = item[$scope.valueKey];
+          item.sub = item[$scope.subKey];
+
+          delete item[$scope.textKey];
+          delete item[$scope.valueKey];
+          delete item[$scope.subKey];
+
+          if (item.sub && item.sub.length) {
+            angular.each(item.sub, function (dd) {
+              setContent(dd);
+            });
+          }
+        }
       });
 
       $scope.$watch('model', function () {

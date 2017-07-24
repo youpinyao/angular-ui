@@ -91,7 +91,7 @@ function routerRule($injector, $location) {
     let count = 0;
 
     url1.forEach((d, i) => {
-      if (d === url2[i] || (d.indexOf(':') !== -1 && url2[i])) {
+      if (d === url2[i] || (d.indexOf(':') !== -1 && (url2[i] || url2[i] === ''))) {
         count++;
       }
     });

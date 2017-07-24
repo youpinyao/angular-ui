@@ -11,30 +11,30 @@ function mainCtrl($scope, $q, $timeout, $treeSelect) {
   $scope.disabled = false;
 
   $scope.data = [{
-    text: '6666',
-    value: '6666',
-    sub: [{
-      text: '7777',
-      value: '7777',
+    text1: '6666',
+    value1: '6666',
+    sub1: [{
+      text1: '7777',
+      value1: '7777',
     }, {
-      text: '8888',
-      value: '8888',
+      text1: '8888',
+      value1: '8888',
     }, {
-      text: '9999',
-      value: '9999',
+      text1: '9999',
+      value1: '9999',
     }]
   }, {
-    text: '66661',
-    value: '66661',
-    sub: [{
-      text: '77771',
-      value: '77771',
+    text1: '66661',
+    value1: '66661',
+    sub1: [{
+      text1: '77771',
+      value1: '77771',
     }, {
-      text: '88881',
-      value: '88881',
+      text1: '88881',
+      value1: '88881',
     }, {
-      text: '99991',
-      value: '99991',
+      text1: '99991',
+      value1: '99991',
     }]
   }];
 

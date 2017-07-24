@@ -1,4 +1,5 @@
 /* 顶部菜单样式 */
+
 .nav {
   float: left;
   position: relative;
@@ -16,7 +17,6 @@
         color: $white;
         position: relative;
         display: inline-block;
-
         &:after {
           @include transition();
           @include transform(scale(0));
@@ -43,7 +43,6 @@
       }
     }
   }
-
   /* 二级菜单样式 */
   .second-nav {
     opacity: 0;
@@ -78,13 +77,11 @@
       }
     }
   }
-
   .second-nav.show {
     opacity: 1;
     visibility: visible;
     @include transform(scaleY(1));
   }
-
 }
 
 .has-second-nav {
@@ -99,7 +96,9 @@
   }
 }
 
+
 /* 侧边菜单 */
+
 body.has-sider-menu > .main {
   position: relative;
   z-index: 1;
@@ -110,9 +109,9 @@ body.has-sider-menu > .main {
   @include transition(none);
 }
 
-@mixin siderContentPadding($count: 1){
+@mixin siderContentPadding($count: 1) {
   @if $count < 4 {
-  > .sider-menu-content {
+    > .sider-menu-content {
       > .sider-menu-item {
         > a {
           padding: 10px 0px 10px (20px + 10px * $count);
@@ -122,6 +121,7 @@ body.has-sider-menu > .main {
     }
   }
 }
+
 .sider-menu {
   overflow: hidden;
   z-index: 10;
@@ -166,14 +166,24 @@ body.has-sider-menu > .main {
         }
         i.iconfont {
           display: block;
-          height: 20px;
-          line-height: 20px;
           font-size: $font12;
           position: absolute;
-          right: 20px;
+          right: 0px;
+          padding-right: 15px;
+          padding-left: 5px;
           top: 0px;
           bottom: 0px;
+          height: 100%;
+          line-height: 50px;
           margin: auto;
+        }
+        .slide-menu-item {
+          a {
+            i.iconfont {
+              line-height: 40px;
+              height: 40px;
+            }
+          }
         }
         &.arrow {
           padding-right: 30px !important;
