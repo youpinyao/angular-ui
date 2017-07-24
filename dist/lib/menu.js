@@ -245,10 +245,14 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       }
 
       function itemClick(router, $event) {
-        if (hasRouters(router.routers)) {
+        if (hasRouters(router.routers) && angular.isNull(router.state)) {
           toggleMenu(router, $event);
         } else {
           $state.go(router.state, router.params);
+        }
+
+        if (hasRouters(router.routers)) {
+          router.expand = true;
         }
       }
 

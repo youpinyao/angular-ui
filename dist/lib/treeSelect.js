@@ -1716,6 +1716,9 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
         return pwdReg.test(value) && !num.test(value);
       }
       return false;
+    },
+    same: function same(value, scope, element, attrs, param) {
+      return value == scope.$eval(param);
     }
   };
 
@@ -1820,6 +1823,12 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
     password: {
       error: function error(element, attrs, param) {
         return errorMsgTemplate(element, attrs, param, '长度为6-16个字符，不能包含空格，不能是9位以下纯数字');
+      },
+      success: 'OK'
+    },
+    same: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '内容不一致');
       },
       success: 'OK'
     }

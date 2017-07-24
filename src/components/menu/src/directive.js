@@ -75,7 +75,8 @@ function maSecondMenu($state, $rootScope) {
         let hasSecondNav = false;
 
         $scope.routers.forEach(router => {
-          if (router.parent && router.state.indexOf(router.parent.state + '.') !== -1 && $state.current.name.indexOf(router.parent.state + '.') !== -1) {
+          if (router.parent && router.state.indexOf(router.parent.state + '.') !== -1 &&
+            $state.current.name.indexOf(router.parent.state + '.') !== -1) {
             hasSecondNav = true;
           }
         });
@@ -177,10 +178,14 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       }
 
       function itemClick(router, $event) {
-        if (hasRouters(router.routers)) {
+        if (hasRouters(router.routers) && angular.isNull(router.state)) {
           toggleMenu(router, $event);
         } else {
           $state.go(router.state, router.params);
+        }
+
+        if (hasRouters(router.routers)) {
+          router.expand = true;
         }
       }
 

@@ -3737,6 +3737,22 @@ body {
   overflow: auto;
 }
 
+.danger {
+  color: #FF5073;
+}
+
+.success {
+  color: #87D068;
+}
+
+.warning {
+  color: #F6A623;
+}
+
+.primary {
+  color: #FF74B9;
+}
+
 /* 定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸 */
 
 *::-webkit-scrollbar {
