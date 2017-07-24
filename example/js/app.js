@@ -104,7 +104,7 @@ function routerRule($injector, $location) {
     toUrl += toState.url;
   }
 
-  if (toUrl && toState) {
+  if (toUrl && toState && toUrl === path) {
     toUrl = setParams(toUrl, toState.params || {});
   }
 
