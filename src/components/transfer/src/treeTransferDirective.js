@@ -72,7 +72,7 @@ function maTreeTransfer($treeSelect, $timeout) {
         });
 
         if (valueArrayLength >= d.length) {
-          d = $treeSelect.filterSelectTreeData($scope.data, d);
+          d = $treeSelect.filterSelectTreeData(getData($scope.data), d);
         }
 
         angular.each(d, d => {

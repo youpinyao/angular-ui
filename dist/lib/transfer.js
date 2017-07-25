@@ -235,20 +235,7 @@ module.exports = "<div class=\"ma-input\">\n  <input\n    ng-show=\"type !== 'te
 
 /***/ }),
 
-/***/ "76nD":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports['default'] = 'meetyou.angular.ui.treeSelect';
-
-/***/ }),
-
-/***/ "8Orb":
+/***/ "7/fA":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -262,17 +249,13 @@ var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _maTransferTpl = __webpack_require__("NQbv");
-
-var _maTransferTpl2 = _interopRequireDefault(_maTransferTpl);
-
 var _maTreeTransferTpl = __webpack_require__("5Rsw");
 
 var _maTreeTransferTpl2 = _interopRequireDefault(_maTreeTransferTpl);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-angular.module(_name2['default']).directive('maTransfer', maTransfer).directive('maTreeTransfer', maTreeTransfer);
+angular.module(_name2['default']).directive('maTreeTransfer', maTreeTransfer);
 
 maTreeTransfer.$inject = ['$treeSelect', '$timeout'];
 
@@ -340,7 +323,7 @@ function maTreeTransfer($treeSelect, $timeout) {
         });
 
         if (valueArrayLength >= d.length) {
-          d = $treeSelect.filterSelectTreeData($scope.data, d);
+          d = $treeSelect.filterSelectTreeData(getData($scope.data), d);
         }
 
         angular.each(d, function (d) {
@@ -601,229 +584,18 @@ function maTreeTransfer($treeSelect, $timeout) {
   };
 }
 
-maTransfer.$inject = [];
+/***/ }),
 
-function maTransfer() {
-  return {
-    restrict: 'E',
-    replace: true,
-    scope: {
-      data: '=maData',
-      model: '=ngModel',
-      valueKey: '@maValueKey',
-      textKey: '@maTextKey',
-      disabled: '=ngDisabled',
+/***/ "76nD":
+/***/ (function(module, exports, __webpack_require__) {
 
-      leftTitle: '@maLeftTitle',
-      rightTitle: '@maRightTitle'
-    },
-    template: _maTransferTpl2['default'],
-    controllerAs: '$ctrl',
-    controller: ['$scope', function ($scope) {
-      var $ctrl = this;
+"use strict";
 
-      this.leftData = [];
-      this.rightData = [];
 
-      this.leftButtonDisabled = true;
-      this.rightButtonDisabled = true;
-      this.toLeft = toLeft;
-      this.toRight = toRight;
-
-      $scope.$watch('$ctrl.leftCheckbox', function (d) {
-        var canChange = true;
-
-        if ($ctrl.prevLeftSelectedLength !== undefined && $ctrl.prevLeftSelectedLength === $ctrl.leftData.length - 1) {
-          canChange = false;
-          $ctrl.prevLeftSelectedLength = undefined;
-        }
-        if (canChange) {
-          if (d) {
-            $ctrl.leftSelected = [];
-            angular.each($ctrl.leftData, function (d) {
-              if (d.hide === false) {
-                $ctrl.leftSelected.push(d);
-              }
-            });
-          } else {
-            $ctrl.leftSelected = [];
-          }
-        }
-      });
-
-      $scope.$watch('$ctrl.leftSelected', function (d) {
-        if (d.length && d.length === $ctrl.leftShowCount) {
-          $ctrl.leftCheckbox = true;
-        }
-
-        if ($ctrl.prevLeftSelectedLength === $ctrl.leftShowCount && d.length !== $ctrl.leftShowCount) {
-          $ctrl.leftCheckbox = false;
-        }
-
-        if (d && d.length) {
-          $ctrl.leftButtonDisabled = false;
-        } else {
-          $ctrl.leftButtonDisabled = true;
-        }
-
-        $ctrl.prevLeftSelectedLength = d.length;
-      });
-
-      $scope.$watch('$ctrl.rightCheckbox', function (d) {
-        var canChange = true;
-
-        if ($ctrl.prevRightSelectedLength !== undefined && $ctrl.prevRightSelectedLength === $ctrl.rightData.length - 1) {
-          canChange = false;
-          $ctrl.prevRightSelectedLength = undefined;
-        }
-        if (canChange) {
-          if (d) {
-            $ctrl.rightSelected = [];
-            angular.each($ctrl.rightData, function (d) {
-              if (d.hide === false) {
-                $ctrl.rightSelected.push(d);
-              }
-            });
-          } else {
-            $ctrl.rightSelected = [];
-          }
-        }
-      });
-
-      $scope.$watch('$ctrl.rightSelected', function (d) {
-        if (d.length && d.length === $ctrl.rightShowCount) {
-          $ctrl.rightCheckbox = true;
-        }
-
-        if ($ctrl.prevRightSelectedLength === $ctrl.rightShowCount && d.length !== $ctrl.rightShowCount) {
-          $ctrl.rightCheckbox = false;
-        }
-
-        if (d && d.length) {
-          $ctrl.rightButtonDisabled = false;
-        } else {
-          $ctrl.rightButtonDisabled = true;
-        }
-
-        $ctrl.prevRightSelectedLength = d.length;
-      });
-
-      $scope.$watch('data', function (d) {
-        $ctrl.leftData = _jquery2['default'].extend(true, [], d);
-        $ctrl.rightData = _jquery2['default'].extend(true, [], d);
-
-        updateLeftRight();
-        reset();
-      });
-
-      $scope.$watch('model', function (d) {
-        updateLeftRight();
-      });
-
-      function updateLeftRight() {
-        var selectValues = [];
-
-        angular.each($scope.model, function (data) {
-          if (angular.isObject(data)) {
-            selectValues.push(data[$scope.valueKey]);
-          } else {
-            selectValues.push(data);
-          }
-        });
-
-        angular.each($scope.data, function (data, k) {
-          if (selectValues.indexOf(data[$scope.valueKey]) !== -1) {
-            $ctrl.leftData[k].hide = true;
-            $ctrl.rightData[k].hide = false;
-          } else {
-            $ctrl.leftData[k].hide = false;
-            $ctrl.rightData[k].hide = true;
-          }
-        });
-
-        updateLeftRightShowCount();
-      }
-
-      function updateLeftRightShowCount() {
-        var leftShowCount = 0;
-        var rightShowCount = 0;
-
-        angular.each($ctrl.leftData, function (d) {
-          if (d.hide === false) {
-            leftShowCount++;
-          }
-        });
-        angular.each($ctrl.rightData, function (d) {
-          if (d.hide === false) {
-            rightShowCount++;
-          }
-        });
-
-        $ctrl.leftShowCount = leftShowCount;
-        $ctrl.rightShowCount = rightShowCount;
-      }
-
-      function toLeft($event) {
-        _moveItem($ctrl.rightSelected, 'left');
-      }
-
-      function toRight($event) {
-        _moveItem($ctrl.leftSelected, 'right');
-      }
-
-      function _moveItem(selected, direction) {
-        var selectValues = [];
-        var newModel = [];
-
-        angular.each(selected, function (d) {
-          selectValues.push(d[$scope.valueKey]);
-        });
-
-        angular.each($ctrl.leftData, function (d, k) {
-          if (selectValues.indexOf(d[$scope.valueKey]) !== -1) {
-            if (direction === 'right') {
-              $ctrl.leftData[k].hide = true;
-              $ctrl.rightData[k].hide = false;
-            }
-            if (direction === 'left') {
-              $ctrl.leftData[k].hide = false;
-              $ctrl.rightData[k].hide = true;
-            }
-          }
-        });
-
-        angular.each($ctrl.rightData, function (d) {
-          if (d.hide === false) {
-            newModel.push(d);
-          }
-        });
-
-        $scope.model = newModel;
-
-        reset();
-
-        updateLeftRightShowCount();
-      }
-
-      function reset() {
-        $ctrl.leftSelected = [];
-        $ctrl.rightSelected = [];
-        $ctrl.leftCheckbox = false;
-        $ctrl.rightCheckbox = false;
-      }
-    }],
-    link: function link(scope, element, attrs, ctrl) {
-      scope.textKey = 'text';
-      scope.valueKey = 'value';
-      attrs.$observe('maTextKey', function (d) {
-        scope.textKey = d || 'text';
-      });
-      attrs.$observe('maValueKey', function (d) {
-        scope.valueKey = d || 'value';
-      });
-    }
-  };
-}
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports['default'] = 'meetyou.angular.ui.treeSelect';
 
 /***/ }),
 
@@ -2722,7 +2494,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 angular.module(_name2['default'], [_select2['default'], _treeSelect2['default']]).config(function () {}).run(function () {});
 
-__webpack_require__("8Orb");
+__webpack_require__("hDs6");
+__webpack_require__("7/fA");
 
 exports['default'] = _name2['default'];
 
@@ -2993,6 +2766,254 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
 /***/ (function(module, exports) {
 
 module.exports = "\n<div class=\"custom-select\">\n  <!-- 多选 -->\n<!--  <ui-select ng-if=\"ctrl.multiple\" limit=\"{{ctrl.limit}}\" close-on-select=\"false\" search-enabled=\"ctrl.searchEnabled\" multiple theme=\"select2\" ng-disabled=\"ctrl.selectDisabled\" sortable=\"ctrl.sortable\" class=\"form-control\" ng-model=\"ctrl.selectModel\" ng-class=\"{'hide-search': !ctrl.searchEnabled}\">\n\n    <ui-select-match placeholder=\"{{ctrl.placeholder}}\">{{$item.text}}</ui-select-match>\n        <ui-select-choices repeat=\"item in ctrl.selectItems | filter: $select.search : item.text\">\n\n          <div  ng-show=\"ctrl.showItem(item, $select.search)\" ng-click=\"ctrl.multipleClick($event, item)\"><common-checkbox model=\"item.selected\" style=\"pointer-events:none;\"><span ng-bind-html=\"item.text\"></span></common-checkbox></div>\n\n        </ui-select-choices>\n  </ui-select> -->\n\n  <!-- 单选 -->\n  <ui-select ng-if=\"!ctrl.multiple\" ng-class=\"{'has-scrollbar' : ctrl.selectItems.length > 5}\" search-enabled=\"ctrl.searchEnabled\" theme=\"select2\" ng-disabled=\"ctrl.selectDisabled\" show-loading=\"showLoading\" sortable=\"ctrl.sortable\" class=\"form-control\" ng-model=\"ctrl.selectModel\" select-uuid=\"{{ctrl._uuid}}\">\n\n    <ui-select-match placeholder=\"{{ctrl.placeholder}}\">{{$select.selected.text}}</ui-select-match>\n        <ui-select-choices repeat=\"item in ctrl.selectItems | filter: $select.search : item.text\">\n          <div ng-bind-html=\"item.text\"></div>\n        </ui-select-choices>\n  </ui-select>\n</div>\n";
+
+/***/ }),
+
+/***/ "hDs6":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _name = __webpack_require__("Jj4W");
+
+var _name2 = _interopRequireDefault(_name);
+
+var _jquery = __webpack_require__("7t+N");
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _maTransferTpl = __webpack_require__("NQbv");
+
+var _maTransferTpl2 = _interopRequireDefault(_maTransferTpl);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default']).directive('maTransfer', maTransfer);
+
+maTransfer.$inject = [];
+
+function maTransfer() {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      data: '=maData',
+      model: '=ngModel',
+      valueKey: '@maValueKey',
+      textKey: '@maTextKey',
+      disabled: '=ngDisabled',
+
+      leftTitle: '@maLeftTitle',
+      rightTitle: '@maRightTitle'
+    },
+    template: _maTransferTpl2['default'],
+    controllerAs: '$ctrl',
+    controller: ['$scope', function ($scope) {
+      var $ctrl = this;
+
+      this.leftData = [];
+      this.rightData = [];
+
+      this.leftButtonDisabled = true;
+      this.rightButtonDisabled = true;
+      this.toLeft = toLeft;
+      this.toRight = toRight;
+
+      $scope.$watch('$ctrl.leftCheckbox', function (d) {
+        var canChange = true;
+
+        if ($ctrl.prevLeftSelectedLength !== undefined && $ctrl.prevLeftSelectedLength === $ctrl.leftData.length - 1) {
+          canChange = false;
+          $ctrl.prevLeftSelectedLength = undefined;
+        }
+        if (canChange) {
+          if (d) {
+            $ctrl.leftSelected = [];
+            angular.each($ctrl.leftData, function (d) {
+              if (d.hide === false) {
+                $ctrl.leftSelected.push(d);
+              }
+            });
+          } else {
+            $ctrl.leftSelected = [];
+          }
+        }
+      });
+
+      $scope.$watch('$ctrl.leftSelected', function (d) {
+        if (d.length && d.length === $ctrl.leftShowCount) {
+          $ctrl.leftCheckbox = true;
+        }
+
+        if ($ctrl.prevLeftSelectedLength === $ctrl.leftShowCount && d.length !== $ctrl.leftShowCount) {
+          $ctrl.leftCheckbox = false;
+        }
+
+        if (d && d.length) {
+          $ctrl.leftButtonDisabled = false;
+        } else {
+          $ctrl.leftButtonDisabled = true;
+        }
+
+        $ctrl.prevLeftSelectedLength = d.length;
+      });
+
+      $scope.$watch('$ctrl.rightCheckbox', function (d) {
+        var canChange = true;
+
+        if ($ctrl.prevRightSelectedLength !== undefined && $ctrl.prevRightSelectedLength === $ctrl.rightData.length - 1) {
+          canChange = false;
+          $ctrl.prevRightSelectedLength = undefined;
+        }
+        if (canChange) {
+          if (d) {
+            $ctrl.rightSelected = [];
+            angular.each($ctrl.rightData, function (d) {
+              if (d.hide === false) {
+                $ctrl.rightSelected.push(d);
+              }
+            });
+          } else {
+            $ctrl.rightSelected = [];
+          }
+        }
+      });
+
+      $scope.$watch('$ctrl.rightSelected', function (d) {
+        if (d.length && d.length === $ctrl.rightShowCount) {
+          $ctrl.rightCheckbox = true;
+        }
+
+        if ($ctrl.prevRightSelectedLength === $ctrl.rightShowCount && d.length !== $ctrl.rightShowCount) {
+          $ctrl.rightCheckbox = false;
+        }
+
+        if (d && d.length) {
+          $ctrl.rightButtonDisabled = false;
+        } else {
+          $ctrl.rightButtonDisabled = true;
+        }
+
+        $ctrl.prevRightSelectedLength = d.length;
+      });
+
+      $scope.$watch('data', function (d) {
+        $ctrl.leftData = _jquery2['default'].extend(true, [], d);
+        $ctrl.rightData = _jquery2['default'].extend(true, [], d);
+
+        updateLeftRight();
+        reset();
+      });
+
+      $scope.$watch('model', function (d) {
+        updateLeftRight();
+      });
+
+      function updateLeftRight() {
+        var selectValues = [];
+
+        angular.each($scope.model, function (data) {
+          if (angular.isObject(data)) {
+            selectValues.push(data[$scope.valueKey]);
+          } else {
+            selectValues.push(data);
+          }
+        });
+
+        angular.each($scope.data, function (data, k) {
+          if (selectValues.indexOf(data[$scope.valueKey]) !== -1) {
+            $ctrl.leftData[k].hide = true;
+            $ctrl.rightData[k].hide = false;
+          } else {
+            $ctrl.leftData[k].hide = false;
+            $ctrl.rightData[k].hide = true;
+          }
+        });
+
+        updateLeftRightShowCount();
+      }
+
+      function updateLeftRightShowCount() {
+        var leftShowCount = 0;
+        var rightShowCount = 0;
+
+        angular.each($ctrl.leftData, function (d) {
+          if (d.hide === false) {
+            leftShowCount++;
+          }
+        });
+        angular.each($ctrl.rightData, function (d) {
+          if (d.hide === false) {
+            rightShowCount++;
+          }
+        });
+
+        $ctrl.leftShowCount = leftShowCount;
+        $ctrl.rightShowCount = rightShowCount;
+      }
+
+      function toLeft($event) {
+        _moveItem($ctrl.rightSelected, 'left');
+      }
+
+      function toRight($event) {
+        _moveItem($ctrl.leftSelected, 'right');
+      }
+
+      function _moveItem(selected, direction) {
+        var selectValues = [];
+        var newModel = [];
+
+        angular.each(selected, function (d) {
+          selectValues.push(d[$scope.valueKey]);
+        });
+
+        angular.each($ctrl.leftData, function (d, k) {
+          if (selectValues.indexOf(d[$scope.valueKey]) !== -1) {
+            if (direction === 'right') {
+              $ctrl.leftData[k].hide = true;
+              $ctrl.rightData[k].hide = false;
+            }
+            if (direction === 'left') {
+              $ctrl.leftData[k].hide = false;
+              $ctrl.rightData[k].hide = true;
+            }
+          }
+        });
+
+        angular.each($ctrl.rightData, function (d) {
+          if (d.hide === false) {
+            newModel.push(d);
+          }
+        });
+
+        $scope.model = newModel;
+
+        reset();
+
+        updateLeftRightShowCount();
+      }
+
+      function reset() {
+        $ctrl.leftSelected = [];
+        $ctrl.rightSelected = [];
+        $ctrl.leftCheckbox = false;
+        $ctrl.rightCheckbox = false;
+      }
+    }],
+    link: function link(scope, element, attrs, ctrl) {
+      scope.textKey = 'text';
+      scope.valueKey = 'value';
+      attrs.$observe('maTextKey', function (d) {
+        scope.textKey = d || 'text';
+      });
+      attrs.$observe('maValueKey', function (d) {
+        scope.valueKey = d || 'value';
+      });
+    }
+  };
+}
 
 /***/ }),
 
