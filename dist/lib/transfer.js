@@ -2312,12 +2312,19 @@ var util = {
   filterSelectTreeData: function filterSelectTreeData(data, selectedIds) {
     angular.forEach(data, function (d) {
       if (selectedIds.indexOf(d.value) !== -1 && d.sub && d.sub.length) {
-        angular.each(d.sub, function (dd) {
-          dd._parent = d;
-        });
+        setParents(d.sub, d);
         checkSub(d.sub);
       }
     });
+
+    function setParents(sub, parent) {
+      angular.each(sub, function (dd) {
+        dd._parent = parent;
+        if (dd.sub && dd.sub.length) {
+          setParents(dd.sub, dd);
+        }
+      });
+    }
 
     function checkSub(items) {
       var count = 0;
@@ -2400,6 +2407,7 @@ var util = {
     angular.forEach(hiddenItem, function (d) {
       hiddenValues.push(d.value);
     });
+
     function hideItem(items) {
       angular.forEach(items, function (d) {
         if (!hiddenItem) {

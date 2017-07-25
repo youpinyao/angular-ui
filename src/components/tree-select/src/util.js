@@ -1,9 +1,9 @@
 const util = {
-  getNotHiddenValues: function (data) {
+  getNotHiddenValues: function(data) {
     var values = [];
 
     function getValue(items) {
-      angular.forEach(items, function (d) {
+      angular.forEach(items, function(d) {
         if (!d.isHidden) {
           values.push(d.value);
         }
@@ -17,7 +17,7 @@ const util = {
 
     return values;
   },
-  getDefaultSelectTreeData: function (data, selectedIds) {
+  getDefaultSelectTreeData: function(data, selectedIds) {
     const selected = [];
     const newSelectedIds = [];
 
@@ -30,7 +30,7 @@ const util = {
     });
 
     function checkSub(items) {
-      angular.forEach(items, function (d) {
+      angular.forEach(items, function(d) {
         if (newSelectedIds.indexOf(d.value) !== -1 && !d.hiddenCheck) {
           selected.push(d);
         }
@@ -43,19 +43,26 @@ const util = {
 
     return selected;
   },
-  filterSelectTreeData: function (data, selectedIds) {
-    angular.forEach(data, function (d) {
+  filterSelectTreeData: function(data, selectedIds) {
+    angular.forEach(data, function(d) {
       if (selectedIds.indexOf(d.value) !== -1 && d.sub && d.sub.length) {
-        angular.each(d.sub, dd => {
-          dd._parent = d;
-        });
+        setParents(d.sub, d);
         checkSub(d.sub);
       }
     });
 
+    function setParents(sub, parent) {
+      angular.each(sub, dd => {
+        dd._parent = parent;
+        if (dd.sub && dd.sub.length) {
+          setParents(dd.sub, dd);
+        }
+      });
+    }
+
     function checkSub(items) {
       var count = 0;
-      angular.forEach(items, function (d) {
+      angular.forEach(items, function(d) {
         if (selectedIds.indexOf(d.value) !== -1) {
           count++;
 
@@ -75,7 +82,7 @@ const util = {
 
     return selectedIds;
   },
-  getSelectTreeData: function (config) {
+  getSelectTreeData: function(config) {
     const data = config.data;
     const text = config.text;
     const displayText = config.displayText;
@@ -85,7 +92,7 @@ const util = {
     const tree = [];
 
     function pushData(items, tree) {
-      angular.forEach(items, function (d) {
+      angular.forEach(items, function(d) {
         tree.push({
           text: d[text],
           value: d[value],
@@ -102,9 +109,9 @@ const util = {
 
     return tree;
   },
-  hiddenSelectTreeDataReverse: function (data) {
+  hiddenSelectTreeDataReverse: function(data) {
     function reverse(items) {
-      angular.forEach(items, function (d) {
+      angular.forEach(items, function(d) {
         d.isHidden = !d.isHidden;
 
         if (!d.isHidden && d._parent) {
@@ -128,14 +135,15 @@ const util = {
 
     return data;
   },
-  hiddenSelectTreeData: function (data, hiddenItem) {
+  hiddenSelectTreeData: function(data, hiddenItem) {
     var hiddenValues = [];
     var hide = true;
-    angular.forEach(hiddenItem, function (d) {
+    angular.forEach(hiddenItem, function(d) {
       hiddenValues.push(d.value);
     });
+
     function hideItem(items) {
-      angular.forEach(items, function (d) {
+      angular.forEach(items, function(d) {
         if (!hiddenItem) {
           d.isHidden = hide;
           if (d.sub && d.sub.length) {
@@ -163,7 +171,7 @@ const util = {
     }
 
     function hideSub(items) {
-      angular.forEach(items, function (d) {
+      angular.forEach(items, function(d) {
         if (!hiddenItem || hiddenValues.indexOf(d.value) !== -1) {
           d.isHidden = hide;
         }
@@ -176,7 +184,7 @@ const util = {
 
     function hideParent(item) {
       var hideCount = 0;
-      angular.forEach(item.sub, function (d) {
+      angular.forEach(item.sub, function(d) {
         if (d.isHidden) {
           hideCount++;
         }
