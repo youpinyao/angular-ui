@@ -182,7 +182,7 @@ function maSiderMenu($state, $rootScope) {
       title: '@maTitle'
     },
     template: _maSiderMenuTpl2['default'],
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', '$element', function ($scope, $element) {
       var cls = 'has-sider-menu';
 
       $scope.$state = $state;
@@ -191,7 +191,25 @@ function maSiderMenu($state, $rootScope) {
 
       $scope.$on('$destroy', function (e) {
         (0, _jquery2['default'])('body').removeClass(cls);
+        (0, _jquery2['default'])(window).off('scroll', setTop);
       });
+
+      // 绑定全局滚动，相对顶部
+      (0, _jquery2['default'])(window).on('scroll', setTop);
+      setTop();
+
+      function setTop() {
+        var header = (0, _jquery2['default'])('body > .header');
+        var top = header.height() - (0, _jquery2['default'])(window).scrollTop();
+
+        if (top < 0) {
+          top = 0;
+        }
+
+        (0, _jquery2['default'])($element).css({
+          top: top
+        });
+      }
     }],
     link: function link(scope, element, attrs, controllers) {}
   };
