@@ -7,6 +7,7 @@ angular.module(moduleName, [
   treeSelect,
 ]).config(function () {}).run(function () {});
 
-require('./src/directive.js');
+require('./src/transferDirective.js');
+require('./src/treeTransferDirective.js');
 
 export default moduleName;
