@@ -25,7 +25,7 @@ function maTreeTransfer($treeSelect, $timeout) {
     },
     template: maTreeTransferTpl,
     controllerAs: '$ctrl',
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', function($scope) {
       const $ctrl = this;
 
       this.leftData = [];
@@ -53,12 +53,15 @@ function maTreeTransfer($treeSelect, $timeout) {
       });
 
       $scope.$watch('model', d => {
-        if ($scope.disabledWatch1) {
-          return;
+        if (isObjectArray(d)) {
+          if ($scope.disabledWatch1) {
+            return;
+          }
+          if ($scope.disabledWatch2) {
+            return;
+          }
         }
-        if ($scope.disabledWatch2) {
-          return;
-        }
+
 
         let selectedModel = [];
         let leftSelected = [];
@@ -104,12 +107,10 @@ function maTreeTransfer($treeSelect, $timeout) {
       });
 
 
-      $scope.$watch('$ctrl.leftSelected', function (d) {
+      $scope.$watch('$ctrl.leftSelected', function(d, p) {
         $ctrl.leftButtonDisabled = !(d && d.length);
 
-        updateSelectedCount();
-
-        if ($scope.disabledWatch1) {
+        if ($scope.disabledWatch1 || angular.isNull(d) || d.length == p.length) {
           return;
         }
         if (d) {
@@ -119,15 +120,15 @@ function maTreeTransfer($treeSelect, $timeout) {
             $ctrl.leftCheckbox = false;
           }
           $scope.disabledWatch1 = true;
-          $timeout(function () {
+          $timeout(function() {
             $scope.disabledWatch1 = false;
           }, 100);
         }
       });
 
 
-      $scope.$watch('$ctrl.leftCheckbox', function (d) {
-        if ($scope.disabledWatch1) {
+      $scope.$watch('$ctrl.leftCheckbox', function(d, p) {
+        if ($scope.disabledWatch1 || d == p) {
           return;
         }
         if (d) {
@@ -136,18 +137,18 @@ function maTreeTransfer($treeSelect, $timeout) {
           $ctrl.leftSelected = [];
         }
         $scope.disabledWatch1 = true;
-        $timeout(function () {
+        $timeout(function() {
           $scope.disabledWatch1 = false;
         }, 100);
       });
 
 
-      $scope.$watch('$ctrl.rightSelected', function (d) {
+      $scope.$watch('$ctrl.rightSelected', function(d, p) {
         $ctrl.rightButtonDisabled = !(d && d.length);
 
         updateSelectedCount();
 
-        if ($scope.disabledWatch2) {
+        if ($scope.disabledWatch2 || angular.isNull(d) || d.length == p.length) {
           return;
         }
         if (d) {
@@ -157,14 +158,14 @@ function maTreeTransfer($treeSelect, $timeout) {
             $ctrl.rightCheckbox = false;
           }
           $scope.disabledWatch2 = true;
-          $timeout(function () {
+          $timeout(function() {
             $scope.disabledWatch2 = false;
           }, 100);
         }
       });
 
-      $scope.$watch('$ctrl.rightCheckbox', function (d) {
-        if ($scope.disabledWatch2) {
+      $scope.$watch('$ctrl.rightCheckbox', function(d, p) {
+        if ($scope.disabledWatch2 || d == p) {
           return;
         }
         if (d) {
@@ -173,7 +174,7 @@ function maTreeTransfer($treeSelect, $timeout) {
           $ctrl.rightSelected = [];
         }
         $scope.disabledWatch2 = true;
-        $timeout(function () {
+        $timeout(function() {
           $scope.disabledWatch2 = false;
         }, 100);
       });
@@ -199,14 +200,13 @@ function maTreeTransfer($treeSelect, $timeout) {
 
         if (isInit !== true) {
           $scope.disabledWatch1 = true;
-          $timeout(function () {
+          $timeout(function() {
             $scope.disabledWatch1 = false;
           }, 100);
         }
 
-
         function getSelectedValues(items) {
-          angular.forEach(items, function (d) {
+          angular.forEach(items, function(d) {
             if (d.isHidden !== true && pushedValues.indexOf(d.value) === -1) {
               $scope.model.push({
                 value: d.value,
@@ -228,7 +228,7 @@ function maTreeTransfer($treeSelect, $timeout) {
 
         getSelectedValues($ctrl.rightSelected);
 
-        angular.forEach($scope.model, function (d) {
+        angular.forEach($scope.model, function(d) {
           if (rightSelectedValues.indexOf(d.value) === -1) {
             newModel.push(d);
           }
@@ -248,13 +248,13 @@ function maTreeTransfer($treeSelect, $timeout) {
         updateShowCount();
 
         $scope.disabledWatch2 = true;
-        $timeout(function () {
+        $timeout(function() {
           $scope.disabledWatch2 = false;
         }, 100);
 
 
         function getSelectedValues(items) {
-          angular.forEach(items, function (d) {
+          angular.forEach(items, function(d) {
             rightSelectedValues.push(d.value);
 
             if (d.sub && d.sub.length) {
@@ -319,8 +319,18 @@ function maTreeTransfer($treeSelect, $timeout) {
           $ctrl.rightShowCount++;
         });
       }
+
+      function isObjectArray(arr) {
+        if (angular.isNull(arr)) {
+          return false;
+        }
+        if (arr && !isNaN(arr.length) && (angular.isObject(arr[0]) || angular.isNull(arr[0]))) {
+          return true;
+        }
+        return false;
+      }
     }],
-    link: function (scope, element, attrs, ctrl) {
+    link: function(scope, element, attrs, ctrl) {
       scope.textKey = 'text';
       scope.valueKey = 'value';
       scope.subKey = 'sub';

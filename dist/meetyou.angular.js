@@ -6062,11 +6062,13 @@ function maTreeTransfer($treeSelect, $timeout) {
       });
 
       $scope.$watch('model', function (d) {
-        if ($scope.disabledWatch1) {
-          return;
-        }
-        if ($scope.disabledWatch2) {
-          return;
+        if (isObjectArray(d)) {
+          if ($scope.disabledWatch1) {
+            return;
+          }
+          if ($scope.disabledWatch2) {
+            return;
+          }
         }
 
         var selectedModel = [];
@@ -6112,12 +6114,10 @@ function maTreeTransfer($treeSelect, $timeout) {
         toRight();
       });
 
-      $scope.$watch('$ctrl.leftSelected', function (d) {
+      $scope.$watch('$ctrl.leftSelected', function (d, p) {
         $ctrl.leftButtonDisabled = !(d && d.length);
 
-        updateSelectedCount();
-
-        if ($scope.disabledWatch1) {
+        if ($scope.disabledWatch1 || angular.isNull(d) || d.length == p.length) {
           return;
         }
         if (d) {
@@ -6133,8 +6133,8 @@ function maTreeTransfer($treeSelect, $timeout) {
         }
       });
 
-      $scope.$watch('$ctrl.leftCheckbox', function (d) {
-        if ($scope.disabledWatch1) {
+      $scope.$watch('$ctrl.leftCheckbox', function (d, p) {
+        if ($scope.disabledWatch1 || d == p) {
           return;
         }
         if (d) {
@@ -6148,12 +6148,12 @@ function maTreeTransfer($treeSelect, $timeout) {
         }, 100);
       });
 
-      $scope.$watch('$ctrl.rightSelected', function (d) {
+      $scope.$watch('$ctrl.rightSelected', function (d, p) {
         $ctrl.rightButtonDisabled = !(d && d.length);
 
         updateSelectedCount();
 
-        if ($scope.disabledWatch2) {
+        if ($scope.disabledWatch2 || angular.isNull(d) || d.length == p.length) {
           return;
         }
         if (d) {
@@ -6169,8 +6169,8 @@ function maTreeTransfer($treeSelect, $timeout) {
         }
       });
 
-      $scope.$watch('$ctrl.rightCheckbox', function (d) {
-        if ($scope.disabledWatch2) {
+      $scope.$watch('$ctrl.rightCheckbox', function (d, p) {
+        if ($scope.disabledWatch2 || d == p) {
           return;
         }
         if (d) {
@@ -6322,6 +6322,16 @@ function maTreeTransfer($treeSelect, $timeout) {
         eachData($ctrl.rightData, function () {
           $ctrl.rightShowCount++;
         });
+      }
+
+      function isObjectArray(arr) {
+        if (angular.isNull(arr)) {
+          return false;
+        }
+        if (arr && !isNaN(arr.length) && (angular.isObject(arr[0]) || angular.isNull(arr[0]))) {
+          return true;
+        }
+        return false;
       }
     }],
     link: function link(scope, element, attrs, ctrl) {

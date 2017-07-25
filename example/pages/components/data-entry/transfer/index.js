@@ -67,7 +67,7 @@ function mainCtrl($scope, $q, $timeout, $treeSelect) {
     }];
 
     $scope.selectTreeValue = ['7777'];
-  }, 1000);
+  }, 300);
 
   $scope.$watch('selectValue', d => {
     console.log('normal', d);
