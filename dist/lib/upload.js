@@ -65,7 +65,7 @@ exports['default'] = _name2['default'];
 /***/ "8o0r":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"upload-image-items\">\n  <div class=\"upload-image-item\" ng-class=\"{error: file.error}\" data-id=\"{{file.id}}\" ng-repeat=\"file in ngModel track by file.id\">\n    <div\n      class=\"handle-box\"\n      ng-show=\"file.progress === undefined || file.progress === 100\"\n    >\n      <ma-icon\n        class=\"close\"\n        ma-type=\"eyeo\"\n        ma-click=\"viewFile(ngModel, $index)\"\n      ></ma-icon>\n      <ma-icon\n        class=\"close\"\n        ma-type=\"delete\"\n        ma-click=\"delFile(file, $index)\"\n        ng-show=\"showDelete != 'false' && file.showDelete !== false && (file.progress === undefined || file.progress === 100)\"\n      ></ma-icon>\n    </div>\n\n\n    <div class=\"image\"\n      ng-if=\"file.url\"\n      ng-style=\"{\n        'background-image': 'url({{file.url}})'\n      }\"\n    ></div>\n    <div class=\"image\"\n      ng-if=\"!file.url && file.id\"\n      ng-style=\"{\n        'background-image': 'url({{$ctrl.uploadConfig.viewUrl + '?file_id=' + file.id}})'\n      }\"\n    ></div>\n\n    <ma-progress\n      ma-type=\"circle\"\n      ma-status=\"danger\"\n      ma-size=\"70\"\n      ma-stroke-width=\"5\"\n      ma-percent=\"{{file.progress}}\"\n      ng-show=\"file.progress !== undefined && file.progress !== 100\"\n    ></ma-progress>\n  </div>\n\n  <div class=\"upload-image-item add\"\n    ng-hide=\"$ctrl.uploadConfig.limit <= ngModel.length\"\n  >\n    <ma-icon\n      ma-type=\"plus\"\n    ></ma-icon>\n    <div>上传照片</div>\n   </div>\n</div>\n";
+module.exports = "<div class=\"upload-image-items\">\n  <div class=\"upload-image-item\"\n    ng-class=\"{error: file.error}\"\n    data-id=\"{{file.id}}\"\n    ng-repeat=\"file in ngModel track by file.id\">\n\n    <div class=\"image\"\n      ng-if=\"file.url && isImg(file)\"\n      ng-style=\"{\n        'background-image': 'url({{file.url}})'\n      }\"></div>\n    <div class=\"image\"\n      ng-if=\"!file.url && file.id && isImg(file)\"\n      ng-style=\"{\n        'background-image': 'url({{$ctrl.uploadConfig.viewUrl + '?file_id=' + file.id}})'\n      }\"></div>\n\n    <div class=\"image\"\n      ng-if=\"!isImg(file)\">\n      <ma-icon ma-type=\"{{getFileIcon(file)}}\"></ma-icon>\n    </div>\n\n    <div class=\"handle-box\"\n      ng-show=\"file.progress === undefined || file.progress === 100\">\n      <ma-icon class=\"close\"\n        ma-type=\"eyeo\"\n        ma-click=\"viewFile(ngModel, file, $index)\"></ma-icon>\n      <ma-icon class=\"close\"\n        ma-type=\"delete\"\n        ma-click=\"delFile(file, $index)\"\n        ng-show=\"showDelete != 'false' && file.showDelete !== false && (file.progress === undefined || file.progress === 100)\"></ma-icon>\n    </div>\n\n    <ma-progress ma-type=\"circle\"\n      ma-status=\"danger\"\n      ma-size=\"70\"\n      ma-stroke-width=\"5\"\n      ma-percent=\"{{file.progress}}\"\n      ng-show=\"file.progress !== undefined && file.progress !== 100\"></ma-progress>\n  </div>\n\n  <div class=\"upload-image-item add\"\n    ng-hide=\"$ctrl.uploadConfig.limit <= ngModel.length\">\n    <ma-icon ma-type=\"plus\"></ma-icon>\n    <div>{{$ctrl.uploadConfig.uploadText || '上传照片'}}</div>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -387,7 +387,8 @@ angular.module(_name2['default']).directive('maUpload', maUpload).directive('maU
 //   limit: Number.MAX_VALUE,
 //   size: 10 * 1024 * 1000,
 //   accept: '',
-//   convert: function(data, response){} // 上传成功后回调
+//   convert: function(data, response){}, // 上传成功后回调
+//   uploadText: '上传照片',
 // }
 
 // ngModel data format
@@ -628,29 +629,35 @@ maUploadController.$inject = ['$scope', '$lightGallery'];
 function maUploadController($scope, $lightGallery) {
   $scope.viewFile = viewFile;
   $scope.delFile = delFile;
+  $scope.isImg = isImg;
+  $scope.getFileIcon = getFileIcon;
 
-  function viewFile(file, $index) {
+  function viewFile(files, file, $index) {
     var urls = [];
 
-    if (!file.length) {
-      file = [file];
+    if (!files.length) {
+      files = [files];
     }
 
-    angular.each(file, function (d) {
-      urls.push(d.url || $scope.uploaderConfig.viewUrl + '?file_id=' + file.id);
+    angular.each(files, function (d) {
+      if (isImg(d)) {
+        urls.push(d.url || $scope.uploaderConfig.viewUrl + '?file_id=' + d.id);
+      }
     });
 
-    if (isImg(file[0])) {
+    if (isImg(file)) {
       $lightGallery.preview(urls, {
         index: $index || $index === 0 ? $index : false
       });
       return;
     }
 
-    window.open(urls[0]);
+    window.open(file.url);
   }
 
   function isImg(file) {
+    file = angular.extend({}, file);
+
     var reg = /\.(gif|png|jpg|jpeg|bmp|svg)$/g;
     file.name += '';
     file.url += '';
@@ -662,6 +669,39 @@ function maUploadController($scope, $lightGallery) {
       return true;
     }
     return false;
+  }
+
+  function getFileIcon(file) {
+    file = angular.extend({}, file);
+
+    var isExcle = /\.(xls|xlsx)$/g;
+    var isTxt = /\.(txt)$/g;
+    var isPdf = /\.(pdf)$/g;
+    var isWord = /\.(doc|docx)$/g;
+    var isPpt = /\.(ppt|pptx)$/g;
+
+    file.name += '';
+    file.url += '';
+
+    file.name = file.name.toLowerCase();
+    file.url = file.url.toLowerCase();
+
+    if (isTxt.test(file.name) || isTxt.test(file.url)) {
+      return 'filetext';
+    }
+    if (isExcle.test(file.name) || isExcle.test(file.url)) {
+      return 'exclefile';
+    }
+    if (isPpt.test(file.name) || isPpt.test(file.url)) {
+      return 'pptfile';
+    }
+    if (isWord.test(file.name) || isWord.test(file.url)) {
+      return 'wordfile';
+    }
+    if (isPdf.test(file.name) || isPdf.test(file.url)) {
+      return 'pdffile';
+    }
+    return 'file';
   }
 
   function delFile(file, index) {

@@ -223,7 +223,8 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
     replace: true,
     require: ['^maSiderMenu'],
     scope: {
-      routers: '=maRouters'
+      routers: '=maRouters',
+      parentRouter: '=maParentRouter'
     },
     template: _maSiderMenuContentTpl2['default'],
     controller: ['$scope', function ($scope) {
@@ -232,6 +233,7 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       $scope.iconClick = iconClick;
       $scope.hasRouters = hasRouters;
       $scope.isParent = isParent;
+      $scope.isActive = isActive;
       expandCurrentMenu();
       bindStateChangeSuccess();
 
@@ -247,6 +249,10 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
           angular.each($scope.routers, function (router) {
             if (cState.indexOf(router.state + '.') !== -1) {
               router.expand = true;
+            }
+
+            if (!!$scope.parentRouter && isActive(router)) {
+              $scope.parentRouter.expand = true;
             }
           });
         }
@@ -305,6 +311,21 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       function isParent(currentUrl, routerUrl) {
         return currentUrl.indexOf(routerUrl) !== -1 && currentUrl !== routerUrl;
       }
+
+      function isActive(router) {
+        var urls = [];
+        var params = angular.extend({}, router.params);
+
+        urls.push($state.href(router.state, params));
+
+        if (router.activeParams && router.activeParams.length) {
+          router.activeParams.forEach(function (d) {
+            urls.push($state.href(router.state, angular.extend(params, d)));
+          });
+        }
+
+        return urls.indexOf($state.href($state.current.name, $state.params)) !== -1 || isParent($state.href($state.current.name, $state.params), urls[0]) && !hasRouters(router.routers);
+      }
     }],
     link: function link(scope, element, attrs, controllers) {}
   };
@@ -350,7 +371,7 @@ module.exports = "<div class=\"sider-menu\">\n  <div class=\"sider-menu-title\" 
 /***/ "PIS4":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sider-menu-content\">\n  <div class=\"sider-menu-item\"\n    ng-repeat=\"router in routers\"\n    ng-if=\"router.hidden !== true\">\n    <a href=\"javascript:void(0);\"\n      ng-class=\"{\n      active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params) || (isParent($state.href($state.current.name, $state.params), $state.href(router.state, router.params)) && !hasRouters(router.routers)),\n      arrow: router.routers && router.routers.length,\n      parent: isParent($state.href($state.current.name, $state.params), $state.href(router.state, router.params)),\n    }\"\n      ma-click=\"itemClick(router, $event)\">\n      <span>{{router.title}}</span>\n      <ma-icon ma-type=\"{{router.expand ? 'up' : 'down'}}\"\n        ng-if=\"hasRouters(router.routers)\"\n        ma-click=\"iconClick(router, $event)\"></ma-icon>\n    </a>\n    <ma-sider-menu-content ng-class=\"{hide: !router.expand}\"\n      ng-if=\"router.routers && router.routers.length\"\n      ma-routers=\"router.routers\"></ma-sider-menu-content>\n  </div>\n</div>\n";
+module.exports = "<div class=\"sider-menu-content\">\n  <div class=\"sider-menu-item\"\n    ng-repeat=\"router in routers\"\n    ng-if=\"router.hidden !== true\">\n    <a href=\"javascript:void(0);\"\n      ng-class=\"{\n      active: isActive(router),\n      arrow: router.routers && router.routers.length,\n      parent: isParent($state.href($state.current.name, $state.params), $state.href(router.state, router.params)),\n    }\"\n      ma-click=\"itemClick(router, $event)\">\n      <span>{{router.title}}</span>\n      <ma-icon ma-type=\"{{router.expand ? 'up' : 'down'}}\"\n        ng-if=\"hasRouters(router.routers)\"\n        ma-click=\"iconClick(router, $event)\"></ma-icon>\n    </a>\n    <ma-sider-menu-content ng-class=\"{hide: !router.expand}\"\n      ng-if=\"router.routers && router.routers.length\"\n      ma-routers=\"router.routers\"\n      ma-parent-router=\"router\"></ma-sider-menu-content>\n  </div>\n</div>\n";
 
 /***/ }),
 

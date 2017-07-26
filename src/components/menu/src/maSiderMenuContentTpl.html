@@ -4,7 +4,7 @@
     ng-if="router.hidden !== true">
     <a href="javascript:void(0);"
       ng-class="{
-      active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params) || (isParent($state.href($state.current.name, $state.params), $state.href(router.state, router.params)) && !hasRouters(router.routers)),
+      active: isActive(router),
       arrow: router.routers && router.routers.length,
       parent: isParent($state.href($state.current.name, $state.params), $state.href(router.state, router.params)),
     }"
@@ -16,6 +16,7 @@
     </a>
     <ma-sider-menu-content ng-class="{hide: !router.expand}"
       ng-if="router.routers && router.routers.length"
-      ma-routers="router.routers"></ma-sider-menu-content>
+      ma-routers="router.routers"
+      ma-parent-router="router"></ma-sider-menu-content>
   </div>
 </div>

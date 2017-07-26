@@ -13,8 +13,6 @@
     position: relative;
     top: 1px;
     cursor: pointer;
-    -webkit-transition: color 300ms ease, border-color 300ms ease;
-    transition: color 300ms ease, border-color 300ms ease;
     > div {
       padding: 10px 0px;
     }
@@ -22,6 +20,8 @@
       color: $grey;
     }
     &.active {
+      -webkit-transition: color 300ms ease, border-color 300ms ease;
+      transition: color 300ms ease, border-color 300ms ease;
       color: $primary;
       border-bottom-color: $primary;
     }

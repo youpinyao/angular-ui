@@ -156,6 +156,7 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
     require: ['^maSiderMenu'],
     scope: {
       routers: '=maRouters',
+      parentRouter: '=maParentRouter',
     },
     template: maSiderMenuContentTpl,
     controller: ['$scope', function($scope) {
@@ -164,6 +165,7 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       $scope.iconClick = iconClick;
       $scope.hasRouters = hasRouters;
       $scope.isParent = isParent;
+      $scope.isActive = isActive;
       expandCurrentMenu();
       bindStateChangeSuccess();
 
@@ -180,6 +182,10 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
           angular.each($scope.routers, router => {
             if (cState.indexOf(router.state + '.') !== -1) {
               router.expand = true;
+            }
+
+            if (!!$scope.parentRouter && isActive(router)) {
+              $scope.parentRouter.expand = true;
             }
           });
         }
@@ -237,6 +243,24 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
 
       function isParent(currentUrl, routerUrl) {
         return currentUrl.indexOf(routerUrl) !== -1 && currentUrl !== routerUrl;
+      }
+
+      function isActive(router) {
+        const urls = [];
+        const params = angular.extend({}, router.params);
+
+        urls.push($state.href(router.state, params));
+
+        if (router.activeParams && router.activeParams.length) {
+          router.activeParams.forEach(d => {
+            urls.push($state.href(router.state, angular.extend(params, d)));
+          });
+        }
+
+        return urls.indexOf($state.href($state.current.name, $state.params)) !== -1 || (
+          isParent(
+            $state.href($state.current.name, $state.params), urls[0]) && !hasRouters(router.routers)
+        );
       }
     }],
     link(scope, element, attrs, controllers) {

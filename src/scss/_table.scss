@@ -1,6 +1,10 @@
 .ma-table {
   display: block;
   padding-bottom: 52px;
+  .ma-table .pagination > li > a[ng-switch-when="next"],
+  .ma-table .pagination > li > a[ng-switch-when="prev"] {
+    background-color: $white;
+  }
   .data-table {
     position: relative;
   }
@@ -74,6 +78,7 @@
   }
   .table {
     margin-bottom: 0px;
+    width: 100%;
   }
   .table-striped > tbody > tr:hover {
     background-color: $hover;

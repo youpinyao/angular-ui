@@ -29,7 +29,8 @@ angular.module(moduleName)
 //   limit: Number.MAX_VALUE,
 //   size: 10 * 1024 * 1000,
 //   accept: '',
-//   convert: function(data, response){} // 上传成功后回调
+//   convert: function(data, response){}, // 上传成功后回调
+//   uploadText: '上传照片',
 // }
 
 // ngModel data format
@@ -282,30 +283,36 @@ maUploadController.$inject = ['$scope', '$lightGallery'];
 function maUploadController($scope, $lightGallery) {
   $scope.viewFile = viewFile;
   $scope.delFile = delFile;
+  $scope.isImg = isImg;
+  $scope.getFileIcon = getFileIcon;
 
-  function viewFile(file, $index) {
+  function viewFile(files, file, $index) {
     const urls = [];
 
-    if (!file.length) {
-      file = [file];
+    if (!files.length) {
+      files = [files];
     }
 
-    angular.each(file, d => {
-      urls.push(d.url || ($scope.uploaderConfig.viewUrl + '?file_id=' +
-        file.id));
+    angular.each(files, d => {
+      if (isImg(d)) {
+        urls.push(d.url || ($scope.uploaderConfig.viewUrl + '?file_id=' +
+          d.id));
+      }
     });
 
-    if (isImg(file[0])) {
+    if (isImg(file)) {
       $lightGallery.preview(urls, {
         index: $index || $index === 0 ? $index : false,
       });
       return;
     }
 
-    window.open(urls[0]);
+    window.open(file.url);
   }
 
   function isImg(file) {
+    file = angular.extend({}, file);
+
     const reg = /\.(gif|png|jpg|jpeg|bmp|svg)$/g;
     file.name += '';
     file.url += '';
@@ -317,6 +324,39 @@ function maUploadController($scope, $lightGallery) {
       return true;
     }
     return false;
+  }
+
+  function getFileIcon(file) {
+    file = angular.extend({}, file);
+
+    const isExcle = /\.(xls|xlsx)$/g;
+    const isTxt = /\.(txt)$/g;
+    const isPdf = /\.(pdf)$/g;
+    const isWord = /\.(doc|docx)$/g;
+    const isPpt = /\.(ppt|pptx)$/g;
+
+    file.name += '';
+    file.url += '';
+
+    file.name = file.name.toLowerCase();
+    file.url = file.url.toLowerCase();
+
+    if (isTxt.test(file.name) || isTxt.test(file.url)) {
+      return 'filetext';
+    }
+    if (isExcle.test(file.name) || isExcle.test(file.url)) {
+      return 'exclefile';
+    }
+    if (isPpt.test(file.name) || isPpt.test(file.url)) {
+      return 'pptfile';
+    }
+    if (isWord.test(file.name) || isWord.test(file.url)) {
+      return 'wordfile';
+    }
+    if (isPdf.test(file.name) || isPdf.test(file.url)) {
+      return 'pdffile';
+    }
+    return 'file';
   }
 
   function delFile(file, index) {

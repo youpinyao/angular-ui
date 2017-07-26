@@ -17,6 +17,11 @@ function mainCtrl($scope, $timeout, $interval) {
     name: '666.jpg',
     url: 'http://inews.gtimg.com/newsapp_match/0/1467611934/0',
     progress: 100,
+  }, {
+    id: 3,
+    name: '666.pdf',
+    url: 'http://inews.gtimg.com/newsapp_match/0/1467611934/0',
+    progress: 100,
   }];
 
   $scope.codeText = `

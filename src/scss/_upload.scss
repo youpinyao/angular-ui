@@ -120,6 +120,19 @@
       height: 86px;
       background-size: cover;
       background-position: top center;
+      i.iconfont {
+        font-size: 60px;
+        display: block;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        line-height: 60px;
+      }
     }
 
     .handle-box {

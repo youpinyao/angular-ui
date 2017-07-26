@@ -6227,7 +6227,6 @@ textarea.ma-input {
   position: relative;
   top: 1px;
   cursor: pointer;
-  transition: color 300ms ease, border-color 300ms ease;
 }
 
 .ma-tabs.default .ma-tab > div {
@@ -6239,6 +6238,7 @@ textarea.ma-input {
 }
 
 .ma-tabs.default .ma-tab.active {
+  transition: color 300ms ease, border-color 300ms ease;
   color: #FF74B9;
   border-bottom-color: #FF74B9;
 }
@@ -8853,6 +8853,20 @@ disabled look for disabled choices in the results dropdown
   background-position: top center;
 }
 
+.upload-image-items .upload-image-item .image i.iconfont {
+  font-size: 60px;
+  display: block;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  line-height: 60px;
+}
+
 .upload-image-items .upload-image-item .handle-box {
   visibility: hidden;
   opacity: 0;
@@ -10189,6 +10203,11 @@ disabled look for disabled choices in the results dropdown
   /*定义滑块 内阴影+圆角*/
 }
 
+.ma-table .ma-table .pagination > li > a[ng-switch-when="next"],
+.ma-table .ma-table .pagination > li > a[ng-switch-when="prev"] {
+  background-color: #FFFFFF;
+}
+
 .ma-table .data-table {
   position: relative;
 }
@@ -10275,6 +10294,7 @@ disabled look for disabled choices in the results dropdown
 
 .ma-table .table {
   margin-bottom: 0px;
+  width: 100%;
 }
 
 .ma-table .table-striped > tbody > tr:hover {
