@@ -232,6 +232,9 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
       angular.forEach(scope.ngModel, d => {
         if (d.file === fileItem._file) {
           d.progress = fileItem.progress;
+          if (d.progress >= 100) {
+            d.progress = 99;
+          }
         }
       });
     }

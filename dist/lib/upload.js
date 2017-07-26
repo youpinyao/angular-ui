@@ -65,7 +65,7 @@ exports['default'] = _name2['default'];
 /***/ "8o0r":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"upload-image-items\">\n  <div class=\"upload-image-item\" ng-class=\"{error: file.error}\" data-id=\"{{file.id}}\" ng-repeat=\"file in ngModel track by file.id\">\n    <div\n      class=\"handle-box\"\n      ng-show=\"file.progress === undefined || file.progress === 100\"\n    >\n      <ma-icon\n        class=\"close\"\n        ma-type=\"eyeo\"\n        ma-click=\"viewFile(ngModel, $index)\"\n      ></ma-icon>\n      <ma-icon\n        class=\"close\"\n        ma-type=\"delete\"\n        ma-click=\"delFile(file, $index)\"\n        ng-show=\"showDelete != 'false' && file.showDelete !== false && (file.progress === undefined || file.progress === 100)\"\n      ></ma-icon>\n    </div>\n\n\n    <div class=\"image\"\n      ng-if=\"file.url\"\n      ng-style=\"{\n        'background-image': 'url({{file.url}})'\n      }\"\n    ></div>\n    <div class=\"image\"\n      ng-if=\"!file.url\"\n      ng-style=\"{\n        'background-image': 'url({{$ctrl.uploadConfig.viewUrl + '?file_id=' + file.id}})'\n      }\"\n    ></div>\n\n    <ma-progress\n      ma-type=\"circle\"\n      ma-status=\"danger\"\n      ma-size=\"70\"\n      ma-stroke-width=\"5\"\n      ma-percent=\"{{file.progress}}\"\n      ng-show=\"file.progress !== undefined && file.progress !== 100\"\n    ></ma-progress>\n  </div>\n\n  <div class=\"upload-image-item add\"\n    ng-hide=\"$ctrl.uploadConfig.limit <= ngModel.length\"\n  >\n    <ma-icon\n      ma-type=\"plus\"\n    ></ma-icon>\n    <div>上传照片</div>\n   </div>\n</div>\n";
+module.exports = "\n<div class=\"upload-image-items\">\n  <div class=\"upload-image-item\" ng-class=\"{error: file.error}\" data-id=\"{{file.id}}\" ng-repeat=\"file in ngModel track by file.id\">\n    <div\n      class=\"handle-box\"\n      ng-show=\"file.progress === undefined || file.progress === 100\"\n    >\n      <ma-icon\n        class=\"close\"\n        ma-type=\"eyeo\"\n        ma-click=\"viewFile(ngModel, $index)\"\n      ></ma-icon>\n      <ma-icon\n        class=\"close\"\n        ma-type=\"delete\"\n        ma-click=\"delFile(file, $index)\"\n        ng-show=\"showDelete != 'false' && file.showDelete !== false && (file.progress === undefined || file.progress === 100)\"\n      ></ma-icon>\n    </div>\n\n\n    <div class=\"image\"\n      ng-if=\"file.url\"\n      ng-style=\"{\n        'background-image': 'url({{file.url}})'\n      }\"\n    ></div>\n    <div class=\"image\"\n      ng-if=\"!file.url && file.id\"\n      ng-style=\"{\n        'background-image': 'url({{$ctrl.uploadConfig.viewUrl + '?file_id=' + file.id}})'\n      }\"\n    ></div>\n\n    <ma-progress\n      ma-type=\"circle\"\n      ma-status=\"danger\"\n      ma-size=\"70\"\n      ma-stroke-width=\"5\"\n      ma-percent=\"{{file.progress}}\"\n      ng-show=\"file.progress !== undefined && file.progress !== 100\"\n    ></ma-progress>\n  </div>\n\n  <div class=\"upload-image-item add\"\n    ng-hide=\"$ctrl.uploadConfig.limit <= ngModel.length\"\n  >\n    <ma-icon\n      ma-type=\"plus\"\n    ></ma-icon>\n    <div>上传照片</div>\n   </div>\n</div>\n";
 
 /***/ }),
 
@@ -578,6 +578,9 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
       angular.forEach(scope.ngModel, function (d) {
         if (d.file === fileItem._file) {
           d.progress = fileItem.progress;
+          if (d.progress >= 100) {
+            d.progress = 99;
+          }
         }
       });
     }

@@ -26,7 +26,7 @@
       }"
     ></div>
     <div class="image"
-      ng-if="!file.url"
+      ng-if="!file.url && file.id"
       ng-style="{
         'background-image': 'url({{$ctrl.uploadConfig.viewUrl + '?file_id=' + file.id}})'
       }"
