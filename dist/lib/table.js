@@ -1620,7 +1620,7 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
     return '<i></i>';
   });
 
-  angular.extend($validationProvider, {
+  $.extend(true, $validationProvider, {
     validCallback: function validCallback(element) {
       // console.log(element, 'validCallback');
       element.addClass('ma-input-success').removeClass('ma-input-error');

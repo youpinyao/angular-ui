@@ -15,7 +15,7 @@ function requestService($message, $q, $http, $timeout, $modal, loginService, $lo
         method: 'GET'
       };
 
-      angular.extend(defaultConfig, config);
+      $.extend(true, defaultConfig, config);
 
       return this.request(url, data, defaultConfig);
     },
@@ -24,7 +24,7 @@ function requestService($message, $q, $http, $timeout, $modal, loginService, $lo
         method: 'POST'
       };
 
-      angular.extend(defaultConfig, config);
+      $.extend(true, defaultConfig, config);
 
       return this.request(url, data, defaultConfig);
     },

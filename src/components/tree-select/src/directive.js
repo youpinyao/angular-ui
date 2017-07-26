@@ -306,7 +306,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
       });
 
       $scope.$parent.$watch($scope.ngItems, function(d) {
-        var items = angular.extend([], d);
+        var items = $.extend(true, [], d);
         var newitems = [];
 
         function getSub(items, parentItem, treeLevel) {
@@ -608,7 +608,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
           this.openedItems.push(item._treeLinkTo);
         }
 
-        this.openedItems = angular.extend([], this.openedItems);
+        this.openedItems = $.extend(true, [], this.openedItems);
       };
 
 

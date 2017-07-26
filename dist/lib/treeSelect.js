@@ -753,7 +753,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
       });
 
       $scope.$parent.$watch($scope.ngItems, function (d) {
-        var items = angular.extend([], d);
+        var items = _jquery2['default'].extend(true, [], d);
         var newitems = [];
 
         function getSub(items, parentItem, treeLevel) {
@@ -1044,7 +1044,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
           _this2.openedItems.push(item._treeLinkTo);
         }
 
-        _this2.openedItems = angular.extend([], _this2.openedItems);
+        _this2.openedItems = _jquery2['default'].extend(true, [], _this2.openedItems);
       };
 
       this.hasSubNotHidden = function (item) {
@@ -1859,7 +1859,7 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
     return '<i></i>';
   });
 
-  angular.extend($validationProvider, {
+  $.extend(true, $validationProvider, {
     validCallback: function validCallback(element) {
       // console.log(element, 'validCallback');
       element.addClass('ma-input-success').removeClass('ma-input-error');

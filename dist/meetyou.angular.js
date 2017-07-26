@@ -40483,13 +40483,13 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
 
       function isActive(router) {
         var urls = [];
-        var params = angular.extend({}, router.params);
+        var params = _jquery2['default'].extend(true, {}, router.params);
 
         urls.push($state.href(router.state, params));
 
         if (router.activeParams && router.activeParams.length) {
           router.activeParams.forEach(function (d) {
-            urls.push($state.href(router.state, angular.extend(params, d)));
+            urls.push($state.href(router.state, _jquery2['default'].extend(true, params, d)));
           });
         }
 
@@ -57392,7 +57392,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
       });
 
       $scope.$parent.$watch($scope.ngItems, function (d) {
-        var items = angular.extend([], d);
+        var items = _jquery2['default'].extend(true, [], d);
         var newitems = [];
 
         function getSub(items, parentItem, treeLevel) {
@@ -57683,7 +57683,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
           _this2.openedItems.push(item._treeLinkTo);
         }
 
-        _this2.openedItems = angular.extend([], _this2.openedItems);
+        _this2.openedItems = _jquery2['default'].extend(true, [], _this2.openedItems);
       };
 
       this.hasSubNotHidden = function (item) {
@@ -63384,7 +63384,7 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
     return '<i></i>';
   });
 
-  angular.extend($validationProvider, {
+  $.extend(true, $validationProvider, {
     validCallback: function validCallback(element) {
       // console.log(element, 'validCallback');
       element.addClass('ma-input-success').removeClass('ma-input-error');
@@ -65759,7 +65759,7 @@ function maUploadController($scope, $lightGallery) {
   }
 
   function isImg(file) {
-    file = angular.extend({}, file);
+    file = _jquery2['default'].extend(true, {}, file);
 
     var reg = /\.(gif|png|jpg|jpeg|bmp|svg)$/g;
     file.name += '';
@@ -65775,7 +65775,7 @@ function maUploadController($scope, $lightGallery) {
   }
 
   function getFileIcon(file) {
-    file = angular.extend({}, file);
+    file = _jquery2['default'].extend(true, {}, file);
 
     var isExcle = /\.(xls|xlsx)$/g;
     var isTxt = /\.(txt)$/g;

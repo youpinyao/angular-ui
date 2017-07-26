@@ -8865,6 +8865,7 @@ disabled look for disabled choices in the results dropdown
   bottom: 0;
   margin: auto;
   line-height: 60px;
+  color: #999999;
 }
 
 .upload-image-items .upload-image-item .handle-box {

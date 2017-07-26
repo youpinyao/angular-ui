@@ -210,7 +210,7 @@ angular
       return '<i></i>';
     });
 
-    angular.extend($validationProvider, {
+    $.extend(true, $validationProvider, {
       validCallback: function(element) {
         // console.log(element, 'validCallback');
         element.addClass('ma-input-success').removeClass('ma-input-error');

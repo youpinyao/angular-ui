@@ -247,13 +247,13 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
 
       function isActive(router) {
         const urls = [];
-        const params = angular.extend({}, router.params);
+        const params = $.extend(true, {}, router.params);
 
         urls.push($state.href(router.state, params));
 
         if (router.activeParams && router.activeParams.length) {
           router.activeParams.forEach(d => {
-            urls.push($state.href(router.state, angular.extend(params, d)));
+            urls.push($state.href(router.state, $.extend(true, params, d)));
           });
         }
 

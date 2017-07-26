@@ -656,7 +656,7 @@ function maUploadController($scope, $lightGallery) {
   }
 
   function isImg(file) {
-    file = angular.extend({}, file);
+    file = _jquery2['default'].extend(true, {}, file);
 
     var reg = /\.(gif|png|jpg|jpeg|bmp|svg)$/g;
     file.name += '';
@@ -672,7 +672,7 @@ function maUploadController($scope, $lightGallery) {
   }
 
   function getFileIcon(file) {
-    file = angular.extend({}, file);
+    file = _jquery2['default'].extend(true, {}, file);
 
     var isExcle = /\.(xls|xlsx)$/g;
     var isTxt = /\.(txt)$/g;
