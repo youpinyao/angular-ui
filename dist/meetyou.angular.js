@@ -65619,7 +65619,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         size: 10 * 1024 * 1000,
         accept: '',
         convertData: function convertData(data) {}
-      }, _jquery2['default'].extend(defaultConfig, scope.uploadConfig || {}));
+      }, _jquery2['default'].extend(true, _jquery2['default'].extend(true, {}, defaultConfig), scope.uploadConfig || {}));
 
       // 初始化 uploader 实例
       if (!config.filters) {

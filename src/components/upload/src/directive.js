@@ -158,7 +158,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         convertData(data) {
 
         },
-      }, $.extend(defaultConfig, scope.uploadConfig || {}));
+      }, $.extend(true, $.extend(true, {}, defaultConfig), scope.uploadConfig || {}));
 
       // 初始化 uploader 实例
       if (!config.filters) {
