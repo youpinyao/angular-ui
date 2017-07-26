@@ -18,6 +18,16 @@ function mainCtrl($scope, $timeout, $interval) {
     url: 'http://inews.gtimg.com/newsapp_match/0/1467611934/0',
     progress: 100,
   }];
+
+  $scope.codeText = `
+  <div ma-upload ng-model="uploadValue"></div>
+
+  <ma-button>
+    <div ma-upload ng-model="uploadValue">上传文件</div>
+  </ma-button>
+
+  <div ma-upload-image ng-model="uploadValue"></div>
+  `;
 }
 
 export default {

@@ -630,8 +630,7 @@ function maUploadController($scope, $lightGallery) {
       urls.push(d.url || $scope.uploaderConfig.viewUrl + '?file_id=' + file.id);
     });
 
-    if (/gif|png|jpg|jpeg|bmp|svg/g.test(file[0].name)) {
-      // console.log($index || $index === 0 ? $index : false);
+    if (isImg(file[0])) {
       $lightGallery.preview(urls, {
         index: $index || $index === 0 ? $index : false
       });
@@ -639,6 +638,20 @@ function maUploadController($scope, $lightGallery) {
     }
 
     window.open(urls[0]);
+  }
+
+  function isImg(file) {
+    var reg = /\.(gif|png|jpg|jpeg|bmp|svg)$/g;
+    file.name += '';
+    file.url += '';
+
+    file.name = file.name.toLowerCase();
+    file.url = file.url.toLowerCase();
+
+    if (reg.test(file.name) || reg.test(file.url)) {
+      return true;
+    }
+    return false;
   }
 
   function delFile(file, index) {
