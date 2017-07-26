@@ -5585,11 +5585,15 @@ var _progress = __webpack_require__("bl4z");
 
 var _progress2 = _interopRequireDefault(_progress);
 
+var _message = __webpack_require__("WB2H");
+
+var _message2 = _interopRequireDefault(_message);
+
 __webpack_require__("v2oE");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-angular.module(_name2['default'], ['angularFileUpload', _button2['default'], _icons2['default'], _progress2['default']]).config(function () {}).run(function () {});
+angular.module(_name2['default'], ['angularFileUpload', _button2['default'], _icons2['default'], _progress2['default'], _message2['default']]).config(function () {}).run(function () {});
 
 __webpack_require__("m196");
 
@@ -65626,7 +65630,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         name: 'limitFilter',
         fn: function fn(item, options) {
           if (scope.ngModel.length >= config.limit) {
-            $message.error('最多只能上传' + config.limit + '个文件');
+            $message.danger('最多只能上传' + config.limit + '个文件');
             return false;
           }
           return true;
@@ -65637,7 +65641,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         name: 'sizeFilter',
         fn: function fn(item, options) {
           if (item.size > config.size) {
-            $message.error('最多只能上传' + config.size / 1000 / 1024 + 'M的文件');
+            $message.danger('最多只能上传' + config.size / 1000 / 1024 + 'M的文件');
             return false;
           }
           return true;
@@ -65659,10 +65663,15 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
 
           if (config.accept !== 'image/*' && config.accept !== allImageAccept) {
             types = '|' + config.accept.split('image/')[1] + '|';
+
+            // 如果有其他格式就不判断了
+            if (/application/g.test(config.accept)) {
+              return true;
+            }
           }
 
           if (types.indexOf(type) === -1) {
-            $message.error('请选择图片');
+            $message.danger('请选择图片');
           }
           return types.indexOf(type) !== -1;
         }
@@ -65715,7 +65724,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
       // console.log('onErrorItem---', '[', fileItem._file.name, ']');
 
       if (response.message) {
-        $message.error(response.message);
+        $message.danger(response.message);
       }
 
       var newFiles = [];

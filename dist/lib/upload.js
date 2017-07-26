@@ -1,4 +1,99 @@
-webpackJsonp([5,21,22,27],{
+webpackJsonp([3,19,21,22,27],{
+
+/***/ "/Las":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _name = __webpack_require__("HDDE");
+
+var _name2 = _interopRequireDefault(_name);
+
+var _jquery = __webpack_require__("7t+N");
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _maMessageTpl = __webpack_require__("F7JF");
+
+var _maMessageTpl2 = _interopRequireDefault(_maMessageTpl);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default']).factory('$message', messageFactory);
+
+messageFactory.$inject = ['$rootScope', '$q', '$http', '$timeout', '$compile'];
+
+function messageFactory($rootScope, $q, $http, $timeout, $compile) {
+  $rootScope.weakTipList = [];
+
+  var messageBox = (0, _jquery2['default'])('.weak-tip');
+
+  if (!messageBox.length) {
+    messageBox = (0, _jquery2['default'])(_maMessageTpl2['default']);
+    (0, _jquery2['default'])('body').append(messageBox);
+    $compile(messageBox)($rootScope);
+  }
+
+  return {
+    danger: function danger(text) {
+      this.show('danger', text);
+    },
+    success: function success(text) {
+      this.show('success', text);
+    },
+    warning: function warning(text) {
+      this.show('warning', text);
+    },
+    show: function show(type, text) {
+      this.clearList();
+      if (this.hasSame(type, text)) {
+        return;
+      }
+
+      var msg = {
+        type: type,
+        text: text || '空'
+      };
+      $rootScope.weakTipList.push(msg);
+
+      setTimeout(function (msg) {
+        msg.hide = false;
+        $timeout();
+      }, 50, msg);
+
+      setTimeout(function (msg) {
+        msg.hide = true;
+        $timeout();
+        setTimeout(function (msg) {
+          msg.remove = true;
+          $timeout();
+        }, 800, msg);
+      }, 2000, msg);
+    },
+    clearList: function clearList() {
+      var list = [];
+      angular.forEach($rootScope.weakTipList, function (d) {
+        if (d.remove !== true) {
+          list.push(d);
+        }
+      });
+      $rootScope.weakTipList = list;
+    },
+    hasSame: function hasSame(type, text) {
+      var has = false;
+      angular.forEach($rootScope.weakTipList, function (d) {
+        if (d.text === text && d.type === type) {
+          has = true;
+        }
+      });
+
+      return has;
+    }
+  };
+}
+
+/***/ }),
 
 /***/ "/cD4":
 /***/ (function(module, exports, __webpack_require__) {
@@ -50,11 +145,15 @@ var _progress = __webpack_require__("bl4z");
 
 var _progress2 = _interopRequireDefault(_progress);
 
+var _message = __webpack_require__("WB2H");
+
+var _message2 = _interopRequireDefault(_message);
+
 __webpack_require__("v2oE");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-angular.module(_name2['default'], ['angularFileUpload', _button2['default'], _icons2['default'], _progress2['default']]).config(function () {}).run(function () {});
+angular.module(_name2['default'], ['angularFileUpload', _button2['default'], _icons2['default'], _progress2['default'], _message2['default']]).config(function () {}).run(function () {});
 
 __webpack_require__("m196");
 
@@ -66,6 +165,26 @@ exports['default'] = _name2['default'];
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"upload-image-items\">\n  <div class=\"upload-image-item\"\n    ng-class=\"{error: file.error}\"\n    data-id=\"{{file.id}}\"\n    ng-repeat=\"file in ngModel track by file.id\">\n\n    <div class=\"image\"\n      ng-if=\"file.url && isImg(file)\"\n      ng-style=\"{\n        'background-image': 'url({{file.url}})'\n      }\"></div>\n    <div class=\"image\"\n      ng-if=\"!file.url && file.id && isImg(file)\"\n      ng-style=\"{\n        'background-image': 'url({{$ctrl.uploadConfig.viewUrl + '?file_id=' + file.id}})'\n      }\"></div>\n\n    <div class=\"image\"\n      ng-if=\"!isImg(file)\">\n      <ma-icon ma-type=\"{{getFileIcon(file)}}\"></ma-icon>\n    </div>\n\n    <div class=\"handle-box\"\n      ng-show=\"file.progress === undefined || file.progress === 100\">\n      <ma-icon class=\"close\"\n        ma-type=\"eyeo\"\n        ma-click=\"viewFile(ngModel, file, $index)\"></ma-icon>\n      <ma-icon class=\"close\"\n        ma-type=\"delete\"\n        ma-click=\"delFile(file, $index)\"\n        ng-show=\"showDelete != 'false' && file.showDelete !== false && (file.progress === undefined || file.progress === 100)\"></ma-icon>\n    </div>\n\n    <ma-progress ma-type=\"circle\"\n      ma-status=\"danger\"\n      ma-size=\"70\"\n      ma-stroke-width=\"5\"\n      ma-percent=\"{{file.progress}}\"\n      ng-show=\"file.progress !== undefined && file.progress !== 100\"></ma-progress>\n  </div>\n\n  <div class=\"upload-image-item add\"\n    ng-hide=\"$ctrl.uploadConfig.limit <= ngModel.length\">\n    <ma-icon ma-type=\"plus\"></ma-icon>\n    <div>{{$ctrl.uploadConfig.uploadText || '上传照片'}}</div>\n  </div>\n</div>\n";
+
+/***/ }),
+
+/***/ "F7JF":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"weak-tip\" ng-show=\"$root.weakTipList.length\">\n  <div ng-repeat=\"tip in $root.weakTipList\" ng-if=\"tip.remove !== true\">\n    <div\n    ng-click=\"$root.weakTipList[$index].hide = true\"\n    ng-class=\"{'show-in': tip.hide === false, 'weak-tip-success': tip.type == 'success', 'weak-tip-danger': tip.type == 'danger', 'weak-tip-warning': tip.type == 'warning'}\" ng-bind=\"tip.text\"\n    ng-cloak></div>\n  </div>\n</div>\n";
+
+/***/ }),
+
+/***/ "HDDE":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports['default'] = 'meetyou.angular.ui.message';
 
 /***/ }),
 
@@ -191,6 +310,31 @@ exports['default'] = 'meetyou.angular.ui.progress';
 
 /***/ }),
 
+/***/ "WB2H":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _name = __webpack_require__("HDDE");
+
+var _name2 = _interopRequireDefault(_name);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default'], []).config(function () {}).run(function () {});
+
+__webpack_require__("fbZV");
+__webpack_require__("/Las");
+
+exports['default'] = _name2['default'];
+
+/***/ }),
+
 /***/ "XMKs":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -299,6 +443,31 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports['default'] = 'meetyou.angular.ui.icons';
+
+/***/ }),
+
+/***/ "fbZV":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _name = __webpack_require__("HDDE");
+
+var _name2 = _interopRequireDefault(_name);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default']).directive('maMessage', maMessage);
+
+maMessage.$inject = [];
+
+function maMessage() {
+  return {
+    restrict: 'A',
+    link: function link(scope, element, attrs, ctrl) {}
+  };
+}
 
 /***/ }),
 
@@ -517,7 +686,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         name: 'limitFilter',
         fn: function fn(item, options) {
           if (scope.ngModel.length >= config.limit) {
-            $message.error('最多只能上传' + config.limit + '个文件');
+            $message.danger('最多只能上传' + config.limit + '个文件');
             return false;
           }
           return true;
@@ -528,7 +697,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         name: 'sizeFilter',
         fn: function fn(item, options) {
           if (item.size > config.size) {
-            $message.error('最多只能上传' + config.size / 1000 / 1024 + 'M的文件');
+            $message.danger('最多只能上传' + config.size / 1000 / 1024 + 'M的文件');
             return false;
           }
           return true;
@@ -550,10 +719,15 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
 
           if (config.accept !== 'image/*' && config.accept !== allImageAccept) {
             types = '|' + config.accept.split('image/')[1] + '|';
+
+            // 如果有其他格式就不判断了
+            if (/application/g.test(config.accept)) {
+              return true;
+            }
           }
 
           if (types.indexOf(type) === -1) {
-            $message.error('请选择图片');
+            $message.danger('请选择图片');
           }
           return types.indexOf(type) !== -1;
         }
@@ -606,7 +780,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
       // console.log('onErrorItem---', '[', fileItem._file.name, ']');
 
       if (response.message) {
-        $message.error(response.message);
+        $message.danger(response.message);
       }
 
       var newFiles = [];

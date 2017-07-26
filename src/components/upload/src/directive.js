@@ -169,7 +169,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         name: 'limitFilter',
         fn(item, options) {
           if (scope.ngModel.length >= config.limit) {
-            $message.error('最多只能上传' + config.limit + '个文件');
+            $message.danger('最多只能上传' + config.limit + '个文件');
             return false;
           }
           return true;
@@ -180,7 +180,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         name: 'sizeFilter',
         fn(item, options) {
           if (item.size > config.size) {
-            $message.error('最多只能上传' + (config.size / 1000 / 1024) + 'M的文件');
+            $message.danger('最多只能上传' + (config.size / 1000 / 1024) + 'M的文件');
             return false;
           }
           return true;
@@ -204,10 +204,15 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
           if (config.accept !== 'image/*' && config.accept !==
             allImageAccept) {
             types = '|' + config.accept.split('image/')[1] + '|';
+
+            // 如果有其他格式就不判断了
+            if (/application/g.test(config.accept)) {
+              return true;
+            }
           }
 
           if (types.indexOf(type) === -1) {
-            $message.error('请选择图片');
+            $message.danger('请选择图片');
           }
           return types.indexOf(type) !== -1;
         }
@@ -260,7 +265,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
       // console.log('onErrorItem---', '[', fileItem._file.name, ']');
 
       if (response.message) {
-        $message.error(response.message);
+        $message.danger(response.message);
       }
 
       let newFiles = [];

@@ -24,7 +24,12 @@ function mainCtrl($scope, $timeout, $interval) {
     progress: 100,
   }];
 
-  $scope.codeText = `
+  $scope.uploadConfig = {
+    accept: 'image/gif,image/jpeg,image/bmp,image/jpg,image/png,image/svg,application/pdf',
+  };
+
+  $scope.codeText =
+    `
   <div ma-upload ng-model="uploadValue"></div>
 
   <ma-button>

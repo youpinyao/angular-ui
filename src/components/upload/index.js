@@ -2,6 +2,7 @@ import moduleName from './src/name.js';
 import button from '../button';
 import icons from '../icons';
 import progress from '../progress';
+import message from '../message';
 import 'angular-file-upload';
 
 
@@ -10,6 +11,7 @@ angular.module(moduleName, [
   button,
   icons,
   progress,
+  message,
 ]).config(function () {}).run(function () {});
 
 require('./src/directive.js');
