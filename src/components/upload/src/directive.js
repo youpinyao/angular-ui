@@ -255,7 +255,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
             d.id = response.data.file_id;
           }
           if (config.convert) {
-            config.convert(d, response);
+            config.convert(d, response, scope.ngModel);
           }
         }
       });
