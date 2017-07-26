@@ -4,8 +4,9 @@
     ng-if="router.hidden !== true">
     <a href="javascript:void(0);"
       ng-class="{
-      active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params),
-      arrow: router.routers && router.routers.length
+      active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params) || (isParent($state.href($state.current.name, $state.params), $state.href(router.state, router.params)) && !hasRouters(router.routers)),
+      arrow: router.routers && router.routers.length,
+      parent: isParent($state.href($state.current.name, $state.params), $state.href(router.state, router.params)),
     }"
       ma-click="itemClick(router, $event)">
       <span>{{router.title}}</span>

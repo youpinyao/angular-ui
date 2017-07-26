@@ -387,6 +387,7 @@ angular.module(_name2['default']).directive('maUpload', maUpload).directive('maU
 //   limit: Number.MAX_VALUE,
 //   size: 10 * 1024 * 1000,
 //   accept: '',
+//   convert: function(data, response){} // 上传成功后回调
 // }
 
 // ngModel data format
@@ -502,7 +503,8 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         multiple: false,
         filters: [],
         size: 10 * 1024 * 1000,
-        accept: ''
+        accept: '',
+        convertData: function convertData(data) {}
       }, _jquery2['default'].extend(defaultConfig, scope.uploadConfig || {}));
 
       // 初始化 uploader 实例
@@ -586,7 +588,12 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
       angular.forEach(scope.ngModel, function (d) {
         if (d.file === fileItem._file) {
           d.progress = 100;
-          d.id = response.data.file_id;
+          if (response.data) {
+            d.id = response.data.file_id;
+          }
+          if (config.convert) {
+            config.convert(d, response);
+          }
         }
       });
     }

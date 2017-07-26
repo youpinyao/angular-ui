@@ -163,6 +163,7 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       $scope.itemClick = itemClick;
       $scope.iconClick = iconClick;
       $scope.hasRouters = hasRouters;
+      $scope.isParent = isParent;
       expandCurrentMenu();
       bindStateChangeSuccess();
 
@@ -232,6 +233,10 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
         $timeout(function() {
           router.expand = !router.expand;
         });
+      }
+
+      function isParent(currentUrl, routerUrl) {
+        return currentUrl.indexOf(routerUrl) !== -1 && currentUrl !== routerUrl;
       }
     }],
     link(scope, element, attrs, controllers) {

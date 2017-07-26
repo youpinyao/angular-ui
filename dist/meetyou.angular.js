@@ -40400,6 +40400,7 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       $scope.itemClick = itemClick;
       $scope.iconClick = iconClick;
       $scope.hasRouters = hasRouters;
+      $scope.isParent = isParent;
       expandCurrentMenu();
       bindStateChangeSuccess();
 
@@ -40468,6 +40469,10 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
         $timeout(function () {
           router.expand = !router.expand;
         });
+      }
+
+      function isParent(currentUrl, routerUrl) {
+        return currentUrl.indexOf(routerUrl) !== -1 && currentUrl !== routerUrl;
       }
     }],
     link: function link(scope, element, attrs, controllers) {}
@@ -46701,7 +46706,7 @@ module.exports = function (it) {
 /***/ "PIS4":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sider-menu-content\">\n  <div class=\"sider-menu-item\"\n    ng-repeat=\"router in routers\"\n    ng-if=\"router.hidden !== true\">\n    <a href=\"javascript:void(0);\"\n      ng-class=\"{\n      active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params),\n      arrow: router.routers && router.routers.length\n    }\"\n      ma-click=\"itemClick(router, $event)\">\n      <span>{{router.title}}</span>\n      <ma-icon ma-type=\"{{router.expand ? 'up' : 'down'}}\"\n        ng-if=\"hasRouters(router.routers)\"\n        ma-click=\"iconClick(router, $event)\"></ma-icon>\n    </a>\n    <ma-sider-menu-content ng-class=\"{hide: !router.expand}\"\n      ng-if=\"router.routers && router.routers.length\"\n      ma-routers=\"router.routers\"></ma-sider-menu-content>\n  </div>\n</div>\n";
+module.exports = "<div class=\"sider-menu-content\">\n  <div class=\"sider-menu-item\"\n    ng-repeat=\"router in routers\"\n    ng-if=\"router.hidden !== true\">\n    <a href=\"javascript:void(0);\"\n      ng-class=\"{\n      active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params) || (isParent($state.href($state.current.name, $state.params), $state.href(router.state, router.params)) && !hasRouters(router.routers)),\n      arrow: router.routers && router.routers.length,\n      parent: isParent($state.href($state.current.name, $state.params), $state.href(router.state, router.params)),\n    }\"\n      ma-click=\"itemClick(router, $event)\">\n      <span>{{router.title}}</span>\n      <ma-icon ma-type=\"{{router.expand ? 'up' : 'down'}}\"\n        ng-if=\"hasRouters(router.routers)\"\n        ma-click=\"iconClick(router, $event)\"></ma-icon>\n    </a>\n    <ma-sider-menu-content ng-class=\"{hide: !router.expand}\"\n      ng-if=\"router.routers && router.routers.length\"\n      ma-routers=\"router.routers\"></ma-sider-menu-content>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -65464,6 +65469,7 @@ angular.module(_name2['default']).directive('maUpload', maUpload).directive('maU
 //   limit: Number.MAX_VALUE,
 //   size: 10 * 1024 * 1000,
 //   accept: '',
+//   convert: function(data, response){} // 上传成功后回调
 // }
 
 // ngModel data format
@@ -65579,7 +65585,8 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         multiple: false,
         filters: [],
         size: 10 * 1024 * 1000,
-        accept: ''
+        accept: '',
+        convertData: function convertData(data) {}
       }, _jquery2['default'].extend(defaultConfig, scope.uploadConfig || {}));
 
       // 初始化 uploader 实例
@@ -65663,7 +65670,12 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
       angular.forEach(scope.ngModel, function (d) {
         if (d.file === fileItem._file) {
           d.progress = 100;
-          d.id = response.data.file_id;
+          if (response.data) {
+            d.id = response.data.file_id;
+          }
+          if (config.convert) {
+            config.convert(d, response);
+          }
         }
       });
     }
