@@ -1,4 +1,5 @@
 import routerConfig from '../../js/routerConfig.js';
+import $ from 'jquery';
 
 const controller = 'componentsCtrl';
 

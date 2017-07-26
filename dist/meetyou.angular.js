@@ -63175,6 +63175,12 @@ __webpack_require__("3i66")('isExtensible', function ($isExtensible) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+var _jquery = __webpack_require__("7t+N");
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 angular.module('validation.rule', []).config(['$validationProvider', function ($validationProvider) {
   var expression = {
     'null': function _null() {
@@ -63384,7 +63390,7 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
     return '<i></i>';
   });
 
-  $.extend(true, $validationProvider, {
+  _jquery2['default'].extend(true, $validationProvider, {
     validCallback: function validCallback(element) {
       // console.log(element, 'validCallback');
       element.addClass('ma-input-success').removeClass('ma-input-error');

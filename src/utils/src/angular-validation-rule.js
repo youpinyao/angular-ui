@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 angular
   .module('validation.rule', [])
   .config(['$validationProvider', function($validationProvider) {
