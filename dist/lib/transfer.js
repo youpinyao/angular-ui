@@ -238,7 +238,7 @@ exports['default'] = _name2['default'];
 /***/ "5Rsw":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"ma-transfer\">\n  <div class=\"fl\">\n    <div class=\"ma-transfer-left-result\">\n      <ma-checkbox\n        ng-disabled=\"disabled\"\n        ng-class=\"{\n          'has-sub': $ctrl.leftSelectedCount > 0 && $ctrl.leftSelectedCount < $ctrl.leftShowCount\n        }\"\n        ng-model=\"$ctrl.leftCheckbox\"\n      >\n      </ma-checkbox>\n\n      <span class=\"ma-transfer-title\">{{leftTitle || '所有'}}</span>\n    </div>\n\n    <ma-tree-select\n      ma-data=\"$ctrl.leftData\"\n      ma-search=\"true\"\n      ng-disabled=\"disabled\"\n      ma-static=\"true\"\n\n      ng-model=\"$ctrl.leftSelected\"\n    ></ma-tree-select>\n  </div>\n  <div class=\"fl ma-transfer-center\">\n    <div class=\"mb-20\">\n      <ma-button\n        ng-disabled=\"$ctrl.leftButtonDisabled\"\n        ma-click=\"$ctrl.toRight($event)\"\n      >\n        <span>添加</span>\n        <ma-icon ma-type=\"arrowright\"></ma-icon>\n      </ma-button>\n    </div>\n    <div>\n      <ma-button\n        ng-disabled=\"$ctrl.rightButtonDisabled\"\n        ma-click=\"$ctrl.toLeft($event)\"\n      >\n        <ma-icon ma-type=\"arrowleft\"></ma-icon>\n        <span>删除</span>\n      </ma-button>\n    </div>\n  </div>\n  <div class=\"fl\">\n    <div class=\"ma-transfer-right-result\">\n      <ma-checkbox\n        ng-disabled=\"disabled\"\n        ng-class=\"{\n          'has-sub': $ctrl.rightSelectedCount > 0 && $ctrl.rightSelectedCount < $ctrl.rightShowCount\n        }\"\n        ng-model=\"$ctrl.rightCheckbox\"\n      >\n      </ma-checkbox>\n\n      <span class=\"ma-transfer-title\">{{rightTitle || '选中'}}</span>\n    </div>\n\n    <ma-tree-select\n      ma-data=\"$ctrl.rightData\"\n      ma-search=\"true\"\n      ng-disabled=\"disabled\"\n      ma-static=\"true\"\n\n      ng-model=\"$ctrl.rightSelected\"\n    ></ma-tree-select>\n  </div>\n</div>\n\n";
+module.exports = "<div class=\"ma-transfer\">\n  <div class=\"fl\">\n    <div class=\"ma-transfer-left-result\">\n      <ma-checkbox ng-disabled=\"disabled\"\n        ng-class=\"{\n          'has-sub': $ctrl.leftSelectedCount > 0 && $ctrl.leftSelectedCount < $ctrl.leftShowCount\n        }\"\n        ng-model=\"$ctrl.leftCheckbox\">\n      </ma-checkbox>\n\n      <span class=\"ma-transfer-title\">{{leftTitle || '所有'}}</span>\n    </div>\n\n    <ma-tree-select ma-data=\"$ctrl.leftData\"\n      ma-search=\"true\"\n      ng-disabled=\"disabled\"\n      ma-static=\"true\"\n      ng-model=\"$ctrl.leftSelected\"></ma-tree-select>\n  </div>\n  <div class=\"fl ma-transfer-center\">\n    <div class=\"mb-20\">\n      <ma-button ng-disabled=\"$ctrl.leftButtonDisabled\"\n        ma-click=\"$ctrl.toRight($event)\">\n        <span>添加</span>\n        <ma-icon ma-type=\"arrowright\"></ma-icon>\n      </ma-button>\n    </div>\n    <div>\n      <ma-button ng-disabled=\"$ctrl.rightButtonDisabled\"\n        ma-click=\"$ctrl.toLeft($event)\">\n        <ma-icon ma-type=\"arrowleft\"></ma-icon>\n        <span>删除</span>\n      </ma-button>\n    </div>\n  </div>\n  <div class=\"fl\">\n    <div class=\"ma-transfer-right-result\">\n      <ma-checkbox ng-disabled=\"disabled\"\n        ng-class=\"{\n          'has-sub': $ctrl.rightSelectedCount > 0 && $ctrl.rightSelectedCount < $ctrl.rightShowCount\n        }\"\n        ng-model=\"$ctrl.rightCheckbox\">\n      </ma-checkbox>\n\n      <span class=\"ma-transfer-title\">{{rightTitle || '选中'}}</span>\n    </div>\n\n    <ma-tree-select ma-data=\"$ctrl.rightData\"\n      ma-search=\"true\"\n      ng-disabled=\"disabled\"\n      ma-static=\"true\"\n      ng-model=\"$ctrl.rightSelected\"></ma-tree-select>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -280,6 +280,7 @@ function maTreeTransfer($treeSelect, $timeout) {
     scope: {
       data: '=maData',
       model: '=ngModel',
+      maModel: '=maModel',
       valueKey: '@maValueKey',
       textKey: '@maTextKey',
       subKey: '@maSubKey',
@@ -290,7 +291,7 @@ function maTreeTransfer($treeSelect, $timeout) {
     },
     template: _maTreeTransferTpl2['default'],
     controllerAs: '$ctrl',
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', '$element', function ($scope, $element) {
       var $ctrl = this;
 
       this.leftData = [];
@@ -318,6 +319,7 @@ function maTreeTransfer($treeSelect, $timeout) {
       });
 
       $scope.$watch('model', function (d) {
+        setMaModel();
         if (isObjectArray(d)) {
           if ($scope.disabledWatch1) {
             return;
@@ -442,6 +444,8 @@ function maTreeTransfer($treeSelect, $timeout) {
         }, 100);
       });
 
+      $scope.$watch('rightData', setMaModel);
+
       function toRight(isInit) {
         var pushedValues = [];
 
@@ -460,6 +464,9 @@ function maTreeTransfer($treeSelect, $timeout) {
         $scope.model = [].concat($scope.model);
 
         updateShowCount();
+
+        $ctrl.rightCheckbox = false;
+        $ctrl.leftCheckbox = false;
 
         if (isInit !== true) {
           $scope.disabledWatch1 = true;
@@ -509,6 +516,9 @@ function maTreeTransfer($treeSelect, $timeout) {
         $scope.model = [].concat($scope.model);
 
         updateShowCount();
+
+        $ctrl.rightCheckbox = false;
+        $ctrl.leftCheckbox = false;
 
         $scope.disabledWatch2 = true;
         $timeout(function () {
@@ -590,6 +600,60 @@ function maTreeTransfer($treeSelect, $timeout) {
           return true;
         }
         return false;
+      }
+
+      function setMaModel() {
+        var d = $scope.rightData;
+        var selected = [];
+        var selectedIds = [];
+
+        // 设置带父级的model数据
+        if ((0, _jquery2['default'])($element).attr('ma-model')) {
+          if (d && d.length) {
+            getNotHidden(d);
+          }
+          $timeout(function () {
+            $scope.maModel = getWithParent(selected);
+          });
+        }
+
+        function getNotHidden(data) {
+          angular.each(data, function (dd) {
+            if (selectedIds.indexOf(dd.value) === -1 && dd.isHidden !== true) {
+              selected.push(dd);
+            }
+            if (dd.sub && dd.sub.length) {
+              getNotHidden(dd.sub);
+            }
+          });
+        }
+      }
+
+      function getWithParent(data) {
+        var selected = [];
+        var selectedIds = [];
+
+        if (data && data.length) {
+          angular.each(data, function (d) {
+            if (selectedIds.indexOf(d.value) === -1) {
+              selected.push(d);
+              selectedIds.push(d.value);
+            }
+            setParent(d);
+          });
+        }
+
+        return selected;
+
+        function setParent(d) {
+          if (d._parent) {
+            if (selectedIds.indexOf(d._parent.value) === -1) {
+              selected.push(d._parent);
+              selectedIds.push(d._parent.value);
+            }
+            setParent(d._parent);
+          }
+        }
       }
     }],
     link: function link(scope, element, attrs, ctrl) {
@@ -1361,6 +1425,7 @@ function maTreeSelect($treeSelect) {
     template: '<div class="ma-tree-select">\n      <cmultiselect\n        tree\n        ng-model="newModel"\n        ng-items="newItems"\n        search-enabled="search"\n        limit="{{limit}}"\n        ng-disabled="disabled"\n        placeholder="{{placeholder}}"\n        clear="{{clear}}"\n        static="{{static}}"\n      >\n      </cmultiselect>\n    </div>',
     scope: {
       model: '=ngModel',
+      maModel: '=maModel',
       name: '@name',
       search: '@maSearch',
       items: '=maData',
@@ -1373,7 +1438,7 @@ function maTreeSelect($treeSelect) {
       clear: '@maClear',
       'static': '@maStatic'
     },
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', '$element', function ($scope, $element) {
       $scope.newItems = [];
       $scope.newModel = [];
       $scope.textKey = 'text';
@@ -1404,6 +1469,11 @@ function maTreeSelect($treeSelect) {
       });
 
       $scope.$watch('model', function (d) {
+        // 设置带父级的model数据
+        if ((0, _jquery2['default'])($element).attr('ma-model')) {
+          $scope.maModel = getWithParent(d);
+        }
+
         if ($scope.isInnerWatch) {
           $scope.isInnerWatch = false;
           return;
@@ -1416,6 +1486,33 @@ function maTreeSelect($treeSelect) {
         $scope.model = d;
         $scope.isInnerWatch = true;
       });
+
+      function getWithParent(data) {
+        var selected = [];
+        var selectedIds = [];
+
+        if (data && data.length) {
+          angular.each(data, function (d) {
+            if (selectedIds.indexOf(d.value) === -1) {
+              selected.push(d);
+              selectedIds.push(d.value);
+            }
+            setParent(d);
+          });
+        }
+
+        return selected;
+
+        function setParent(d) {
+          if (d._parent) {
+            if (selectedIds.indexOf(d._parent.value) === -1) {
+              selected.push(d._parent);
+              selectedIds.push(d._parent.value);
+            }
+            setParent(d._parent);
+          }
+        }
+      }
     }],
     link: function link(scope, element, attrs, ctrl) {
       attrs.$observe('maTextKey', function (d) {

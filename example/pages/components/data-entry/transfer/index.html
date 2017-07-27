@@ -39,6 +39,7 @@
         <h4>树形穿梭框</h4>
         <ma-tree-transfer
           ng-model="selectTreeValue"
+          ma-model="selectTreeParentValue"
 
           ma-data="treeData"
           ma-value-key="value1"
@@ -63,8 +64,14 @@
           <th>默认值</th>
         </tr>
         <tr>
-          <td>name</td>
-          <td>非必填</td>
+          <td>ng-model</td>
+          <td>必填， 这个值是选择的不带父级的结果</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-model</td>
+          <td>选填， 这个值是选择的带父级的结果，如果需要父级数据的时候使用，非树形结构的没有这个属性</td>
           <td>String</td>
           <td>-</td>
         </tr>

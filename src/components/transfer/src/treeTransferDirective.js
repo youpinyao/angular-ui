@@ -15,6 +15,7 @@ function maTreeTransfer($treeSelect, $timeout) {
     scope: {
       data: '=maData',
       model: '=ngModel',
+      maModel: '=maModel',
       valueKey: '@maValueKey',
       textKey: '@maTextKey',
       subKey: '@maSubKey',
@@ -25,7 +26,7 @@ function maTreeTransfer($treeSelect, $timeout) {
     },
     template: maTreeTransferTpl,
     controllerAs: '$ctrl',
-    controller: ['$scope', function($scope) {
+    controller: ['$scope', '$element', function($scope, $element) {
       const $ctrl = this;
 
       this.leftData = [];
@@ -53,6 +54,7 @@ function maTreeTransfer($treeSelect, $timeout) {
       });
 
       $scope.$watch('model', d => {
+        setMaModel();
         if (isObjectArray(d)) {
           if ($scope.disabledWatch1) {
             return;
@@ -180,6 +182,8 @@ function maTreeTransfer($treeSelect, $timeout) {
         }, 100);
       });
 
+      $scope.$watch('rightData', setMaModel);
+
       function toRight(isInit) {
         const pushedValues = [];
 
@@ -198,6 +202,9 @@ function maTreeTransfer($treeSelect, $timeout) {
         $scope.model = [].concat($scope.model);
 
         updateShowCount();
+
+        $ctrl.rightCheckbox = false;
+        $ctrl.leftCheckbox = false;
 
         if (isInit !== true) {
           $scope.disabledWatch1 = true;
@@ -247,6 +254,9 @@ function maTreeTransfer($treeSelect, $timeout) {
         $scope.model = [].concat($scope.model);
 
         updateShowCount();
+
+        $ctrl.rightCheckbox = false;
+        $ctrl.leftCheckbox = false;
 
         $scope.disabledWatch2 = true;
         $timeout(function() {
@@ -329,6 +339,60 @@ function maTreeTransfer($treeSelect, $timeout) {
           return true;
         }
         return false;
+      }
+
+      function setMaModel() {
+        const d = $scope.rightData;
+        const selected = [];
+        const selectedIds = [];
+
+        // 设置带父级的model数据
+        if ($($element).attr('ma-model')) {
+          if (d && d.length) {
+            getNotHidden(d);
+          }
+          $timeout(() => {
+            $scope.maModel = getWithParent(selected);
+          });
+        }
+
+        function getNotHidden(data) {
+          angular.each(data, dd => {
+            if (selectedIds.indexOf(dd.value) === -1 && dd.isHidden !== true) {
+              selected.push(dd);
+            }
+            if (dd.sub && dd.sub.length) {
+              getNotHidden(dd.sub);
+            }
+          });
+        }
+      }
+
+      function getWithParent(data) {
+        const selected = [];
+        const selectedIds = [];
+
+        if (data && data.length) {
+          angular.each(data, d => {
+            if (selectedIds.indexOf(d.value) === -1) {
+              selected.push(d);
+              selectedIds.push(d.value);
+            }
+            setParent(d);
+          });
+        }
+
+        return selected;
+
+        function setParent(d) {
+          if (d._parent) {
+            if (selectedIds.indexOf(d._parent.value) === -1) {
+              selected.push(d._parent);
+              selectedIds.push(d._parent.value);
+            }
+            setParent(d._parent);
+          }
+        }
       }
     }],
     link: function(scope, element, attrs, ctrl) {

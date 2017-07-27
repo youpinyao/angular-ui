@@ -1,43 +1,33 @@
-
 <div class="ma-transfer">
   <div class="fl">
     <div class="ma-transfer-left-result">
-      <ma-checkbox
-        ng-disabled="disabled"
+      <ma-checkbox ng-disabled="disabled"
         ng-class="{
           'has-sub': $ctrl.leftSelectedCount > 0 && $ctrl.leftSelectedCount < $ctrl.leftShowCount
         }"
-        ng-model="$ctrl.leftCheckbox"
-      >
+        ng-model="$ctrl.leftCheckbox">
       </ma-checkbox>
 
       <span class="ma-transfer-title">{{leftTitle || '所有'}}</span>
     </div>
 
-    <ma-tree-select
-      ma-data="$ctrl.leftData"
+    <ma-tree-select ma-data="$ctrl.leftData"
       ma-search="true"
       ng-disabled="disabled"
       ma-static="true"
-
-      ng-model="$ctrl.leftSelected"
-    ></ma-tree-select>
+      ng-model="$ctrl.leftSelected"></ma-tree-select>
   </div>
   <div class="fl ma-transfer-center">
     <div class="mb-20">
-      <ma-button
-        ng-disabled="$ctrl.leftButtonDisabled"
-        ma-click="$ctrl.toRight($event)"
-      >
+      <ma-button ng-disabled="$ctrl.leftButtonDisabled"
+        ma-click="$ctrl.toRight($event)">
         <span>添加</span>
         <ma-icon ma-type="arrowright"></ma-icon>
       </ma-button>
     </div>
     <div>
-      <ma-button
-        ng-disabled="$ctrl.rightButtonDisabled"
-        ma-click="$ctrl.toLeft($event)"
-      >
+      <ma-button ng-disabled="$ctrl.rightButtonDisabled"
+        ma-click="$ctrl.toLeft($event)">
         <ma-icon ma-type="arrowleft"></ma-icon>
         <span>删除</span>
       </ma-button>
@@ -45,26 +35,20 @@
   </div>
   <div class="fl">
     <div class="ma-transfer-right-result">
-      <ma-checkbox
-        ng-disabled="disabled"
+      <ma-checkbox ng-disabled="disabled"
         ng-class="{
           'has-sub': $ctrl.rightSelectedCount > 0 && $ctrl.rightSelectedCount < $ctrl.rightShowCount
         }"
-        ng-model="$ctrl.rightCheckbox"
-      >
+        ng-model="$ctrl.rightCheckbox">
       </ma-checkbox>
 
       <span class="ma-transfer-title">{{rightTitle || '选中'}}</span>
     </div>
 
-    <ma-tree-select
-      ma-data="$ctrl.rightData"
+    <ma-tree-select ma-data="$ctrl.rightData"
       ma-search="true"
       ng-disabled="disabled"
       ma-static="true"
-
-      ng-model="$ctrl.rightSelected"
-    ></ma-tree-select>
+      ng-model="$ctrl.rightSelected"></ma-tree-select>
   </div>
 </div>
-

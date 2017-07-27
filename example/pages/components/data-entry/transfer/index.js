@@ -76,6 +76,9 @@ function mainCtrl($scope, $q, $timeout, $treeSelect) {
   $scope.$watch('selectTreeValue', d => {
     console.log('tree', d);
   });
+  $scope.$watch('selectTreeParentValue', d => {
+    console.log('tree parent', d);
+  });
 }
 
 export default {

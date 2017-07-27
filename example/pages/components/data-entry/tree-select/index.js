@@ -7,7 +7,7 @@ angular.module('app').controller(controller, mainCtrl);
 mainCtrl.$inject = ['$scope', '$q', '$timeout', '$treeSelect'];
 
 function mainCtrl($scope, $q, $timeout, $treeSelect) {
-  $scope.selectValue = ['6666'];
+  $scope.selectValue = ['7777'];
   $scope.disabled = false;
 
   $scope.data = [{
@@ -39,7 +39,11 @@ function mainCtrl($scope, $q, $timeout, $treeSelect) {
   }];
 
   $scope.$watch('selectValue', d => {
-    console.log(d, $treeSelect);
+    console.log('model: ', d, $treeSelect);
+  });
+
+  $scope.$watch('selectValueWithParent', d => {
+    console.log('parent model:', d);
   });
 }
 

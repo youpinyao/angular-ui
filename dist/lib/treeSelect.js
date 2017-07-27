@@ -502,6 +502,7 @@ function maTreeSelect($treeSelect) {
     template: '<div class="ma-tree-select">\n      <cmultiselect\n        tree\n        ng-model="newModel"\n        ng-items="newItems"\n        search-enabled="search"\n        limit="{{limit}}"\n        ng-disabled="disabled"\n        placeholder="{{placeholder}}"\n        clear="{{clear}}"\n        static="{{static}}"\n      >\n      </cmultiselect>\n    </div>',
     scope: {
       model: '=ngModel',
+      maModel: '=maModel',
       name: '@name',
       search: '@maSearch',
       items: '=maData',
@@ -514,7 +515,7 @@ function maTreeSelect($treeSelect) {
       clear: '@maClear',
       'static': '@maStatic'
     },
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', '$element', function ($scope, $element) {
       $scope.newItems = [];
       $scope.newModel = [];
       $scope.textKey = 'text';
@@ -545,6 +546,11 @@ function maTreeSelect($treeSelect) {
       });
 
       $scope.$watch('model', function (d) {
+        // 设置带父级的model数据
+        if ((0, _jquery2['default'])($element).attr('ma-model')) {
+          $scope.maModel = getWithParent(d);
+        }
+
         if ($scope.isInnerWatch) {
           $scope.isInnerWatch = false;
           return;
@@ -557,6 +563,33 @@ function maTreeSelect($treeSelect) {
         $scope.model = d;
         $scope.isInnerWatch = true;
       });
+
+      function getWithParent(data) {
+        var selected = [];
+        var selectedIds = [];
+
+        if (data && data.length) {
+          angular.each(data, function (d) {
+            if (selectedIds.indexOf(d.value) === -1) {
+              selected.push(d);
+              selectedIds.push(d.value);
+            }
+            setParent(d);
+          });
+        }
+
+        return selected;
+
+        function setParent(d) {
+          if (d._parent) {
+            if (selectedIds.indexOf(d._parent.value) === -1) {
+              selected.push(d._parent);
+              selectedIds.push(d._parent.value);
+            }
+            setParent(d._parent);
+          }
+        }
+      }
     }],
     link: function link(scope, element, attrs, ctrl) {
       attrs.$observe('maTextKey', function (d) {

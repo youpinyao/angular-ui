@@ -23,6 +23,7 @@
         <div>
           <ma-tree-select
             ng-model="selectValue"
+            ma-model="selectValueWithParent"
             ma-placeholder="select"
 
             ma-text-key="text1"
@@ -57,7 +58,13 @@
         </tr>
         <tr>
           <td>ng-model</td>
-          <td>必填</td>
+          <td>必填， 这个值是选择的不带父级的结果</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-model</td>
+          <td>选填， 这个值是选择的带父级的结果，如果需要父级数据的时候使用</td>
           <td>String</td>
           <td>-</td>
         </tr>

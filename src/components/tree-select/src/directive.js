@@ -32,6 +32,7 @@ function maTreeSelect($treeSelect) {
     </div>`,
     scope: {
       model: '=ngModel',
+      maModel: '=maModel',
       name: '@name',
       search: '@maSearch',
       items: '=maData',
@@ -44,7 +45,7 @@ function maTreeSelect($treeSelect) {
       clear: '@maClear',
       static: '@maStatic',
     },
-    controller: ['$scope', function($scope) {
+    controller: ['$scope', '$element', function($scope, $element) {
       $scope.newItems = [];
       $scope.newModel = [];
       $scope.textKey = 'text';
@@ -75,6 +76,11 @@ function maTreeSelect($treeSelect) {
       });
 
       $scope.$watch('model', function(d) {
+        // 设置带父级的model数据
+        if ($($element).attr('ma-model')) {
+          $scope.maModel = getWithParent(d);
+        }
+
         if ($scope.isInnerWatch) {
           $scope.isInnerWatch = false;
           return;
@@ -88,6 +94,33 @@ function maTreeSelect($treeSelect) {
         $scope.model = d;
         $scope.isInnerWatch = true;
       });
+
+      function getWithParent(data) {
+        const selected = [];
+        const selectedIds = [];
+
+        if (data && data.length) {
+          angular.each(data, d => {
+            if (selectedIds.indexOf(d.value) === -1) {
+              selected.push(d);
+              selectedIds.push(d.value);
+            }
+            setParent(d);
+          });
+        }
+
+        return selected;
+
+        function setParent(d) {
+          if (d._parent) {
+            if (selectedIds.indexOf(d._parent.value) === -1) {
+              selected.push(d._parent);
+              selectedIds.push(d._parent.value);
+            }
+            setParent(d._parent);
+          }
+        }
+      }
     }],
     link: function(scope, element, attrs, ctrl) {
       attrs.$observe('maTextKey', d => {
