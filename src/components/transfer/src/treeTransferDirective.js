@@ -62,7 +62,6 @@ function maTreeTransfer($treeSelect, $timeout) {
           }
         }
 
-
         let selectedModel = [];
         let leftSelected = [];
         let isValueArray = false;
@@ -109,6 +108,8 @@ function maTreeTransfer($treeSelect, $timeout) {
 
       $scope.$watch('$ctrl.leftSelected', function(d, p) {
         $ctrl.leftButtonDisabled = !(d && d.length);
+
+        updateSelectedCount();
 
         if ($scope.disabledWatch1 || angular.isNull(d) || d.length == p.length) {
           return;

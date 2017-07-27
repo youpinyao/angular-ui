@@ -544,11 +544,12 @@ function maTreeSelect($treeSelect) {
         }
       });
 
-      $scope.$watch('model', function () {
+      $scope.$watch('model', function (d) {
         if ($scope.isInnerWatch) {
           $scope.isInnerWatch = false;
           return;
         }
+
         $scope.newModel = $treeSelect.getDefaultSelectTreeData($scope.newItems, $scope.model);
       });
 
@@ -767,7 +768,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
       });
 
       $scope.$parent.$watch($scope.ngItems, function (d) {
-        var items = _jquery2['default'].extend(true, [], d);
+        var items = _jquery2['default'].extend([], d);
         var newitems = [];
 
         function getSub(items, parentItem, treeLevel) {
@@ -1058,7 +1059,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
           _this2.openedItems.push(item._treeLinkTo);
         }
 
-        _this2.openedItems = _jquery2['default'].extend(true, [], _this2.openedItems);
+        _this2.openedItems = angular.extend([], _this2.openedItems);
       };
 
       this.hasSubNotHidden = function (item) {

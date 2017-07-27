@@ -74,11 +74,12 @@ function maTreeSelect($treeSelect) {
         }
       });
 
-      $scope.$watch('model', function() {
+      $scope.$watch('model', function(d) {
         if ($scope.isInnerWatch) {
           $scope.isInnerWatch = false;
           return;
         }
+
         $scope.newModel = $treeSelect.getDefaultSelectTreeData($scope.newItems,
           $scope.model);
       });
@@ -306,7 +307,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
       });
 
       $scope.$parent.$watch($scope.ngItems, function(d) {
-        var items = $.extend(true, [], d);
+        var items = $.extend([], d);
         var newitems = [];
 
         function getSub(items, parentItem, treeLevel) {
@@ -608,7 +609,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
           this.openedItems.push(item._treeLinkTo);
         }
 
-        this.openedItems = $.extend(true, [], this.openedItems);
+        this.openedItems = angular.extend([], this.openedItems);
       };
 
 
