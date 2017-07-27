@@ -6,6 +6,10 @@ webpackJsonp([7,11,22,27],{
 "use strict";
 
 
+var _jquery = __webpack_require__("7t+N");
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
 var _name = __webpack_require__("g5ku");
 
 var _name2 = _interopRequireDefault(_name);
@@ -40,6 +44,8 @@ function maInput() {
       readonly: '=ngReadonly',
       disabled: '=ngDisabled',
 
+      iconClick: '&maIconClick',
+
       clear: '=maClear'
     },
     template: _maInputTpl2['default'],
@@ -49,7 +55,15 @@ function maInput() {
         $scope.model = '';
       };
     }],
-    link: function link(scope, element, attrs, ctrl) {}
+    link: function link(scope, element, attrs, ctrl) {
+      (0, _jquery2['default'])(element).bind('click', function (e) {
+        if (e.eventPhase === 2) {
+          scope.iconClick({
+            $event: e
+          });
+        }
+      });
+    }
   };
 }
 

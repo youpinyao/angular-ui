@@ -293,12 +293,16 @@ function maUploadController($scope, $lightGallery) {
 
   function viewFile(files, file, $index) {
     const urls = [];
+    let index = false;
 
     if (!files.length) {
       files = [files];
     }
 
-    angular.each(files, d => {
+    angular.each(files, (d, i) => {
+      if (d === file) {
+        index = i;
+      }
       if (isImg(d)) {
         urls.push(d.url || ($scope.uploaderConfig.viewUrl + '?file_id=' +
           d.id));
@@ -307,7 +311,7 @@ function maUploadController($scope, $lightGallery) {
 
     if (isImg(file)) {
       $lightGallery.preview(urls, {
-        index: $index || $index === 0 ? $index : false,
+        index,
       });
       return;
     }

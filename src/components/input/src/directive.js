@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import moduleName from './name.js';
 import maInputTpl from './maInputTpl.html';
 
@@ -27,17 +28,25 @@ function maInput() {
       readonly: '=ngReadonly',
       disabled: '=ngDisabled',
 
+      iconClick: '&maIconClick',
+
       clear: '=maClear',
     },
     template: maInputTpl,
     controllerAs: '$ctrl',
-    controller: ['$scope', function ($scope) {
-      this.clearClick = function () {
+    controller: ['$scope', function($scope) {
+      this.clearClick = function() {
         $scope.model = '';
       };
     }],
-    link: function (scope, element, attrs, ctrl) {
-
+    link: function(scope, element, attrs, ctrl) {
+      $(element).bind('click', e => {
+        if (e.eventPhase === 2) {
+          scope.iconClick({
+            $event: e,
+          });
+        }
+      });
     }
   };
 }
@@ -48,16 +57,16 @@ maNum.$inject = ['$filter', '$timeout', '$parse'];
 function maNum($filter, $timeout, $parse) {
   return {
     restrict: 'A',
-    link: function (scope, elem, attrs, controller) {
+    link: function(scope, elem, attrs, controller) {
       var decimal = attrs.maDecimal !== undefined;
       var ngModel = $parse(attrs.ngModel);
       var min = parseFloat(attrs.min);
       var max = parseFloat(attrs.max);
 
-      attrs.$observe('min', function (d) {
+      attrs.$observe('min', function(d) {
         min = d || undefined;
       });
-      attrs.$observe('max', function (d) {
+      attrs.$observe('max', function(d) {
         max = d || undefined;
       });
 
@@ -91,7 +100,7 @@ function maNum($filter, $timeout, $parse) {
           // 为一个负号时不处理
           str = v;
         } else {
-          angular.forEach(v, function (d, k) {
+          angular.forEach(v, function(d, k) {
             if (decimal && d == '。') {
               d = '.';
             }
@@ -132,7 +141,8 @@ function maNum($filter, $timeout, $parse) {
         $timeout(() => {
           this.value = str.join('') || '';
 
-          if (!isNaN(decimal) && this.value && this.value.split('.')[1] && this.value.split('.')[1].length > decimal) {
+          if (!isNaN(decimal) && this.value && this.value.split('.')[1] && this.value.split(
+              '.')[1].length > decimal) {
             this.value = parseFloat(this.value).toFixed(decimal);
           }
           if (ngModel && typeof ngModel.assign === 'function') {

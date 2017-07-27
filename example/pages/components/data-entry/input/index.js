@@ -10,6 +10,10 @@ function mainCtrl($scope) {
   $scope.testValue = '123';
   $scope.numberTestValue = 3.12;
   $scope.placeholder = '提示文本';
+
+  $scope.iconClick = function(e) {
+    console.log('iconClick');
+  };
 }
 
 export default {

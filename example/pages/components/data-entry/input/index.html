@@ -107,6 +107,7 @@
             class="ma-input-search-black"
             name="test"
             type="text"
+            ma-icon-click="iconClick($event)"
             placeholder="{{placeholder}}"
             ng-model="testValue"
           ></ma-input>
@@ -185,6 +186,12 @@
           <td>ng-model</td>
           <td>必填</td>
           <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-icon-click</td>
+          <td>选填，在有右边搜索icon场景下使用</td>
+          <td>Function</td>
           <td>-</td>
         </tr>
       </table>

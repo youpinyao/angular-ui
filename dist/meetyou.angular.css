@@ -5767,6 +5767,7 @@ input.ma-input[disabled]:hover {
   content: "\EEA3";
   color: #323232;
   background-color: #E5E5E5;
+  cursor: pointer;
 }
 
 .ma-input.ma-input-search-black textarea,

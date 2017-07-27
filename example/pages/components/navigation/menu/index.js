@@ -24,6 +24,9 @@ function mainCtrl($scope) {
   params: {
     id: 666,
   },
+  activeParams: [{
+    id: 777,
+  }], // 也要active 状态的路由，只在siderMenu 使用
   routers: [{
     title: 'Icon 图标',
     state: 'components.general.icon',

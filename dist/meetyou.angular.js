@@ -386,6 +386,10 @@ $export($export.P + $export.F * (NEGATIVE_ZERO || !__webpack_require__("NNrz")($
 "use strict";
 
 
+var _jquery = __webpack_require__("7t+N");
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
 var _name = __webpack_require__("g5ku");
 
 var _name2 = _interopRequireDefault(_name);
@@ -420,6 +424,8 @@ function maInput() {
       readonly: '=ngReadonly',
       disabled: '=ngDisabled',
 
+      iconClick: '&maIconClick',
+
       clear: '=maClear'
     },
     template: _maInputTpl2['default'],
@@ -429,7 +435,15 @@ function maInput() {
         $scope.model = '';
       };
     }],
-    link: function link(scope, element, attrs, ctrl) {}
+    link: function link(scope, element, attrs, ctrl) {
+      (0, _jquery2['default'])(element).bind('click', function (e) {
+        if (e.eventPhase === 2) {
+          scope.iconClick({
+            $event: e
+          });
+        }
+      });
+    }
   };
 }
 
@@ -65752,12 +65766,16 @@ function maUploadController($scope, $lightGallery) {
 
   function viewFile(files, file, $index) {
     var urls = [];
+    var index = false;
 
     if (!files.length) {
       files = [files];
     }
 
-    angular.each(files, function (d) {
+    angular.each(files, function (d, i) {
+      if (d === file) {
+        index = i;
+      }
       if (isImg(d)) {
         urls.push(d.url || $scope.uploaderConfig.viewUrl + '?file_id=' + d.id);
       }
@@ -65765,7 +65783,7 @@ function maUploadController($scope, $lightGallery) {
 
     if (isImg(file)) {
       $lightGallery.preview(urls, {
-        index: $index || $index === 0 ? $index : false
+        index: index
       });
       return;
     }
