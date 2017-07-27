@@ -816,7 +816,7 @@ function maUploadController($scope, $lightGallery) {
 
     angular.each(files, function (d, i) {
       if (d === file) {
-        index = i;
+        index = urls.length;
       }
       if (isImg(d)) {
         urls.push(d.url || $scope.uploaderConfig.viewUrl + '?file_id=' + d.id);
