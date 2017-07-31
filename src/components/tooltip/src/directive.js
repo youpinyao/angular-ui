@@ -21,32 +21,45 @@ function maTooltip($timeout, $compile) {
       let isPopconfirm = false;
       let direction = defaultDirection;
       let prevDirection = '';
+      let isClickHide = false;
 
       $('body').append(el);
 
       $(element).hover(d => {
+        if (isClickHide) {
+          return;
+        }
         if (isPopconfirm) {
           return;
         }
         showTip();
       }, () => {
+        if (isClickHide) {
+          return;
+        }
         if (isPopconfirm) {
           return;
         }
         hideTip();
-      }).on('mousemove', mousemove);
+      }).on('mousemove', stopp);
 
       el.hover(d => {
+        if (isClickHide) {
+          return;
+        }
         if (isPopconfirm) {
           return;
         }
         showTip();
       }, () => {
+        if (isClickHide) {
+          return;
+        }
         if (isPopconfirm) {
           return;
         }
         hideTip();
-      }).on('mousemove', mousemove);
+      }).on('mousemove', stopp);
 
       $('body').on('mousemove', hideTip);
 
@@ -61,6 +74,16 @@ function maTooltip($timeout, $compile) {
           el.height(el.height() + 1);
         }, 50);
         $compile(content.contents())(scope.contentScope || scope);
+      });
+      attrs.$observe('maClickHide', d => {
+        if (d == 'true') {
+          isClickHide = true;
+          $(element).on('click', stopp);
+          el.on('click', stopp);
+          $('body').off('mousemove', hideTip);
+          $('body').on('click', hideTip);
+          console.log(666);
+        }
       });
       attrs.$observe('maPopconfirm', d => {
         if (d == 'true') {
@@ -240,7 +263,7 @@ function maTooltip($timeout, $compile) {
         el.removeClass('show');
       }
 
-      function mousemove(e) {
+      function stopp(e) {
         e.stopPropagation();
       }
     }

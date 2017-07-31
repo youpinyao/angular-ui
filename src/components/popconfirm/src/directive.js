@@ -12,6 +12,7 @@ function maPopconfirm() {
     scope: {
       template: '=maTemplate',
       direction: '@maDirection',
+      clickHide: '@maClickHide',
     },
     transclude: true,
     template: maPopconfirmTpl,

@@ -69,32 +69,45 @@ function maTooltip($timeout, $compile) {
       var isPopconfirm = false;
       var direction = defaultDirection;
       var prevDirection = '';
+      var isClickHide = false;
 
       (0, _jquery2['default'])('body').append(el);
 
       (0, _jquery2['default'])(element).hover(function (d) {
+        if (isClickHide) {
+          return;
+        }
         if (isPopconfirm) {
           return;
         }
         showTip();
       }, function () {
+        if (isClickHide) {
+          return;
+        }
         if (isPopconfirm) {
           return;
         }
         hideTip();
-      }).on('mousemove', mousemove);
+      }).on('mousemove', stopp);
 
       el.hover(function (d) {
+        if (isClickHide) {
+          return;
+        }
         if (isPopconfirm) {
           return;
         }
         showTip();
       }, function () {
+        if (isClickHide) {
+          return;
+        }
         if (isPopconfirm) {
           return;
         }
         hideTip();
-      }).on('mousemove', mousemove);
+      }).on('mousemove', stopp);
 
       (0, _jquery2['default'])('body').on('mousemove', hideTip);
 
@@ -109,6 +122,16 @@ function maTooltip($timeout, $compile) {
           el.height(el.height() + 1);
         }, 50);
         $compile(content.contents())(scope.contentScope || scope);
+      });
+      attrs.$observe('maClickHide', function (d) {
+        if (d == 'true') {
+          isClickHide = true;
+          (0, _jquery2['default'])(element).on('click', stopp);
+          el.on('click', stopp);
+          (0, _jquery2['default'])('body').off('mousemove', hideTip);
+          (0, _jquery2['default'])('body').on('click', hideTip);
+          console.log(666);
+        }
       });
       attrs.$observe('maPopconfirm', function (d) {
         if (d == 'true') {
@@ -288,7 +311,7 @@ function maTooltip($timeout, $compile) {
         el.removeClass('show');
       }
 
-      function mousemove(e) {
+      function stopp(e) {
         e.stopPropagation();
       }
     }

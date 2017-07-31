@@ -9,12 +9,14 @@
     ma-full-container>
     <h2>Popconfirm 气泡确认框</h2>
     <p>
-      目标元素的操作需要用户进一步的确认时，在目标元素附近弹出浮层提示，询问用户。<br/> 和 confirm 弹出的全屏居中模态对话框相比，交互形式更轻量。
+      目标元素的操作需要用户进一步的确认时，在目标元素附近弹出浮层提示，询问用户。
+      <br/> 和 confirm 弹出的全屏居中模态对话框相比，交互形式更轻量。
     </p>
     <h3>代码演示</h3>
     <div class="p clearfix">
       <div class="col-12">
         <ma-popconfirm ma-template="popconfirmTemplate"
+          ma-click-hide="true"
           ma-direction="tr">
           <a href="javascript:void(0)">点我我是气泡确认框</a>
         </ma-popconfirm>
@@ -37,10 +39,22 @@
           <th>默认值</th>
         </tr>
         <tr>
-          <td>$modal.open(config)</td>
-          <td>config </td>
-          <td>JSON</td>
-          <td>defaultConfig</td>
+          <td>ma-template</td>
+          <td>气泡弹窗里面的html</td>
+          <td>html</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-direction</td>
+          <td>初始位置，tl tc tr lt lc lb rt rc rb bl bc br</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ma-click-hide</td>
+          <td>是否使用点击非内容区域隐藏</td>
+          <td>Boolean</td>
+          <td>false</td>
         </tr>
       </table>
     </div>
