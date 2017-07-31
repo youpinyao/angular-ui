@@ -11,7 +11,10 @@
     placeholder="{{maPlaceholder}}"
     format="{{format}}">
   <ma-icon ma-type="calendar"></ma-icon>
-  <ma-icon ma-type="close" ma-click="clear()" ng-show="!!model" class="clear"></ma-icon>
+  <ma-icon ma-type="close"
+    ma-click="clear()"
+    ng-show="!!model && showClear !== 'false'"
+    class="clear"></ma-icon>
   <!--<div date-picker
     view="{{view}}"
     ng-model="model"
