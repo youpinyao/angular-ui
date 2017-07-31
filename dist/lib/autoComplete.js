@@ -409,6 +409,7 @@ function maDropdown($timeout) {
             _activeItems.push(d[scope.valueKey]);
           } else {
             _activeItems.push(d);
+            scope.activeItems = getActiveItem(d);
           }
         }
 
