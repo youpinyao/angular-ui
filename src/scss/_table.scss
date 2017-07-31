@@ -60,7 +60,8 @@
     width: 32px;
     height: 30px;
     text-align: center;
-    box-shadow: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
     outline: none;
     font-size: $font14;
     border: 1px solid $outlines;
@@ -70,7 +71,8 @@
   }
   .data-table .form-inline input:focus {
     border: 1px solid $outlines;
-    box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.25);
+    -webkit-box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.25);
+            box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.25);
   }
   .table-bordered > thead > tr > td,
   .table-bordered > thead > tr > th {
@@ -182,6 +184,7 @@
     &.total-text {
       span {
         border: 0;
+        background: none;
       }
     }
     display: inline-block;
@@ -297,12 +300,14 @@
     }
   }
   .page-select-form-group select {
-    box-shadow: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
     border: 1px solid $disabled;
   }
   .page-select-form-group select:focus {
     border-color: $outlines;
-    box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.25);
+    -webkit-box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.25);
+            box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.25);
   }
   .page-select-form-group .page-select-arrow {
     position: absolute;
@@ -372,7 +377,8 @@
     top: 0px;
     overflow: hidden;
     height: 100%;
-    box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.8);
+    -webkit-box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.8);
+            box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.8);
   }
   .float-left-table.none,
   .float-right-table.none {
