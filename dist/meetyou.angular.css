@@ -6239,7 +6239,6 @@ textarea.ma-input {
 }
 
 .ma-tabs.default .ma-tab.active {
-  transition: color 300ms ease, border-color 300ms ease;
   color: #FF74B9;
   border-bottom-color: #FF74B9;
 }

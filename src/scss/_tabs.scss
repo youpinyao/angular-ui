@@ -20,8 +20,6 @@
       color: $grey;
     }
     &.active {
-      -webkit-transition: color 300ms ease, border-color 300ms ease;
-      transition: color 300ms ease, border-color 300ms ease;
       color: $primary;
       border-bottom-color: $primary;
     }
