@@ -23,6 +23,15 @@ body {
   color: $primary;
 }
 
+.transition-none {
+  -webkit-transition: none !important;
+  transition: none !important;
+  * {
+    -webkit-transition: none !important;
+    transition: none !important;
+  }
+}
+
 
 /* 定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸 */
 
@@ -129,6 +138,7 @@ a {
 *:before,
 *:after,
 * {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -373,6 +383,7 @@ body > .main {
     padding-left: 30px;
     padding-right: 30px;
     background-color: $white;
+    -webkit-box-shadow: 0 0 4px 0 rgba($black, 0.05);
     box-shadow: 0 0 4px 0 rgba($black, 0.05);
     border-radius: 5px;
   }

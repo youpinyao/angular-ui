@@ -3753,6 +3753,14 @@ body {
   color: #FF74B9;
 }
 
+.transition-none {
+  transition: none !important;
+}
+
+.transition-none * {
+  transition: none !important;
+}
+
 /* 定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸 */
 
 *::-webkit-scrollbar {
@@ -6228,6 +6236,7 @@ textarea.ma-input {
   position: relative;
   top: 1px;
   cursor: pointer;
+  transition: border-color 300ms ease, color 300ms ease;
 }
 
 .ma-tabs.default .ma-tab > div {
