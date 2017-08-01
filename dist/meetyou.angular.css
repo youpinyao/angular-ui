@@ -9583,7 +9583,7 @@ disabled look for disabled choices in the results dropdown
 }
 
 .ma-popconfirm-tooltip {
-  max-width: 260px;
+  max-width: 1220px;
 }
 
 .ma-popconfirm-tooltip .ma-tooltip-content {
@@ -10429,6 +10429,7 @@ disabled look for disabled choices in the results dropdown
 
 .ma-table .pagination > li.total-text span {
   border: 0;
+  background: none;
 }
 
 .ma-table .pagination > li > a,
