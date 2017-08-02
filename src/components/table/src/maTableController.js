@@ -37,7 +37,8 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
   self.dataset = $scope.tableConfig.dataset ? $scope.tableConfig.dataset : [];
   self.colsGroup = $scope.tableConfig.colsGroup ? $scope.tableConfig.colsGroup : [];
 
-  self.totalText = $scope.tableConfig.totalText === undefined ? '共{{params.total()}}条数据' : $scope.tableConfig.totalText;
+  self.totalText = $scope.tableConfig.totalText === undefined ? '共{{params.total()}}条数据' : $scope.tableConfig
+    .totalText;
 
   self.page = $scope.tableConfig.page || 1;
 
@@ -106,6 +107,13 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       self.floatRightCols.push(v);
     }
   });
+
+  if (angular.isEmpty(self.floatLeftCols)) {
+    self.floatLeftCols = false;
+  }
+  if (angular.isEmpty(self.floatRightCols)) {
+    self.floatRightCols = false;
+  }
 
   // 如果不存在左右漂浮
   // if (!self.floatLeftCols.length) {
