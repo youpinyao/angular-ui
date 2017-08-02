@@ -5478,7 +5478,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ "4iKR":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-popconfirm\"\n  ma-tooltip=\"{{template}}\"\n  ma-direction=\"{{direction}}\"\n  ma-popconfirm=\"true\"\n  ma-click-hide=\"{{clickHide}}\"\n  ma-scope=\"$parent\"\n  ng-transclude=\"\"></div>\n";
+module.exports = "<div class=\"ma-popconfirm\"\n  ma-tooltip=\"{{template}}\"\n  ma-direction=\"{{direction}}\"\n  ma-popconfirm=\"true\"\n  ma-click-hide=\"{{clickHide}}\"\n  ma-change-callback=\"changeCallbackLink(show)\"\n  ma-scope=\"$parent\"\n  ng-transclude=\"\"></div>\n";
 
 /***/ }),
 
@@ -41845,7 +41845,8 @@ function maAlert() {
     restrict: 'E',
     template: _maAlertTpl2['default'],
     scope: {
-      items: '=maItems'
+      items: '=maItems',
+      cls: '@maClass'
     },
     controllerAs: '$ctrl',
     controller: ['$scope', '$timeout', function ($scope, $timeout) {
@@ -52718,15 +52719,8 @@ function maClick($parse, $timeout) {
         element.addClass('ma-click-disabled');
 
         if (attrs.maClick) {
-          // if (scope.$odd !== undefined || scope.$even !== undefined ||
-          //   scope.$last !== undefined || scope.$index !== undefined ||
-          //   scope.$middle !== undefined) {
-          //   scope.$event = e;
-          //   $parse(attrs.maClick)(scope);
-          // } else {
           scope.$event = e;
           $parse(attrs.maClick)(scope);
-          // }
         }
 
         $timeout();
@@ -52735,19 +52729,6 @@ function maClick($parse, $timeout) {
           element.removeClass('ma-click-disabled');
         }, parseInt(attrs.delay, 10) || 50);
       });
-
-      function hasFn(fn, sc) {
-        var _hasFn = false;
-        angular.each(fn, function (d) {
-          if (sc[d]) {
-            _hasFn = true;
-          } else {
-            _hasFn = false;
-          }
-          sc = sc[d];
-        });
-        return _hasFn;
-      }
     }
   };
 }
@@ -54273,11 +54254,20 @@ function maPopconfirm() {
     scope: {
       template: '=maTemplate',
       direction: '@maDirection',
-      clickHide: '@maClickHide'
+      clickHide: '@maClickHide',
+      changeCallback: '&maChangeCallback'
     },
     transclude: true,
     template: _maPopconfirmTpl2['default'],
-    link: function link(scope, element, attrs, ctrl) {}
+    link: function link(scope, element, attrs, ctrl) {
+      scope.changeCallbackLink = changeCallbackLink;
+
+      function changeCallbackLink(show) {
+        scope.changeCallback({
+          show: show
+        });
+      }
+    }
   };
 }
 
@@ -71552,7 +71542,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ "uaNH":
 /***/ (function(module, exports) {
 
-module.exports = "<div\n  class=\"ma-alert\"\n  ng-repeat=\"item in items\"\n  ng-class=\"{\n    'hide': item.hide,\n    'ma-alert-success': item.type === 'success',\n    'ma-alert-warning': item.type === 'warning',\n    'ma-alert-danger': item.type === 'danger',\n  }\">\n  <span ng-bind-html=\"item.text\"></span>\n  <ma-icon\n    ng-if=\"item.close !== false\"\n    ma-type=\"close\"\n    ma-click=\"$ctrl.remove(item, $index)\"\n  ></ma-icon>\n</div>\n";
+module.exports = "<div class=\"ma-alert-box\">\n  <div class=\"ma-alert {{cls}}\"\n    ng-repeat=\"item in items\"\n    ng-class=\"{\n    'hide': item.hide,\n    'ma-alert-success': item.type === 'success',\n    'ma-alert-warning': item.type === 'warning',\n    'ma-alert-danger': item.type === 'danger',\n  }\">\n    <span ng-bind-html=\"item.text\"></span>\n    <ma-icon ng-if=\"item.close !== false\"\n      ma-type=\"close\"\n      ma-click=\"$ctrl.remove(item, $index)\"></ma-icon>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -75157,7 +75147,8 @@ function maTooltip($timeout, $compile) {
   return {
     restrict: 'A',
     scope: {
-      contentScope: '=maScope'
+      contentScope: '=maScope',
+      changeCallback: '&maChangeCallback'
     },
     link: function link(scope, element, attrs, ctrl) {
       var el = (0, _jquery2['default'])(_maTooltipTpl2['default']);
@@ -75227,8 +75218,11 @@ function maTooltip($timeout, $compile) {
           // $(element).on('click', stopp);
           el.on('click', stopp);
           (0, _jquery2['default'])('body').off('mousemove', hideTip);
-          (0, _jquery2['default'])('body').on('click', hideTip);
-          console.log(666);
+          (0, _jquery2['default'])('body').on('click', function (e) {
+            if (!((0, _jquery2['default'])(e.target).parents('.ma-popconfirm').length && (0, _jquery2['default'])(e.target).parents('.ma-popconfirm').get(0) === element[0])) {
+              hideTip(e);
+            }
+          });
         }
       });
       attrs.$observe('maPopconfirm', function (d) {
@@ -75243,6 +75237,7 @@ function maTooltip($timeout, $compile) {
       scope.$on('$destroy', function (d) {
         el.remove();
         (0, _jquery2['default'])('body').off('mousemove', hideTip);
+        (0, _jquery2['default'])('body').off('click', hideTip);
       });
       attrs.$observe('maDirection', setDirection);
 
@@ -75346,6 +75341,11 @@ function maTooltip($timeout, $compile) {
           if (!hasNew) {
             checkPositon();
           }
+          if (!el.hasClass('show')) {
+            scope.changeCallback({
+              show: true
+            });
+          }
           el.addClass('show');
         }, 10);
       }
@@ -75406,6 +75406,11 @@ function maTooltip($timeout, $compile) {
       }
 
       function hideTip() {
+        if (el.hasClass('show')) {
+          scope.changeCallback({
+            show: false
+          });
+        }
         el.removeClass('show');
       }
 

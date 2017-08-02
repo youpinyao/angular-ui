@@ -1,16 +1,15 @@
-<div
-  class="ma-alert"
-  ng-repeat="item in items"
-  ng-class="{
+<div class="ma-alert-box">
+  <div class="ma-alert {{cls}}"
+    ng-repeat="item in items"
+    ng-class="{
     'hide': item.hide,
     'ma-alert-success': item.type === 'success',
     'ma-alert-warning': item.type === 'warning',
     'ma-alert-danger': item.type === 'danger',
   }">
-  <span ng-bind-html="item.text"></span>
-  <ma-icon
-    ng-if="item.close !== false"
-    ma-type="close"
-    ma-click="$ctrl.remove(item, $index)"
-  ></ma-icon>
+    <span ng-bind-html="item.text"></span>
+    <ma-icon ng-if="item.close !== false"
+      ma-type="close"
+      ma-click="$ctrl.remove(item, $index)"></ma-icon>
+  </div>
 </div>

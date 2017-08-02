@@ -13,11 +13,18 @@ function maPopconfirm() {
       template: '=maTemplate',
       direction: '@maDirection',
       clickHide: '@maClickHide',
+      changeCallback: '&maChangeCallback',
     },
     transclude: true,
     template: maPopconfirmTpl,
     link: function(scope, element, attrs, ctrl) {
+      scope.changeCallbackLink = changeCallbackLink;
 
+      function changeCallbackLink(show) {
+        scope.changeCallback({
+          show,
+        });
+      }
     }
   };
 }

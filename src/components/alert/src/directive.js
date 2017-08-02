@@ -13,6 +13,7 @@ function maAlert() {
     template: maAlertTpl,
     scope: {
       items: '=maItems',
+      cls: '@maClass',
     },
     controllerAs: '$ctrl',
     controller: ['$scope', '$timeout', function ($scope, $timeout) {

@@ -63,7 +63,8 @@ function maAlert() {
     restrict: 'E',
     template: _maAlertTpl2['default'],
     scope: {
-      items: '=maItems'
+      items: '=maItems',
+      cls: '@maClass'
     },
     controllerAs: '$ctrl',
     controller: ['$scope', '$timeout', function ($scope, $timeout) {
@@ -113,15 +114,8 @@ function maClick($parse, $timeout) {
         element.addClass('ma-click-disabled');
 
         if (attrs.maClick) {
-          // if (scope.$odd !== undefined || scope.$even !== undefined ||
-          //   scope.$last !== undefined || scope.$index !== undefined ||
-          //   scope.$middle !== undefined) {
-          //   scope.$event = e;
-          //   $parse(attrs.maClick)(scope);
-          // } else {
           scope.$event = e;
           $parse(attrs.maClick)(scope);
-          // }
         }
 
         $timeout();
@@ -130,19 +124,6 @@ function maClick($parse, $timeout) {
           element.removeClass('ma-click-disabled');
         }, parseInt(attrs.delay, 10) || 50);
       });
-
-      function hasFn(fn, sc) {
-        var _hasFn = false;
-        angular.each(fn, function (d) {
-          if (sc[d]) {
-            _hasFn = true;
-          } else {
-            _hasFn = false;
-          }
-          sc = sc[d];
-        });
-        return _hasFn;
-      }
     }
   };
 }
@@ -372,7 +353,7 @@ function maIcon() {
 /***/ "uaNH":
 /***/ (function(module, exports) {
 
-module.exports = "<div\n  class=\"ma-alert\"\n  ng-repeat=\"item in items\"\n  ng-class=\"{\n    'hide': item.hide,\n    'ma-alert-success': item.type === 'success',\n    'ma-alert-warning': item.type === 'warning',\n    'ma-alert-danger': item.type === 'danger',\n  }\">\n  <span ng-bind-html=\"item.text\"></span>\n  <ma-icon\n    ng-if=\"item.close !== false\"\n    ma-type=\"close\"\n    ma-click=\"$ctrl.remove(item, $index)\"\n  ></ma-icon>\n</div>\n";
+module.exports = "<div class=\"ma-alert-box\">\n  <div class=\"ma-alert {{cls}}\"\n    ng-repeat=\"item in items\"\n    ng-class=\"{\n    'hide': item.hide,\n    'ma-alert-success': item.type === 'success',\n    'ma-alert-warning': item.type === 'warning',\n    'ma-alert-danger': item.type === 'danger',\n  }\">\n    <span ng-bind-html=\"item.text\"></span>\n    <ma-icon ng-if=\"item.close !== false\"\n      ma-type=\"close\"\n      ma-click=\"$ctrl.remove(item, $index)\"></ma-icon>\n  </div>\n</div>\n";
 
 /***/ })
 

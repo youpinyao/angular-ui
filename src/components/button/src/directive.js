@@ -18,15 +18,8 @@ function maClick($parse, $timeout) {
         element.addClass('ma-click-disabled');
 
         if (attrs.maClick) {
-          // if (scope.$odd !== undefined || scope.$even !== undefined ||
-          //   scope.$last !== undefined || scope.$index !== undefined ||
-          //   scope.$middle !== undefined) {
-          //   scope.$event = e;
-          //   $parse(attrs.maClick)(scope);
-          // } else {
           scope.$event = e;
           $parse(attrs.maClick)(scope);
-          // }
         }
 
         $timeout();
@@ -35,19 +28,6 @@ function maClick($parse, $timeout) {
           element.removeClass('ma-click-disabled');
         }, parseInt(attrs.delay, 10) || 50);
       });
-
-      function hasFn(fn, sc) {
-        let _hasFn = false;
-        angular.each(fn, d => {
-          if (sc[d]) {
-            _hasFn = true;
-          } else {
-            _hasFn = false;
-          }
-          sc = sc[d];
-        });
-        return _hasFn;
-      }
     }
   };
 }

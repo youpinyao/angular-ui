@@ -12,6 +12,7 @@ function maTooltip($timeout, $compile) {
     restrict: 'A',
     scope: {
       contentScope: '=maScope',
+      changeCallback: '&maChangeCallback',
     },
     link: function(scope, element, attrs, ctrl) {
       const el = $(maTooltipTpl);
@@ -81,8 +82,12 @@ function maTooltip($timeout, $compile) {
           // $(element).on('click', stopp);
           el.on('click', stopp);
           $('body').off('mousemove', hideTip);
-          $('body').on('click', hideTip);
-          console.log(666);
+          $('body').on('click', e => {
+            if (!($(e.target).parents('.ma-popconfirm').length && $(e.target).parents(
+                '.ma-popconfirm').get(0) === element[0])) {
+              hideTip(e);
+            }
+          });
         }
       });
       attrs.$observe('maPopconfirm', d => {
@@ -97,6 +102,7 @@ function maTooltip($timeout, $compile) {
       scope.$on('$destroy', d => {
         el.remove();
         $('body').off('mousemove', hideTip);
+        $('body').off('click', hideTip);
       });
       attrs.$observe('maDirection', setDirection);
 
@@ -200,6 +206,11 @@ function maTooltip($timeout, $compile) {
           if (!hasNew) {
             checkPositon();
           }
+          if (!el.hasClass('show')) {
+            scope.changeCallback({
+              show: true,
+            });
+          }
           el.addClass('show');
         }, 10);
       }
@@ -260,6 +271,11 @@ function maTooltip($timeout, $compile) {
       }
 
       function hideTip() {
+        if (el.hasClass('show')) {
+          scope.changeCallback({
+            show: false,
+          });
+        }
         el.removeClass('show');
       }
 

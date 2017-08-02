@@ -17,6 +17,7 @@
       <div class="col-12">
         <ma-popconfirm ma-template="popconfirmTemplate"
           ma-click-hide="true"
+          ma-change-callback="changeCallback(show)"
           ma-direction="tr">
           <a href="javascript:void(0)">点我我是气泡确认框</a>
         </ma-popconfirm>
@@ -59,6 +60,12 @@
           <td>是否使用点击非内容区域隐藏</td>
           <td>Boolean</td>
           <td>false</td>
+        </tr>
+        <tr>
+          <td>ma-change-callback</td>
+          <td>显示隐藏的时候的回调，可以读取的参数为show，范例：ma-change-callback="changeCallback(show)"</td>
+          <td>Function</td>
+          <td>-</td>
         </tr>
       </table>
     </div>
