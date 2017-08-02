@@ -78,7 +78,7 @@ function maTooltip($timeout, $compile) {
       attrs.$observe('maClickHide', d => {
         if (d == 'true') {
           isClickHide = true;
-          $(element).on('click', stopp);
+          // $(element).on('click', stopp);
           el.on('click', stopp);
           $('body').off('mousemove', hideTip);
           $('body').on('click', hideTip);

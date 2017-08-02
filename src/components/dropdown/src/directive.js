@@ -76,24 +76,23 @@ function maDropdown($timeout) {
 
       // 监听show 变化
       scope.$watch('show', d => {
-        const container = $(containerCls);
+        const container = $(element).find(containerCls);
         const ww = $(window).width();
         const wh = $(window).height();
         const offset = $(element).find(containerCls).offset();
 
         if (d) {
           $timeout.cancel(showTimeout);
-          if (offset.left + container.width() > ww) {
+          if ((offset.left + container.width()) - $(window).scrollLeft() > ww) {
             container.parent().addClass('right');
           }
-          if (offset.top + container.height() > wh) {
+          if ((offset.top + container.height()) - $(window).scrollTop() > wh) {
             container.parent().addClass('top');
             setDirection('top');
           }
         } else {
           showTimeout = $timeout(function() {
             container.parent().removeClass('right').removeClass('top');
-
             setDirection('');
           }, 600);
         }

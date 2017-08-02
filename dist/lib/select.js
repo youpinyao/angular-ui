@@ -390,24 +390,23 @@ function maDropdown($timeout) {
 
       // 监听show 变化
       scope.$watch('show', function (d) {
-        var container = (0, _jquery2['default'])(containerCls);
+        var container = (0, _jquery2['default'])(element).find(containerCls);
         var ww = (0, _jquery2['default'])(window).width();
         var wh = (0, _jquery2['default'])(window).height();
         var offset = (0, _jquery2['default'])(element).find(containerCls).offset();
 
         if (d) {
           $timeout.cancel(showTimeout);
-          if (offset.left + container.width() > ww) {
+          if (offset.left + container.width() - (0, _jquery2['default'])(window).scrollLeft() > ww) {
             container.parent().addClass('right');
           }
-          if (offset.top + container.height() > wh) {
+          if (offset.top + container.height() - (0, _jquery2['default'])(window).scrollTop() > wh) {
             container.parent().addClass('top');
             setDirection('top');
           }
         } else {
           showTimeout = $timeout(function () {
             container.parent().removeClass('right').removeClass('top');
-
             setDirection('');
           }, 600);
         }
