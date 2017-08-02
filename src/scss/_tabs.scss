@@ -3,13 +3,13 @@
   font-size: $font16;
   letter-spacing: -0.31em;
   border-bottom: 1px solid $outlines;
+  color: $grey;
   @include unselect();
   .ma-tab {
     letter-spacing: normal;
     display: inline-block;
     margin-right: 30px;
-    color: $grey;
-    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
     position: relative;
     top: 1px;
     cursor: pointer;
@@ -22,8 +22,9 @@
       color: $grey;
     }
     &.active {
+      border-bottom: 2px solid $primary;
       color: $primary;
-      border-bottom-color: $primary;
+      padding-bottom: 0;
     }
   }
 }

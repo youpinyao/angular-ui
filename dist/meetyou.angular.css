@@ -6219,6 +6219,7 @@ textarea.ma-input {
   font-size: 16px;
   letter-spacing: -0.31em;
   border-bottom: 1px solid #CCCCCC;
+  color: #999999;
   -webkit-touch-callout: none;
   -webkit-user-drag: none;
   -webkit-user-select: none;
@@ -6231,8 +6232,7 @@ textarea.ma-input {
   letter-spacing: normal;
   display: inline-block;
   margin-right: 30px;
-  color: #999999;
-  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
   position: relative;
   top: 1px;
   cursor: pointer;
@@ -6248,8 +6248,9 @@ textarea.ma-input {
 }
 
 .ma-tabs.default .ma-tab.active {
+  border-bottom: 2px solid #FF74B9;
   color: #FF74B9;
-  border-bottom-color: #FF74B9;
+  padding-bottom: 0;
 }
 
 .ma-tabs.ma-button-group > div {
