@@ -57,10 +57,10 @@
 
 
                 <div ng-if='col.render'
-                  common-table-col-render="col.render(this, row)"></div>
+                  common-table-col-render="col.render(this, row, row[col.field])"></div>
 
                 <div ng-if='!col.render && col.customHtml'
-                  ng-bind-html="col.customHtml(this, row)"></div>
+                  ng-bind-html="col.customHtml(this, row, row[col.field])"></div>
 
                 <div ng-if='!col.render && !col.customHtml'>
                   <span ng-switch-default>{{row[col.field]}}</span>

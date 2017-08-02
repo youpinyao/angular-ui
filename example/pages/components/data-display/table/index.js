@@ -122,7 +122,8 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
       field: 'real_name',
       title: '代理姓名/公司名',
       fLeft: true,
-      render() {
+      render($scope, row, cell) {
+        console.log($scope, row, cell);
         return 6666;
       },
       show: true

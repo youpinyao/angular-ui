@@ -91,8 +91,8 @@ function commonTableColRender($compile) {
           value += '';
           value = value.replace(/ng-click="/g,
             'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.');
-          value = value.replace(/cm-click="/g,
-            'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.');
+          value = value.replace(/ma-click="/g,
+            'ma-click="$parent.$parent.$parent.$parent.$parent.$parent.');
 
           element.html(value);
           $compile(element.contents())(scope);
