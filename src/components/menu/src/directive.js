@@ -76,7 +76,8 @@ function maSecondMenu($state, $rootScope) {
 
         $scope.routers.forEach(router => {
           if (router.parent && router.state.indexOf(router.parent.state + '.') !== -1 &&
-            $state.current.name.indexOf(router.parent.state + '.') !== -1) {
+            $state.current.name.indexOf(router.parent.state + '.') !== -1 &&
+            router.hidden !== true && router.hiddenSecond !== true) {
             hasSecondNav = true;
           }
         });
