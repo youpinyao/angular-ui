@@ -83,21 +83,32 @@ function commonTableColRender($compile) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
-      scope.$watch(
-        function(scope) {
-          return scope.$eval(attrs.commonTableColRender, scope);
-        },
-        function(value) {
-          value += '';
-          value = value.replace(/ng-click="/g,
-            'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.');
-          value = value.replace(/ma-click="/g,
-            'ma-click="$parent.$parent.$parent.$parent.$parent.$parent.');
+      let value = scope.$eval(attrs.commonTableColRender, scope);
 
-          element.html(value);
-          $compile(element.contents())(scope);
-        }
-      );
+      value += '';
+      value = value.replace(/ng-click="/g,
+        'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.');
+      value = value.replace(/ma-click="/g,
+        'ma-click="$parent.$parent.$parent.$parent.$parent.$parent.');
+
+      element.html(value);
+      $compile(element.contents())(scope);
+
+      // scope.$watch(
+      //   function(scope) {
+      //     return scope.$eval(attrs.commonTableColRender, scope);
+      //   },
+      //   function(value) {
+      //     value += '';
+      //     value = value.replace(/ng-click="/g,
+      //       'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.');
+      //     value = value.replace(/ma-click="/g,
+      //       'ma-click="$parent.$parent.$parent.$parent.$parent.$parent.');
+
+      //     element.html(value);
+      //     $compile(element.contents())(scope);
+      //   }
+      // );
     }
   };
 }

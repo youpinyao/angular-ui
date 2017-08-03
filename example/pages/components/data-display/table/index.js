@@ -123,8 +123,7 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
       title: '代理姓名/公司名',
       fLeft: true,
       render($scope, row, cell) {
-        console.log($scope, row, cell);
-        return 6666;
+        return Math.random();
       },
       show: true
     }, {
@@ -194,6 +193,36 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
       real_name: 'dsfd',
       shows: 101,
       remain_amount: 103
+    }, {
+      user_id: 4,
+      real_name: 'dsfd',
+      shows: 10,
+      remain_amount: 104
+    }, {
+      user_id: 4,
+      real_name: 'dsfd',
+      shows: 10,
+      remain_amount: 104
+    }, {
+      user_id: 4,
+      real_name: 'dsfd',
+      shows: 10,
+      remain_amount: 104
+    }, {
+      user_id: 4,
+      real_name: 'dsfd',
+      shows: 10,
+      remain_amount: 104
+    }, {
+      user_id: 4,
+      real_name: 'dsfd',
+      shows: 10,
+      remain_amount: 104
+    }, {
+      user_id: 4,
+      real_name: 'dsfd',
+      shows: 10,
+      remain_amount: 104
     }, {
       user_id: 4,
       real_name: 'dsfd',
