@@ -24,13 +24,19 @@
   i.icon-calendar {
     @include inputIcon();
   }
+
+  &[disabled] i.icon-calendar {
+    background-color: $disabled;
+  }
+
   input,
   input[readonly] {
     background-color: #fff;
     cursor: pointer;
     padding-right: 32px;
     &:focus {
-      box-shadow: 0 0px 1px 0 rgba($black, 0.25);
+      -webkit-box-shadow: 0 0px 1px 0 rgba($black, 0.25);
+              box-shadow: 0 0px 1px 0 rgba($black, 0.25);
       border-radius: 4px 4px 0 0;
       border-color: rgba($black, 0.1);
       border-bottom-color: $disabled;
@@ -42,7 +48,8 @@
   [date-picker-wrapper] {
     max-width: 240px;
     > div {
-      box-shadow: 0 1px 3px 0 rgba($black, 0.25);
+      -webkit-box-shadow: 0 1px 3px 0 rgba($black, 0.25);
+              box-shadow: 0 1px 3px 0 rgba($black, 0.25);
     }
   }
   [date-picker] {

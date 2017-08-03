@@ -23,6 +23,9 @@
       </div>
       <div class="col-24">
         <div class="mb-20">
+          <ma-switch ng-model="disabled"></ma-switch>
+        </div>
+        <div class="mb-20">
           <ma-tabs ng-model="formLayout">
             <ma-tab-button ma-value="horizontal">水平排列</ma-tab-button>
             <ma-tab-button ma-value="vertical">垂直排列</ma-tab-button>
@@ -194,6 +197,7 @@
                 ma-min-view="date"
                 validator="required"
                 valid-method="submit"
+                ng-disabled="disabled"
                 ma-format="YYYY-MM-DD">
             </div>
           </div>
@@ -205,6 +209,7 @@
                 ng-model="rangePickerDate"
                 validator="required"
                 valid-method="submit"
+                ng-disabled="disabled"
                 ma-format="YYYY-MM-DD">
             </div>
           </div>

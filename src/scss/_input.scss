@@ -3,19 +3,22 @@ $inputRadius: 4px;
 @mixin success () {
   border: 1px solid $success;
   padding-right: 32px;
-  box-shadow: 0 0 5px 0 rgba($success, 0.25);
+  -webkit-box-shadow: 0 0 5px 0 rgba($success, 0.25);
+          box-shadow: 0 0 5px 0 rgba($success, 0.25);
 }
 
 @mixin error () {
   border: 1px solid $danger;
   padding-right: 32px;
-  box-shadow: 0 0 5px 0 rgba($danger, 0.25);
+  -webkit-box-shadow: 0 0 5px 0 rgba($danger, 0.25);
+          box-shadow: 0 0 5px 0 rgba($danger, 0.25);
 }
 
 @mixin warning () {
   border: 1px solid $warning;
   padding-right: 32px;
-  box-shadow: 0 0 5px 0 rgba($warning, 0.25);
+  -webkit-box-shadow: 0 0 5px 0 rgba($warning, 0.25);
+          box-shadow: 0 0 5px 0 rgba($warning, 0.25);
 }
 
 @mixin search () {
@@ -31,7 +34,8 @@ $inputRadius: 4px;
   border-color: $outlines !important;
   color: $grey !important;
   cursor: not-allowed !important;
-  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
   @include unselect();
 }
 
@@ -58,11 +62,17 @@ $inputRadius: 4px;
     @include inputIcon();
     cursor: pointer;
   }
-  &[disabled] .ma-select-multiple-result {
-    /* background-color: transparent;*/
-    /* @include status-disabled();*/
-    &.has-selected {
-      background-color: $disabled !important;
+  &[disabled] {
+    .clear {
+      background-color: $disabled;
+      display: none;
+    }
+    .ma-select-multiple-result {
+      /* background-color: transparent;*/
+      /* @include status-disabled();*/
+      &.has-selected {
+        background-color: $disabled !important;
+      }
     }
   }
 }
@@ -111,6 +121,10 @@ input.ma-input {
       content: "\ee63";
       color: $success;
     }
+    &[disabled]:before {
+      background-color: $disabled;
+      opacity: 0;
+    }
     textarea,
     input {
       @include success();
@@ -121,6 +135,10 @@ input.ma-input {
       @include inputIcon();
       content: "\ee64";
       color: $danger;
+    }
+    &[disabled]:before {
+      background-color: $disabled;
+      opacity: 0;
     }
     textarea,
     input {
@@ -133,6 +151,10 @@ input.ma-input {
       content: "\ee5e";
       color: $warning;
     }
+    &[disabled]:before {
+      background-color: $disabled;
+      opacity: 0;
+    }
     textarea,
     input {
       @include warning();
@@ -143,6 +165,10 @@ input.ma-input {
       @include inputIcon();
       content: "\eea3";
       color: $disabled;
+    }
+    &[disabled]:before {
+      background-color: $disabled;
+      color: $outlines;
     }
     textarea,
     input {
@@ -156,6 +182,10 @@ input.ma-input {
       color: $base;
       background-color: $disabled;
       cursor: pointer;
+    }
+    &[disabled]:before {
+      background-color: $disabled;
+      cursor: default;
     }
     textarea,
     input {

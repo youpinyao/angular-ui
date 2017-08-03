@@ -5568,6 +5568,11 @@ body.has-sider-menu > .main {
   cursor: pointer;
 }
 
+.ma-input[disabled] .clear {
+  background-color: #E5E5E5;
+  display: none;
+}
+
 .ma-input[disabled] .ma-select-multiple-result {
   /* background-color: transparent;*/
   /* @include status-disabled();*/
@@ -5662,6 +5667,11 @@ input.ma-input[disabled]:hover {
   color: #87D068;
 }
 
+.ma-input.ma-input-success[disabled]:before {
+  background-color: #E5E5E5;
+  opacity: 0;
+}
+
 .ma-input.ma-input-success textarea,
 .ma-input.ma-input-success input {
   border: 1px solid #87D068;
@@ -5689,6 +5699,11 @@ input.ma-input[disabled]:hover {
   border-bottom-right-radius: 4px;
   content: "\EE64";
   color: #FF5073;
+}
+
+.ma-input.ma-input-error[disabled]:before {
+  background-color: #E5E5E5;
+  opacity: 0;
 }
 
 .ma-input.ma-input-error textarea,
@@ -5720,6 +5735,11 @@ input.ma-input[disabled]:hover {
   color: #F6A623;
 }
 
+.ma-input.ma-input-warning[disabled]:before {
+  background-color: #E5E5E5;
+  opacity: 0;
+}
+
 .ma-input.ma-input-warning textarea,
 .ma-input.ma-input-warning input {
   border: 1px solid #F6A623;
@@ -5749,6 +5769,11 @@ input.ma-input[disabled]:hover {
   color: #E5E5E5;
 }
 
+.ma-input.ma-input-search-normal[disabled]:before {
+  background-color: #E5E5E5;
+  color: #CCCCCC;
+}
+
 .ma-input.ma-input-search-normal textarea,
 .ma-input.ma-input-search-normal input {
   padding-right: 32px;
@@ -5776,6 +5801,11 @@ input.ma-input[disabled]:hover {
   color: #323232;
   background-color: #E5E5E5;
   cursor: pointer;
+}
+
+.ma-input.ma-input-search-black[disabled]:before {
+  background-color: #E5E5E5;
+  cursor: default;
 }
 
 .ma-input.ma-input-search-black textarea,
@@ -7022,6 +7052,10 @@ textarea.ma-input {
   cursor: pointer;
   color: #999999;
   font-size: 14px;
+}
+
+.ma-select > .ma-input[disabled] .ma-select-multiple-result {
+  border-color: #CCCCCC;
 }
 
 .ma-select > .ma-input[disabled] .ma-select-multiple-result > .multiple-item {
@@ -8667,6 +8701,11 @@ disabled look for disabled choices in the results dropdown
   border-color: #87D068;
 }
 
+.ma-tree-select .select2-container-multi.select2-container-disabled .select2-choices {
+  border-color: #CCCCCC;
+  background-color: transparent;
+}
+
 .ma-transfer {
   height: 236px;
 }
@@ -9649,6 +9688,11 @@ disabled look for disabled choices in the results dropdown
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
   pointer-events: none;
+}
+
+.ma-date-range-picker[disabled] i.icon-calendar,
+.ma-date-picker[disabled] i.icon-calendar {
+  background-color: #E5E5E5;
 }
 
 .ma-date-range-picker input,

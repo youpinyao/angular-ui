@@ -40990,7 +40990,7 @@ module.exports = "<div class=\"nav\">\n  <ul>\n    <li\n      ng-repeat=\"router
 /***/ "IM9K":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-input ma-date-picker\">\n  <input class=\"ma-input\"\n    date-time\n    ng-readonly=\"true\"\n    ng-model=\"model\"\n    view=\"{{view}}\"\n    date-change=\"changeValue\"\n    min-view=\"{{minView}}\"\n    min-date=\"_minDate\"\n    max-date=\"_maxDate\"\n    placeholder=\"{{maPlaceholder}}\"\n    format=\"{{format}}\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\"\n    ma-click=\"clear()\"\n    ng-show=\"!!model && showClear !== 'false'\"\n    class=\"clear\"></ma-icon>\n  <!--<div date-picker\n    view=\"{{view}}\"\n    ng-model=\"model\"\n    min-view=\"{{minView}}\"\n    format=\"{{format}}\"></div>-->\n</div>\n";
+module.exports = "<div class=\"ma-input ma-date-picker\">\n  <input class=\"ma-input\"\n    date-time\n    ng-readonly=\"true\"\n    ng-model=\"model\"\n    view=\"{{view}}\"\n    date-change=\"changeValue\"\n    min-view=\"{{minView}}\"\n    min-date=\"_minDate\"\n    max-date=\"_maxDate\"\n    ng-disabled=\"disabled\"\n    placeholder=\"{{maPlaceholder}}\"\n    format=\"{{format}}\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\"\n    ma-click=\"clear()\"\n    ng-show=\"!!model && showClear !== 'false'\"\n    class=\"clear\"></ma-icon>\n  <!--<div date-picker\n    view=\"{{view}}\"\n    ng-model=\"model\"\n    min-view=\"{{minView}}\"\n    format=\"{{format}}\"></div>-->\n</div>\n";
 
 /***/ }),
 
@@ -45255,7 +45255,7 @@ exports[DATA_VIEW] = $DataView;
 /***/ "M4cQ":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-input ma-date-range-picker\">\n  <input class=\"ma-input\"\n    ng-readonly=\"true\"\n    placeholder=\"{{maPlaceholder}}\"\n    ng-model=\"dateText\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\"\n    ma-click=\"clear()\"\n    ng-show=\"dateText && showClear !== 'false'\"\n    class=\"clear\"></ma-icon>\n</div>\n";
+module.exports = "<div class=\"ma-input ma-date-range-picker\">\n  <input class=\"ma-input\"\n    ng-readonly=\"true\"\n    placeholder=\"{{maPlaceholder}}\"\n    ng-disabled=\"disabled\"\n    ng-model=\"dateText\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\"\n    ma-click=\"clear()\"\n    ng-show=\"dateText && showClear !== 'false'\"\n    class=\"clear\"></ma-icon>\n</div>\n";
 
 /***/ }),
 
@@ -59002,7 +59002,8 @@ function maDatePicker() {
       _minDate: '=maMinDate',
       _maxDate: '=maMaxDate',
       maPlaceholder: '@maPlaceholder',
-      showClear: '@maClear'
+      showClear: '@maClear',
+      disabled: '=ngDisabled'
     },
     template: _maDatePickerTpl2['default'],
     controllerAs: '$ctrl',
@@ -59035,7 +59036,8 @@ function maDateRangePicker($timeout) {
       minDate: '=maMinDate',
       maxDate: '=maMaxDate',
       maPlaceholder: '@maPlaceholder',
-      showClear: '@maClear'
+      showClear: '@maClear',
+      disabled: '=ngDisabled'
     },
     template: _maDateRangePickerTpl2['default'],
     controllerAs: '$ctrl',

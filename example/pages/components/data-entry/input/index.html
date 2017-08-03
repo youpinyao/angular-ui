@@ -5,151 +5,144 @@
 </ma-crumb> -->
 <ma-crumb-auto></ma-crumb-auto>
 <div class="data-entry-input-page">
-  <div class="container" ma-full-container>
+  <div class="container"
+    ma-full-container>
     <h2>Input 输入框</h2>
     <p>通过鼠标或键盘输入内容，是最基础的表单域的包装。</p>
     <h3>代码演示</h3>
     <div class="p clearfix">
+      <div class="pb-20">
+        <ma-switch ng-model="disabled"></ma-switch>
+      </div>
       <div class="col-8">
         <h4>normal</h4>
         <div>
-          <ma-input
-            name="test"
+          <ma-input name="test"
             type="text"
+            ng-disabled="disabled"
             placeholder="{{placeholder}}"
-            ng-model="testValue"
-          ></ma-input>
+            ng-model="testValue"></ma-input>
         </div>
       </div>
 
       <div class="col-8">
         <h4>disabled</h4>
         <div>
-          <ma-input
-            name="test"
+          <ma-input name="test"
             type="text"
+            ng-disabled="disabled"
             placeholder="{{placeholder}}"
             ng-disabled="true"
-            ng-model="testValue"
-          ></ma-input>
+            ng-model="testValue"></ma-input>
         </div>
       </div>
 
       <div class="col-8">
         <h4>readonly</h4>
         <div>
-          <ma-input
-            name="test"
+          <ma-input name="test"
             type="text"
+            ng-disabled="disabled"
             placeholder="{{placeholder}}"
             ng-readonly="true"
-            ng-model="testValue"
-          ></ma-input>
+            ng-model="testValue"></ma-input>
         </div>
       </div>
 
       <div class="col-8">
         <h4>success</h4>
         <div>
-          <ma-input
-            class="ma-input-success"
+          <ma-input class="ma-input-success"
             name="test"
             type="text"
+            ng-disabled="disabled"
             placeholder="{{placeholder}}"
-            ng-model="testValue"
-          ></ma-input>
+            ng-model="testValue"></ma-input>
         </div>
       </div>
 
       <div class="col-8">
         <h4>error</h4>
         <div>
-          <ma-input
-            class="ma-input-error"
+          <ma-input class="ma-input-error"
             name="test"
             type="text"
+            ng-disabled="disabled"
             placeholder="{{placeholder}}"
-            ng-model="testValue"
-          ></ma-input>
+            ng-model="testValue"></ma-input>
         </div>
       </div>
 
       <div class="col-8">
         <h4>warning</h4>
         <div>
-          <ma-input
-            class="ma-input-warning"
+          <ma-input class="ma-input-warning"
             name="test"
             type="text"
+            ng-disabled="disabled"
             placeholder="{{placeholder}}"
-            ng-model="testValue"
-          ></ma-input>
+            ng-model="testValue"></ma-input>
         </div>
       </div>
 
       <div class="col-8">
         <h4>search normal</h4>
         <div>
-          <ma-input
-            class="ma-input-search-normal"
+          <ma-input class="ma-input-search-normal"
             name="test"
             type="text"
+            ng-disabled="disabled"
             placeholder="{{placeholder}}"
-            ng-model="testValue"
-          ></ma-input>
+            ng-model="testValue"></ma-input>
         </div>
       </div>
 
       <div class="col-8">
         <h4>search black</h4>
         <div>
-          <ma-input
-            class="ma-input-search-black"
+          <ma-input class="ma-input-search-black"
             name="test"
             type="text"
+            ng-disabled="disabled"
             ma-icon-click="iconClick($event)"
             placeholder="{{placeholder}}"
-            ng-model="testValue"
-          ></ma-input>
+            ng-model="testValue"></ma-input>
         </div>
       </div>
 
       <div class="col-8">
         <h4>只能输入数字，并且小数点后位数为2</h4>
         <div>
-          <ma-input
-            ma-num
+          <ma-input ma-num
             ma-decimal="2"
             name="numberTestValue"
             type="text"
+            ng-disabled="disabled"
             placeholder="{{placeholder}}"
-            ng-model="numberTestValue"
-          ></ma-input>
+            ng-model="numberTestValue"></ma-input>
         </div>
       </div>
 
       <div class="col-8">
         <h4>textarea</h4>
         <div>
-          <ma-input
-            name="test"
+          <ma-input name="test"
             type="textarea"
+            ng-disabled="disabled"
             placeholder="{{placeholder}}"
-            ng-model="testValue"
-          ></ma-input>
+            ng-model="testValue"></ma-input>
         </div>
       </div>
 
       <div class="col-8">
         <h4>清空按钮</h4>
         <div>
-          <ma-input
-            name="test"
+          <ma-input name="test"
             type="text"
+            ng-disabled="disabled"
             placeholder="{{placeholder}}"
             ng-model="testValue"
-            ma-clear="true"
-          ></ma-input>
+            ma-clear="true"></ma-input>
         </div>
       </div>
     </div>
