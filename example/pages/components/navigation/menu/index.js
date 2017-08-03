@@ -31,6 +31,7 @@ function mainCtrl($scope) {
     title: 'Icon 图标',
     state: 'components.general.icon',
     hidden: false,
+    hiddenSecond: false, //是否在二级菜单隐藏
     params: {
       id: 666,
     },
