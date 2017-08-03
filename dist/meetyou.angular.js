@@ -40432,12 +40432,31 @@ function maSecondMenu($state, $rootScope) {
 
         $scope.$on('$destroy', function (e) {
           (0, _jquery2['default'])('body').removeClass(cls);
+          (0, _jquery2['default'])(window).off('scroll', $scope.resize);
         });
 
         $scope.hasSecondNav = hasSecondNav;
       });
     }],
-    link: function link(scope, element, attrs, controllers) {}
+    link: function link(scope, element, attrs, controllers) {
+      (0, _jquery2['default'])(window).on('resize', resize);
+
+      scope.resize = resize;
+
+      resize();
+
+      function resize() {
+        var minWidth = parseInt((0, _jquery2['default'])(element).parents('.header').css('min-width'), 10);
+
+        if ((0, _jquery2['default'])(window).width() > minWidth) {
+          minWidth = (0, _jquery2['default'])(window).width();
+        }
+
+        (0, _jquery2['default'])(element).css({
+          'min-width': minWidth
+        });
+      }
+    }
   };
 }
 
@@ -40462,15 +40481,21 @@ function maSiderMenu($state, $rootScope) {
       $scope.$on('$destroy', function (e) {
         (0, _jquery2['default'])('body').removeClass(cls);
         (0, _jquery2['default'])(window).off('scroll', setTop);
+        (0, _jquery2['default'])(window).off('resize', setTop);
       });
 
       // 绑定全局滚动，相对顶部
       (0, _jquery2['default'])(window).on('scroll', setTop);
+      (0, _jquery2['default'])(window).on('resize', setTop);
       setTop();
 
       function setTop() {
         var header = (0, _jquery2['default'])('body > .header');
         var top = header.height() - (0, _jquery2['default'])(window).scrollTop();
+
+        if ((0, _jquery2['default'])('.has-second-nav').length) {
+          top += (0, _jquery2['default'])('.header .second-nav').height();
+        }
 
         if (top < 0) {
           top = 0;

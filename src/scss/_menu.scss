@@ -50,13 +50,14 @@
     @include transform-origin();
     @include transform(scaleY(0));
     @include transition();
-    position: fixed;
+    position: absolute;
     z-index: 10;
-    left: 0px;
+    left: 0;
+    right: 0;
+    margin-left: -220px;
     top: $headerHeight;
-    width: 100%;
-    min-width: $minWidth;
     background: $white;
+    -webkit-box-shadow: inset 0 -1px 0 0 $shadow;
     box-shadow: inset 0 -1px 0 0 $shadow;
     padding-left: 250px;
     ul {
@@ -133,6 +134,7 @@ body.has-sider-menu > .main {
   bottom: 0px;
   margin: auto;
   background-color: $white;
+  -webkit-box-shadow: 0 0 4px 0 rgba($black, 0.05);
   box-shadow: 0 0 4px 0 rgba($black, 0.05);
   overflow: auto;
   .sider-menu-title {
@@ -149,6 +151,7 @@ body.has-sider-menu > .main {
     }
   }
   > .sider-menu-content {
+    -webkit-box-shadow: inset 0 -1px 0 0 $shadow;
     box-shadow: inset 0 -1px 0 0 $shadow;
     .sider-menu-item {
       a {
@@ -192,6 +195,7 @@ body.has-sider-menu > .main {
     }
     > .sider-menu-item {
       > a {
+        -webkit-box-shadow: inset 0 1px 0 0 $shadow;
         box-shadow: inset 0 1px 0 0 $shadow;
         font-size: $font16;
         padding: 15px 0px 15px 20px;

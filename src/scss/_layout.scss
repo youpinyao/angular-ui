@@ -396,6 +396,12 @@ body > .main {
     top: 0px;
     width: 100%;
   }
+  .nav {
+    .second-nav {
+      position: fixed;
+      margin-left: 0;
+    }
+  }
   > .main {
     margin-top: $headerHeight;
   }

@@ -4428,6 +4428,11 @@ body > .main div.container {
   width: 100%;
 }
 
+.header-fixed .nav .second-nav {
+  position: fixed;
+  margin-left: 0;
+}
+
 .header-fixed > .main {
   margin-top: 80px;
 }
@@ -5374,12 +5379,12 @@ body > .main div.container {
   -moz-transform: scaleY(0);
   transition: all 300ms ease;
   -webkit-transtion: all 300ms ease;
-  position: fixed;
+  position: absolute;
   z-index: 10;
-  left: 0px;
+  left: 0;
+  right: 0;
+  margin-left: -220px;
   top: 80px;
-  width: 100%;
-  min-width: 1220px;
   background: #FFFFFF;
   box-shadow: inset 0 -1px 0 0 #DDDDDD;
   padding-left: 250px;
