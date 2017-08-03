@@ -8,7 +8,7 @@
       router.hiddenSecond !== true &&
       router.level <= 2"
 
-      ng-class="{active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params) || $state.current.name.indexOf(router.state + '.') !== -1 || router.childState.indexOf($state.current.name) !== -1}">
+      ng-class="{active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params) || $state.current.name.indexOf(router.state + '.') !== -1 || (router.childState && router.childState.indexOf($state.current.name) !== -1)}">
       <a
         href="javascript:void(0)"
         ma-click="$state.go(router.state, router.params)"
