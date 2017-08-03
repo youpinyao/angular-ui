@@ -21,6 +21,7 @@ function mainCtrl($scope) {
   title: 'General 一般',
   state: 'components.general',
   hidden: false,
+  childState: ['components.general.icon'], // 子路由的state，可以是数组或者字符串，secondMenu 使用，配在这里在这些路由下secondMenu 也会active
   params: {
     id: 666,
   },
