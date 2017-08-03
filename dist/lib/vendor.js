@@ -16083,7 +16083,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
   'use strict';
-  var fnc;fnc = ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? module.exports = factory(__webpack_require__("/jXN"), __webpack_require__("PJh5")) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__("/jXN"), __webpack_require__("PJh5")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+
+  var fnc;
+  fnc = ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? module.exports = factory(__webpack_require__("/jXN"), __webpack_require__("PJh5")) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__("/jXN"), __webpack_require__("PJh5")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.angular, global.moment);
@@ -16869,13 +16871,20 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }
 
         function setMin(date) {
+          if (date && !moment.isMoment(date)) {
+            date = moment(date);
+          }
           minDate = date;
           attrs.minDate = date ? date.format() : date;
           minValid = moment.isMoment(date);
         }
 
         function setMax(date) {
+          if (date && !moment.isMoment(date)) {
+            date = moment(date);
+          }
           maxDate = date;
+
           attrs.maxDate = date ? date.format() : date;
           maxValid = moment.isMoment(date);
         }
@@ -17006,7 +17015,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             var pos = element[0].getBoundingClientRect();
             // Support IE8
             var height = pos.height || element[0].offsetHeight;
-            picker.css({ top: pos.top + height + 'px', left: pos.left + 'px', display: 'block', position: position });
+            picker.css({
+              top: pos.top + height + 'px',
+              left: pos.left + 'px',
+              display: 'block',
+              position: position
+            });
             body.append(picker);
           } else {
             // relative
@@ -17015,7 +17029,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             container.append(picker);
             //          this approach doesn't work
             //          element.before(picker);
-            picker.css({ top: element[0].offsetHeight + 'px', display: 'block' });
+            picker.css({
+              top: element[0].offsetHeight + 'px',
+              display: 'block'
+            });
           }
           picker.bind('mousedown', function (evt) {
             evt.preventDefault();

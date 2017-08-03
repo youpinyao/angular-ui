@@ -19878,7 +19878,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
   'use strict';
-  var fnc;fnc = ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? module.exports = factory(__webpack_require__("/jXN"), __webpack_require__("PJh5")) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__("/jXN"), __webpack_require__("PJh5")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+
+  var fnc;
+  fnc = ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? module.exports = factory(__webpack_require__("/jXN"), __webpack_require__("PJh5")) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__("/jXN"), __webpack_require__("PJh5")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.angular, global.moment);
@@ -20664,13 +20666,20 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }
 
         function setMin(date) {
+          if (date && !moment.isMoment(date)) {
+            date = moment(date);
+          }
           minDate = date;
           attrs.minDate = date ? date.format() : date;
           minValid = moment.isMoment(date);
         }
 
         function setMax(date) {
+          if (date && !moment.isMoment(date)) {
+            date = moment(date);
+          }
           maxDate = date;
+
           attrs.maxDate = date ? date.format() : date;
           maxValid = moment.isMoment(date);
         }
@@ -20801,7 +20810,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             var pos = element[0].getBoundingClientRect();
             // Support IE8
             var height = pos.height || element[0].offsetHeight;
-            picker.css({ top: pos.top + height + 'px', left: pos.left + 'px', display: 'block', position: position });
+            picker.css({
+              top: pos.top + height + 'px',
+              left: pos.left + 'px',
+              display: 'block',
+              position: position
+            });
             body.append(picker);
           } else {
             // relative
@@ -20810,7 +20824,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             container.append(picker);
             //          this approach doesn't work
             //          element.before(picker);
-            picker.css({ top: element[0].offsetHeight + 'px', display: 'block' });
+            picker.css({
+              top: element[0].offsetHeight + 'px',
+              display: 'block'
+            });
           }
           picker.bind('mousedown', function (evt) {
             evt.preventDefault();
@@ -40973,7 +40990,7 @@ module.exports = "<div class=\"nav\">\n  <ul>\n    <li\n      ng-repeat=\"router
 /***/ "IM9K":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-input ma-date-picker\">\n  <input class=\"ma-input\"\n    date-time\n    ng-readonly=\"true\"\n    ng-model=\"model\"\n    view=\"{{view}}\"\n    date-change=\"changeValue\"\n    min-view=\"{{minView}}\"\n    min-date=\"minDate\"\n    max-date=\"maxDate\"\n    placeholder=\"{{maPlaceholder}}\"\n    format=\"{{format}}\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\"\n    ma-click=\"clear()\"\n    ng-show=\"!!model && showClear !== 'false'\"\n    class=\"clear\"></ma-icon>\n  <!--<div date-picker\n    view=\"{{view}}\"\n    ng-model=\"model\"\n    min-view=\"{{minView}}\"\n    format=\"{{format}}\"></div>-->\n</div>\n";
+module.exports = "<div class=\"ma-input ma-date-picker\">\n  <input class=\"ma-input\"\n    date-time\n    ng-readonly=\"true\"\n    ng-model=\"model\"\n    view=\"{{view}}\"\n    date-change=\"changeValue\"\n    min-view=\"{{minView}}\"\n    min-date=\"_minDate\"\n    max-date=\"_maxDate\"\n    placeholder=\"{{maPlaceholder}}\"\n    format=\"{{format}}\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\"\n    ma-click=\"clear()\"\n    ng-show=\"!!model && showClear !== 'false'\"\n    class=\"clear\"></ma-icon>\n  <!--<div date-picker\n    view=\"{{view}}\"\n    ng-model=\"model\"\n    min-view=\"{{minView}}\"\n    format=\"{{format}}\"></div>-->\n</div>\n";
 
 /***/ }),
 
@@ -58982,8 +58999,8 @@ function maDatePicker() {
       minView: '@maMinView',
       model: '=ngModel',
       format: '@maFormat',
-      minDate: '=maMinDate',
-      maxDate: '=maMaxDate',
+      _minDate: '=maMinDate',
+      _maxDate: '=maMaxDate',
       maPlaceholder: '@maPlaceholder',
       showClear: '@maClear'
     },

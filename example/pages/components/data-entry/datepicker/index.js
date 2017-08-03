@@ -1,4 +1,5 @@
 import './index.scss';
+import moment from 'moment';
 
 const controller = 'datepickerCtrl';
 
@@ -10,9 +11,7 @@ function mainCtrl($scope, $timeout) {
   $scope.pickerDate = new Date();
   $scope.rangePickerDate = [new Date(), new Date()];
 
-  $timeout(() => {
-    $scope.rangePickerDate = null;
-  }, 3000);
+  $scope.maxDate = new Date();
 }
 
 export default {

@@ -7,18 +7,20 @@ $daterangepickerhover: #ffedf1;
   &.date-picker-wrapper {
     display: none;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     border: 1px solid #ebebeb;
     background-color: #fff;
     padding: 0px;
     font-size: $font12;
     line-height: 20px;
     color: #666;
-    box-sizing: initial;
+    -webkit-box-sizing: initial;
+            box-sizing: initial;
     border-radius: 4px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
-    box-shadow: 0 1px 3px 0 rgba($black, 0.25);
+    -webkit-box-shadow: 0 1px 3px 0 rgba($black, 0.25);
+            box-shadow: 0 1px 3px 0 rgba($black, 0.25);
   }
   &.show {
     display: block !important;
@@ -28,7 +30,8 @@ $daterangepickerhover: #ffedf1;
   }
   &.date-picker-wrapper.inline-wrapper {
     position: relative;
-    box-shadow: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
     display: inline-block;
   }
   &.date-picker-wrapper.single-date {
@@ -127,6 +130,13 @@ $daterangepickerhover: #ffedf1;
     cursor: pointer;
     &.real-today {
       color: $primary;
+    }
+  }
+  &.date-picker-wrapper .month-wrapper table .day.toMonth.invalid {
+    color: $outlines;
+    cursor: default;
+    &.real-today {
+      color: $outlines;
     }
   }
   &.date-picker-wrapper .month-wrapper table .day.toMonth.hovering {
@@ -267,7 +277,6 @@ $daterangepickerhover: #ffedf1;
     color: #d9eef7;
     border: solid 1px #0076a3;
     background: #0095cd;
-    background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
     background: -moz-linear-gradient(top, #00adee, #0078a5);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00adee', endColorstr='#0078a5');
     color: white;
@@ -278,7 +287,6 @@ $daterangepickerhover: #ffedf1;
     color: #606060;
     border: solid 1px #b7b7b7;
     background: #fff;
-    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
     background: -moz-linear-gradient(top, #fff, #ededed);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
   }
@@ -327,7 +335,8 @@ $daterangepickerhover: #ffedf1;
     position: absolute;
     margin-top: -4px;
     margin-left: -8px;
-    box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+            box-shadow: 0 0 3px rgba(0, 0, 0, .3);
     display: none;
     background-color: $white;
     padding: 0 6px;

@@ -3,7 +3,7 @@ webpackJsonp([15,27],{
 /***/ "IM9K":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-input ma-date-picker\">\n  <input class=\"ma-input\"\n    date-time\n    ng-readonly=\"true\"\n    ng-model=\"model\"\n    view=\"{{view}}\"\n    date-change=\"changeValue\"\n    min-view=\"{{minView}}\"\n    min-date=\"minDate\"\n    max-date=\"maxDate\"\n    placeholder=\"{{maPlaceholder}}\"\n    format=\"{{format}}\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\"\n    ma-click=\"clear()\"\n    ng-show=\"!!model && showClear !== 'false'\"\n    class=\"clear\"></ma-icon>\n  <!--<div date-picker\n    view=\"{{view}}\"\n    ng-model=\"model\"\n    min-view=\"{{minView}}\"\n    format=\"{{format}}\"></div>-->\n</div>\n";
+module.exports = "<div class=\"ma-input ma-date-picker\">\n  <input class=\"ma-input\"\n    date-time\n    ng-readonly=\"true\"\n    ng-model=\"model\"\n    view=\"{{view}}\"\n    date-change=\"changeValue\"\n    min-view=\"{{minView}}\"\n    min-date=\"_minDate\"\n    max-date=\"_maxDate\"\n    placeholder=\"{{maPlaceholder}}\"\n    format=\"{{format}}\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\"\n    ma-click=\"clear()\"\n    ng-show=\"!!model && showClear !== 'false'\"\n    class=\"clear\"></ma-icon>\n  <!--<div date-picker\n    view=\"{{view}}\"\n    ng-model=\"model\"\n    min-view=\"{{minView}}\"\n    format=\"{{format}}\"></div>-->\n</div>\n";
 
 /***/ }),
 
@@ -166,8 +166,8 @@ function maDatePicker() {
       minView: '@maMinView',
       model: '=ngModel',
       format: '@maFormat',
-      minDate: '=maMinDate',
-      maxDate: '=maMaxDate',
+      _minDate: '=maMinDate',
+      _maxDate: '=maMaxDate',
       maPlaceholder: '@maPlaceholder',
       showClear: '@maClear'
     },

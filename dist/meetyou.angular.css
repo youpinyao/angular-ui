@@ -9786,7 +9786,7 @@ disabled look for disabled choices in the results dropdown
 .ma-date-range-picker-wrapper.date-picker-wrapper {
   display: none;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   border: 1px solid #ebebeb;
   background-color: #fff;
   padding: 0px;
@@ -9930,6 +9930,15 @@ disabled look for disabled choices in the results dropdown
 
 .ma-date-range-picker-wrapper.date-picker-wrapper .month-wrapper table .day.toMonth.valid.real-today {
   color: #FF74B9;
+}
+
+.ma-date-range-picker-wrapper.date-picker-wrapper .month-wrapper table .day.toMonth.invalid {
+  color: #CCCCCC;
+  cursor: default;
+}
+
+.ma-date-range-picker-wrapper.date-picker-wrapper .month-wrapper table .day.toMonth.invalid.real-today {
+  color: #CCCCCC;
 }
 
 .ma-date-range-picker-wrapper.date-picker-wrapper .month-wrapper table .day.toMonth.hovering {
