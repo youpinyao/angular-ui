@@ -162,7 +162,7 @@ function maSecondMenu($state, $rootScope) {
 
         $scope.$on('$destroy', function (e) {
           (0, _jquery2['default'])('body').removeClass(cls);
-          (0, _jquery2['default'])(window).off('scroll', $scope.resize);
+          (0, _jquery2['default'])(window).off('resize', $scope.resize);
         });
 
         $scope.hasSecondNav = hasSecondNav;
@@ -170,6 +170,12 @@ function maSecondMenu($state, $rootScope) {
     }],
     link: function link(scope, element, attrs, controllers) {
       (0, _jquery2['default'])(window).on('resize', resize);
+
+      scope.$watch(function () {
+        return (0, _jquery2['default'])(window).width();
+      }, function (d) {
+        resize();
+      });
 
       scope.resize = resize;
 

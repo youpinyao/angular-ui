@@ -90,7 +90,7 @@ function maSecondMenu($state, $rootScope) {
 
         $scope.$on('$destroy', e => {
           $('body').removeClass(cls);
-          $(window).off('scroll', $scope.resize);
+          $(window).off('resize', $scope.resize);
         });
 
 
@@ -99,6 +99,12 @@ function maSecondMenu($state, $rootScope) {
     }],
     link(scope, element, attrs, controllers) {
       $(window).on('resize', resize);
+
+      scope.$watch(() => {
+        return $(window).width();
+      }, d => {
+        resize();
+      });
 
       scope.resize = resize;
 
