@@ -16198,6 +16198,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           }
         };
 
+        scope.$on('selectDate', function (e, d) {
+          scope.selectDate(d);
+        });
+
         scope.selectDate = function (date) {
           if (attrs.disabled) {
             return false;
@@ -16206,9 +16210,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             date = scope.date;
           }
           date = clipDate(date);
-          if (!date) {
-            return false;
-          }
+          // if (!date) {
+          //   return false;
+          // }
           scope.date = date;
 
           var nextView = scope.views[scope.views.indexOf(scope.view) + 1];
@@ -16221,18 +16225,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           } else if (autoclose) {
             element.addClass('hidden');
             scope.$emit('hidePicker');
-          } else {
+          } else if (date) {
             prepareViewData();
           }
         };
 
         setDate = function setDate(date) {
-          if (date) {
-            scope.model = date;
-            if (ngModel) {
-              ngModel.$setViewValue(date);
-            }
+          // if (date) {
+          scope.model = date;
+          if (ngModel) {
+            ngModel.$setViewValue(date);
           }
+          // }
           scope.$emit('setDate', scope.model, scope.view);
 
           //This is duplicated in the new functionality.
@@ -16297,6 +16301,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
               classList = '',
               i,
               j;
+
+          if (!scope.date) {
+            scope.date = moment(new Date());
+            date = scope.date;
+          }
 
           datePickerUtils.setParams(tz, firstDay);
 
@@ -16918,7 +16927,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }
 
         function updateInput(event) {
-          event.stopPropagation();
+          if (event.stopPropagation) {
+            event.stopPropagation();
+          }
           if (ngModel.$pristine) {
             ngModel.$dirty = true;
             ngModel.$pristine = false;
@@ -16929,6 +16940,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             ngModel.$render();
           }
         }
+
+        scope.$on('clearPickerView', clear);
 
         function clear() {
           if (picker) {

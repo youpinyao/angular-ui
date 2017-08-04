@@ -12,6 +12,11 @@ function mainCtrl($scope, $timeout) {
   $scope.rangePickerDate = [new Date(), new Date()];
 
   $scope.maxDate = new Date();
+
+  // $timeout(() => {
+  //   $scope.maxDate = null;
+  //   $scope.pickerDate = new Date();
+  // }, 3000);
 }
 
 export default {

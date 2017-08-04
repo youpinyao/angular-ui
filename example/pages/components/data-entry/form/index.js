@@ -4,9 +4,9 @@ const controller = 'formCtrl';
 
 angular.module('app').controller(controller, mainCtrl);
 
-mainCtrl.$inject = ['$scope', '$injector'];
+mainCtrl.$inject = ['$scope', '$injector', '$timeout'];
 
-function mainCtrl($scope, $injector) {
+function mainCtrl($scope, $injector, $timeout) {
   const $validationProvider = $injector.get('$validation');
 
   $scope.formLayout = 'horizontal';

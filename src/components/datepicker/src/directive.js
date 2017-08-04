@@ -1,5 +1,7 @@
 import moduleName from './name.js';
 import $ from 'jquery';
+import uuid from 'uuid/v4';
+import debounce from 'debounce';
 import moment from 'moment';
 import maDatePickerTpl from './maDatePickerTpl.html';
 import maDateRangePickerTpl from './maDateRangePickerTpl.html';
@@ -28,8 +30,28 @@ function maDatePicker() {
     template: maDatePickerTpl,
     controllerAs: '$ctrl',
     controller: ['$scope', function($scope) {
+      $scope.datePickerId = 'a12312312';
       $scope.clear = clear;
       $scope.changeValue = changeValue;
+
+      $scope.$watch('model', d => {
+        $scope.$broadcast('selectDate', d);
+      });
+
+      $scope.$watch('_minDate', d => {
+        $scope.$broadcast('clearPickerView');
+        $scope.$broadcast('pickerUpdate', $scope.datePickerId, {
+          minDate: d,
+        });
+      });
+
+      $scope.$watch('_maxDate', d => {
+        $scope.$broadcast('clearPickerView');
+        $scope.$broadcast('pickerUpdate', $scope.datePickerId, {
+          maxDate: d,
+        });
+      });
+
 
       function changeValue(modeName, date) {
         $scope.model = date;
@@ -40,7 +62,6 @@ function maDatePicker() {
       }
     }],
     link: function(scope, element, attrs, ctrl) {
-
     }
   };
 }
@@ -72,34 +93,16 @@ function maDateRangePicker($timeout) {
       }
     }],
     link: function(scope, element, attrs, ctrl) {
-      const format = scope.format || 'YYYY-MM-DD';
+      let format = scope.format || 'YYYY-MM-DD';
       const seperator = '~';
+      const init = debounce(_init, 100);
 
-      const defaultConfig = $.extend(true, {
-        showShortcuts: false,
-        format,
-        showTopbar: false,
-        language: 'cn',
-        seperator,
-        startDate: scope.minDate || false,
-        endDate: scope.maxDate || false,
-        startOfWeek: 'monday',
-        getValue() {
-          if (scope.start && scope.end) {
-            return `${moment(scope.start).format(format)} to ${moment(scope.end).format(format)}`;
-          }
-          return null;
-        },
-        setValue(data) {
-          if (!data) {
-            scope.start = null;
-            scope.end = null;
-            scope.model = null;
-            scope.dateText = '';
-            $timeout();
-          }
-        }
-      }, scope.config || {});
+      scope.$watch('minDate', d => {
+        init();
+      });
+      scope.$watch('maxDate', d => {
+        init();
+      });
 
       scope.$watch('model', d => {
         if (angular.isArray(d)) {
@@ -111,16 +114,52 @@ function maDateRangePicker($timeout) {
           scope.start = null;
           scope.end = null;
           scope.dateText = '';
-          scope.dateRangePicker.clear();
+          if (scope.dateRangePicker) {
+            scope.dateRangePicker.clear();
+          }
         }
       });
 
-      $(element).find('input').dateRangePicker(defaultConfig).bind('datepicker-change', function(
-        evt, obj) {
-        scope.model = [obj.date1, obj.date2];
-        $timeout();
-      });
-      scope.dateRangePicker = $(element).find('input').data('dateRangePicker');
+      function _init() {
+        if (scope.dateRangePicker) {
+          scope.dateRangePicker.destroy();
+          scope.dateRangePicker = null;
+        }
+
+        const defaultConfig = $.extend(true, {
+          showShortcuts: false,
+          format,
+          showTopbar: false,
+          language: 'cn',
+          seperator,
+          startDate: scope.minDate || false,
+          endDate: scope.maxDate || false,
+          startOfWeek: 'monday',
+          getValue() {
+            if (scope.start && scope.end) {
+              return `${moment(scope.start).format(format)} to ${moment(scope.end).format(format)}`;
+            }
+            return null;
+          },
+          setValue(data) {
+            if (!data) {
+              scope.start = null;
+              scope.end = null;
+              scope.model = null;
+              scope.dateText = '';
+              $timeout();
+            }
+          }
+        }, scope.config || {});
+
+        $(element).find('input').dateRangePicker(defaultConfig).bind('datepicker-change',
+          function(
+            evt, obj) {
+            scope.model = [obj.date1, obj.date2];
+            $timeout();
+          });
+        scope.dateRangePicker = $(element).find('input').data('dateRangePicker');
+      }
     }
   };
 }
