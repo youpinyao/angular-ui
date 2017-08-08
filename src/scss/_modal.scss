@@ -30,9 +30,13 @@
     margin: 200px auto 50px auto;
     z-index: 2;
     background: $white;
+    -webkit-box-shadow: 0 2px 6px 1px rgba($black, 0.20);
     box-shadow: 0 2px 6px 1px rgba($black, 0.20);
     border-radius: 4px;
-    @include transition();
+    -webkit-transition: opacity 300ms ease, visibility 300ms ease, -webkit-transform 300ms ease;
+    transition: opacity 300ms ease, visibility 300ms ease, -webkit-transform 300ms ease;
+    transition: transform 300ms ease, opacity 300ms ease, visibility 300ms ease;
+    transition: transform 300ms ease, opacity 300ms ease, visibility 300ms ease, -webkit-transform 300ms ease;
     opacity: 0;
     visibility: hidden;
     @include transform(translate(0px, -50px));
