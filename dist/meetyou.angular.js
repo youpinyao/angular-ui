@@ -44081,12 +44081,14 @@ function maSelect($timeout) {
 
         $ctrl.showDropDown = !$ctrl.showDropDown;
         $timeout();
-        e.stopPropagation();
+        // e.stopPropagation();
       });
 
-      (0, _jquery2['default'])('body').on('click', function () {
-        $ctrl.showDropDown = false;
-        $timeout();
+      (0, _jquery2['default'])('body').on('click', function (e) {
+        if ((0, _jquery2['default'])(e.target).parents('.ma-select').get(0) !== element[0]) {
+          $ctrl.showDropDown = false;
+          $timeout();
+        }
       });
 
       (0, _jquery2['default'])(element).find('.ma-dropdown-search-bar').on('click', function (e) {

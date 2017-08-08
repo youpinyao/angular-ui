@@ -37,7 +37,7 @@ function maSelect($timeout) {
 
     },
     controllerAs: '$ctrl',
-    controller: ['$scope', '$rootScope', function ($scope, $rootScope) {
+    controller: ['$scope', '$rootScope', function($scope, $rootScope) {
       const _this = this;
 
       $scope.dropdownItems = [];
@@ -90,7 +90,8 @@ function maSelect($timeout) {
             }
           });
 
-          if (!hasSame && (!$scope.limit || ($scope.limit && newModel.length < parseInt($scope.limit, 10)))) {
+          if (!hasSame && (!$scope.limit || ($scope.limit && newModel.length < parseInt($scope.limit,
+              10)))) {
             newModel.push($item);
           }
 
@@ -100,7 +101,7 @@ function maSelect($timeout) {
         }
       }
     }],
-    link: function (scope, element, attrs, ctrl) {
+    link: function(scope, element, attrs, ctrl) {
       const $ctrl = scope.$ctrl;
 
       const selectId = angular.uuid();
@@ -110,7 +111,8 @@ function maSelect($timeout) {
       scope.$watch('dropdownItems', d => {
         if (d && d.length && $(element).find('input:focus, textarea:focus').length) {
           $ctrl.showDropDown = true;
-        } else if (!$(element).find('.ma-dropdown-search-bar input:focus, .ma-dropdown-search-bar textarea:focus').length) {
+        } else if (!$(element).find(
+            '.ma-dropdown-search-bar input:focus, .ma-dropdown-search-bar textarea:focus').length) {
           $ctrl.showDropDown = false;
         }
       });
@@ -122,19 +124,21 @@ function maSelect($timeout) {
       });
 
       $(element).find('> .ma-input')
-        .on('click', function (e) {
+        .on('click', function(e) {
           if (scope.disabled) {
             return;
           }
 
           $ctrl.showDropDown = !$ctrl.showDropDown;
           $timeout();
-          e.stopPropagation();
+          // e.stopPropagation();
         });
 
-      $('body').on('click', () => {
-        $ctrl.showDropDown = false;
-        $timeout();
+      $('body').on('click', (e) => {
+        if ($(e.target).parents('.ma-select').get(0) !== element[0]) {
+          $ctrl.showDropDown = false;
+          $timeout();
+        }
       });
 
       $(element).find('.ma-dropdown-search-bar').on('click', e => {
