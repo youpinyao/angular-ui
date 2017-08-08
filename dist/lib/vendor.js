@@ -38715,12 +38715,28 @@ angular.module('validation.directive', ['validation.provider']);
       };
 
       $timeout(function () {
+        updateValid(form);
+
         if (_this.checkValid(form)) {
           deferred.resolve('success');
         } else {
           deferred.reject('error');
         }
       });
+
+      function updateValid(form) {
+        var valid = true;
+
+        for (var i in form) {
+          if (form[i] && form[i].$$parentForm) {
+            if (form[i].$valid === false) {
+              valid = false;
+            }
+          }
+        }
+
+        form.$valid = valid;
+      }
 
       return deferred.promise;
     };
