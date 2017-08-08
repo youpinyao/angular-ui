@@ -63548,7 +63548,7 @@ function maModal($timeout, $compile) {
 
       function buttonClick($event, callback) {
         if (typeof callback === 'function') {
-          callback(this, config);
+          callback(this, config, $event);
         }
       }
     }],
