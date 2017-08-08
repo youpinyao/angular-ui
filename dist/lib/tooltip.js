@@ -71,10 +71,6 @@ function maTooltip($timeout, $compile) {
       var content = el.find('.ma-tooltip-content');
       var defaultDirection = 'tc';
 
-      var showTip = (0, _debounce2['default'])(_showTip, 100);
-
-      var tooltipContent = '';
-
       var isPopconfirm = false;
       var direction = defaultDirection;
       var prevDirection = '';
@@ -121,7 +117,16 @@ function maTooltip($timeout, $compile) {
       (0, _jquery2['default'])('body').on('mousemove', hideTip);
 
       attrs.$observe('maTooltip', function (d) {
-        tooltipContent = d;
+        content.html(d);
+        el.css({
+          width: '',
+          height: ''
+        });
+        $timeout(function () {
+          el.width(el.width() + 1);
+          el.height(el.height() + 1);
+        }, 50);
+        $compile(content.contents())(scope.contentScope || scope);
       });
       attrs.$observe('maClickHide', function (d) {
         if (d == 'true') {
@@ -166,22 +171,7 @@ function maTooltip($timeout, $compile) {
         });
       }
 
-      function _showTip(newDirection) {
-        content.html(tooltipContent);
-        el.css({
-          width: '',
-          height: ''
-        });
-        $timeout(function () {
-          el.width(el.width() + 1);
-          el.height(el.height() + 1);
-        }, 50);
-        $compile(content.contents())(scope.contentScope || scope);
-
-        $timeout(__showTip);
-      }
-
-      function __showTip(newDirection) {
+      function showTip(newDirection) {
         var offsetTop = (0, _jquery2['default'])(element).offset().top;
         var offsetLeft = (0, _jquery2['default'])(element).offset().left;
         var elHeight = el.outerHeight();
@@ -339,10 +329,7 @@ function maTooltip($timeout, $compile) {
             show: false
           });
         }
-        el.removeClass('show').find('.ma-tooltip-content');
-        $timeout(function () {
-          el.find('.ma-tooltip-content').html('');
-        }, 300);
+        el.removeClass('show');
       }
 
       function stopp(e) {
