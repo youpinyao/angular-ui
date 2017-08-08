@@ -1,7 +1,6 @@
 import './scss/app.scss';
 
 import './utils/src/angular-locale_zh-ch.js';
-import 'babel-polyfill';
 
 const moduleName = require('./name.js');
 
