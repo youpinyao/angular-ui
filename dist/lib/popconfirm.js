@@ -25,15 +25,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 angular.module(_name2['default']).factory('$popconfirm', popconfirmService);
 
-popconfirmService.$inject = [];
+popconfirmService.$inject = ['$timeout', '$rootScope'];
 
-function popconfirmService() {
+function popconfirmService($timeout, $rootScope) {
   return {
     close: close
   };
 
   function close() {
-    (0, _jquery2['default'])('.ma-tooltip.ma-popconfirm-tooltip').removeClass('show');
+    $rootScope.$broadcast('tooltip.hide');
+    // $('.ma-tooltip.ma-popconfirm-tooltip').removeClass('show');
+    // $timeout(() => {
+    //   $('.ma-tooltip.ma-popconfirm-tooltip .ma-tooltip-content').html('');
+    // }, 300);
   }
 }
 

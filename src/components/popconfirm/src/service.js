@@ -4,14 +4,18 @@ import $ from 'jquery';
 angular.module(moduleName)
   .factory('$popconfirm', popconfirmService);
 
-popconfirmService.$inject = [];
+popconfirmService.$inject = ['$timeout', '$rootScope'];
 
-function popconfirmService() {
+function popconfirmService($timeout, $rootScope) {
   return {
     close,
   };
 
   function close() {
-    $('.ma-tooltip.ma-popconfirm-tooltip').removeClass('show');
+    $rootScope.$broadcast('tooltip.hide');
+    // $('.ma-tooltip.ma-popconfirm-tooltip').removeClass('show');
+    // $timeout(() => {
+    //   $('.ma-tooltip.ma-popconfirm-tooltip .ma-tooltip-content').html('');
+    // }, 300);
   }
 }

@@ -1,5 +1,6 @@
 import moduleName from './name.js';
 import $ from 'jquery';
+import debounce from 'debounce';
 import maTooltipTpl from './maTooltipTpl.html';
 
 angular.module(moduleName)
@@ -18,6 +19,10 @@ function maTooltip($timeout, $compile) {
       const el = $(maTooltipTpl);
       const content = el.find('.ma-tooltip-content');
       const defaultDirection = 'tc';
+
+      const showTip = debounce(_showTip, 100);
+
+      let tooltipContent = '';
 
       let isPopconfirm = false;
       let direction = defaultDirection;
@@ -65,16 +70,7 @@ function maTooltip($timeout, $compile) {
       $('body').on('mousemove', hideTip);
 
       attrs.$observe('maTooltip', d => {
-        content.html(d);
-        el.css({
-          width: '',
-          height: '',
-        });
-        $timeout(() => {
-          el.width(el.width() + 1);
-          el.height(el.height() + 1);
-        }, 50);
-        $compile(content.contents())(scope.contentScope || scope);
+        tooltipContent = d;
       });
       attrs.$observe('maClickHide', d => {
         if (d == 'true') {
@@ -106,6 +102,8 @@ function maTooltip($timeout, $compile) {
       });
       attrs.$observe('maDirection', setDirection);
 
+      scope.$on('tooltip.hide', hideTip);
+
       setDirection(defaultDirection);
 
       function setDirection(d) {
@@ -118,7 +116,22 @@ function maTooltip($timeout, $compile) {
         });
       }
 
-      function showTip(newDirection) {
+      function _showTip(newDirection) {
+        content.html(tooltipContent);
+        el.css({
+          width: '',
+          height: '',
+        });
+        $timeout(() => {
+          el.width(el.width() + 1);
+          el.height(el.height() + 1);
+        }, 50);
+        $compile(content.contents())(scope.contentScope || scope);
+
+        $timeout(__showTip);
+      }
+
+      function __showTip(newDirection) {
         const offsetTop = $(element).offset().top;
         const offsetLeft = $(element).offset().left;
         const elHeight = el.outerHeight();
@@ -276,7 +289,10 @@ function maTooltip($timeout, $compile) {
             show: false,
           });
         }
-        el.removeClass('show');
+        el.removeClass('show').find('.ma-tooltip-content');
+        $timeout(() => {
+          el.find('.ma-tooltip-content').html('');
+        }, 300);
       }
 
       function stopp(e) {
