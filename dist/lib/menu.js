@@ -160,6 +160,8 @@ function maSecondMenu($state, $rootScope) {
           (0, _jquery2['default'])('body').removeClass(cls);
         }
 
+        $rootScope.$broadcast('update.second.menu');
+
         $scope.$on('$destroy', function (e) {
           (0, _jquery2['default'])('body').removeClass(cls);
           (0, _jquery2['default'])(window).off('resize', $scope.resize);
@@ -223,6 +225,7 @@ function maSiderMenu($state, $rootScope) {
       // 绑定全局滚动，相对顶部
       (0, _jquery2['default'])(window).on('scroll', setTop);
       (0, _jquery2['default'])(window).on('resize', setTop);
+      $scope.$on('update.second.menu', setTop);
       setTop();
 
       function setTop() {

@@ -88,6 +88,8 @@ function maSecondMenu($state, $rootScope) {
           $('body').removeClass(cls);
         }
 
+        $rootScope.$broadcast('update.second.menu');
+
         $scope.$on('$destroy', e => {
           $('body').removeClass(cls);
           $(window).off('resize', $scope.resize);
@@ -152,6 +154,7 @@ function maSiderMenu($state, $rootScope) {
       // 绑定全局滚动，相对顶部
       $(window).on('scroll', setTop);
       $(window).on('resize', setTop);
+      $scope.$on('update.second.menu', setTop);
       setTop();
 
       function setTop() {
