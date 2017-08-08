@@ -2,7 +2,7 @@ import moduleName from './src/name.js';
 
 import icons from '../icons';
 import button from '../button';
-import 'angular-validation';
+import 'angular-validation-custom';
 import '../../utils/src/angular-validation-rule.js';
 
 
