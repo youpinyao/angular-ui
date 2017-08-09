@@ -37878,6 +37878,21 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
             }
           });
         }
+
+        updateCls();
+      }
+
+      function updateCls() {
+        var currentUrl = $state.href($state.current.name, $state.params);
+
+        angular.each($scope.routers, function (router) {
+          var routerUrl = $state.href(router.state, router.params);
+
+          router.cls = '';
+          router.cls += isActive(router) ? 'active ' : '';
+          router.cls += router.routers && router.routers.length ? 'arrow ' : '';
+          router.cls += isParent(currentUrl, routerUrl) ? 'parent ' : '';
+        });
       }
 
       function hasRouters(routers) {
@@ -44139,7 +44154,7 @@ module.exports = "<div\n  class=\"ma-progress {{type}}\"\n  ng-class=\"{\n    su
 /***/ "PIS4":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sider-menu-content\">\n  <div class=\"sider-menu-item\"\n    ng-repeat=\"router in routers\"\n    ng-if=\"router.hidden !== true\">\n    <a href=\"javascript:void(0);\"\n      ng-class=\"{\n      active: isActive(router),\n      arrow: router.routers && router.routers.length,\n      parent: isParent($state.href($state.current.name, $state.params), $state.href(router.state, router.params)),\n    }\"\n      ma-click=\"itemClick(router, $event)\">\n      <span>{{router.title}}</span>\n      <ma-icon ma-type=\"{{router.expand ? 'up' : 'down'}}\"\n        ng-if=\"hasRouters(router.routers)\"\n        ma-click=\"iconClick(router, $event)\"></ma-icon>\n    </a>\n    <ma-sider-menu-content ng-class=\"{hide: !router.expand}\"\n      ng-if=\"router.routers && router.routers.length\"\n      ma-routers=\"router.routers\"\n      ma-parent-router=\"router\"></ma-sider-menu-content>\n  </div>\n</div>\n";
+module.exports = "<div class=\"sider-menu-content\">\n  <div class=\"sider-menu-item\"\n    ng-repeat=\"router in routers\"\n    ng-if=\"router.hidden !== true\">\n    <a href=\"javascript:void(0);\"\n      class=\"{{router.cls}}\"\n      ma-click=\"itemClick(router, $event)\">\n      <span>{{router.title}}</span>\n      <ma-icon ma-type=\"{{router.expand ? 'up' : 'down'}}\"\n        ng-if=\"hasRouters(router.routers)\"\n        ma-click=\"iconClick(router, $event)\"></ma-icon>\n    </a>\n    <ma-sider-menu-content ng-class=\"{hide: !router.expand}\"\n      ng-if=\"router.routers && router.routers.length\"\n      ma-routers=\"router.routers\"\n      ma-parent-router=\"router\"></ma-sider-menu-content>\n  </div>\n</div>\n";
 
 /***/ }),
 

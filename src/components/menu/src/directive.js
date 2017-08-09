@@ -77,7 +77,8 @@ function maSecondMenu($state, $rootScope) {
         $scope.routers.forEach(router => {
           if (router.parent && router.state.indexOf(router.parent.state + '.') !== -1 &&
             $state.current.name.indexOf(router.parent.state + '.') !== -1 &&
-            router.hidden !== true && router.hiddenSecond !== true && router.level <= 2) {
+            router.hidden !== true && router.hiddenSecond !== true && router.level <= 2
+          ) {
             hasSecondNav = true;
           }
         });
@@ -223,6 +224,21 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
             }
           });
         }
+
+        updateCls();
+      }
+
+      function updateCls() {
+        const currentUrl = $state.href($state.current.name, $state.params);
+
+        angular.each($scope.routers, router => {
+          const routerUrl = $state.href(router.state, router.params);
+
+          router.cls = '';
+          router.cls += isActive(router) ? 'active ' : '';
+          router.cls += router.routers && router.routers.length ? 'arrow ' : '';
+          router.cls += isParent(currentUrl, routerUrl) ? 'parent ' : '';
+        });
       }
 
       function hasRouters(routers) {

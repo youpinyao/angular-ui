@@ -3,11 +3,7 @@
     ng-repeat="router in routers"
     ng-if="router.hidden !== true">
     <a href="javascript:void(0);"
-      ng-class="{
-      active: isActive(router),
-      arrow: router.routers && router.routers.length,
-      parent: isParent($state.href($state.current.name, $state.params), $state.href(router.state, router.params)),
-    }"
+      class="{{router.cls}}"
       ma-click="itemClick(router, $event)">
       <span>{{router.title}}</span>
       <ma-icon ma-type="{{router.expand ? 'up' : 'down'}}"
