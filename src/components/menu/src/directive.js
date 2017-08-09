@@ -139,12 +139,18 @@ function maSiderMenu($state, $rootScope) {
       title: '@maTitle',
     },
     template: maSiderMenuTpl,
-    controller: ['$scope', '$element', function($scope, $element) {
+    controller: ['$scope', '$element', '$timeout', function($scope, $element, $timeout) {
       const cls = 'has-sider-menu';
 
       $scope.$state = $state;
 
       $('body').addClass(cls);
+
+      $scope.$watch('routers', d => {
+        $timeout(() => {
+          $scope.$broadcast('update.sider.menu.cls');
+        }, 300);
+      });
 
       $scope.$on('$destroy', e => {
         $('body').removeClass(cls);
@@ -201,9 +207,10 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       $scope.hasRouters = hasRouters;
       $scope.isParent = isParent;
       $scope.isActive = isActive;
-      expandCurrentMenu();
       bindStateChangeSuccess();
+      expandCurrentMenu();
 
+      $scope.$on('update.sider.menu.cls', expandCurrentMenu);
 
       function bindStateChangeSuccess() {
         $scope.$on('$stateChangeSuccess', expandCurrentMenu);
