@@ -14,6 +14,7 @@ angular.module('ng').run(['$templateCache', function(c) {
 angular.module(moduleName)
   .directive('maTable', maTable)
   .directive('commonTableColRender', commonTableColRender)
+  .directive('commonTableColFloatRender', commonTableColFloatRender)
   .directive('ngEnter', ngEnter)
   .directive('ngCompile', ngCompile);
 
@@ -93,25 +94,30 @@ function commonTableColRender($compile) {
 
       element.html(value);
       $compile(element.contents())(scope);
-
-      // scope.$watch(
-      //   function(scope) {
-      //     return scope.$eval(attrs.commonTableColRender, scope);
-      //   },
-      //   function(value) {
-      //     value += '';
-      //     value = value.replace(/ng-click="/g,
-      //       'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.');
-      //     value = value.replace(/ma-click="/g,
-      //       'ma-click="$parent.$parent.$parent.$parent.$parent.$parent.');
-
-      //     element.html(value);
-      //     $compile(element.contents())(scope);
-      //   }
-      // );
     }
   };
 }
+
+commonTableColFloatRender.$inject = ['$compile'];
+
+function commonTableColFloatRender($compile) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      let value = scope.$eval(attrs.commonTableColFloatRender, scope);
+
+      value += '';
+      value = value.replace(/ng-click="/g,
+        'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.$parent.');
+      value = value.replace(/ma-click="/g,
+        'ma-click="$parent.$parent.$parent.$parent.$parent.$parent.$parent.');
+
+      element.html(value);
+      $compile(element.contents())(scope);
+    }
+  };
+}
+
 
 ngEnter.$inject = ['$timeout'];
 

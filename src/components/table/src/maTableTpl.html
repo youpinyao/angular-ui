@@ -42,7 +42,10 @@
             </colgroup>
             <!-- <tr ng-repeat="row in $tableCtrl.$data"> -->
             <tr ng-repeat="row in $data"
-              ng-class='$tableCtrl.getClass(row)'>
+              ng-class="{
+                'selected-row': $tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]
+              }"
+              class="{{$tableCtrl.tableConfig.rowCustomClass}}">
 
               <td ng-repeat="col in $columns"
                 ng-switch="col.field"
@@ -56,7 +59,7 @@
                 </div>
 
                 <div ng-if='col.render'
-                  common-table-col-render="col.render(this, row, row[col.field])"></div>
+                  common-table-col-float-render="col.render(this, row, row[col.field])"></div>
 
                 <div ng-if='!col.render && col.customHtml'
                   ng-bind-html="col.customHtml(this, row, row[col.field])"></div>
@@ -75,6 +78,7 @@
       <!-- 右边漂浮 table -->
       <div class="float-right-table"
         style="width: {{$tableCtrl.floatRightBoxWidth}}px; height: {{$tableCtrl.floatTableHeight}}px;"
+
         ng-if="$tableCtrl.floatRightCols !== false">
 
         <div style="width: {{$tableCtrl.floatTableWidth}}px;">
@@ -90,7 +94,10 @@
             </colgroup>
             <!-- <tr ng-repeat="row in $tableCtrl.$data"> -->
             <tr ng-repeat="row in $data"
-              ng-class='$tableCtrl.getClass(row)'>
+              ng-class="{
+                'selected-row': $tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]
+              }"
+              class="{{$tableCtrl.tableConfig.rowCustomClass}}">
 
               <td ng-repeat="col in $columns"
                 ng-switch="col.field"
@@ -103,7 +110,7 @@
                 </div>
 
                 <div ng-if='col.render'
-                  common-table-col-render="col.render(this, row, row[col.field])"></div>
+                  common-table-col-float-render="col.render(this, row, row[col.field])"></div>
 
                 <div ng-if='!col.render && col.customHtml'
                   ng-bind-html="col.customHtml(this, row, row[col.field])"></div>
@@ -134,7 +141,10 @@
           </colgroup>
           <!-- <tr ng-repeat="row in $tableCtrl.$data"> -->
           <tr ng-repeat="row in $data"
-            ng-class='$tableCtrl.getClass(row)'>
+            ng-class="{
+                'selected-row': $tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]
+              }"
+            class="{{$tableCtrl.tableConfig.rowCustomClass}}">
 
             <td ng-repeat="col in $columns"
               ng-switch="col.field"

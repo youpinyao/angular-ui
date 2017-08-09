@@ -21,10 +21,6 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     return;
   }
   self.cols = $scope.tableConfig.cols ? $scope.tableConfig.cols : [];
-  self.getClass = function(row) {
-    return (self.checkboxes.items[row[self.dataflagId]] ? 'selected-row' : '') + ' ' + ($scope.tableConfig
-      .rowCustomClass ? $scope.tableConfig.rowCustomClass : '');
-  };
   self.evtAgent = $scope.tableConfig.evtAgent ? $scope.tableConfig.evtAgent : [];
   self.dataflagId = $scope.tableConfig.dataflagId ? $scope.tableConfig.dataflagId : 'id';
   self.count = $scope.tableConfig.count ? $scope.tableConfig.count : 10;
@@ -94,6 +90,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
 
 
   self.tableId = $scope.tableConfig.tableId || (+new Date());
+  self.tableConfig = $scope.tableConfig;
 
   // 左右漂浮列
   self.floatLeftCols = [];
