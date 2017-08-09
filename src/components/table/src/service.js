@@ -30,7 +30,7 @@ function tableService() {
     var table = tables[id];
 
     if (!table) {
-      console.error('table 不存在');
+      // console.error('table 不存在');
       return null;
     }
     return createTable(table);

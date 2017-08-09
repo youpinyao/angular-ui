@@ -16868,6 +16868,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         views.unshift(view);
 
+        attrs.$observe('id', function (d) {
+          pickerID = d;
+        });
+
         function formatter(value) {
           return dateFilter(value, format, timezone);
         }
@@ -16956,6 +16960,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         if (pickerID) {
           scope.$on('pickerUpdate', function (event, pickerIDs, data) {
+            console.log(pickerIDs, pickerID);
             if (eventIsForPicker(pickerIDs, pickerID)) {
               if (picker) {
                 //Need to handle situation where the data changed but the picker is currently open.

@@ -30,12 +30,14 @@ function maDatePicker() {
     template: maDatePickerTpl,
     controllerAs: '$ctrl',
     controller: ['$scope', function($scope) {
-      $scope.datePickerId = 'a12312312';
+      $scope.datePickerId = uuid();
       $scope.clear = clear;
       $scope.changeValue = changeValue;
 
-      $scope.$watch('model', d => {
-        $scope.$broadcast('selectDate', d);
+      $scope.$watch('model', (current, prev) => {
+        if (!moment.isMoment(current)) {
+          $scope.$broadcast('selectDate', moment(current));
+        }
       });
 
       $scope.$watch('_minDate', d => {
@@ -61,8 +63,7 @@ function maDatePicker() {
         $scope.model = null;
       }
     }],
-    link: function(scope, element, attrs, ctrl) {
-    }
+    link: function(scope, element, attrs, ctrl) {}
   };
 }
 

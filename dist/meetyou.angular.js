@@ -18434,6 +18434,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         views.unshift(view);
 
+        attrs.$observe('id', function (d) {
+          pickerID = d;
+        });
+
         function formatter(value) {
           return dateFilter(value, format, timezone);
         }
@@ -18522,6 +18526,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         if (pickerID) {
           scope.$on('pickerUpdate', function (event, pickerIDs, data) {
+            console.log(pickerIDs, pickerID);
             if (eventIsForPicker(pickerIDs, pickerID)) {
               if (picker) {
                 //Need to handle situation where the data changed but the picker is currently open.
@@ -38304,7 +38309,7 @@ module.exports = "<div class=\"nav\">\n  <ul>\n    <li\n      ng-repeat=\"router
 /***/ "IM9K":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-input ma-date-picker\">\n  <input class=\"ma-input\"\n    date-time\n    ng-readonly=\"true\"\n    ng-model=\"model\"\n    view=\"{{view}}\"\n    id=\"a12312312\"\n    date-change=\"changeValue\"\n    min-view=\"{{minView}}\"\n    min-date=\"_minDate\"\n    max-date=\"_maxDate\"\n    ng-disabled=\"disabled\"\n    placeholder=\"{{maPlaceholder}}\"\n    format=\"{{format}}\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\"\n    ma-click=\"clear()\"\n    ng-show=\"!!model && showClear !== 'false'\"\n    class=\"clear\"></ma-icon>\n  <!--<div date-picker\n    view=\"{{view}}\"\n    ng-model=\"model\"\n    min-view=\"{{minView}}\"\n    format=\"{{format}}\"></div>-->\n</div>\n";
+module.exports = "<div class=\"ma-input ma-date-picker\">\n  <input class=\"ma-input\"\n    date-time\n    ng-readonly=\"true\"\n    ng-model=\"model\"\n    view=\"{{view}}\"\n    id=\"{{datePickerId}}\"\n    date-change=\"changeValue\"\n    min-view=\"{{minView}}\"\n    min-date=\"_minDate\"\n    max-date=\"_maxDate\"\n    ng-disabled=\"disabled\"\n    placeholder=\"{{maPlaceholder}}\"\n    format=\"{{format}}\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\"\n    ma-click=\"clear()\"\n    ng-show=\"!!model && showClear !== 'false'\"\n    class=\"clear\"></ma-icon>\n  <!--<div date-picker\n    view=\"{{view}}\"\n    ng-model=\"model\"\n    min-view=\"{{minView}}\"\n    format=\"{{format}}\"></div>-->\n</div>\n";
 
 /***/ }),
 
@@ -53239,7 +53244,7 @@ function tableService() {
     var table = tables[id];
 
     if (!table) {
-      console.error('table 不存在');
+      // console.error('table 不存在');
       return null;
     }
     return createTable(table);
@@ -53539,12 +53544,14 @@ function maDatePicker() {
     template: _maDatePickerTpl2['default'],
     controllerAs: '$ctrl',
     controller: ['$scope', function ($scope) {
-      $scope.datePickerId = 'a12312312';
+      $scope.datePickerId = (0, _v2['default'])();
       $scope.clear = clear;
       $scope.changeValue = changeValue;
 
-      $scope.$watch('model', function (d) {
-        $scope.$broadcast('selectDate', d);
+      $scope.$watch('model', function (current, prev) {
+        if (!_moment2['default'].isMoment(current)) {
+          $scope.$broadcast('selectDate', (0, _moment2['default'])(current));
+        }
       });
 
       $scope.$watch('_minDate', function (d) {
