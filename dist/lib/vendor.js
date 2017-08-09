@@ -16198,11 +16198,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           }
         };
 
-        scope.$on('selectDate', function (e, d) {
-          scope.selectDate(d);
+        scope.$on('selectDate', function (e, d, fromOther) {
+          scope.selectDate(d, fromOther);
         });
 
-        scope.selectDate = function (date) {
+        scope.selectDate = function (date, fromOther) {
           if (attrs.disabled) {
             return false;
           }
@@ -16217,7 +16217,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
           var nextView = scope.views[scope.views.indexOf(scope.view) + 1];
           if (!nextView || partial || scope.model) {
-            setDate(date);
+            setDate(date, fromOther);
           }
 
           if (nextView) {
@@ -16230,14 +16230,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           }
         };
 
-        setDate = function setDate(date) {
+        setDate = function setDate(date, fromOther) {
           // if (date) {
           scope.model = date;
           if (ngModel) {
             ngModel.$setViewValue(date);
           }
           // }
-          scope.$emit('setDate', scope.model, scope.view);
+          scope.$emit('setDate', scope.model, scope.view, fromOther);
 
           //This is duplicated in the new functionality.
           if (scope.callbackOnSetDate) {
@@ -16960,7 +16960,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         if (pickerID) {
           scope.$on('pickerUpdate', function (event, pickerIDs, data) {
-            console.log(pickerIDs, pickerID);
+            // console.log(pickerIDs, pickerID);
             if (eventIsForPicker(pickerIDs, pickerID)) {
               if (picker) {
                 //Need to handle situation where the data changed but the picker is currently open.
@@ -17008,9 +17008,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
           //If the picker has already been shown before then we shouldn't be binding to events, as these events are already bound to in this scope.
           if (!shownOnce) {
-            scope.$on('setDate', function (event, date, view) {
+            scope.$on('setDate', function (event, date, view, fromOther) {
               updateInput(event);
-              if (dateChange) {
+              if (dateChange && fromOther !== true) {
                 dateChange(attrs.ngModel, date);
               }
               if (dismiss && views[views.length - 1] === view) {

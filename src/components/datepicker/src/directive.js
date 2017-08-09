@@ -10,9 +10,9 @@ angular.module(moduleName)
   .directive('maDatePicker', maDatePicker)
   .directive('maDateRangePicker', maDateRangePicker);
 
-maDatePicker.$inject = [];
+maDatePicker.$inject = ['$filter'];
 
-function maDatePicker() {
+function maDatePicker($filter) {
   return {
     restrict: 'E',
     replace: true,
@@ -27,17 +27,41 @@ function maDatePicker() {
       showClear: '@maClear',
       disabled: '=ngDisabled',
     },
+    require: 'ngModel',
     template: maDatePickerTpl,
     controllerAs: '$ctrl',
+    link: function(scope, element, attrs, ngModel) {
+      const format = scope.format || 'YYYY-MM-DD HH:mm';
+      const timezone = scope.timezone || false;
+      const dateFilter = $filter('mFormat');
+
+      function formatter(value) {
+        if (angular.isNull(value)) {
+          return undefined;
+        }
+        return dateFilter(value, format, timezone);
+      }
+
+      function parser(viewValue) {
+        if (angular.isNull(viewValue)) {
+          return undefined;
+        }
+        if (viewValue.length === format.length) {
+          return viewValue;
+        }
+        return (viewValue.length === 0) ? viewValue : undefined;
+      }
+      ngModel.$formatters.push(formatter);
+      ngModel.$parsers.unshift(parser);
+    },
     controller: ['$scope', function($scope) {
       $scope.datePickerId = uuid();
       $scope.clear = clear;
       $scope.changeValue = changeValue;
 
-      $scope.$watch('model', (current, prev) => {
-        if (!moment.isMoment(current)) {
-          $scope.$broadcast('selectDate', moment(current));
-        }
+      $scope.$watch('model', (d) => {
+        $scope.dateModel = d;
+        $scope.$broadcast('selectDate', d ? moment(d) : undefined, true);
       });
 
       $scope.$watch('_minDate', d => {
@@ -60,10 +84,9 @@ function maDatePicker() {
       }
 
       function clear() {
-        $scope.model = null;
+        $scope.model = undefined;
       }
     }],
-    link: function(scope, element, attrs, ctrl) {}
   };
 }
 

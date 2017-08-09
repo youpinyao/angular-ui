@@ -3,7 +3,7 @@ webpackJsonp([15,27],{
 /***/ "IM9K":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-input ma-date-picker\">\n  <input class=\"ma-input\"\n    date-time\n    ng-readonly=\"true\"\n    ng-model=\"model\"\n    view=\"{{view}}\"\n    id=\"{{datePickerId}}\"\n    date-change=\"changeValue\"\n    min-view=\"{{minView}}\"\n    min-date=\"_minDate\"\n    max-date=\"_maxDate\"\n    ng-disabled=\"disabled\"\n    placeholder=\"{{maPlaceholder}}\"\n    format=\"{{format}}\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\"\n    ma-click=\"clear()\"\n    ng-show=\"!!model && showClear !== 'false'\"\n    class=\"clear\"></ma-icon>\n  <!--<div date-picker\n    view=\"{{view}}\"\n    ng-model=\"model\"\n    min-view=\"{{minView}}\"\n    format=\"{{format}}\"></div>-->\n</div>\n";
+module.exports = "<div class=\"ma-input ma-date-picker\">\n  <input class=\"ma-input\"\n    date-time\n    ng-readonly=\"true\"\n    ng-model=\"dateModel\"\n    view=\"{{view}}\"\n    id=\"{{datePickerId}}\"\n    date-change=\"changeValue\"\n    min-view=\"{{minView}}\"\n    min-date=\"_minDate\"\n    max-date=\"_maxDate\"\n    ng-disabled=\"disabled\"\n    placeholder=\"{{maPlaceholder}}\"\n    format=\"{{format}}\">\n  <ma-icon ma-type=\"calendar\"></ma-icon>\n  <ma-icon ma-type=\"close\"\n    ma-click=\"clear()\"\n    ng-show=\"!!model && showClear !== 'false'\"\n    class=\"clear\"></ma-icon>\n  <!--<div date-picker\n    view=\"{{view}}\"\n    ng-model=\"model\"\n    min-view=\"{{minView}}\"\n    format=\"{{format}}\"></div>-->\n</div>\n";
 
 /***/ }),
 
@@ -163,9 +163,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 angular.module(_name2['default']).directive('maDatePicker', maDatePicker).directive('maDateRangePicker', maDateRangePicker);
 
-maDatePicker.$inject = [];
+maDatePicker.$inject = ['$filter'];
 
-function maDatePicker() {
+function maDatePicker($filter) {
   return {
     restrict: 'E',
     replace: true,
@@ -180,17 +180,41 @@ function maDatePicker() {
       showClear: '@maClear',
       disabled: '=ngDisabled'
     },
+    require: 'ngModel',
     template: _maDatePickerTpl2['default'],
     controllerAs: '$ctrl',
+    link: function link(scope, element, attrs, ngModel) {
+      var format = scope.format || 'YYYY-MM-DD HH:mm';
+      var timezone = scope.timezone || false;
+      var dateFilter = $filter('mFormat');
+
+      function formatter(value) {
+        if (angular.isNull(value)) {
+          return undefined;
+        }
+        return dateFilter(value, format, timezone);
+      }
+
+      function parser(viewValue) {
+        if (angular.isNull(viewValue)) {
+          return undefined;
+        }
+        if (viewValue.length === format.length) {
+          return viewValue;
+        }
+        return viewValue.length === 0 ? viewValue : undefined;
+      }
+      ngModel.$formatters.push(formatter);
+      ngModel.$parsers.unshift(parser);
+    },
     controller: ['$scope', function ($scope) {
       $scope.datePickerId = (0, _v2['default'])();
       $scope.clear = clear;
       $scope.changeValue = changeValue;
 
-      $scope.$watch('model', function (current, prev) {
-        if (!_moment2['default'].isMoment(current)) {
-          $scope.$broadcast('selectDate', (0, _moment2['default'])(current));
-        }
+      $scope.$watch('model', function (d) {
+        $scope.dateModel = d;
+        $scope.$broadcast('selectDate', d ? (0, _moment2['default'])(d) : undefined, true);
       });
 
       $scope.$watch('_minDate', function (d) {
@@ -212,10 +236,9 @@ function maDatePicker() {
       }
 
       function clear() {
-        $scope.model = null;
+        $scope.model = undefined;
       }
-    }],
-    link: function link(scope, element, attrs, ctrl) {}
+    }]
   };
 }
 
