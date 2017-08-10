@@ -181,6 +181,11 @@ function maTooltip($timeout, $compile) {
 
         var boxPadding = 10;
 
+        var ltrt = (elHeight - boxPadding * 2) * 0.15 - elementHeight / 2 + 5;
+        var lbrb = (elHeight - boxPadding * 2) * 0.85 - elementHeight / 2 - 5;
+        var tlbl = (elWidth - boxPadding * 2) * 0.15 - elementWidth / 2 + 5;
+        var trbr = (elWidth - boxPadding * 2) * 0.85 - elementWidth / 2 - 5;
+
         var top = 0;
         var left = 0;
         var hasNew = false;
@@ -206,22 +211,22 @@ function maTooltip($timeout, $compile) {
             break;
           case 'tl':
             top = offsetTop - elHeight;
-            left = offsetLeft - boxPadding;
+            left = offsetLeft - boxPadding - tlbl;
             break;
           case 'tr':
             top = offsetTop - elHeight;
-            left = offsetLeft + boxPadding - (elWidth - elementWidth);
+            left = offsetLeft - boxPadding - trbr;
             break;
           case 'lc':
             top = offsetTop - (elHeight - elementHeight) / 2;
             left = offsetLeft - elWidth;
             break;
           case 'lt':
-            top = offsetTop - boxPadding;
+            top = offsetTop - boxPadding - ltrt;
             left = offsetLeft - elWidth;
             break;
           case 'lb':
-            top = offsetTop + boxPadding - (elHeight - elementHeight);
+            top = offsetTop - boxPadding - lbrb;
             left = offsetLeft - elWidth;
             break;
           case 'rc':
@@ -229,11 +234,11 @@ function maTooltip($timeout, $compile) {
             left = offsetLeft + elementWidth;
             break;
           case 'rt':
-            top = offsetTop - boxPadding;
+            top = offsetTop - boxPadding - ltrt;
             left = offsetLeft + elementWidth;
             break;
           case 'rb':
-            top = offsetTop + boxPadding - (elHeight - elementHeight);
+            top = offsetTop - boxPadding - lbrb;
             left = offsetLeft + elementWidth;
             break;
           case 'bc':
@@ -242,11 +247,11 @@ function maTooltip($timeout, $compile) {
             break;
           case 'bl':
             top = offsetTop + elementHeight;
-            left = offsetLeft - boxPadding;
+            left = offsetLeft - boxPadding - tlbl;
             break;
           case 'br':
             top = offsetTop + elementHeight;
-            left = offsetLeft + boxPadding - (elWidth - elementWidth);
+            left = offsetLeft - boxPadding - trbr;
             break;
         }
 

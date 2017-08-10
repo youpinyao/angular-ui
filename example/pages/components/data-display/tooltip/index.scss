@@ -6,6 +6,9 @@
     .ma-button {
       letter-spacing: normal;
       margin: 10px 10px;
+      > div {
+        background-color: $disabled;
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "meetyou-angular-ui",
-  "version": "0.0.96",
+  "version": "0.0.97",
   "description": "Here is the Meetyou presents implementation, product development and service in the enterprise the background",
   "main": "dist/meetyou.angular.min.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "toolkit",
     "components"
   ],
-  "author": "meetyou team",
+  "author": "youpinyao",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/youpinyao/meetyou-angular-ui/issues"
