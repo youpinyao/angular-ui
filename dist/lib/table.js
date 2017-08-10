@@ -925,7 +925,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
   self.count = $scope.tableConfig.count ? $scope.tableConfig.count : 10;
   self.sorting = $scope.tableConfig.sorting ? $scope.tableConfig.sorting : {};
   self.PageSize = $scope.tableConfig.counts ? $scope.tableConfig.counts : [10, 20, 30];
-  self.enableCheckbox = angular.isNull($scope.tableConfig.enablePagination) ? false : $scope.tableConfig.enableCheckbox;
+  self.enableCheckbox = angular.isNull($scope.tableConfig.enableCheckbox) ? false : $scope.tableConfig.enableCheckbox;
   self.enablePagination = angular.isNull($scope.tableConfig.enablePagination) ? true : $scope.tableConfig.enablePagination;
   self.dataset = $scope.tableConfig.dataset ? $scope.tableConfig.dataset : [];
   self.colsGroup = $scope.tableConfig.colsGroup ? $scope.tableConfig.colsGroup : [];
