@@ -207,6 +207,15 @@ $colCount: 24;
   .control-tip {
     color: $grey;
     padding-left: 10px;
+    &.danger {
+      color: $danger;
+    }
+    &.success {
+      color: $success;
+    }
+    &.warning {
+      color: $warning;
+    }
   }
 }
 
@@ -295,7 +304,7 @@ $colCount: 24;
     bottom: -17px;
     line-height: normal;
     font-weight: normal;
-    z-index: 10;
+    z-index: 1;
     overflow: visible;
     white-space: nowrap;
   }

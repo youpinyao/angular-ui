@@ -612,6 +612,20 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
     maxlength: function maxlength(value, scope, element, attrs, param) {
       return value.length <= param;
     },
+    cellphone: function cellphone(value, scope, element, attrs, param) {
+      value += '';
+      if (!value) {
+        return false;
+      }
+      if (isNaN(value)) {
+        return false;
+      }
+      if (value.length !== 11) {
+        return false;
+      }
+
+      return true;
+    },
     phone: function phone(value, scope, element, attrs, param) {
       value += '';
       if (!value) {
@@ -686,6 +700,12 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
     'null': {
       error: function error(element, attrs, param) {
         return errorMsgTemplate(element, attrs, param, 'OK');
+      },
+      success: 'OK'
+    },
+    cellphone: {
+      error: function error(element, attrs, param) {
+        return errorMsgTemplate(element, attrs, param, '请输入正确的手机号码');
       },
       success: 'OK'
     },

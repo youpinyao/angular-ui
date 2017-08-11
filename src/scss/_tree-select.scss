@@ -1363,7 +1363,7 @@ disabled look for disabled choices in the results dropdown
           box-shadow: 0 0px 3px 0 rgba(0, 0, 0, 0.20);
 }
 
-.select2-container-multi.select2-container-active .select2-choices {
+.ma-tree-select .select2-container-multi.select2-container-active .select2-choices {
   border-color: rgba($black, 0.1);
   border-bottom: 1px solid $shadow;
   -webkit-box-shadow: 0 0px 1px 0 rgba($black, 0.25);

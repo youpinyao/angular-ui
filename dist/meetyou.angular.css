@@ -4211,6 +4211,18 @@ a {
   padding-left: 10px;
 }
 
+.controls .control-tip.danger {
+  color: #FF5073;
+}
+
+.controls .control-tip.success {
+  color: #87D068;
+}
+
+.controls .control-tip.warning {
+  color: #F6A623;
+}
+
 .form-horizontal .control-group {
   margin-bottom: 20px;
 }
@@ -4312,7 +4324,7 @@ a {
   bottom: -17px;
   line-height: normal;
   font-weight: normal;
-  z-index: 10;
+  z-index: 1;
   overflow: visible;
   white-space: nowrap;
 }
@@ -5596,7 +5608,7 @@ input.ma-input {
   background-color: #FFFFFF;
   color: #323232;
   border-radius: 4px;
-  padding: 5px 8px;
+  padding: 5px 10px;
   margin: 0;
   width: 240px;
   max-width: 100%;
@@ -7005,7 +7017,7 @@ textarea.ma-input {
 
 .ma-select > .ma-input input {
   padding-right: 30px;
-  padding-left: 15px;
+  padding-left: 10px;
   width: 100%;
   cursor: pointer;
   -webkit-touch-callout: none;
@@ -8406,7 +8418,7 @@ disabled look for disabled choices in the results dropdown
   box-shadow: 0 0px 3px 0 rgba(0, 0, 0, 0.2);
 }
 
-.select2-container-multi.select2-container-active .select2-choices {
+.ma-tree-select .select2-container-multi.select2-container-active .select2-choices {
   border-color: rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid #DDDDDD;
   box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.25);
