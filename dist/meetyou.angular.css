@@ -5669,13 +5669,13 @@ body.has-sider-menu > .main {
   margin: auto;
 }
 
-.sider-menu > .sider-menu-content .sider-menu-item a .slide-menu-item a i.iconfont {
-  line-height: 40px;
-  height: 40px;
-}
-
 .sider-menu > .sider-menu-content .sider-menu-item a.arrow {
   padding-right: 30px !important;
+}
+
+.sider-menu > .sider-menu-content .sider-menu-item .slide-menu-item a i.iconfont {
+  line-height: 40px;
+  height: 40px;
 }
 
 .sider-menu > .sider-menu-content > .sider-menu-item > a {

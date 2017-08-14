@@ -21,13 +21,19 @@ function mainCtrl($scope) {
   title: 'General 一般',
   state: 'components.general',
   hidden: false,
-  childState: ['components.general.icon'], // 子路由的state，可以是数组或者字符串，secondMenu 使用，配在这里在这些路由下secondMenu 也会active
+  childState: ['components.general.icon'], // secondMenu 使用，子路由的state，可以是数组或者字符串，配在这里在这些路由下secondMenu 也会active
   params: {
     id: 666,
   },
   activeParams: [{
     id: 777,
-  }], // 也要active 状态的路由，只在siderMenu 使用
+  }], // 只在siderMenu 使用, 也要active 状态的路由
+  childs: [{
+    state: '',
+    params: {
+
+    }
+  }], // 只在siderMenu 使用 当前页面状态，和配置中的state params 相同，就active
   routers: [{
     title: 'Icon 图标',
     state: 'components.general.icon',

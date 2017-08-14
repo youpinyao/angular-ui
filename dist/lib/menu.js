@@ -372,6 +372,7 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       function isActive(router) {
         var urls = [];
         var params = _jquery2['default'].extend(true, {}, router.params);
+        var active = false;
 
         urls.push($state.href(router.state, params));
 
@@ -381,7 +382,29 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
           });
         }
 
-        return urls.indexOf($state.href($state.current.name, $state.params)) !== -1 || isParent($state.href($state.current.name, $state.params), urls[0]) && !hasRouters(router.routers);
+        active = urls.indexOf($state.href($state.current.name, $state.params)) !== -1 || isParent($state.href($state.current.name, $state.params), urls[0]) && !hasRouters(router.routers);
+
+        if (active === false && router.childs && router.childs.length) {
+          router.childs.forEach(function (d) {
+            if ($state.current.name === d.state) {
+              if (angular.isEmpty(d.params)) {
+                active = true;
+              } else {
+                var count = 0;
+                var sameCount = 0;
+                angular.each(d.params, function (v, k) {
+                  if ($state.params[k] == v) {
+                    sameCount++;
+                  }
+                  count++;
+                });
+                active = count === sameCount;
+              }
+            }
+          });
+        }
+
+        return active;
       }
     }],
     link: function link(scope, element, attrs, controllers) {}

@@ -305,6 +305,7 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       function isActive(router) {
         const urls = [];
         const params = $.extend(true, {}, router.params);
+        let active = false;
 
         urls.push($state.href(router.state, params));
 
@@ -314,10 +315,32 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
           });
         }
 
-        return urls.indexOf($state.href($state.current.name, $state.params)) !== -1 || (
+        active = urls.indexOf($state.href($state.current.name, $state.params)) !== -1 || (
           isParent(
             $state.href($state.current.name, $state.params), urls[0]) && !hasRouters(router.routers)
         );
+
+        if (active === false && router.childs && router.childs.length) {
+          router.childs.forEach(d => {
+            if ($state.current.name === d.state) {
+              if (angular.isEmpty(d.params)) {
+                active = true;
+              } else {
+                let count = 0;
+                let sameCount = 0;
+                angular.each(d.params, (v, k) => {
+                  if ($state.params[k] == v) {
+                    sameCount++;
+                  }
+                  count++;
+                });
+                active = count === sameCount;
+              }
+            }
+          });
+        }
+
+        return active;
       }
     }],
     link(scope, element, attrs, controllers) {
