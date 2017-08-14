@@ -3951,7 +3951,7 @@ a {
 }
 
 .mb-30 {
-  padding-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .mb-20 {
@@ -3987,7 +3987,7 @@ a {
 }
 
 .ml-30 {
-  padding-left: 30px;
+  margin-left: 30px;
 }
 
 .ml-20 {
@@ -4023,7 +4023,7 @@ a {
 }
 
 .mt-30 {
-  padding-top: 30px;
+  margin-top: 30px;
 }
 
 .mt-20 {
@@ -4059,7 +4059,7 @@ a {
 }
 
 .mr-30 {
-  padding-right: 30px;
+  margin-right: 30px;
 }
 
 .mr-20 {
@@ -4478,7 +4478,7 @@ body > .main div.container {
   padding-right: 30px;
   background-color: #FFFFFF;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  border-radius: 2px;
 }
 
 .header-fixed > .header {
