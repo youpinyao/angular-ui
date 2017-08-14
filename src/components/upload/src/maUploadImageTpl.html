@@ -49,7 +49,7 @@
   <div class="upload-image-item add-double"
     ng-repeat="item in $ctrl.uploadConfig.limitArray track by $index"
     ma-click="clickInput($event)"
-    ng-if="$index < ngModel.length || $index === 0">
+    ng-if="$index < ngModel.length || $index !== 0">
     <ma-icon ma-type="plus"></ma-icon>
     <div>{{$ctrl.uploadConfig.uploadText || '上传照片'}}</div>
   </div>
