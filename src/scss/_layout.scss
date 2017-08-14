@@ -226,6 +226,11 @@ $colCount: 24;
       color: $warning;
     }
   }
+  div.control-tip {
+    padding-left: 0;
+    line-height: normal;
+    padding-top: 10px;
+  }
 }
 
 .form-horizontal {

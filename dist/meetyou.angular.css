@@ -4271,6 +4271,12 @@ a {
   color: #F6A623;
 }
 
+.controls div.control-tip {
+  padding-left: 0;
+  line-height: normal;
+  padding-top: 10px;
+}
+
 .form-horizontal .control-group {
   margin-bottom: 20px;
 }
