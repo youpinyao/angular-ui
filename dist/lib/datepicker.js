@@ -272,6 +272,13 @@ function maDateRangePicker($timeout) {
       var seperator = '~';
       var init = (0, _debounce2['default'])(_init, 100);
 
+      scope.$watch('$destroy', function () {
+        if (scope.dateRangePicker) {
+          scope.dateRangePicker.destroy();
+          scope.dateRangePicker = null;
+        }
+      });
+
       scope.$watch('minDate', function (d) {
         init();
       });

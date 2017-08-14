@@ -24,13 +24,14 @@ angular.module(moduleName)
 // withCredentials: false,
 // disableMultipart: false
 
-//   非插件额外配置
-//   multiple: false
-//   limit: Number.MAX_VALUE,
-//   size: 10 * 1024 * 1000,
-//   accept: '',
-//   convert: function(data, response){}, // 上传成功后回调
-//   uploadText: '上传照片',
+// 非插件额外配置
+// multiple: false
+// limit: Number.MAX_VALUE,
+// size: 10 * 1024 * 1000,
+// accept: '',
+// convert: function(data, response){}, // 上传成功后回调
+// uploadText: '上传照片',
+// buttonBaseOnLimit: false,
 // }
 
 // ngModel data format
@@ -127,7 +128,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
       appendElement();
     } else if (element.attr('ma-upload-image') !== undefined) {
       element.append(template);
-      $(element).find('.upload-image-item.add').append(fileInput);
+      $(element).find('.upload-image-item.add').eq(0).append(fileInput);
     } else {
       appendElement();
     }
@@ -159,6 +160,12 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
 
         },
       }, $.extend(true, $.extend(true, {}, defaultConfig), scope.uploadConfig || {}));
+
+      if (config.limit !== Number.MAX_VALUE && config.buttonBaseOnLimit) {
+        config.limitArray = new Array(config.limit);
+      } else {
+        config.limitArray = new Array(1);
+      }
 
       // 初始化 uploader 实例
       if (!config.filters) {
@@ -283,13 +290,20 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
   }
 }
 
-maUploadController.$inject = ['$scope', '$lightGallery'];
+maUploadController.$inject = ['$scope', '$lightGallery', '$element'];
 
-function maUploadController($scope, $lightGallery) {
+function maUploadController($scope, $lightGallery, $element) {
   $scope.viewFile = viewFile;
   $scope.delFile = delFile;
   $scope.isImg = isImg;
   $scope.getFileIcon = getFileIcon;
+  $scope.clickInput = clickInput;
+
+  function clickInput($event) {
+    $($element).find('input').trigger('click', {
+      e: $event,
+    });
+  }
 
   function viewFile(files, file, $index) {
     const urls = [];

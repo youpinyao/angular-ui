@@ -1,5 +1,4 @@
 .ma-button {
-
   input[type="file"] {
     position: absolute;
     left: 0;
@@ -14,8 +13,7 @@
   }
 }
 
-.upload-file-items {
-}
+.upload-file-items {}
 
 .upload-file-items .upload-file-item {
   position: relative;
@@ -86,8 +84,6 @@
   visibility: visible;
 }
 
-
-
 .upload-image-items {
   letter-spacing: -0.31em;
   line-height: normal;
@@ -105,7 +101,6 @@
     margin-right: 10px;
     margin-bottom: 0px;
     text-align: center;
-
     .ma-progress {
       position: absolute;
       left: 0px;
@@ -114,7 +109,6 @@
       bottom: 0px;
       margin: auto;
     }
-
     .image {
       width: 86px;
       height: 86px;
@@ -135,7 +129,6 @@
         color: $grey;
       }
     }
-
     .handle-box {
       visibility: hidden;
       opacity: 0;
@@ -149,7 +142,6 @@
       background-color: rgba($black, 0.4);
       color: $white;
       @include transition();
-
       i {
         display: inline-block;
         font-size: $font24;
@@ -162,25 +154,21 @@
         }
       }
     }
-
     &:hover {
       .handle-box {
         visibility: visible;
         opacity: 1;
       }
     }
-
+    &.add-double,
     &.add {
       position: relative;
       cursor: pointer;
       padding-top: 8px;
-
       @include transition();
-
       &:hover {
         background-color: $hover;
       }
-
       input[type="file"] {
         position: absolute;
         z-index: 1;
@@ -194,17 +182,14 @@
         margin: 0;
         padding: 0;
       }
-
       i {
         font-size: 50px;
         line-height: 50px;
         color: #d8d8d8;
       }
     }
-
     &:last-child {
       margin-right: 0px;
     }
   }
 }
-

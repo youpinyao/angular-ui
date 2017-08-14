@@ -16606,7 +16606,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ "8o0r":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"upload-image-items\">\n  <div class=\"upload-image-item\"\n    ng-class=\"{error: file.error}\"\n    data-id=\"{{file.id}}\"\n    ng-repeat=\"file in ngModel\">\n\n    <div class=\"image\"\n      ng-if=\"file.url && isImg(file)\"\n      ng-style=\"{\n        'background-image': 'url({{file.url}})'\n      }\"></div>\n    <div class=\"image\"\n      ng-if=\"!file.url && file.id && isImg(file)\"\n      ng-style=\"{\n        'background-image': 'url({{$ctrl.uploadConfig.viewUrl + '?file_id=' + file.id}})'\n      }\"></div>\n\n    <div class=\"image\"\n      ng-if=\"!isImg(file)\">\n      <ma-icon ma-type=\"{{getFileIcon(file)}}\"></ma-icon>\n    </div>\n\n    <div class=\"handle-box\"\n      ng-show=\"file.progress === undefined || file.progress === 100\">\n      <ma-icon class=\"close\"\n        ma-type=\"eyeo\"\n        ma-click=\"viewFile(ngModel, file, $index)\"></ma-icon>\n      <ma-icon class=\"close\"\n        ma-type=\"delete\"\n        ma-click=\"delFile(file, $index)\"\n        ng-show=\"showDelete != 'false' && file.showDelete !== false && (file.progress === undefined || file.progress === 100)\"></ma-icon>\n    </div>\n\n    <ma-progress ma-type=\"circle\"\n      ma-status=\"danger\"\n      ma-size=\"70\"\n      ma-stroke-width=\"5\"\n      ma-percent=\"{{file.progress}}\"\n      ng-show=\"file.progress !== undefined && file.progress !== 100\"></ma-progress>\n  </div>\n\n  <div class=\"upload-image-item add\"\n    ng-hide=\"$ctrl.uploadConfig.limit <= ngModel.length\">\n    <ma-icon ma-type=\"plus\"></ma-icon>\n    <div>{{$ctrl.uploadConfig.uploadText || '上传照片'}}</div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"upload-image-items\">\n  <div class=\"upload-image-item\"\n    ng-class=\"{error: file.error}\"\n    data-id=\"{{file.id}}\"\n    ng-repeat=\"file in ngModel\">\n\n    <div class=\"image\"\n      ng-if=\"file.url && isImg(file)\"\n      ng-style=\"{\n        'background-image': 'url({{file.url}})'\n      }\"></div>\n    <div class=\"image\"\n      ng-if=\"!file.url && file.id && isImg(file)\"\n      ng-style=\"{\n        'background-image': 'url({{$ctrl.uploadConfig.viewUrl + '?file_id=' + file.id}})'\n      }\"></div>\n\n    <div class=\"image\"\n      ng-if=\"!isImg(file)\">\n      <ma-icon ma-type=\"{{getFileIcon(file)}}\"></ma-icon>\n    </div>\n\n    <div class=\"handle-box\"\n      ng-show=\"file.progress === undefined || file.progress === 100\">\n      <ma-icon class=\"close\"\n        ma-type=\"eyeo\"\n        ma-click=\"viewFile(ngModel, file, $index)\"></ma-icon>\n      <ma-icon class=\"close\"\n        ma-type=\"delete\"\n        ma-click=\"delFile(file, $index)\"\n        ng-show=\"showDelete != 'false' && file.showDelete !== false && (file.progress === undefined || file.progress === 100)\"></ma-icon>\n    </div>\n\n    <ma-progress ma-type=\"circle\"\n      ma-status=\"danger\"\n      ma-size=\"70\"\n      ma-stroke-width=\"5\"\n      ma-percent=\"{{file.progress}}\"\n      ng-show=\"file.progress !== undefined && file.progress !== 100\"></ma-progress>\n  </div>\n\n\n  <div class=\"upload-image-item add\"\n    ng-hide=\"$ctrl.uploadConfig.limit <= ngModel.length\">\n    <ma-icon ma-type=\"plus\"></ma-icon>\n    <div>{{$ctrl.uploadConfig.uploadText || '上传照片'}}</div>\n  </div>\n\n  <div class=\"upload-image-item add-double\"\n    ng-repeat=\"item in $ctrl.uploadConfig.limitArray track by $index\"\n    ma-click=\"clickInput($event)\"\n    ng-if=\"$index < ngModel.length || $index === 0\">\n    <ma-icon ma-type=\"plus\"></ma-icon>\n    <div>{{$ctrl.uploadConfig.uploadText || '上传照片'}}</div>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -53656,6 +53656,13 @@ function maDateRangePicker($timeout) {
       var seperator = '~';
       var init = (0, _debounce2['default'])(_init, 100);
 
+      scope.$watch('$destroy', function () {
+        if (scope.dateRangePicker) {
+          scope.dateRangePicker.destroy();
+          scope.dateRangePicker = null;
+        }
+      });
+
       scope.$watch('minDate', function (d) {
         init();
       });
@@ -58774,13 +58781,14 @@ angular.module(_name2['default']).directive('maUpload', maUpload).directive('maU
 // withCredentials: false,
 // disableMultipart: false
 
-//   非插件额外配置
-//   multiple: false
-//   limit: Number.MAX_VALUE,
-//   size: 10 * 1024 * 1000,
-//   accept: '',
-//   convert: function(data, response){}, // 上传成功后回调
-//   uploadText: '上传照片',
+// 非插件额外配置
+// multiple: false
+// limit: Number.MAX_VALUE,
+// size: 10 * 1024 * 1000,
+// accept: '',
+// convert: function(data, response){}, // 上传成功后回调
+// uploadText: '上传照片',
+// buttonBaseOnLimit: false,
 // }
 
 // ngModel data format
@@ -58870,7 +58878,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
       appendElement();
     } else if (element.attr('ma-upload-image') !== undefined) {
       element.append(template);
-      (0, _jquery2['default'])(element).find('.upload-image-item.add').append(fileInput);
+      (0, _jquery2['default'])(element).find('.upload-image-item.add').eq(0).append(fileInput);
     } else {
       appendElement();
     }
@@ -58899,6 +58907,12 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         accept: '',
         convertData: function convertData(data) {}
       }, _jquery2['default'].extend(true, _jquery2['default'].extend(true, {}, defaultConfig), scope.uploadConfig || {}));
+
+      if (config.limit !== Number.MAX_VALUE && config.buttonBaseOnLimit) {
+        config.limitArray = new Array(config.limit);
+      } else {
+        config.limitArray = new Array(1);
+      }
 
       // 初始化 uploader 实例
       if (!config.filters) {
@@ -59021,13 +59035,20 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
   }
 }
 
-maUploadController.$inject = ['$scope', '$lightGallery'];
+maUploadController.$inject = ['$scope', '$lightGallery', '$element'];
 
-function maUploadController($scope, $lightGallery) {
+function maUploadController($scope, $lightGallery, $element) {
   $scope.viewFile = viewFile;
   $scope.delFile = delFile;
   $scope.isImg = isImg;
   $scope.getFileIcon = getFileIcon;
+  $scope.clickInput = clickInput;
+
+  function clickInput($event) {
+    (0, _jquery2['default'])($element).find('input').trigger('click', {
+      e: $event
+    });
+  }
 
   function viewFile(files, file, $index) {
     var urls = [];

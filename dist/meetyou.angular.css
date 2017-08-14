@@ -9119,6 +9119,7 @@ disabled look for disabled choices in the results dropdown
   opacity: 1;
 }
 
+.upload-image-items .upload-image-item.add-double,
 .upload-image-items .upload-image-item.add {
   position: relative;
   cursor: pointer;
@@ -9127,10 +9128,12 @@ disabled look for disabled choices in the results dropdown
   -webkit-transtion: all 300ms ease;
 }
 
+.upload-image-items .upload-image-item.add-double:hover,
 .upload-image-items .upload-image-item.add:hover {
   background-color: #F5F5F5;
 }
 
+.upload-image-items .upload-image-item.add-double input[type="file"],
 .upload-image-items .upload-image-item.add input[type="file"] {
   position: absolute;
   z-index: 1;
@@ -9145,6 +9148,7 @@ disabled look for disabled choices in the results dropdown
   padding: 0;
 }
 
+.upload-image-items .upload-image-item.add-double i,
 .upload-image-items .upload-image-item.add i {
   font-size: 50px;
   line-height: 50px;
