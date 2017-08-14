@@ -154,13 +154,15 @@ angular
       },
       minlength: {
         error: function(element, attrs, param) {
-          return errorMsgTemplate(element, attrs, param, '太长了');
+          const len = parseInt(param, 10);
+          return errorMsgTemplate(element, attrs, param, `最短为${len}个字符`);
         },
         success: 'OK'
       },
       maxlength: {
         error: function(element, attrs, param) {
-          return errorMsgTemplate(element, attrs, param, '太短了');
+          const len = parseInt(param, 10);
+          return errorMsgTemplate(element, attrs, param, `最长为${len}个字符`);
         },
         success: 'OK'
       },

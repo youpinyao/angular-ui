@@ -651,13 +651,15 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
     },
     minlength: {
       error: function error(element, attrs, param) {
-        return errorMsgTemplate(element, attrs, param, '太长了');
+        var len = parseInt(param, 10);
+        return errorMsgTemplate(element, attrs, param, '\u6700\u77ED\u4E3A' + len + '\u4E2A\u5B57\u7B26');
       },
       success: 'OK'
     },
     maxlength: {
       error: function error(element, attrs, param) {
-        return errorMsgTemplate(element, attrs, param, '太短了');
+        var len = parseInt(param, 10);
+        return errorMsgTemplate(element, attrs, param, '\u6700\u957F\u4E3A' + len + '\u4E2A\u5B57\u7B26');
       },
       success: 'OK'
     },

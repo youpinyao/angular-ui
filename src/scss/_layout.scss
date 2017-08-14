@@ -149,8 +149,14 @@ $size in $paddings {
   .#{$header}-30 {
     padding-#{$size}: 30px;
   }
+  .#{$header}-25 {
+    padding-#{$size}: 25px;
+  }
   .#{$header}-20 {
     padding-#{$size}: 20px;
+  }
+  .#{$header}-15 {
+    padding-#{$size}: 15px;
   }
   .#{$header}-10 {
     padding-#{$size}: 10px;
@@ -168,8 +174,14 @@ $size in $margins {
   .#{$header}-30 {
     margin-#{$size}: 30px;
   }
+  .#{$header}-25 {
+    margin-#{$size}: 25px;
+  }
   .#{$header}-20 {
     margin-#{$size}: 20px;
+  }
+  .#{$header}-15 {
+    margin-#{$size}: 15px;
   }
   .#{$header}-10 {
     margin-#{$size}: 10px;
@@ -183,8 +195,14 @@ $size in $margins {
   .#{$header}--30 {
     margin-#{$size}: -30px;
   }
+  .#{$header}--25 {
+    margin-#{$size}: -25px;
+  }
   .#{$header}--20 {
     margin-#{$size}: -20px;
+  }
+  .#{$header}--15 {
+    margin-#{$size}: -15px;
   }
   .#{$header}--10 {
     margin-#{$size}: -10px;
