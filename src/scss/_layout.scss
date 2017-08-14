@@ -146,6 +146,9 @@ $paddings: (pb: bottom, pl: left, pt: top, pr: right);
 $margins: (mb: bottom, ml: left, mt: top, mr: right);
 @each $header,
 $size in $paddings {
+  .#{$header}-30 {
+    padding-#{$size}: 30px;
+  }
   .#{$header}-20 {
     padding-#{$size}: 20px;
   }
@@ -162,6 +165,9 @@ $size in $paddings {
 
 @each $header,
 $size in $margins {
+  .#{$header}-30 {
+    padding-#{$size}: 30px;
+  }
   .#{$header}-20 {
     margin-#{$size}: 20px;
   }
@@ -173,6 +179,9 @@ $size in $margins {
   }
   .#{$header}-0 {
     margin-#{$size}: 0px;
+  }
+  .#{$header}--30 {
+    margin-#{$size}: -30px;
   }
   .#{$header}--20 {
     margin-#{$size}: -20px;
