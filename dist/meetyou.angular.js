@@ -16606,7 +16606,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ "8o0r":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"upload-image-items\">\n  <div class=\"upload-image-item\"\n    ng-class=\"{error: file.error}\"\n    data-id=\"{{file.id}}\"\n    ng-repeat=\"file in ngModel\">\n\n    <div class=\"image\"\n      ng-if=\"file.url && isImg(file)\"\n      ng-style=\"{\n        'background-image': 'url({{file.url}})'\n      }\"></div>\n    <div class=\"image\"\n      ng-if=\"!file.url && file.id && isImg(file)\"\n      ng-style=\"{\n        'background-image': 'url({{$ctrl.uploadConfig.viewUrl + '?file_id=' + file.id}})'\n      }\"></div>\n\n    <div class=\"image\"\n      ng-if=\"!isImg(file)\">\n      <ma-icon ma-type=\"{{getFileIcon(file)}}\"></ma-icon>\n    </div>\n\n    <div class=\"handle-box\"\n      ng-show=\"file.progress === undefined || file.progress === 100\">\n      <ma-icon class=\"close\"\n        ma-type=\"eyeo\"\n        ma-click=\"viewFile(ngModel, file, $index)\"></ma-icon>\n      <ma-icon class=\"close\"\n        ma-type=\"delete\"\n        ma-click=\"delFile(file, $index)\"\n        ng-show=\"showDelete != 'false' && file.showDelete !== false && (file.progress === undefined || file.progress === 100)\"></ma-icon>\n    </div>\n\n    <ma-progress ma-type=\"circle\"\n      ma-status=\"danger\"\n      ma-size=\"70\"\n      ma-stroke-width=\"5\"\n      ma-percent=\"{{file.progress}}\"\n      ng-show=\"file.progress !== undefined && file.progress !== 100\"></ma-progress>\n  </div>\n\n\n  <div class=\"upload-image-item add\"\n    ng-hide=\"$ctrl.uploadConfig.limit <= ngModel.length\">\n    <ma-icon ma-type=\"plus\"></ma-icon>\n    <div>{{$ctrl.uploadConfig.uploadText || '上传照片'}}</div>\n  </div>\n\n  <div class=\"upload-image-item add-double\"\n    ng-repeat=\"item in $ctrl.uploadConfig.limitArray track by $index\"\n    ma-click=\"clickInput($event)\"\n    ng-if=\"$index < ngModel.length || $index !== 0\">\n    <ma-icon ma-type=\"plus\"></ma-icon>\n    <div>{{$ctrl.uploadConfig.uploadText || '上传照片'}}</div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"upload-image-items\">\n  <div class=\"upload-image-item\"\n    ng-class=\"{error: file.error}\"\n    data-id=\"{{file.id}}\"\n    ng-repeat=\"file in ngModel\">\n\n    <div class=\"image\"\n      ng-if=\"file.url && isImg(file)\"\n      ng-style=\"{\n        'background-image': 'url({{file.url}})'\n      }\"></div>\n    <div class=\"image\"\n      ng-if=\"!file.url && file.id && isImg(file)\"\n      ng-style=\"{\n        'background-image': 'url({{$ctrl.uploadConfig.viewUrl + '?file_id=' + file.id}})'\n      }\"></div>\n\n    <div class=\"image\"\n      ng-if=\"!isImg(file)\">\n      <ma-icon ma-type=\"{{getFileIcon(file)}}\"></ma-icon>\n    </div>\n\n    <div class=\"handle-box\"\n      ng-show=\"file.progress === undefined || file.progress === 100\">\n      <ma-icon class=\"close\"\n        ma-type=\"eyeo\"\n        ma-click=\"viewFile(ngModel, file, $index)\"></ma-icon>\n      <ma-icon class=\"close\"\n        ma-type=\"delete\"\n        ma-click=\"delFile(file, $index)\"\n        ng-show=\"showDelete != 'false' && file.showDelete !== false && (file.progress === undefined || file.progress === 100)\"></ma-icon>\n    </div>\n\n    <ma-progress ma-type=\"circle\"\n      ma-status=\"danger\"\n      ma-size=\"70\"\n      ma-stroke-width=\"5\"\n      ma-percent=\"{{file.progress}}\"\n      ng-show=\"file.progress !== undefined && file.progress !== 100\"></ma-progress>\n  </div>\n\n\n  <div class=\"upload-image-item add\"\n    ng-hide=\"$ctrl.uploadConfig.limit <= ngModel.length\">\n    <ma-icon ma-type=\"plus\"></ma-icon>\n    <div>{{$ctrl.uploadConfig.uploadText || '上传照片'}}</div>\n  </div>\n\n  <div class=\"upload-image-item add-double\"\n    ng-repeat=\"item in $ctrl.uploadConfig.limitArray track by $index\"\n    ma-click=\"clickInput($event)\"\n    ng-if=\"$index < ($ctrl.uploadConfig.limit - ngModel.length) && $index !== 0\">\n    <ma-icon ma-type=\"plus\"></ma-icon>\n    <div>{{$ctrl.uploadConfig.uploadText || '上传照片'}}</div>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -58934,7 +58934,16 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         name: 'sizeFilter',
         fn: function fn(item, options) {
           if (item.size > config.size) {
-            $message.danger('最多只能上传' + config.size / 1000 / 1024 + 'M的文件');
+            var m = config.size / 1000 / 1024;
+            var mText = (m + '').indexOf('.') !== -1 ? parseFloat(m).toFixed(2) : parseFloat(m);
+            var k = config.size / 1000;
+
+            if (m < 1) {
+              $message.danger('最大只能上传' + parseInt(k, 10) + 'K的文件');
+            } else {
+              $message.danger('最大只能上传' + mText + 'M的文件');
+            }
+
             return false;
           }
           return true;
@@ -58955,7 +58964,10 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
           var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
 
           if (config.accept !== 'image/*' && config.accept !== allImageAccept) {
-            types = '|' + config.accept.split('image/')[1] + '|';
+            types = config.accept;
+            types = types.replace(/image\//g, '');
+            types = types.split(',');
+            types = '|' + types.join('|') + '|';
 
             // 如果有其他格式就不判断了
             if (/application/g.test(config.accept)) {

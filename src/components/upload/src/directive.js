@@ -187,7 +187,16 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         name: 'sizeFilter',
         fn(item, options) {
           if (item.size > config.size) {
-            $message.danger('最多只能上传' + (config.size / 1000 / 1024) + 'M的文件');
+            const m = config.size / 1000 / 1024;
+            const mText = (m + '').indexOf('.') !== -1 ? parseFloat(m).toFixed(2) : parseFloat(m);
+            const k = config.size / 1000;
+
+            if (m < 1) {
+              $message.danger('最大只能上传' + parseInt(k, 10) + 'K的文件');
+            } else {
+              $message.danger('最大只能上传' + mText + 'M的文件');
+            }
+
             return false;
           }
           return true;
@@ -210,7 +219,10 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
 
           if (config.accept !== 'image/*' && config.accept !==
             allImageAccept) {
-            types = '|' + config.accept.split('image/')[1] + '|';
+            types = config.accept;
+            types = types.replace(/image\//g, '');
+            types = types.split(',');
+            types = `|${types.join('|')}|`;
 
             // 如果有其他格式就不判断了
             if (/application/g.test(config.accept)) {
