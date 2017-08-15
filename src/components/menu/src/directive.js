@@ -149,7 +149,7 @@ function maSiderMenu($state, $rootScope) {
       $scope.$watch('routers', d => {
         $timeout(() => {
           $scope.$broadcast('update.sider.menu.cls');
-        }, 300);
+        }, 600);
       });
 
       $scope.$on('$destroy', e => {
