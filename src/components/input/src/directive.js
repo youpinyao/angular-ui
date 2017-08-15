@@ -34,10 +34,13 @@ function maInput() {
     },
     template: maInputTpl,
     controllerAs: '$ctrl',
-    controller: ['$scope', function($scope) {
+    controller: ['$scope', '$element', function($scope, $element) {
       this.clearClick = function() {
         $scope.model = '';
       };
+      $scope.$watch('placeholder', d => {
+        $element.find('textarea').attr('placeholder', d || '');
+      });
     }],
     link: function(scope, element, attrs, ctrl) {
       $(element).bind('click', e => {
