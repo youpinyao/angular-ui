@@ -219,7 +219,7 @@ function maSiderMenu($state, $rootScope) {
       $scope.$watch('routers', function (d) {
         $timeout(function () {
           $scope.$broadcast('update.sider.menu.cls');
-        }, 300);
+        }, 600);
       });
 
       $scope.$on('$destroy', function (e) {

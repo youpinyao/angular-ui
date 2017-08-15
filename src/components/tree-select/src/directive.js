@@ -1,5 +1,6 @@
 import moduleName from './name.js';
 import $ from 'jquery';
+import debounce from 'debounce';
 import selectTmpl from './selectTpl.html';
 import multiSelectTpl from './multiSelectTpl.html';
 
@@ -48,9 +49,6 @@ function maTreeSelect($treeSelect) {
     controller: ['$scope', '$element', function($scope, $element) {
       $scope.newItems = [];
       $scope.newModel = [];
-      $scope.textKey = 'text';
-      $scope.valueKey = 'value';
-      $scope.subKey = 'sub';
 
       $scope.$watch('items', data => {
         const newItems = [];
@@ -123,6 +121,10 @@ function maTreeSelect($treeSelect) {
       }
     }],
     link: function(scope, element, attrs, ctrl) {
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+      scope.subKey = attrs.maSubKey || 'sub';
+
       attrs.$observe('maTextKey', d => {
         scope.textKey = d || 'text';
       });
@@ -303,6 +305,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
     controller: ['$scope', '$timeout', function($scope, $timeout) {
       const _this = this;
       const $select = this;
+
       this.searchEnabled = false;
 
       this.open = false;
@@ -400,6 +403,8 @@ function cmultiselect($parse, $window, $document, $timeout) {
         if (model && typeof model.assign === 'function') {
           model.assign($scope.$parent, d);
         }
+
+        updateStatus();
       });
 
       this.fixSelected = () => {
@@ -523,7 +528,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
           }
 
           if (item._parent && !isIn) {
-            console.log('same all check');
+            // console.log('same all check');
 
             newSelected = this.sameAllCheck(item, newSelected);
           }
@@ -643,6 +648,8 @@ function cmultiselect($parse, $window, $document, $timeout) {
         }
 
         this.openedItems = angular.extend([], this.openedItems);
+
+        updateStatus();
       };
 
 
@@ -729,7 +736,20 @@ function cmultiselect($parse, $window, $document, $timeout) {
             item.searchHidden = false;
           }
         });
+        updateStatus();
       });
+
+      function updateStatus() {
+        angular.each($select.selectItems, item => {
+          item.__item_is_show = (!item._treeLinkFrom || $select.search || (item._treeLinkFrom &&
+            $select.treeIsOpen(item._treeLinkFrom))) && (item.isHidden !== true ||
+            $select.hasSubNotHidden(item)) && item.searchHidden !== true;
+
+          item.__tree_is_open = $select.treeIsOpen(item._treeLinkTo);
+          item.__checkbox_has_sub = $select.hasSubSelected(item);
+          item.__checkbox_has_parent = $select.hasParentSelect(item);
+        });
+      }
     }]
   };
 }

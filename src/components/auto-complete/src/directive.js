@@ -39,7 +39,7 @@ function maAutoComplete($timeout) {
 
     },
     controllerAs: '$ctrl',
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', function($scope) {
       const _this = this;
 
       this.showDropDown = false;
@@ -76,7 +76,7 @@ function maAutoComplete($timeout) {
         $scope.model = $item[$scope.textKey];
       }
     }],
-    link: function (scope, element, attrs, ctrl) {
+    link: function(scope, element, attrs, ctrl) {
       const $ctrl = scope.$ctrl;
 
       scope.$watch('dropdownItems', d => {
@@ -88,7 +88,7 @@ function maAutoComplete($timeout) {
       });
 
       $(element).find('input, textarea')
-        .on('focus', function () {
+        .on('focus', function() {
           if (scope.dropdownItems && scope.dropdownItems.length) {
             $ctrl.showDropDown = true;
             $timeout();
@@ -108,8 +108,9 @@ function maAutoComplete($timeout) {
         $timeout();
       });
 
-      scope.textKey = 'text';
-      scope.valueKey = 'value';
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+
       attrs.$observe('maTextKey', d => {
         scope.textKey = d || 'text';
       });

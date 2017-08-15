@@ -396,9 +396,9 @@ function maTreeTransfer($treeSelect, $timeout) {
       }
     }],
     link: function(scope, element, attrs, ctrl) {
-      scope.textKey = 'text';
-      scope.valueKey = 'value';
-      scope.subKey = 'sub';
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+      scope.subKey = attrs.maSubKey || 'sub';
 
       attrs.$observe('maTextKey', d => {
         scope.textKey = d || 'text';

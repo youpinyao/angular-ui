@@ -50,10 +50,13 @@ function maInput() {
     },
     template: _maInputTpl2['default'],
     controllerAs: '$ctrl',
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', '$element', function ($scope, $element) {
       this.clearClick = function () {
         $scope.model = '';
       };
+      $scope.$watch('placeholder', function (d) {
+        $element.find('textarea').attr('placeholder', d || '');
+      });
     }],
     link: function link(scope, element, attrs, ctrl) {
       (0, _jquery2['default'])(element).bind('click', function (e) {
@@ -245,7 +248,7 @@ exports['default'] = _name2['default'];
 /***/ "6vUj":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-input\">\n  <input\n    ng-show=\"type !== 'textarea'\"\n    type=\"{{type}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    placeholder=\"{{placeholder}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  />\n\n  <textarea\n    ng-show=\"type === 'textarea'\"\n    type=\"{{type}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    placeholder=\"{{placeholder}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  ></textarea>\n\n  <ma-icon\n    class=\"clear\"\n    ng-show=\"clear && model\"\n    ma-type=\"close\"\n    ma-click=\"$ctrl.clearClick($event)\"\n  ></ma-icon>\n\n  <div ng-transclude></div>\n</div>\n";
+module.exports = "<div class=\"ma-input\">\n  <input\n    ng-show=\"type !== 'textarea'\"\n    type=\"{{type}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    placeholder=\"{{placeholder}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  />\n\n  <textarea\n    ng-show=\"type === 'textarea'\"\n    type=\"{{type}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  ></textarea>\n\n  <ma-icon\n    class=\"clear\"\n    ng-show=\"clear && model\"\n    ma-type=\"close\"\n    ma-click=\"$ctrl.clearClick($event)\"\n  ></ma-icon>\n\n  <div ng-transclude></div>\n</div>\n";
 
 /***/ }),
 
@@ -514,8 +517,9 @@ function maDropdown($timeout) {
         }
       });
 
-      scope.textKey = 'text';
-      scope.valueKey = 'value';
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+
       attrs.$observe('maTextKey', function (d) {
         scope.textKey = d || 'text';
       });
@@ -810,8 +814,9 @@ function maSelect($timeout) {
         }
       });
 
-      scope.textKey = 'text';
-      scope.valueKey = 'value';
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+
       attrs.$observe('maTextKey', function (d) {
         scope.textKey = d || 'text';
       });

@@ -221,8 +221,9 @@ function maTransfer() {
       }
     }],
     link: function(scope, element, attrs, ctrl) {
-      scope.textKey = 'text';
-      scope.valueKey = 'value';
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+
       attrs.$observe('maTextKey', d => {
         scope.textKey = d || 'text';
       });

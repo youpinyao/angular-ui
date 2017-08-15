@@ -50,10 +50,13 @@ function maInput() {
     },
     template: _maInputTpl2['default'],
     controllerAs: '$ctrl',
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', '$element', function ($scope, $element) {
       this.clearClick = function () {
         $scope.model = '';
       };
+      $scope.$watch('placeholder', function (d) {
+        $element.find('textarea').attr('placeholder', d || '');
+      });
     }],
     link: function link(scope, element, attrs, ctrl) {
       (0, _jquery2['default'])(element).bind('click', function (e) {
@@ -245,7 +248,7 @@ module.exports = "<div class=\"ma-transfer\">\n  <div class=\"fl\">\n    <div cl
 /***/ "6vUj":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-input\">\n  <input\n    ng-show=\"type !== 'textarea'\"\n    type=\"{{type}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    placeholder=\"{{placeholder}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  />\n\n  <textarea\n    ng-show=\"type === 'textarea'\"\n    type=\"{{type}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    placeholder=\"{{placeholder}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  ></textarea>\n\n  <ma-icon\n    class=\"clear\"\n    ng-show=\"clear && model\"\n    ma-type=\"close\"\n    ma-click=\"$ctrl.clearClick($event)\"\n  ></ma-icon>\n\n  <div ng-transclude></div>\n</div>\n";
+module.exports = "<div class=\"ma-input\">\n  <input\n    ng-show=\"type !== 'textarea'\"\n    type=\"{{type}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    placeholder=\"{{placeholder}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  />\n\n  <textarea\n    ng-show=\"type === 'textarea'\"\n    type=\"{{type}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  ></textarea>\n\n  <ma-icon\n    class=\"clear\"\n    ng-show=\"clear && model\"\n    ma-type=\"close\"\n    ma-click=\"$ctrl.clearClick($event)\"\n  ></ma-icon>\n\n  <div ng-transclude></div>\n</div>\n";
 
 /***/ }),
 
@@ -657,9 +660,9 @@ function maTreeTransfer($treeSelect, $timeout) {
       }
     }],
     link: function link(scope, element, attrs, ctrl) {
-      scope.textKey = 'text';
-      scope.valueKey = 'value';
-      scope.subKey = 'sub';
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+      scope.subKey = attrs.maSubKey || 'sub';
 
       attrs.$observe('maTextKey', function (d) {
         scope.textKey = d || 'text';
@@ -993,8 +996,9 @@ function maDropdown($timeout) {
         }
       });
 
-      scope.textKey = 'text';
-      scope.valueKey = 'value';
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+
       attrs.$observe('maTextKey', function (d) {
         scope.textKey = d || 'text';
       });
@@ -1283,8 +1287,9 @@ function maSelect($timeout) {
         }
       });
 
-      scope.textKey = 'text';
-      scope.valueKey = 'value';
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+
       attrs.$observe('maTextKey', function (d) {
         scope.textKey = d || 'text';
       });
@@ -1382,6 +1387,10 @@ var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _debounce = __webpack_require__("HhAh");
+
+var _debounce2 = _interopRequireDefault(_debounce);
+
 var _selectTpl = __webpack_require__("h4Fq");
 
 var _selectTpl2 = _interopRequireDefault(_selectTpl);
@@ -1423,9 +1432,6 @@ function maTreeSelect($treeSelect) {
     controller: ['$scope', '$element', function ($scope, $element) {
       $scope.newItems = [];
       $scope.newModel = [];
-      $scope.textKey = 'text';
-      $scope.valueKey = 'value';
-      $scope.subKey = 'sub';
 
       $scope.$watch('items', function (data) {
         var newItems = [];
@@ -1497,6 +1503,10 @@ function maTreeSelect($treeSelect) {
       }
     }],
     link: function link(scope, element, attrs, ctrl) {
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+      scope.subKey = attrs.maSubKey || 'sub';
+
       attrs.$observe('maTextKey', function (d) {
         scope.textKey = d || 'text';
       });
@@ -1672,6 +1682,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
 
       var _this = this;
       var $select = this;
+
       this.searchEnabled = false;
 
       this.open = false;
@@ -1763,6 +1774,8 @@ function cmultiselect($parse, $window, $document, $timeout) {
         if (model && typeof model.assign === 'function') {
           model.assign($scope.$parent, d);
         }
+
+        updateStatus();
       });
 
       this.fixSelected = function () {
@@ -1882,7 +1895,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
           }
 
           if (item._parent && !isIn) {
-            console.log('same all check');
+            // console.log('same all check');
 
             newSelected = _this2.sameAllCheck(item, newSelected);
           }
@@ -1998,6 +2011,8 @@ function cmultiselect($parse, $window, $document, $timeout) {
         }
 
         _this2.openedItems = angular.extend([], _this2.openedItems);
+
+        updateStatus();
       };
 
       this.hasSubNotHidden = function (item) {
@@ -2081,7 +2096,18 @@ function cmultiselect($parse, $window, $document, $timeout) {
             item.searchHidden = false;
           }
         });
+        updateStatus();
       });
+
+      function updateStatus() {
+        angular.each($select.selectItems, function (item) {
+          item.__item_is_show = (!item._treeLinkFrom || $select.search || item._treeLinkFrom && $select.treeIsOpen(item._treeLinkFrom)) && (item.isHidden !== true || $select.hasSubNotHidden(item)) && item.searchHidden !== true;
+
+          item.__tree_is_open = $select.treeIsOpen(item._treeLinkTo);
+          item.__checkbox_has_sub = $select.hasSubSelected(item);
+          item.__checkbox_has_parent = $select.hasParentSelect(item);
+        });
+      }
     }]
   };
 }
@@ -2293,7 +2319,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
 /***/ "Vm7e":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi\"\nng-class=\"{\n  'hide-search': !$select.searchEnabled,\n  'select2-container-active select2-dropdown-open open': $select.open,\n  'select2-container-disabled': $select.selectDisabled,\n  'custom-tree-select': $select.isTree,\n  'custom-static-select': $select.isStatic\n}\">\n    <ma-input\n      placeholder=\"{{$select.selectModel.length ? '' : $select.placeholder}}\"\n      ng-class=\"{\n        'ma-input-arrow-down': !$select.open,\n        'ma-input-arrow-up': $select.open\n      }\"\n      ng-disabled=\"selectDisabled\"\n    ></ma-input>\n    <ul class=\"select2-choices\" ma-click=\"$select.showSelect()\"\n      ng-class=\"{\n        'has-selected': $select.selectModel.length\n      }\"\n    >\n        <li class=\"ui-select-match-item select2-search-choice ng-scope\" ng-repeat=\"$item in $select.selectModel track by $index\">\n            <span><span class=\"ng-binding ng-scope\">{{$item.displayText || $item.text}}</span></span>\n            <ma-icon\n            class=\"ui-select-match-close select2-search-choice-close\"\n            ma-type=\"closecircle\"\n            ma-click=\"$select.removeChoice($item, $event)\"\n            ></ma-icon>\n        </li>\n    </ul>\n    <div class=\"ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active\" ng-class=\"{'select2-display-none': !$select.open}\">\n        <div class=\"search-container select2-search\" ng-class=\"{'ui-select-search-hidden':!$select.searchEnabled, 'select2-search':$select.searchEnabled}\">\n            <div class=\"ma-input ma-input-search-normal\">\n              <input\n                type=\"text\"\n                autocomplete=\"off\"\n                autocorrect=\"off\"\n                autocapitalize=\"off\"\n                spellcheck=\"false\"\n                role=\"combobox\"\n                aria-expanded=\"true\"\n                aria-owns=\"ui-select-choices-0\"\n                aria-label=\"Select box\"\n                class=\"select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched\"\n                ng-model=\"$select.search\"\n                ondrop=\"return false;\"\n              >\n            </div>\n        </div>\n        <ul tabindex=\"-1\" class=\"ui-select-choices ui-select-choices-content select2-results ng-scope\" ng-class=\"{'has-scrollbar' : $select.selectItems.length > 5, 'has-search': $select.search}\">\n            <li class=\"ui-select-choices-row {{'tree-level-' +item._treeLevel}}\" ng-class=\"{'has-sub' : item.sub.length}\" data-tag-to=\"{{item._treeLinkTo}}\" ng-show=\"(!item._treeLinkFrom || $select.search || (item._treeLinkFrom && $select.treeIsOpen(item._treeLinkFrom))) && (item.isHidden !== true || $select.hasSubNotHidden(item)) && item.searchHidden !== true\" data-tag-from=\"{{item._treeLinkFrom}}\" ng-repeat=\"item in $select.selectItems\">\n              <div class=\"select2-result-label ui-select-choices-row-inner\" ma-click=\"$select.doSelect($event, item)\">\n                <div ng-class=\"{'tree-open': $select.treeIsOpen(item._treeLinkTo)}\">\n\n                        <i class=\"tree-arrow-click\" ng-if=\"item.sub.length\" ma-click=\"$select.toggleTree($event, item)\">\n                            <i class=\"tree-arrow\" ng-if=\"item.sub.length\"></i>\n                        </i>\n                        <!-- <div class=\"click-mask\"></div> -->\n                    <ma-checkbox\n                    unclick\n                    ng-model=\"item._selected\"\n                    style=\"pointer-events:none;\"\n                    ng-disabled=\"$select.selectDisabled\"\n                    ng-class=\"{\n                      'has-sub' : $select.hasSubSelected(item),\n                      'has-parent' : $select.hasParentSelect(item),\n                      'custom-multi-select-checkbox-hidden': item.hiddenCheck\n                    }\">\n                            <span ng-bind-html=\"item.text\"></span>\n                        </ma-checkbox>\n                  </div>\n                </div>\n            </li>\n        </ul>\n        <div\n          class=\"ma-dropdown-buttons\"\n          ng-show=\"$select.clear == 'true'\"\n          ma-click=\"$select.clearSelect()\"\n        >\n          <ma-button\n            ma-size=\"mini\"\n            ma-type=\"primary\"\n          >清空</ma-button>\n        </div>\n    </div>\n</div>\n\n";
+module.exports = "<div class=\"custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi\"\n  ng-class=\"{\n'hide-search': !$select.searchEnabled,\n'select2-container-active select2-dropdown-open open': $select.open,\n'select2-container-disabled': $select.selectDisabled,\n'custom-tree-select': $select.isTree,\n'custom-static-select': $select.isStatic\n}\">\n  <ma-input placeholder=\"{{$select.selectModel.length ? '' : $select.placeholder}}\"\n    ng-class=\"{\n      'ma-input-arrow-down': !$select.open,\n      'ma-input-arrow-up': $select.open\n    }\"\n    ng-disabled=\"selectDisabled\"></ma-input>\n  <ul class=\"select2-choices\"\n    ma-click=\"$select.showSelect()\"\n    ng-class=\"{\n      'has-selected': $select.selectModel.length\n    }\">\n    <li class=\"ui-select-match-item select2-search-choice ng-scope\"\n      ng-repeat=\"$item in $select.selectModel track by $index\">\n      <span>\n        <span class=\"ng-binding ng-scope\">{{$item.displayText || $item.text}}</span>\n      </span>\n      <ma-icon class=\"ui-select-match-close select2-search-choice-close\"\n        ma-type=\"closecircle\"\n        ma-click=\"$select.removeChoice($item, $event)\"></ma-icon>\n    </li>\n  </ul>\n  <div class=\"ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active\"\n    ng-class=\"{'select2-display-none': !$select.open}\">\n    <div class=\"search-container select2-search\"\n      ng-class=\"{'ui-select-search-hidden':!$select.searchEnabled, 'select2-search':$select.searchEnabled}\">\n      <div class=\"ma-input ma-input-search-normal\">\n        <input type=\"text\"\n          autocomplete=\"off\"\n          autocorrect=\"off\"\n          autocapitalize=\"off\"\n          spellcheck=\"false\"\n          role=\"combobox\"\n          aria-expanded=\"true\"\n          aria-owns=\"ui-select-choices-0\"\n          aria-label=\"Select box\"\n          class=\"select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched\"\n          ng-model=\"$select.search\"\n          ondrop=\"return false;\">\n      </div>\n    </div>\n    <ul tabindex=\"-1\"\n      class=\"ui-select-choices ui-select-choices-content select2-results ng-scope\"\n      ng-class=\"{'has-scrollbar' : $select.selectItems.length > 5, 'has-search': $select.search}\">\n      <li ng-repeat=\"item in $select.selectItems\"\n        class=\"ui-select-choices-row {{'tree-level-' +item._treeLevel}}\"\n        ng-class=\"{'has-sub' : item.sub.length}\"\n        data-tag-to=\"{{item._treeLinkTo}}\"\n        ng-if=\"item.__item_is_show\"\n        data-tag-from=\"{{item._treeLinkFrom}}\">\n        <div class=\"select2-result-label ui-select-choices-row-inner\"\n          ma-click=\"$select.doSelect($event, item)\">\n          <div ng-class=\"{'tree-open': item.__tree_is_open}\">\n\n            <i class=\"tree-arrow-click\"\n              ng-if=\"item.sub.length\"\n              ma-click=\"$select.toggleTree($event, item)\">\n              <i class=\"tree-arrow\"\n                ng-if=\"item.sub.length\"></i>\n            </i>\n            <!-- <div class=\"click-mask\"></div> -->\n            <ma-checkbox unclick\n              ng-model=\"item._selected\"\n              style=\"pointer-events:none;\"\n              ng-disabled=\"$select.selectDisabled\"\n              ng-class=\"{\n              'has-sub': item.__checkbox_has_sub,\n              'has-parent': item.__checkbox_has_parent,\n              'custom-multi-select-checkbox-hidden': item.hiddenCheck\n            }\">\n              <span ng-bind-html=\"item.text\"></span>\n            </ma-checkbox>\n          </div>\n        </div>\n      </li>\n    </ul>\n    <div class=\"ma-dropdown-buttons\"\n      ng-show=\"$select.clear == 'true'\"\n      ma-click=\"$select.clearSelect()\">\n      <ma-button ma-size=\"mini\"\n        ma-type=\"primary\">清空</ma-button>\n    </div>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -3145,8 +3171,9 @@ function maTransfer() {
       }
     }],
     link: function link(scope, element, attrs, ctrl) {
-      scope.textKey = 'text';
-      scope.valueKey = 'value';
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+
       attrs.$observe('maTextKey', function (d) {
         scope.textKey = d || 'text';
       });

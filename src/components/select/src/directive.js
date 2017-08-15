@@ -166,8 +166,9 @@ function maSelect($timeout) {
         }
       });
 
-      scope.textKey = 'text';
-      scope.valueKey = 'value';
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+
       attrs.$observe('maTextKey', d => {
         scope.textKey = d || 'text';
       });
