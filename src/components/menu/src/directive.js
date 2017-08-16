@@ -63,6 +63,8 @@ function maSecondMenu($state, $rootScope) {
     require: ['^maFirstMenu'],
     template: maSecondMenuTpl,
     controller: ['$scope', function($scope) {
+      const cls = 'has-second-nav';
+
       $scope.$state = $state;
 
       if (!$rootScope.routerConfig) {
@@ -71,7 +73,6 @@ function maSecondMenu($state, $rootScope) {
       $scope.routers = $rootScope.routerConfig;
 
       $scope.$on('$stateChangeSuccess', function() {
-        const cls = 'has-second-nav';
         let hasSecondNav = false;
 
         $scope.routers.forEach(router => {
@@ -91,13 +92,12 @@ function maSecondMenu($state, $rootScope) {
 
         $rootScope.$broadcast('update.second.menu');
 
-        $scope.$on('$destroy', e => {
-          $('body').removeClass(cls);
-          $(window).off('resize', $scope.resize);
-        });
-
-
         $scope.hasSecondNav = hasSecondNav;
+      });
+
+      $scope.$on('$destroy', e => {
+        $('body').removeClass(cls);
+        $(window).off('resize', $scope.resize);
       });
     }],
     link(scope, element, attrs, controllers) {
@@ -176,7 +176,6 @@ function maSiderMenu($state, $rootScope) {
           top = 0;
         }
 
-
         $($element).css({
           top
         });
@@ -207,14 +206,10 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       $scope.hasRouters = hasRouters;
       $scope.isParent = isParent;
       $scope.isActive = isActive;
-      bindStateChangeSuccess();
       expandCurrentMenu();
 
       $scope.$on('update.sider.menu.cls', expandCurrentMenu);
-
-      function bindStateChangeSuccess() {
-        $scope.$on('$stateChangeSuccess', expandCurrentMenu);
-      }
+      $scope.$on('$stateChangeSuccess', expandCurrentMenu);
 
       function expandCurrentMenu() {
         const cState = $state.current.name;

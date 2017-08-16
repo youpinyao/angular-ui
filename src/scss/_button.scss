@@ -39,7 +39,6 @@ $disabledOpacity: 0.6;
   text-align: center;
   min-width: 90px;
   cursor: pointer;
-  @include transition();
   @include unselect();
 
   .iconfont {
