@@ -33,7 +33,8 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
   self.dataset = $scope.tableConfig.dataset ? $scope.tableConfig.dataset : [];
   self.colsGroup = $scope.tableConfig.colsGroup ? $scope.tableConfig.colsGroup : [];
 
-  self.totalText = $scope.tableConfig.totalText === undefined ? '共{{params.total()}}条数据' : $scope.tableConfig
+  self.totalText = $scope.tableConfig.totalText === undefined ?
+    '<span>共{{params.total()}}条数据</span>' : $scope.tableConfig
     .totalText;
 
   self.page = $scope.tableConfig.page || 1;

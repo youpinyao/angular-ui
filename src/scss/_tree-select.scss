@@ -78,7 +78,7 @@ body > .select2-container.open {
   /* FIXME hardcoded value :-/ */
   border-top-style: solid;
   -webkit-box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
-          box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
   margin-top: -4px;
   /* FIXME hardcoded value :-/ */
 }
@@ -147,7 +147,7 @@ body > .select2-container.open {
 
 .ui-select-container[theme="selectize"].direction-up .ui-select-dropdown {
   -webkit-box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
-          box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
   margin-top: -2px;
   /* FIXME hardcoded value :-/ */
 }
@@ -176,7 +176,7 @@ body > .select2-container.open {
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
 .ui-select-bootstrap .ui-select-toggle {
@@ -354,7 +354,7 @@ body > .ui-select-bootstrap.open {
 
 .ui-select-container[theme="bootstrap"].direction-up .ui-select-dropdown {
   -webkit-box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
-          box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
 }
 
 .ui-select-bootstrap .ui-select-match-text {
@@ -444,7 +444,7 @@ select2.scss
   /* webkit */
   /* firefox */
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   /* css3 */
 }
 
@@ -577,7 +577,7 @@ select2.scss
   border-top: 0;
   border-radius: 0 0 4px 4px;
   -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
-          box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
   @include transition();
   @include transform-origin(top center);
 }
@@ -597,7 +597,7 @@ select2.scss
   border-bottom: 0;
   border-radius: 4px 4px 0 0;
   -webkit-box-shadow: 0 -4px 5px rgba(0, 0, 0, .15);
-          box-shadow: 0 -4px 5px rgba(0, 0, 0, .15);
+  box-shadow: 0 -4px 5px rgba(0, 0, 0, .15);
 }
 
 .select2-drop-active {
@@ -669,7 +669,7 @@ select2.scss
   border: 1px solid #aaa;
   border-radius: 0;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .select2-drop.select2-drop-above .select2-search input {
@@ -696,13 +696,13 @@ select2.scss
   border: 1px solid #5897fb;
   outline: none;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .3);
-          box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, .3);
 }
 
 .select2-dropdown-open .select2-choice {
   border-bottom-color: transparent;
   -webkit-box-shadow: 0 1px 0 #fff inset;
-          box-shadow: 0 1px 0 #fff inset;
+  box-shadow: 0 1px 0 #fff inset;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   background-color: #eee;
@@ -920,7 +920,7 @@ disabled look for disabled choices in the results dropdown
   border: 1px solid #5897fb;
   outline: none;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .3);
-          box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, .3);
 }
 
 .select2-container-multi .select2-choices li {
@@ -943,7 +943,7 @@ disabled look for disabled choices in the results dropdown
   outline: 0;
   border: 0;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   background: transparent !important;
 }
 
@@ -970,7 +970,7 @@ disabled look for disabled choices in the results dropdown
   border: 1px solid #aaaaaa;
   border-radius: 3px;
   -webkit-box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
   background-clip: padding-box;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -1045,6 +1045,11 @@ disabled look for disabled choices in the results dropdown
   visibility: hidden;
   opacity: 0;
   @include transform(scaleY(0));
+  &.select2-display-show {
+    visibility: visible;
+    opacity: 1;
+    @include transform(scaleY(1));
+  }
 }
 
 .select2-measure-scrollbar {
@@ -1078,7 +1083,7 @@ disabled look for disabled choices in the results dropdown
   padding: 0px;
   border: 0px;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .form-control.ui-select-container.open {}
@@ -1195,7 +1200,7 @@ disabled look for disabled choices in the results dropdown
   border: 1px solid #ffffff;
   margin-top: 0px;
   -webkit-box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.20);
-          box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.20);
+  box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.20);
   border-top-width: 0px !important;
 }
 
@@ -1218,7 +1223,7 @@ disabled look for disabled choices in the results dropdown
 
 .select2-drop {
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
-          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
   border: 1px solid #ffffff;
   z-index: 999;
   border-top: 0px;
@@ -1233,7 +1238,7 @@ disabled look for disabled choices in the results dropdown
   padding-left: 7px;
   border: 0px;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   border-radius: 4px 4px 4px 4px;
   font-size: 14px;
   color: #808080 !important;
@@ -1258,7 +1263,7 @@ disabled look for disabled choices in the results dropdown
 
 .select2-container.open .select2-choice {
   -webkit-box-shadow: 0 0px 3px 0 rgba(0, 0, 0, 0.20) !important;
-          box-shadow: 0 0px 3px 0 rgba(0, 0, 0, 0.20) !important;
+  box-shadow: 0 0px 3px 0 rgba(0, 0, 0, 0.20) !important;
   border-radius: 4px 4px 0px 0px !important;
   border-color: #ffffff !important;
 }
@@ -1323,7 +1328,7 @@ disabled look for disabled choices in the results dropdown
 .select2-container-multi .select2-choices .select2-search-choice {
   margin: 3px 5px 0px 0px;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   padding: 0px 5px;
   background-color: #ededef;
   border-radius: 4px;
@@ -1341,7 +1346,7 @@ disabled look for disabled choices in the results dropdown
   padding: 0px 30px 3px 10px;
   border: 0px;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   border-radius: 4px 4px 4px 4px;
   font-size: 14px;
   color: #808080 !important;
@@ -1360,14 +1365,14 @@ disabled look for disabled choices in the results dropdown
   border: 0px;
   border-top: 1px solid $outlines;
   -webkit-box-shadow: 0 0px 3px 0 rgba(0, 0, 0, 0.20);
-          box-shadow: 0 0px 3px 0 rgba(0, 0, 0, 0.20);
+  box-shadow: 0 0px 3px 0 rgba(0, 0, 0, 0.20);
 }
 
 .ma-tree-select .select2-container-multi.select2-container-active .select2-choices {
   border-color: rgba($black, 0.1);
   border-bottom: 1px solid $shadow;
   -webkit-box-shadow: 0 0px 1px 0 rgba($black, 0.25);
-          box-shadow: 0 0px 1px 0 rgba($black, 0.25);
+  box-shadow: 0 0px 1px 0 rgba($black, 0.25);
 }
 
 .select2-container-multi .select2-choices span {
@@ -1564,7 +1569,7 @@ disabled look for disabled choices in the results dropdown
 
 .custom-multi-select.custom-static-select .select2-drop {
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .select2-results::-webkit-scrollbar {

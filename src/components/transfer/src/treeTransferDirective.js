@@ -154,8 +154,8 @@ function maTreeTransfer($treeSelect, $timeout) {
         }
 
         setMaModel();
-        if (isObjectArray(d) && d.length === p.length) {
-          if ($scope.disabledWatch1) {
+        if (isObjectArray(d)) {
+          if ($scope.disabledWatch1 && d.length === p.length) {
             return;
           }
           if ($scope.disabledWatch2) {
