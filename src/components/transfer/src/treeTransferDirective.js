@@ -28,6 +28,7 @@ function maTreeTransfer($treeSelect, $timeout) {
     controllerAs: '$ctrl',
     controller: ['$scope', '$element', function($scope, $element) {
       const $ctrl = this;
+      const backData = {};
 
       this.leftData = [];
       this.rightData = [];
@@ -39,12 +40,25 @@ function maTreeTransfer($treeSelect, $timeout) {
       this.toRight = toRight;
 
       function getData(data) {
-        return $treeSelect.getSelectTreeData({
+        if (backData.treeData && $scope.textKey === backData.textKey && $scope.valueKey ===
+          backData.valueKey &&
+          $scope.subKey === backData.subKey) {
+          return $.extend(true, [], backData.treeData);
+        }
+
+        const treeData = $treeSelect.getSelectTreeData({
           data,
           text: $scope.textKey,
           value: $scope.valueKey,
           sub: $scope.subKey,
         });
+
+        backData.treeData = treeData;
+        backData.textKey = $scope.textKey;
+        backData.valueKey = $scope.valueKey;
+        backData.subKey = $scope.subKey;
+
+        return data;
       }
 
       $scope.$watch('data', d => {

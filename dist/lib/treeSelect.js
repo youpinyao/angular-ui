@@ -755,6 +755,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
 
       var _this = this;
       var $select = this;
+      var updateStatus = (0, _debounce2['default'])(_updateStatus, 0);
 
       this.searchEnabled = false;
 
@@ -784,12 +785,12 @@ function cmultiselect($parse, $window, $document, $timeout) {
         $scope.$select.selectDisabled = d;
       });
 
-      $scope.$parent.$watch($scope.ngModel, function (d) {
+      $scope.$parent.$watch($scope.ngModel, function (d, p) {
         $scope.$select.selectModel = d;
         $scope.$select.fixSelected();
       });
 
-      $scope.$parent.$watch($scope.ngItems, function (d) {
+      $scope.$parent.$watch($scope.ngItems, function (d, p) {
         var items = _jquery2['default'].extend([], d);
         var newItems = [];
 
@@ -817,7 +818,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
         $scope.$select.fixSelected();
       });
 
-      $scope.$watch('$select.selectModel', function (d) {
+      $scope.$watch('$select.selectModel', function (d, p) {
         var model = $parse($scope.ngModel);
         var hasOther = false;
 
@@ -853,7 +854,6 @@ function cmultiselect($parse, $window, $document, $timeout) {
 
       this.fixSelected = function () {
         // 纠正选中值
-
         if (_this2.selectModel && _this2.selectModel.length && !_this2.selectModel[0].$$hashKey && !_this2.isTree) {
           $scope.$applyAsync(function () {
             var selectValues = [];
@@ -1163,7 +1163,10 @@ function cmultiselect($parse, $window, $document, $timeout) {
         return has;
       };
 
-      $scope.$watch('$select.search', function (d) {
+      $scope.$watch('$select.search', function (d, p) {
+        if (d === p) {
+          return;
+        }
         angular.forEach(_this2.selectItems, function (item) {
           if (d && (item.text + '').indexOf(d) === -1) {
             item.searchHidden = true;
@@ -1174,7 +1177,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
         updateStatus();
       });
 
-      function updateStatus() {
+      function _updateStatus() {
         angular.each($select.selectItems, function (item) {
           item.__item_is_show = (!item._treeLinkFrom || $select.search || item._treeLinkFrom && $select.treeIsOpen(item._treeLinkFrom)) && (item.isHidden !== true || $select.hasSubNotHidden(item)) && item.searchHidden !== true;
 
@@ -1186,208 +1189,6 @@ function cmultiselect($parse, $window, $document, $timeout) {
     }]
   };
 }
-
-// cselect.$inject = ['$parse'];
-
-// function cselect($parse) {
-//   return {
-//     restrict: 'E',
-//     transclude: true,
-//     replace: true,
-//     scope: {
-//       // getData: '&',
-//       // cols: '@',
-//       // ngDisabled: '@ngDisabled'
-//       showLoading: '=showLoading'
-//     },
-//     template: selectTmpl,
-//     controllerAs: 'ctrl',
-//     link: function (scope, elem, attrs, controller) {
-//       scope.ctrl._uuid = attrs.selectUuid || '';
-
-//       scope.clearButton = attrs.clearButton !== undefined;
-
-//       attrs.$observe('ngDisabled', function (d) {
-//         scope.ctrl.selectDisabled = $parse(d)(scope.$parent);
-//       });
-
-//       attrs.$observe('searchEnabled', function (d) {
-//         scope.ctrl.searchEnabled = $parse(d)(scope.$parent);
-//       });
-
-//       // attrs.$observe('multiple', function(d) {
-//       //   scope.ctrl.multiple = true;
-//       // })
-
-//       attrs.$observe('ngSortable', function (d) {
-//         scope.ctrl.sortable = $parse(d)(scope.$parent);
-//       });
-
-//       attrs.$observe('limit', function (d) {
-//         scope.ctrl.limit = $parse(d)(scope.$parent);
-//       });
-
-//       attrs.$observe('placeholder', function (d) {
-//         scope.ctrl.placeholder = $parse(d)(scope.$parent);
-//       });
-
-//       scope.$parent.$watch(attrs.ngModel, function (d) {
-//         scope.ctrl.selectModel = d;
-
-//         scope.ctrl.fixSelected();
-//       });
-
-//       scope.$parent.$watch(attrs.ngItems, function (d) {
-//         scope.ctrl.selectItems = d;
-
-//         scope.ctrl.fixSelected();
-//       });
-
-
-//       scope.$watch('ctrl.selectModel', function (d) {
-//         var model = $parse(attrs.ngModel);
-
-//         // if (scope.ctrl.multiple) {
-//         //   angular.forEach(scope.ctrl.selectItems, function(d) {
-//         //     d.selected = false;
-//         //   })
-//         //   angular.forEach(d, function(dd) {
-//         //     dd.selected = true;
-//         //   })
-//         // }
-//         if (model && typeof model.assign === 'function') {
-//           model.assign(scope.$parent, d);
-//         }
-//       });
-
-//       // 添加搜索字段变动监听
-//       scope.$watch('ctrl.search', d => {
-//         if (attrs.searchChange) {
-//           scope.$parent.$eval(attrs.searchChange, scope.ctrl);
-//         }
-//       });
-//     },
-//     controller: ['$scope', '$interval', '$timeout', '$filter', function ($scope, $interval, $timeout, $filter) {
-//       $scope.ctrl.selectModel = null;
-//       $scope.ctrl.selectItems = null;
-//       $scope.ctrl.selectDisabled = false;
-//       $scope.ctrl.searchEnabled = false;
-//       // $scope.ctrl.sortable = false;
-//       // $scope.ctrl.multiple = false;
-//       $scope.ctrl.limit = undefined;
-//       $scope.ctrl.placeholder = '';
-
-
-//       $scope.ctrl.fixSelected = () => {
-//         // 纠正选中值
-//         if (!angular.isUndefinedOrNull($scope.ctrl.selectModel)) {
-//           angular.forEach($scope.ctrl.selectItems, d => {
-//             if (typeof $scope.ctrl.selectModel === 'object' && d.value == $scope.ctrl.selectModel.value && !$scope.ctrl.selectModel.$$hashKey) {
-//               $scope.ctrl.selectModel = d;
-//             }
-//             if (typeof $scope.ctrl.selectModel !== 'object' && d.value == $scope.ctrl.selectModel) {
-//               $scope.ctrl.selectModel = d;
-//             }
-//           });
-//         }
-//       };
-
-
-//       $scope.ctrl.showItem = function (item, searchKey) {
-//         var ret = false;
-
-//         if ((item.text + '').indexOf(searchKey) !== -1) {
-//           ret = true;
-//         }
-//         return ret;
-//       };
-
-
-//       // $scope.ctrl.multipleClick = function($event, item) {
-//       //   $event.stopPropagation();
-
-//       //   var newitems = [];
-//       //   var hasItem = false;
-
-//       //   angular.forEach($scope.ctrl.selectModel, function(data) {
-//       //     if (data === item) {
-//       //       hasItem = true;
-//       //     } else {
-//       //       newitems.push(data);
-//       //     }
-//       //   })
-
-//       //   if (!hasItem) {
-//       //     newitems.push(item);
-//       //   }
-
-//       //   $scope.ctrl.selectModel = newitems;
-//       // }
-//     }]
-//   };
-// }
-
-// dropdownInput.$inject = ['$parse', '$timeout', '$compile', '$rootScope'];
-
-// function dropdownInput($parse, $timeout, $compile, $rootScope) {
-//   return {
-//     restrict: 'A',
-//     link: function (scope, element, attrs) {
-//       var box = $('<div class="select-dropdown-input"></div>');
-//       var uuid = angular.uuid();
-//       var key = 'selectValue' + uuid.split('-').join('');
-//       var changeing = false;
-
-
-//       $(element).replaceWith(box);
-//       box.append(element);
-//       box.attr('ng-model', attrs.ngModel);
-//       element.removeAttr('dropdown-input');
-//       element.removeAttr('ng-model');
-
-
-//       scope[key] = $parse(attrs.ngModel)(scope) || undefined;
-
-
-//       scope.$watch(attrs.ngModel, function (d) {
-//         if (d) {
-//           element.val(d.text);
-//         }
-//       });
-
-//       // scope.$on('$destroy', function (d) {});
-
-//       scope.$watch(key, function (d) {
-//         // console.log('watch key', d)
-//         if (!d) {
-//           return;
-//         }
-//         // if (changeing || !d) {
-//         //   return;
-//         // }
-//         // changeing = true;
-
-
-//         var model = $parse(attrs.ngModel);
-//         if (model && typeof model.assign === 'function') {
-//           model.assign(scope, d);
-//         }
-
-//         // $timeout(function() {
-//         //   changeing = false;
-//         // }, 100);
-//       });
-
-//       box.append('<cselect ng-model="' + key + '" select-uuid="' + uuid + '" ng-items="' + attrs.dropdownInput + '"></cselect>');
-
-//       $compile(box.contents())(scope);
-
-//       element.bind('mouseup', function () {
-//         scope.$broadcast('show.select.' + uuid);
-//       });
-//     }
-//   };
-// }
 
 /***/ }),
 
