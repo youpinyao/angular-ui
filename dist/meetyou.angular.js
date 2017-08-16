@@ -48879,9 +48879,9 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-maTableController.$inject = ['NgTableParams', '$scope', '$element', '$interpolate', '$sce', '$table', '$timeout', '$attrs'];
+maTableController.$inject = ['NgTableParams', '$scope', '$element', '$interpolate', '$sce', '$table', '$timeout', '$attrs', '$interval'];
 
-function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, $table, $timeout, $attrs) {
+function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, $table, $timeout, $attrs, $interval) {
   var self = this;
 
   // var dataset = [{ id: 1, name: 'christian', age: 21 }, { id: 2, name: 'anthony', age: 88 },
@@ -49194,6 +49194,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
   $scope.$on('$destroy', function () {
     $table.removeTable(self.tableId, self.tableParams);
     (0, _jquery2['default'])(window).unbind('resize', setFloatTable);
+    $interval.cancel($scope.setFloatTableTimer);
   });
 
   // 计算漂浮 table 的宽度
@@ -49205,6 +49206,10 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
   $timeout(function () {
     setFloatTable();
   }, 100);
+  // 加这个原因是因为：列表内的图片加载撑高了table高度
+  $scope.setFloatTableTimer = $interval(function () {
+    setFloatTable();
+  }, 2000);
 
   function setFloatTable() {
     $timeout(function () {
@@ -52454,11 +52459,11 @@ function cmultiselect($parse, $window, $document, $timeout) {
 
       $scope.$parent.$watch($scope.ngItems, function (d) {
         var items = _jquery2['default'].extend([], d);
-        var newitems = [];
+        var newItems = [];
 
         function getSub(items, parentItem, treeLevel) {
           angular.forEach(items, function (item) {
-            newitems.push(item);
+            newItems.push(item);
 
             item._treeLevel = treeLevel;
 
@@ -52475,7 +52480,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
         }
         getSub(items, null, 0);
 
-        $scope.$select.selectItems = newitems;
+        $scope.$select.selectItems = newItems;
 
         $scope.$select.fixSelected();
       });
@@ -52536,6 +52541,8 @@ function cmultiselect($parse, $window, $document, $timeout) {
             _this2.selectModel = selectModel;
           });
         }
+
+        updateStatus();
       };
 
       this.clearSelect = function () {

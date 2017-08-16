@@ -1,11 +1,11 @@
 import $ from 'jquery';
 
 maTableController.$inject = ['NgTableParams', '$scope', '$element', '$interpolate', '$sce',
-  '$table', '$timeout', '$attrs'
+  '$table', '$timeout', '$attrs', '$interval',
 ];
 
 function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, $table, $timeout,
-  $attrs) {
+  $attrs, $interval) {
   var self = this;
 
   // var dataset = [{ id: 1, name: 'christian', age: 21 }, { id: 2, name: 'anthony', age: 88 },
@@ -327,8 +327,8 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
   $scope.$on('$destroy', function() {
     $table.removeTable(self.tableId, self.tableParams);
     $(window).unbind('resize', setFloatTable);
+    $interval.cancel($scope.setFloatTableTimer);
   });
-
 
   // 计算漂浮 table 的宽度
   $(window).bind('resize', setFloatTable);
@@ -339,6 +339,10 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
   $timeout(() => {
     setFloatTable();
   }, 100);
+  // 加这个原因是因为：列表内的图片加载撑高了table高度
+  $scope.setFloatTableTimer = $interval(() => {
+    setFloatTable();
+  }, 2000);
 
   function setFloatTable() {
     $timeout(() => {

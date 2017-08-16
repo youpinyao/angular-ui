@@ -791,11 +791,11 @@ function cmultiselect($parse, $window, $document, $timeout) {
 
       $scope.$parent.$watch($scope.ngItems, function (d) {
         var items = _jquery2['default'].extend([], d);
-        var newitems = [];
+        var newItems = [];
 
         function getSub(items, parentItem, treeLevel) {
           angular.forEach(items, function (item) {
-            newitems.push(item);
+            newItems.push(item);
 
             item._treeLevel = treeLevel;
 
@@ -812,7 +812,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
         }
         getSub(items, null, 0);
 
-        $scope.$select.selectItems = newitems;
+        $scope.$select.selectItems = newItems;
 
         $scope.$select.fixSelected();
       });
@@ -873,6 +873,8 @@ function cmultiselect($parse, $window, $document, $timeout) {
             _this2.selectModel = selectModel;
           });
         }
+
+        updateStatus();
       };
 
       this.clearSelect = function () {
