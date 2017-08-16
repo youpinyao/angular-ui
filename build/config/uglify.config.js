@@ -10,9 +10,11 @@ module.exports = new webpack.optimize.UglifyJsPlugin({
   },
   compress: {
     screw_ie8: false,
-    warnings: false
+    warnings: false,
+    drop_debugger: true,
+    drop_console: true,
   },
   output: {
-    screw_ie8: false
+    screw_ie8: false,
   }
 });
