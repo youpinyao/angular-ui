@@ -5237,7 +5237,7 @@ function maTreeTransfer($treeSelect, $timeout) {
       this.toRight = toRight;
 
       function getData(data) {
-        if (backData.treeData && $scope.textKey === backData.textKey && $scope.valueKey === backData.valueKey && $scope.subKey === backData.subKey) {
+        if (!angular.isEmpty(backData.treeData) && $scope.textKey === backData.textKey && $scope.valueKey === backData.valueKey && $scope.subKey === backData.subKey) {
           return _jquery2['default'].extend(true, [], backData.treeData);
         }
 
@@ -5253,16 +5253,21 @@ function maTreeTransfer($treeSelect, $timeout) {
         backData.valueKey = $scope.valueKey;
         backData.subKey = $scope.subKey;
 
-        return data;
+        return _jquery2['default'].extend(true, [], treeData);
       }
 
       $scope.$watch('data', function (d) {
         $ctrl.leftData = getData(d);
         $ctrl.rightData = getData(d);
+
         toRight(true);
       });
 
       $scope.$watch('model', function (d) {
+        if (angular.isEmpty($scope.data)) {
+          return;
+        }
+
         setMaModel();
         if (isObjectArray(d)) {
           if ($scope.disabledWatch1) {
