@@ -6193,8 +6193,6 @@ textarea.ma-input {
   text-align: center;
   min-width: 90px;
   cursor: pointer;
-  transition: all 300ms ease;
-  -webkit-transtion: all 300ms ease;
   -webkit-touch-callout: none;
   -webkit-user-drag: none;
   -webkit-user-select: none;
