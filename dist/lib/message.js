@@ -33,6 +33,18 @@ function messageFactory($rootScope, $q, $http, $timeout, $compile) {
     messageBox = (0, _jquery2['default'])(_maMessageTpl2['default']);
     (0, _jquery2['default'])('body').append(messageBox);
     $compile(messageBox)($rootScope);
+    $rootScope.$hideMessage = hideMessage;
+  }
+
+  function hideMessage(index) {
+    var msg = $rootScope.weakTipList[index];
+
+    msg.hide = true;
+    $timeout();
+    setTimeout(function (msg) {
+      msg.remove = true;
+      $timeout();
+    }, 800, msg);
   }
 
   return {
@@ -98,7 +110,7 @@ function messageFactory($rootScope, $q, $http, $timeout, $compile) {
 /***/ "F7JF":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"weak-tip\" ng-show=\"$root.weakTipList.length\">\n  <div ng-repeat=\"tip in $root.weakTipList\" ng-if=\"tip.remove !== true\">\n    <div\n    ng-click=\"$root.weakTipList[$index].hide = true\"\n    ng-class=\"{'show-in': tip.hide === false, 'weak-tip-success': tip.type == 'success', 'weak-tip-danger': tip.type == 'danger', 'weak-tip-warning': tip.type == 'warning'}\" ng-bind=\"tip.text\"\n    ng-cloak></div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"weak-tip\" ng-show=\"$root.weakTipList.length\">\n  <div ng-repeat=\"tip in $root.weakTipList\" ng-if=\"tip.remove !== true\">\n    <div\n    ng-click=\"$root.$hideMessage($index)\"\n    ng-class=\"{'show-in': tip.hide === false, 'weak-tip-success': tip.type == 'success', 'weak-tip-danger': tip.type == 'danger', 'weak-tip-warning': tip.type == 'warning'}\" ng-bind=\"tip.text\"\n    ng-cloak></div>\n  </div>\n</div>\n";
 
 /***/ }),
 

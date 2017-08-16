@@ -1,7 +1,7 @@
 <div class="weak-tip" ng-show="$root.weakTipList.length">
   <div ng-repeat="tip in $root.weakTipList" ng-if="tip.remove !== true">
     <div
-    ng-click="$root.weakTipList[$index].hide = true"
+    ng-click="$root.$hideMessage($index)"
     ng-class="{'show-in': tip.hide === false, 'weak-tip-success': tip.type == 'success', 'weak-tip-danger': tip.type == 'danger', 'weak-tip-warning': tip.type == 'warning'}" ng-bind="tip.text"
     ng-cloak></div>
   </div>

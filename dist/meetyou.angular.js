@@ -1413,6 +1413,18 @@ function messageFactory($rootScope, $q, $http, $timeout, $compile) {
     messageBox = (0, _jquery2['default'])(_maMessageTpl2['default']);
     (0, _jquery2['default'])('body').append(messageBox);
     $compile(messageBox)($rootScope);
+    $rootScope.$hideMessage = hideMessage;
+  }
+
+  function hideMessage(index) {
+    var msg = $rootScope.weakTipList[index];
+
+    msg.hide = true;
+    $timeout();
+    setTimeout(function (msg) {
+      msg.remove = true;
+      $timeout();
+    }, 800, msg);
   }
 
   return {
@@ -5263,63 +5275,7 @@ function maTreeTransfer($treeSelect, $timeout) {
         toRight(true);
       });
 
-      $scope.$watch('model', function (d) {
-        if (angular.isEmpty($scope.data)) {
-          return;
-        }
-
-        setMaModel();
-        if (isObjectArray(d)) {
-          if ($scope.disabledWatch1) {
-            return;
-          }
-          if ($scope.disabledWatch2) {
-            return;
-          }
-        }
-
-        var selectedModel = [];
-        var leftSelected = [];
-        var isValueArray = false;
-        var valueArrayLength = 0;
-
-        angular.each(d, function (d) {
-          if (!angular.isObject(d)) {
-            valueArrayLength++;
-          }
-        });
-
-        if (valueArrayLength >= d.length) {
-          d = $treeSelect.filterSelectTreeData(getData($scope.data), d);
-        }
-
-        angular.each(d, function (d) {
-          if (angular.isObject(d)) {
-            selectedModel.push(d[$scope.valueKey]);
-          } else {
-            selectedModel.push(d);
-          }
-        });
-
-        function getInitSelected(data) {
-          angular.each(data, function (d) {
-            if (selectedModel.indexOf(d.value) !== -1) {
-              leftSelected.push(d);
-            }
-            if (d.sub && d.sub.length) {
-              getInitSelected(d.sub);
-            }
-          });
-        }
-        getInitSelected(getData($scope.data));
-        $ctrl.leftSelected = leftSelected;
-        $scope.model = [];
-
-        $ctrl.leftData = getData($scope.data);
-        $ctrl.rightData = getData($scope.data);
-
-        toRight();
-      });
+      $scope.$watch('model', watchModel);
 
       $scope.$watch('$ctrl.leftSelected', function (d, p) {
         $ctrl.leftButtonDisabled = !(d && d.length);
@@ -5394,6 +5350,64 @@ function maTreeTransfer($treeSelect, $timeout) {
       });
 
       $scope.$watch('rightData', setMaModel);
+
+      function watchModel(d, p) {
+        if (angular.isEmpty($scope.data)) {
+          return;
+        }
+
+        setMaModel();
+        if (isObjectArray(d) && d.length === p.length) {
+          if ($scope.disabledWatch1) {
+            return;
+          }
+          if ($scope.disabledWatch2) {
+            return;
+          }
+        }
+
+        var selectedModel = [];
+        var leftSelected = [];
+        var isValueArray = false;
+        var valueArrayLength = 0;
+
+        angular.each(d, function (d) {
+          if (!angular.isObject(d)) {
+            valueArrayLength++;
+          }
+        });
+
+        if (valueArrayLength >= d.length) {
+          d = $treeSelect.filterSelectTreeData(getData($scope.data), d);
+        }
+
+        angular.each(d, function (d) {
+          if (angular.isObject(d)) {
+            selectedModel.push(d[$scope.valueKey]);
+          } else {
+            selectedModel.push(d);
+          }
+        });
+
+        function getInitSelected(data) {
+          angular.each(data, function (d) {
+            if (selectedModel.indexOf(d.value) !== -1) {
+              leftSelected.push(d);
+            }
+            if (d.sub && d.sub.length) {
+              getInitSelected(d.sub);
+            }
+          });
+        }
+        getInitSelected(getData($scope.data));
+        $ctrl.leftSelected = leftSelected;
+        $scope.model = [];
+
+        $ctrl.leftData = getData($scope.data);
+        $ctrl.rightData = getData($scope.data);
+
+        toRight();
+      }
 
       function toRight(isInit) {
         var pushedValues = [];
@@ -36998,7 +37012,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ "F7JF":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"weak-tip\" ng-show=\"$root.weakTipList.length\">\n  <div ng-repeat=\"tip in $root.weakTipList\" ng-if=\"tip.remove !== true\">\n    <div\n    ng-click=\"$root.weakTipList[$index].hide = true\"\n    ng-class=\"{'show-in': tip.hide === false, 'weak-tip-success': tip.type == 'success', 'weak-tip-danger': tip.type == 'danger', 'weak-tip-warning': tip.type == 'warning'}\" ng-bind=\"tip.text\"\n    ng-cloak></div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"weak-tip\" ng-show=\"$root.weakTipList.length\">\n  <div ng-repeat=\"tip in $root.weakTipList\" ng-if=\"tip.remove !== true\">\n    <div\n    ng-click=\"$root.$hideMessage($index)\"\n    ng-class=\"{'show-in': tip.hide === false, 'weak-tip-success': tip.type == 'success', 'weak-tip-danger': tip.type == 'danger', 'weak-tip-warning': tip.type == 'warning'}\" ng-bind=\"tip.text\"\n    ng-cloak></div>\n  </div>\n</div>\n";
 
 /***/ }),
 

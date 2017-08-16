@@ -69,63 +69,7 @@ function maTreeTransfer($treeSelect, $timeout) {
         toRight(true);
       });
 
-      $scope.$watch('model', d => {
-        if (angular.isEmpty($scope.data)) {
-          return;
-        }
-
-        setMaModel();
-        if (isObjectArray(d)) {
-          if ($scope.disabledWatch1) {
-            return;
-          }
-          if ($scope.disabledWatch2) {
-            return;
-          }
-        }
-
-        let selectedModel = [];
-        let leftSelected = [];
-        let isValueArray = false;
-        let valueArrayLength = 0;
-
-        angular.each(d, d => {
-          if (!angular.isObject(d)) {
-            valueArrayLength++;
-          }
-        });
-
-        if (valueArrayLength >= d.length) {
-          d = $treeSelect.filterSelectTreeData(getData($scope.data), d);
-        }
-
-        angular.each(d, d => {
-          if (angular.isObject(d)) {
-            selectedModel.push(d[$scope.valueKey]);
-          } else {
-            selectedModel.push(d);
-          }
-        });
-
-        function getInitSelected(data) {
-          angular.each(data, d => {
-            if (selectedModel.indexOf(d.value) !== -1) {
-              leftSelected.push(d);
-            }
-            if (d.sub && d.sub.length) {
-              getInitSelected(d.sub);
-            }
-          });
-        }
-        getInitSelected(getData($scope.data));
-        $ctrl.leftSelected = leftSelected;
-        $scope.model = [];
-
-        $ctrl.leftData = getData($scope.data);
-        $ctrl.rightData = getData($scope.data);
-
-        toRight();
-      });
+      $scope.$watch('model', watchModel);
 
 
       $scope.$watch('$ctrl.leftSelected', function(d, p) {
@@ -203,6 +147,64 @@ function maTreeTransfer($treeSelect, $timeout) {
       });
 
       $scope.$watch('rightData', setMaModel);
+
+      function watchModel(d, p) {
+        if (angular.isEmpty($scope.data)) {
+          return;
+        }
+
+        setMaModel();
+        if (isObjectArray(d) && d.length === p.length) {
+          if ($scope.disabledWatch1) {
+            return;
+          }
+          if ($scope.disabledWatch2) {
+            return;
+          }
+        }
+
+        let selectedModel = [];
+        let leftSelected = [];
+        let isValueArray = false;
+        let valueArrayLength = 0;
+
+        angular.each(d, d => {
+          if (!angular.isObject(d)) {
+            valueArrayLength++;
+          }
+        });
+
+        if (valueArrayLength >= d.length) {
+          d = $treeSelect.filterSelectTreeData(getData($scope.data), d);
+        }
+
+        angular.each(d, d => {
+          if (angular.isObject(d)) {
+            selectedModel.push(d[$scope.valueKey]);
+          } else {
+            selectedModel.push(d);
+          }
+        });
+
+        function getInitSelected(data) {
+          angular.each(data, d => {
+            if (selectedModel.indexOf(d.value) !== -1) {
+              leftSelected.push(d);
+            }
+            if (d.sub && d.sub.length) {
+              getInitSelected(d.sub);
+            }
+          });
+        }
+        getInitSelected(getData($scope.data));
+        $ctrl.leftSelected = leftSelected;
+        $scope.model = [];
+
+        $ctrl.leftData = getData($scope.data);
+        $ctrl.rightData = getData($scope.data);
+
+        toRight();
+      }
 
       function toRight(isInit) {
         const pushedValues = [];

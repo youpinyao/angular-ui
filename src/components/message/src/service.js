@@ -16,6 +16,18 @@ function messageFactory($rootScope, $q, $http, $timeout, $compile) {
     messageBox = $(maMessageTpl);
     $('body').append(messageBox);
     $compile(messageBox)($rootScope);
+    $rootScope.$hideMessage = hideMessage;
+  }
+
+  function hideMessage(index) {
+    const msg = $rootScope.weakTipList[index];
+
+    msg.hide = true;
+    $timeout();
+    setTimeout(function(msg) {
+      msg.remove = true;
+      $timeout();
+    }, 800, msg);
   }
 
   return {
@@ -40,15 +52,15 @@ function messageFactory($rootScope, $q, $http, $timeout, $compile) {
       };
       $rootScope.weakTipList.push(msg);
 
-      setTimeout(function (msg) {
+      setTimeout(function(msg) {
         msg.hide = false;
         $timeout();
       }, 50, msg);
 
-      setTimeout(function (msg) {
+      setTimeout(function(msg) {
         msg.hide = true;
         $timeout();
-        setTimeout(function (msg) {
+        setTimeout(function(msg) {
           msg.remove = true;
           $timeout();
         }, 800, msg);

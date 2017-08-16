@@ -10,7 +10,14 @@
   padding: 0px 10px 0px 10px;
 }
 
-.weak-tip>div>div {
+.weak-tip > div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.weak-tip > div > div {
   vertical-align: top;
   display: inline-block;
   opacity: 0;
@@ -20,21 +27,22 @@
   color: $green;
   border-radius: 4px;
   text-align: left;
-  padding: 0px 65px 0px 20px;
-  height: 0px;
   overflow: hidden;
-  margin-bottom: 0px;
   border: 1px solid $success;
-  border-width: 0px;
   background-color: $successBg;
+  padding: 8px 65px 8px 20px;
+  -webkit-box-shadow: 0 2px 5px 0 rgba($success, 0.20);
   box-shadow: 0 2px 5px 0 rgba($success, 0.20);
+  word-break: break-all;
   min-width: 350px;
-  max-width: 350px;
-  @include transition(all 600ms ease);
+  max-width: 900px;
+  pointer-events: none;
+  visibility: hidden;
+  @include transition(all 300ms ease);
   @include transform(translateY(-30px));
 }
 
-.weak-tip>div>div:after {
+.weak-tip > div > div:after {
   content: "关闭";
   line-height: 38px;
   display: block;
@@ -46,34 +54,33 @@
   cursor: pointer;
 }
 
-.weak-tip>div>div.show-in {
-  @include transition(all 300ms ease);
+.weak-tip > div > div.show-in {
   @include transform(translateY(0px));
   opacity: 1;
-  padding: 8px 65px 8px 20px;
-  border-width: 1px;
-  height: 38px;
-  margin-bottom: 10px;
+  visibility: visible;
+  pointer-events: auto;
 }
 
-.weak-tip>div>div.weak-tip-danger {
+.weak-tip > div > div.weak-tip-danger {
   border-color: $danger;
   background-color: $dangerBg;
   color: $danger;
+  -webkit-box-shadow: 0 2px 5px 0 rgba($danger, 0.20);
   box-shadow: 0 2px 5px 0 rgba($danger, 0.20);
 }
 
-.weak-tip>div>div.weak-tip-danger:after {
+.weak-tip > div > div.weak-tip-danger:after {
   color: $danger;
 }
 
-.weak-tip>div>div.weak-tip-warning {
+.weak-tip > div > div.weak-tip-warning {
   border-color: $warning;
   background-color: $warningBg;
   color: $warning;
+  -webkit-box-shadow: 0 2px 5px 0 rgba($warning, 0.20);
   box-shadow: 0 2px 5px 0 rgba($warning, 0.20);
 }
 
-.weak-tip>div>div.weak-tip-warning:after {
+.weak-tip > div > div.weak-tip-warning:after {
   color: $warning;
 }
