@@ -5390,7 +5390,7 @@ function maTreeTransfer($treeSelect, $timeout) {
 
         angular.each(d, function (d) {
           if (angular.isObject(d)) {
-            selectedModel.push(d[$scope.valueKey]);
+            selectedModel.push(d[$scope.valueKey] || d.value);
           } else {
             selectedModel.push(d);
           }
@@ -5423,6 +5423,8 @@ function maTreeTransfer($treeSelect, $timeout) {
           $scope.model = [];
         }
         getSelectedValues($ctrl.leftSelected);
+
+        console.log(3333333, $scope.model);
 
         $scope.leftData = $treeSelect.hiddenSelectTreeData($ctrl.leftData, $scope.model);
         $scope.rightData = $treeSelect.hiddenSelectTreeData($ctrl.rightData, $scope.model);
@@ -52992,7 +52994,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
           }
         });
         updateStatus();
-        updateHtmlItems();
+        // updateHtmlItems();
       });
 
       function _updateHtmlItems() {
@@ -53003,6 +53005,8 @@ function cmultiselect($parse, $window, $document, $timeout) {
         target.html('');
 
         angular.each($select.selectItems, function (item) {
+          updateItem(item);
+
           index++;
           var itemElement = (0, _jquery2['default'])(_itemTpl2['default'].replace(/&&\{index\}/g, index));
 
@@ -53011,17 +53015,26 @@ function cmultiselect($parse, $window, $document, $timeout) {
         });
 
         $compile(target.contents())($scope);
-        $timeout();
+        $timeout(function () {
+          $scope.inited = true;
+        });
+      }
+
+      function updateItem(item) {
+        item.__item_is_show = (!item._treeLinkFrom || $select.search || item._treeLinkFrom && $select.treeIsOpen(item._treeLinkFrom)) && (item.isHidden !== true || $select.hasSubNotHidden(item)) && item.searchHidden !== true;
+
+        item.__tree_is_open = $select.treeIsOpen(item._treeLinkTo);
+        item.__checkbox_has_sub = $select.hasSubSelected(item);
+        item.__checkbox_has_parent = $select.hasParentSelect(item);
       }
 
       function _updateStatus() {
-        angular.each($select.selectItems, function (item) {
-          item.__item_is_show = (!item._treeLinkFrom || $select.search || item._treeLinkFrom && $select.treeIsOpen(item._treeLinkFrom)) && (item.isHidden !== true || $select.hasSubNotHidden(item)) && item.searchHidden !== true;
-
-          item.__tree_is_open = $select.treeIsOpen(item._treeLinkTo);
-          item.__checkbox_has_sub = $select.hasSubSelected(item);
-          item.__checkbox_has_parent = $select.hasParentSelect(item);
-        });
+        if ($scope.inited === true) {
+          angular.each($select.selectItems, function (item) {
+            updateItem(item);
+          });
+          $timeout();
+        }
       }
     }]
   };

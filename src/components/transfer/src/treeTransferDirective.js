@@ -180,7 +180,7 @@ function maTreeTransfer($treeSelect, $timeout) {
 
         angular.each(d, d => {
           if (angular.isObject(d)) {
-            selectedModel.push(d[$scope.valueKey]);
+            selectedModel.push(d[$scope.valueKey] || d.value);
           } else {
             selectedModel.push(d);
           }
@@ -213,6 +213,8 @@ function maTreeTransfer($treeSelect, $timeout) {
           $scope.model = [];
         }
         getSelectedValues($ctrl.leftSelected);
+
+        console.log(3333333, $scope.model);
 
         $scope.leftData = $treeSelect.hiddenSelectTreeData($ctrl.leftData, $scope.model);
         $scope.rightData = $treeSelect.hiddenSelectTreeData($ctrl.rightData, $scope.model);

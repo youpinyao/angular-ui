@@ -66,18 +66,18 @@ function mainCtrl($scope, $q, $timeout, $treeSelect) {
       }]
     }];
 
-    $scope.selectTreeValue = ['7777'];
+    $scope.selectTreeValue = ['6666'];
   }, 300);
 
   $scope.$watch('selectValue', d => {
-    console.log('normal', d);
+    // console.log('normal', d);
   });
 
   $scope.$watch('selectTreeValue', d => {
-    console.log('tree', d);
+    // console.log('tree', d);
   });
   $scope.$watch('selectTreeParentValue', d => {
-    console.log('tree parent', d);
+    // console.log('tree parent', d);
   });
 }
 
