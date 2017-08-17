@@ -211,19 +211,23 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
       $scope.$on('update.sider.menu.cls', expandCurrentMenu);
       $scope.$on('$stateChangeSuccess', expandCurrentMenu);
 
-      function expandCurrentMenu() {
+      function expandCurrentMenu(routers) {
         const cState = $state.current.name;
         const currentUrl = $state.href(cState, $state.params);
+        const isFromParent = angular.isArray(routers);
 
-        if ($scope.routers) {
-          angular.each($scope.routers, router => {
+        if (isFromParent || $scope.routers) {
+          angular.each(isFromParent ? routers[0] : $scope.routers, router => {
             const routerUrl = $state.href(router.state, router.params);
 
             if (cState.indexOf(router.state + '.') !== -1) {
               router.expand = true;
             }
-
-            if (!!$scope.parentRouter && isActive(router)) {
+            if (isFromParent) {
+              if (isActive(router)) {
+                routers[1].expand = true;
+              }
+            } else if (!!$scope.parentRouter && isActive(router)) {
               $scope.parentRouter.expand = true;
             }
 
@@ -231,6 +235,10 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
             router.cls += isActive(router) ? 'active ' : '';
             router.cls += router.routers && router.routers.length ? 'arrow ' : '';
             router.cls += isParent(currentUrl, routerUrl) ? 'parent ' : '';
+
+            if (router.routers && router.routers.length) {
+              expandCurrentMenu([router.routers, router]);
+            }
           });
         }
       }
