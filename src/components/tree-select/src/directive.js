@@ -1,8 +1,8 @@
 import moduleName from './name.js';
 import $ from 'jquery';
 import debounce from 'debounce';
-import selectTmpl from './selectTpl.html';
 import multiSelectTpl from './multiSelectTpl.html';
+import itemTpl from './itemTpl.html';
 
 import 'ui-select';
 import './util.js';
@@ -302,10 +302,12 @@ function cmultiselect($parse, $window, $document, $timeout) {
         // }
       };
     },
-    controller: ['$scope', '$timeout', function($scope, $timeout) {
+    controller: ['$scope', '$timeout', '$compile', '$element', function($scope, $timeout, $compile,
+      $element) {
       const _this = this;
       const $select = this;
       const updateStatus = debounce(_updateStatus, 0);
+      const updateHtmlItems = debounce(_updateHtmlItems, 0);
 
       this.searchEnabled = false;
 
@@ -370,6 +372,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
         $scope.$select.selectItems = newItems;
 
         $scope.$select.fixSelected();
+        updateHtmlItems();
       });
 
 
@@ -403,7 +406,6 @@ function cmultiselect($parse, $window, $document, $timeout) {
         if (model && typeof model.assign === 'function') {
           model.assign($scope.$parent, d);
         }
-
         updateStatus();
       });
 
@@ -741,7 +743,27 @@ function cmultiselect($parse, $window, $document, $timeout) {
           }
         });
         updateStatus();
+        updateHtmlItems();
       });
+
+      function _updateHtmlItems() {
+        let htmlItems = '';
+        const target = $($element).find('.ui-select-choices-content');
+        let index = -1;
+
+        target.html('');
+
+        angular.each($select.selectItems, item => {
+          index++;
+          const itemElement = $(itemTpl.replace(/&&\{index\}/g, index));
+
+          $scope[`item${index}`] = item;
+          target.append(itemElement);
+        });
+
+        $compile(target.contents())($scope);
+        $timeout();
+      }
 
       function _updateStatus() {
         angular.each($select.selectItems, item => {

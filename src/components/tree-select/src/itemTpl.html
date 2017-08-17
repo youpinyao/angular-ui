@@ -1,0 +1,30 @@
+<li class="ui-select-choices-row {{'tree-level-' +item&&{index}._treeLevel}}"
+  ng-class="{'has-sub' : item&&{index}.sub.length}"
+  data-tag-to="{{item&&{index}._treeLinkTo}}"
+  ng-if="item&&{index}.__item_is_show"
+  data-tag-from="{{item&&{index}._treeLinkFrom}}">
+  <div class="select2-result-label ui-select-choices-row-inner"
+    ma-click="$select.doSelect($event, item&&{index})">
+    <div ng-class="{'tree-open': item&&{index}.__tree_is_open}">
+
+      <i class="tree-arrow-click"
+        ng-if="item&&{index}.sub.length"
+        ma-click="$select.toggleTree($event, item&&{index})">
+        <i class="tree-arrow"
+          ng-if="item&&{index}.sub.length"></i>
+      </i>
+      <!-- <div class="click-mask"></div> -->
+      <ma-checkbox unclick
+        ng-model="item&&{index}._selected"
+        style="pointer-events:none;"
+        ng-disabled="$select.selectDisabled"
+        ng-class="{
+    'has-sub': item&&{index}.__checkbox_has_sub,
+    'has-parent': item&&{index}.__checkbox_has_parent,
+    'custom-multi-select-checkbox-hidden': item&&{index}.hiddenCheck
+  }">
+        <span ng-bind-html="item&&{index}.text"></span>
+      </ma-checkbox>
+    </div>
+  </div>
+</li>

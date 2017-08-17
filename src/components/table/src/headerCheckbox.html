@@ -1,0 +1,9 @@
+<ma-checkbox type="checkbox"
+  id="ck_all"
+  ng-model="$tableCtrl.checkboxes.checked"
+  class="select-all"
+  ng-class="{
+  'has-sub' : $tableCtrl.tableParams.getSelected().length && $tableCtrl.tableParams.getSelected().length < $tableCtrl.tableParams.data.length
+}"
+  value="">
+</ma-checkbox>

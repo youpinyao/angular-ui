@@ -201,7 +201,7 @@ exports['default'] = _name2['default'];
 /***/ "0bzt":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-table\">\n  <div class=\"data-table\">\n\n    <script type=\"text/ng-template\"\n      id=\"headerCheckbox.html\">\n      <ma-checkbox type=\"checkbox\"\n        id=\"ck_all\"\n        ng-model=\"$tableCtrl.checkboxes.checked\"\n        class=\"select-all\"\n        ng-class=\"{\n          'has-sub' : $tableCtrl.tableParams.getSelected().length && $tableCtrl.tableParams.getSelected().length < $tableCtrl.tableParams.data.length\n        }\"\n        value=\"\">\n      </ma-checkbox>\n    </script>\n    <script type=\"text/ng-template\"\n      id=\"header1.html\">\n      <ng-table-group-row>\n      </ng-table-group-row>\n      <ng-table-sorter-row>\n      </ng-table-sorter-row>\n      <ng-table-filter-row>\n      </ng-table-filter-row>\n    </script>\n    <!-- class=\"col-md-6\" -->\n    <div>\n\n      <!-- 左边漂浮 table -->\n      <div class=\"float-left-table\"\n        style=\"width: {{$tableCtrl.floatLeftBoxWidth}}px; height: {{$tableCtrl.floatTableHeight}}px;\"\n        ng-if=\"$tableCtrl.floatLeftCols !== false\">\n        <div style=\"width: {{$tableCtrl.floatTableWidth}}px;\">\n          <table template-header='header1.html'\n            ng-table-dynamic=\"$tableCtrl.tableParams with $tableCtrl.cols\"\n            class=\"table table-condensed table-bordered table-striped\">\n            <colgroup ng-if=\"$tableCtrl.colsGroup && $tableCtrl.colsGroup.length == $tableCtrl.cols.length\">\n              <col ng-repeat=\"group in $tableCtrl.colsGroup\"\n                width=\"{{group.width}}\"\n                align=\"{{group.align}}\"\n                valign=\"{{group.valign}}\"\n                ng-style=\"{{group.styles}}\" />\n            </colgroup>\n            <!-- <tr ng-repeat=\"row in $tableCtrl.$data\"> -->\n            <tr ng-repeat=\"row in $data\"\n              ng-class=\"{\n                'selected-row': $tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]\n              }\"\n              class=\"{{$tableCtrl.tableConfig.rowCustomClass}}\">\n\n              <td ng-repeat=\"col in $columns\"\n                ng-switch=\"col.field\"\n                ng-class='col.colClass'>\n                <!-- <input ng-switch-when=\"selector\" type=\"checkbox\" ng-model=\"$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]\"/> -->\n                <div ng-switch-when=\"selector\">\n                  <ma-checkbox id=\"ck_{{row.id}}\"\n                    type=\"checkbox\"\n                    ng-model=\"$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]\">\n                  </ma-checkbox>\n                </div>\n\n                <div ng-if='col.render'\n                  common-table-col-float-render=\"col.render(this, row, row[col.field])\"></div>\n\n                <div ng-if='!col.render && col.customHtml'\n                  ng-bind-html=\"col.customHtml(this, row, row[col.field])\"></div>\n\n                <div ng-if='!col.render && !col.customHtml'>\n                  <span ng-switch-default>{{row[col.field]}}</span>\n                </div>\n              </td>\n\n            </tr>\n          </table>\n        </div>\n      </div>\n\n\n      <!-- 右边漂浮 table -->\n      <div class=\"float-right-table\"\n        style=\"width: {{$tableCtrl.floatRightBoxWidth}}px; height: {{$tableCtrl.floatTableHeight}}px;\"\n\n        ng-if=\"$tableCtrl.floatRightCols !== false\">\n\n        <div style=\"width: {{$tableCtrl.floatTableWidth}}px;\">\n          <table template-header='header1.html'\n            ng-table-dynamic=\"$tableCtrl.tableParams with $tableCtrl.cols\"\n            class=\"table table-condensed table-bordered table-striped\">\n            <colgroup ng-if=\"$tableCtrl.colsGroup && $tableCtrl.colsGroup.length == $tableCtrl.cols.length\">\n              <col ng-repeat=\"group in $tableCtrl.colsGroup\"\n                width=\"{{group.width}}\"\n                align=\"{{group.align}}\"\n                valign=\"{{group.valign}}\"\n                ng-style=\"{{group.styles}}\" />\n            </colgroup>\n            <!-- <tr ng-repeat=\"row in $tableCtrl.$data\"> -->\n            <tr ng-repeat=\"row in $data\"\n              ng-class=\"{\n                'selected-row': $tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]\n              }\"\n              class=\"{{$tableCtrl.tableConfig.rowCustomClass}}\">\n\n              <td ng-repeat=\"col in $columns\"\n                ng-switch=\"col.field\"\n                ng-class='col.colClass'>\n                <!-- <input ng-switch-when=\"selector\" type=\"checkbox\" ng-model=\"$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]\"/> -->\n                <div ng-switch-when=\"selector\">\n                  <ma-checkbox id=\"ck_{{row.id}}\"\n                    ng-model=\"$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]\">\n                  </ma-checkbox>\n                </div>\n\n                <div ng-if='col.render'\n                  common-table-col-float-render=\"col.render(this, row, row[col.field])\"></div>\n\n                <div ng-if='!col.render && col.customHtml'\n                  ng-bind-html=\"col.customHtml(this, row, row[col.field])\"></div>\n\n                <div ng-if='!col.render && !col.customHtml'>\n                  <span ng-switch-default>{{row[col.field]}}</span>\n                </div>\n              </td>\n\n            </tr>\n          </table>\n        </div>\n      </div>\n\n      <div class=\"main-table-container\">\n        <table template-header='header1.html'\n          ng-table-dynamic=\"$tableCtrl.tableParams with $tableCtrl.cols\"\n          class=\"table table-condensed table-bordered table-striped main-table\"\n          ng-class=\"{'has-float-table': $tableCtrl.floatLeftCols.length || $tableCtrl.floatRightCols.length}\"\n\n          style=\"width: {{$tableCtrl.tableWidth && $tableCtrl.tableWidth > $tableCtrl.mainContainerWidth ? $tableCtrl.tableWidth + 'px' : '100%'}}\">\n          <colgroup ng-if=\"$tableCtrl.colsGroup && $tableCtrl.colsGroup.length == $tableCtrl.cols.length\">\n            <col ng-repeat=\"group in $tableCtrl.colsGroup\"\n              width=\"{{group.width}}\"\n              align=\"{{group.align}}\"\n              valign=\"{{group.valign}}\"\n              ng-style=\"{{group.styles}}\" />\n          </colgroup>\n          <!-- <tr ng-repeat=\"row in $tableCtrl.$data\"> -->\n          <tr ng-repeat=\"row in $data\"\n            ng-class=\"{\n                'selected-row': $tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]\n              }\"\n            class=\"{{$tableCtrl.tableConfig.rowCustomClass}}\">\n\n            <td ng-repeat=\"col in $columns\"\n              ng-switch=\"col.field\"\n              ng-class='col.colClass'>\n              <!-- <input ng-switch-when=\"selector\" type=\"checkbox\" ng-model=\"$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]\"/> -->\n              <div ng-switch-when=\"selector\">\n                <ma-checkbox id=\"ck_{{row.id}}\"\n                  ng-model=\"$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]\">\n                </ma-checkbox>\n              </div>\n\n              <div ng-if='col.render'\n                common-table-col-render=\"col.render(this, row, row[col.field])\"></div>\n\n              <div ng-if='!col.render && col.customHtml'\n                ng-bind-html=\"col.customHtml(this, row, row[col.field])\"></div>\n\n              <div ng-if='!col.render && !col.customHtml'>\n                <span ng-switch-default>{{row[col.field]}}</span>\n              </div>\n            </td>\n\n          </tr>\n\n          <tr ng-if=\"$data.length <= 0\">\n            <td colspan=\"{{$columns.length}}\"\n              style=\"text-align:center;\">暂无数据</td>\n          </tr>\n        </table>\n      </div>\n      <!-- <script type=\"text/ng-template\" id=\"templatePagination.html\"> -->\n      <form class=\"form-inline\"\n        novalidate\n        ng-show=\"$tableCtrl.enablePagination\">\n        <div class=\"form-group\">\n          <span>跳至第</span>\n          <input class=\"form-control\"\n            id=\"page\"\n            min=\"1\"\n            placeholder=\"\"\n            ng-model=\"$tableCtrl.nextPageNum\"\n            ng-init=\"1\"\n            ng-enter=\"$tableCtrl.changePage($tableCtrl.nextPageNum)\">\n          <span>页</span>\n        </div>\n        <div class=\"form-group page-select-form-group\">\n          <!--         <select id=\"pageSizeBinding\" class=\"form-control\" ng-model=\"$tableCtrl.newPageSize\" ng-init=\"$tableCtrl.newPageSize=$tableCtrl.PageSize[0]\" ng-options=\"size + '条/页 ' for size in $tableCtrl.PageSize\" ng-change=\"$tableCtrl.changePageSize($tableCtrl.newPageSize)\"></select> -->\n\n          <ma-select id=\"pageSizeBinding\"\n            class=\"form-control\"\n            ng-model=\"$tableCtrl.newPageSize\"\n            ma-data=\"$tableCtrl._PageSize\"></ma-select>\n\n          <!-- <i class=\"page-select-arrow\"></i> -->\n        </div>\n      </form>\n      <!-- </script> -->\n    </div>\n\n    <div class=\"loading data-table-loading\"\n      ng-class=\"{show: $tableCtrl.isLoading}\">\n      <ma-spin ma-size=\"50\"></ma-spin>\n    </div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"ma-table\">\n  <div class=\"data-table\">\n    <!-- class=\"col-md-6\" -->\n    <div>\n      <!-- 左边漂浮 table -->\n      <div class=\"float-left-table\"\n        style=\"width: {{$tableCtrl.floatLeftBoxWidth}}px; height: {{$tableCtrl.floatTableHeight}}px;\"\n        ng-if=\"$tableCtrl.floatLeftCols !== false\">\n        <div style=\"width: {{$tableCtrl.floatTableWidth}}px;\">\n          <table template-header='header1.html'\n            ng-table-dynamic=\"$tableCtrl.tableParams with $tableCtrl.cols\"\n            class=\"table table-condensed table-bordered table-striped\">\n            <colgroup ng-if=\"$tableCtrl.colsGroup && $tableCtrl.colsGroup.length == $tableCtrl.cols.length\">\n              <col ng-repeat=\"group in $tableCtrl.colsGroup\"\n                width=\"{{group.width}}\"\n                align=\"{{group.align}}\"\n                valign=\"{{group.valign}}\"\n                ng-style=\"{{group.styles}}\" />\n            </colgroup>\n            <!-- <tr ng-repeat=\"row in $tableCtrl.$data\"> -->\n            <tbody class=\"tr-content\"></tbody>\n            <tr ng-if=\"$data.length <= 0\">\n              <td colspan=\"{{$columns.length}}\"\n                style=\"text-align:center;\">暂无数据</td>\n            </tr>\n          </table>\n        </div>\n      </div>\n\n\n      <!-- 右边漂浮 table -->\n      <div class=\"float-right-table\"\n        style=\"width: {{$tableCtrl.floatRightBoxWidth}}px; height: {{$tableCtrl.floatTableHeight}}px;\"\n        ng-if=\"$tableCtrl.floatRightCols !== false\">\n\n        <div style=\"width: {{$tableCtrl.floatTableWidth}}px;\">\n          <table template-header='header1.html'\n            ng-table-dynamic=\"$tableCtrl.tableParams with $tableCtrl.cols\"\n            class=\"table table-condensed table-bordered table-striped\">\n            <colgroup ng-if=\"$tableCtrl.colsGroup && $tableCtrl.colsGroup.length == $tableCtrl.cols.length\">\n              <col ng-repeat=\"group in $tableCtrl.colsGroup\"\n                width=\"{{group.width}}\"\n                align=\"{{group.align}}\"\n                valign=\"{{group.valign}}\"\n                ng-style=\"{{group.styles}}\" />\n            </colgroup>\n            <!-- <tr ng-repeat=\"row in $tableCtrl.$data\"> -->\n            <tbody class=\"tr-content\"></tbody>\n            <tr ng-if=\"$data.length <= 0\">\n              <td colspan=\"{{$columns.length}}\"\n                style=\"text-align:center;\">暂无数据</td>\n            </tr>\n          </table>\n        </div>\n      </div>\n\n      <div class=\"main-table-container\">\n        <table template-header='header1.html'\n          ng-table-dynamic=\"$tableCtrl.tableParams with $tableCtrl.cols\"\n          class=\"table table-condensed table-bordered table-striped main-table\"\n          ng-class=\"{'has-float-table': $tableCtrl.floatLeftCols.length || $tableCtrl.floatRightCols.length}\"\n\n          style=\"width: {{$tableCtrl.tableWidth && $tableCtrl.tableWidth > $tableCtrl.mainContainerWidth ? $tableCtrl.tableWidth + 'px' : '100%'}}\">\n          <colgroup ng-if=\"$tableCtrl.colsGroup && $tableCtrl.colsGroup.length == $tableCtrl.cols.length\">\n            <col ng-repeat=\"group in $tableCtrl.colsGroup\"\n              width=\"{{group.width}}\"\n              align=\"{{group.align}}\"\n              valign=\"{{group.valign}}\"\n              ng-style=\"{{group.styles}}\" />\n          </colgroup>\n          <tbody class=\"tr-content\"></tbody>\n\n          <tr ng-if=\"$data.length <= 0\">\n            <td colspan=\"{{$columns.length}}\"\n              style=\"text-align:center;\">暂无数据</td>\n          </tr>\n        </table>\n      </div>\n      <!-- <script type=\"text/ng-template\" id=\"templatePagination.html\"> -->\n      <form class=\"form-inline\"\n        novalidate\n        ng-show=\"$tableCtrl.enablePagination\">\n        <div class=\"form-group\">\n          <span>跳至第</span>\n          <input class=\"form-control\"\n            id=\"page\"\n            min=\"1\"\n            placeholder=\"\"\n            ng-model=\"$tableCtrl.nextPageNum\"\n            ng-init=\"1\"\n            ng-enter=\"$tableCtrl.changePage($tableCtrl.nextPageNum)\">\n          <span>页</span>\n        </div>\n        <div class=\"form-group page-select-form-group\">\n          <!--         <select id=\"pageSizeBinding\" class=\"form-control\" ng-model=\"$tableCtrl.newPageSize\" ng-init=\"$tableCtrl.newPageSize=$tableCtrl.PageSize[0]\" ng-options=\"size + '条/页 ' for size in $tableCtrl.PageSize\" ng-change=\"$tableCtrl.changePageSize($tableCtrl.newPageSize)\"></select> -->\n\n          <ma-select id=\"pageSizeBinding\"\n            class=\"form-control\"\n            ng-model=\"$tableCtrl.newPageSize\"\n            ma-data=\"$tableCtrl._PageSize\"></ma-select>\n\n          <!-- <i class=\"page-select-arrow\"></i> -->\n        </div>\n      </form>\n      <!-- </script> -->\n    </div>\n\n    <div class=\"loading data-table-loading\"\n      ng-class=\"{show: $tableCtrl.isLoading}\">\n      <ma-spin ma-size=\"50\"></ma-spin>\n    </div>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -417,17 +417,25 @@ var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _debounce = __webpack_require__("HhAh");
+
+var _debounce2 = _interopRequireDefault(_debounce);
+
 var _maDropdownTpl = __webpack_require__("lQqW");
 
 var _maDropdownTpl2 = _interopRequireDefault(_maDropdownTpl);
+
+var _itemTpl = __webpack_require__("sebW");
+
+var _itemTpl2 = _interopRequireDefault(_itemTpl);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 angular.module(_name2['default']).directive('maDropdown', maDropdown);
 
-maDropdown.$inject = ['$timeout'];
+maDropdown.$inject = ['$timeout', '$compile'];
 
-function maDropdown($timeout) {
+function maDropdown($timeout, $compile) {
   return {
     restrict: 'E',
     replace: true,
@@ -464,6 +472,7 @@ function maDropdown($timeout) {
     }],
     link: function link(scope, element, attrs, ctrl) {
       var containerCls = '.ma-dropdown-container';
+      var updateHtmlItem = (0, _debounce2['default'])(_updateHtmlItem, 100);
       var showTimeout = null;
 
       // item 点击事件
@@ -529,9 +538,11 @@ function maDropdown($timeout) {
 
       scope.$watch('data', function (d) {
         checkCheckbox();
+        updateHtmlItem();
       });
       scope.$watch('searchKey', function (d) {
         checkCheckbox();
+        updateHtmlItem();
       });
 
       // 监听选中变化
@@ -613,6 +624,32 @@ function maDropdown($timeout) {
             //
           }
         }
+      }
+
+      function _updateHtmlItem() {
+        var target = (0, _jquery2['default'])(element).find('.ma-dropdown-container-content');
+        var items = scope.data;
+        var searchKey = scope.searchKey;
+        var valueKey = scope.valueKey;
+        var textKey = scope.textKey;
+        var index = -1;
+
+        target.html('');
+
+        angular.each(items, function (item) {
+          var text = item[textKey] + '';
+          var value = item[valueKey];
+
+          if (angular.isNull(searchKey) || text.indexOf(searchKey) !== -1) {
+            index++;
+            var itemElement = (0, _jquery2['default'])(_itemTpl2['default'].replace(/&&\{index\}/g, index));
+            target.append(itemElement);
+
+            scope['item' + index] = item;
+          }
+        });
+        $compile(target.contents())(scope);
+        $timeout();
       }
     }
   };
@@ -829,6 +866,13 @@ function maSelect($timeout) {
 
 /***/ }),
 
+/***/ "RCoB":
+/***/ (function(module, exports) {
+
+module.exports = "<tr ng-class=\"{\n    'selected-row': selector && $tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\n  }\"\n  class=\"{{$tableCtrl.tableConfig.rowCustomClass}}\">\n\n</tr>\n";
+
+/***/ }),
+
 /***/ "S1RN":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -905,11 +949,23 @@ var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _debounce = __webpack_require__("HhAh");
+
+var _debounce2 = _interopRequireDefault(_debounce);
+
+var _trTpl = __webpack_require__("RCoB");
+
+var _trTpl2 = _interopRequireDefault(_trTpl);
+
+var _tdTpl = __webpack_require__("dgAy");
+
+var _tdTpl2 = _interopRequireDefault(_tdTpl);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-maTableController.$inject = ['NgTableParams', '$scope', '$element', '$interpolate', '$sce', '$table', '$timeout', '$attrs', '$interval'];
+maTableController.$inject = ['NgTableParams', '$scope', '$element', '$interpolate', '$sce', '$table', '$timeout', '$attrs', '$interval', '$compile'];
 
-function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, $table, $timeout, $attrs, $interval) {
+function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, $table, $timeout, $attrs, $interval, $compile) {
   var self = this;
 
   // var dataset = [{ id: 1, name: 'christian', age: 21 }, { id: 2, name: 'anthony', age: 88 },
@@ -1101,12 +1157,14 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       var deferred = $scope.tableConfig.getData.apply(this, arguments);
 
       if (deferred && deferred.then) {
-        deferred.then(function () {
+        deferred.then(function (data) {
           self.isLoading = false;
           setFloatTable();
+          updateHtmlItems(data);
         }, function () {
           self.isLoading = false;
           setFloatTable();
+          updateHtmlItems();
         });
       } else {
         self.isLoading = false;
@@ -1250,6 +1308,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       for (var i = 0; i < self.floatLeftCols.length; i++) {
         floatLeftBoxWidth += (0, _jquery2['default'])($element).find('.main-table tr th').eq(i).outerWidth();
       }
+
       for (var j = self.cols.length - 1; j >= self.cols.length - self.floatRightCols.length; j--) {
         floatRightBoxWidth += (0, _jquery2['default'])($element).find('.main-table tr th').eq(j).outerWidth();
       }
@@ -1257,6 +1316,40 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       self.floatLeftBoxWidth = floatLeftBoxWidth;
       self.floatRightBoxWidth = floatRightBoxWidth;
     });
+  }
+
+  function updateHtmlItems(data) {
+    var target = (0, _jquery2['default'])($element).find('.tr-content');
+    var htmlItems = '';
+    var tdItems = '';
+    var index = -1;
+    var colIndex = -1;
+
+    target.html('');
+
+    angular.each(self.tableConfig.cols, function (col) {
+      if (col.show !== false) {
+        colIndex++;
+        tdItems += _tdTpl2['default'].replace(/col&&\{index\}/g, 'col' + colIndex);
+        $scope['col' + colIndex] = col;
+      }
+    });
+
+    angular.each(data, function (item) {
+      index++;
+      var trElement = (0, _jquery2['default'])(_trTpl2['default'].replace(/&&\{index\}/g, index));
+      trElement.html(tdItems.replace(/&&\{index\}/g, index));
+
+      $scope['row' + index] = item;
+      target.append(trElement);
+    });
+
+    if (angular.isEmpty(data)) {
+      target.html('\n      <tr>\n        <td colspan="' + (colIndex + 1) + '" style="text-align:center;">\u6682\u65E0\u6570\u636E</td>\n      </tr>');
+    }
+
+    $compile(target.contents())($scope);
+    $timeout();
   }
 }
 
@@ -1385,6 +1478,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports['default'] = 'meetyou.angular.ui.icons';
+
+/***/ }),
+
+/***/ "dgAy":
+/***/ (function(module, exports) {
+
+module.exports = "<td ng-class='col&&{index}.colClass'>\n  <div ng-if=\"col&&{index}.field == 'selector'\">\n    <ma-checkbox id=\"ck_{{row&&{index}.id}}\"\n      ng-model=\"$tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\">\n    </ma-checkbox>\n  </div>\n  <div ng-if='col&&{index}.render'\n    common-table-col-render=\"col&&{index}.render(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n\n  <div ng-if='!col&&{index}.render && col&&{index}.customHtml'\n    ng-bind-html=\"col&&{index}.customHtml(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n\n  <div ng-if='!col&&{index}.render && !col&&{index}.customHtml'>\n    <span>{{row&&{index}[col&&{index}.field]}}</span>\n  </div>\n</td>\n";
 
 /***/ }),
 
@@ -1699,6 +1799,14 @@ var _pager = __webpack_require__("XVLJ");
 
 var _pager2 = _interopRequireDefault(_pager);
 
+var _headerCheckbox = __webpack_require__("xlo3");
+
+var _headerCheckbox2 = _interopRequireDefault(_headerCheckbox);
+
+var _header = __webpack_require__("r7GB");
+
+var _header2 = _interopRequireDefault(_header);
+
 var _maTableController = __webpack_require__("TDH+");
 
 var _maTableController2 = _interopRequireDefault(_maTableController);
@@ -1710,6 +1818,9 @@ var pagerPath = 'ng-table/pager.html';
 angular.module('ng').run(['$templateCache', function (c) {
   c.remove(pagerPath);
   c.put(pagerPath, _pager2['default']);
+
+  c.put('headerCheckbox.html', _headerCheckbox2['default']);
+  c.put('header1.html', _header2['default']);
 }]);
 
 angular.module(_name2['default']).directive('maTable', maTable).directive('commonTableColRender', commonTableColRender).directive('commonTableColFloatRender', commonTableColFloatRender).directive('ngEnter', ngEnter).directive('ngCompile', ngCompile);
@@ -1783,10 +1894,12 @@ function commonTableColRender($compile) {
       var value = scope.$eval(attrs.commonTableColRender, scope);
 
       value += '';
-      value = value.replace(/ng-click="/g, 'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.');
-      value = value.replace(/ma-click="/g, 'ma-click="$parent.$parent.$parent.$parent.$parent.$parent.');
+      value = value.replace(/ng-click="/g, 'ng-click="$parent.$parent.');
+      value = value.replace(/ma-click="/g, 'ma-click="$parent.$parent.');
 
       element.html(value);
+      scope.row = scope.$parent[attrs.commonTableColRender.split(', ')[1]];
+
       $compile(element.contents())(scope);
     }
   };
@@ -1801,10 +1914,12 @@ function commonTableColFloatRender($compile) {
       var value = scope.$eval(attrs.commonTableColFloatRender, scope);
 
       value += '';
-      value = value.replace(/ng-click="/g, 'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.$parent.');
-      value = value.replace(/ma-click="/g, 'ma-click="$parent.$parent.$parent.$parent.$parent.$parent.$parent.');
+      value = value.replace(/ng-click="/g, 'ng-click="$parent.$parent.');
+      value = value.replace(/ma-click="/g, 'ma-click="$parent.$parent.');
 
       element.html(value);
+      scope.row = scope.$parent[attrs.commonTableColFloatRender.split(', ')[1]];
+
       $compile(element.contents())(scope);
     }
   };
@@ -1836,7 +1951,13 @@ function ngCompile($timeout, $compile) {
       content: '=ngCompile'
     },
     link: function link(scope, elem, attrs, controller) {
-      scope.$watch('content', function (d) {
+      var compiled = false;
+
+      scope.$watch('content', function (d, p) {
+        if (d == p && compiled) {
+          return;
+        }
+        compiled = true;
         elem.html(d);
         $compile(elem.contents())(scope.$parent);
       });
@@ -1849,7 +1970,7 @@ function ngCompile($timeout, $compile) {
 /***/ "lQqW":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-dropdown\">\n  <div ng-transclude></div>\n  <div class=\"ma-dropdown-container\"\n    ng-class=\"{\n      show: show || static == 'true'\n    }\">\n    <div class=\"ma-dropdown-search-bar\"\n      ng-if=\"searchBar == 'true'\">\n      <ma-input ng-model=\"searchKey\"\n        class=\"ma-input-search-normal\"></ma-input>\n    </div>\n    <div class=\"ma-dropdown-item null-text\"\n      ng-if=\"(nullText || nullText == 'true') && data.length <= 0\">{{nullText == 'true' ? '暂无数据' : nullText}}</div>\n\n    <div class=\"ma-dropdown-container-content\">\n      <div class=\"ma-dropdown-item\"\n        ng-repeat=\"item in data | filter : searchKey\"\n        ma-click=\"_itemClick($event, item)\"\n        ng-class=\"{\n          active: _activeItems.indexOf(item[valueKey]) !== -1,\n          'is-multiple': multiple == 'true',\n          hide: item.hide === true\n        }\">\n        <ma-checkbox ng-disabled=\"disabled\"\n          ng-if=\"multiple == 'true'\"\n          ng-model=\"item.checked\">\n          <span ng-bind-html=\"item[textKey]\"></span>\n        </ma-checkbox>\n\n        <span ng-if=\"multiple != 'true'\"\n          ng-bind-html=\"item[textKey]\"></span>\n\n      </div>\n    </div>\n\n    <div class=\"ma-dropdown-buttons\"\n      ng-show=\"clear == 'true'\"\n      ma-click=\"$ctrl.clearValue()\">\n      <ma-button ma-size=\"mini\"\n        ma-type=\"primary\">清空</ma-button>\n    </div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"ma-dropdown\">\n  <div ng-transclude></div>\n  <div class=\"ma-dropdown-container\"\n    ng-class=\"{\n      show: show || static == 'true'\n    }\">\n    <div class=\"ma-dropdown-search-bar\"\n      ng-if=\"searchBar == 'true'\">\n      <ma-input ng-model=\"searchKey\"\n        class=\"ma-input-search-normal\"></ma-input>\n    </div>\n    <div class=\"ma-dropdown-item null-text\"\n      ng-if=\"(nullText || nullText == 'true') && data.length <= 0\">{{nullText == 'true' ? '暂无数据' : nullText}}</div>\n\n    <div class=\"ma-dropdown-container-content\">\n    </div>\n\n    <div class=\"ma-dropdown-buttons\"\n      ng-show=\"clear == 'true'\"\n      ma-click=\"$ctrl.clearValue()\">\n      <ma-button ma-size=\"mini\"\n        ma-type=\"primary\">清空</ma-button>\n    </div>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -4643,6 +4764,27 @@ angular.module(_name2['default'], []).config(function () {}).run(function () {})
 __webpack_require__("FR6Y");
 
 exports['default'] = _name2['default'];
+
+/***/ }),
+
+/***/ "r7GB":
+/***/ (function(module, exports) {
+
+module.exports = "<ng-table-group-row>\n</ng-table-group-row>\n<ng-table-sorter-row>\n</ng-table-sorter-row>\n<ng-table-filter-row>\n</ng-table-filter-row>\n";
+
+/***/ }),
+
+/***/ "sebW":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"ma-dropdown-item\"\nma-click=\"_itemClick($event, item&&{index})\"\nng-class=\"{\nactive: _activeItems.indexOf(item&&{index}[valueKey]) !== -1,\n'is-multiple': multiple == 'true',\nhide: item&&{index}.hide === true\n}\">\n<ma-checkbox ng-disabled=\"disabled\"\n  ng-if=\"multiple == 'true'\"\n  ng-model=\"item&&{index}.checked\">\n  <span ng-bind-html=\"item&&{index}[textKey]\"></span>\n</ma-checkbox>\n\n<span ng-if=\"multiple != 'true'\"\n  ng-bind-html=\"item&&{index}[textKey]\"></span>\n\n</div>\n";
+
+/***/ }),
+
+/***/ "xlo3":
+/***/ (function(module, exports) {
+
+module.exports = "<ma-checkbox type=\"checkbox\"\n  id=\"ck_all\"\n  ng-model=\"$tableCtrl.checkboxes.checked\"\n  class=\"select-all\"\n  ng-class=\"{\n  'has-sub' : $tableCtrl.tableParams.getSelected().length && $tableCtrl.tableParams.getSelected().length < $tableCtrl.tableParams.data.length\n}\"\n  value=\"\">\n</ma-checkbox>\n";
 
 /***/ }),
 

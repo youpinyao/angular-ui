@@ -255,17 +255,25 @@ var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _debounce = __webpack_require__("HhAh");
+
+var _debounce2 = _interopRequireDefault(_debounce);
+
 var _maDropdownTpl = __webpack_require__("lQqW");
 
 var _maDropdownTpl2 = _interopRequireDefault(_maDropdownTpl);
+
+var _itemTpl = __webpack_require__("sebW");
+
+var _itemTpl2 = _interopRequireDefault(_itemTpl);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 angular.module(_name2['default']).directive('maDropdown', maDropdown);
 
-maDropdown.$inject = ['$timeout'];
+maDropdown.$inject = ['$timeout', '$compile'];
 
-function maDropdown($timeout) {
+function maDropdown($timeout, $compile) {
   return {
     restrict: 'E',
     replace: true,
@@ -302,6 +310,7 @@ function maDropdown($timeout) {
     }],
     link: function link(scope, element, attrs, ctrl) {
       var containerCls = '.ma-dropdown-container';
+      var updateHtmlItem = (0, _debounce2['default'])(_updateHtmlItem, 100);
       var showTimeout = null;
 
       // item 点击事件
@@ -367,9 +376,11 @@ function maDropdown($timeout) {
 
       scope.$watch('data', function (d) {
         checkCheckbox();
+        updateHtmlItem();
       });
       scope.$watch('searchKey', function (d) {
         checkCheckbox();
+        updateHtmlItem();
       });
 
       // 监听选中变化
@@ -451,6 +462,32 @@ function maDropdown($timeout) {
             //
           }
         }
+      }
+
+      function _updateHtmlItem() {
+        var target = (0, _jquery2['default'])(element).find('.ma-dropdown-container-content');
+        var items = scope.data;
+        var searchKey = scope.searchKey;
+        var valueKey = scope.valueKey;
+        var textKey = scope.textKey;
+        var index = -1;
+
+        target.html('');
+
+        angular.each(items, function (item) {
+          var text = item[textKey] + '';
+          var value = item[valueKey];
+
+          if (angular.isNull(searchKey) || text.indexOf(searchKey) !== -1) {
+            index++;
+            var itemElement = (0, _jquery2['default'])(_itemTpl2['default'].replace(/&&\{index\}/g, index));
+            target.append(itemElement);
+
+            scope['item' + index] = item;
+          }
+        });
+        $compile(target.contents())(scope);
+        $timeout();
       }
     }
   };
@@ -845,7 +882,7 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
 /***/ "lQqW":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-dropdown\">\n  <div ng-transclude></div>\n  <div class=\"ma-dropdown-container\"\n    ng-class=\"{\n      show: show || static == 'true'\n    }\">\n    <div class=\"ma-dropdown-search-bar\"\n      ng-if=\"searchBar == 'true'\">\n      <ma-input ng-model=\"searchKey\"\n        class=\"ma-input-search-normal\"></ma-input>\n    </div>\n    <div class=\"ma-dropdown-item null-text\"\n      ng-if=\"(nullText || nullText == 'true') && data.length <= 0\">{{nullText == 'true' ? '暂无数据' : nullText}}</div>\n\n    <div class=\"ma-dropdown-container-content\">\n      <div class=\"ma-dropdown-item\"\n        ng-repeat=\"item in data | filter : searchKey\"\n        ma-click=\"_itemClick($event, item)\"\n        ng-class=\"{\n          active: _activeItems.indexOf(item[valueKey]) !== -1,\n          'is-multiple': multiple == 'true',\n          hide: item.hide === true\n        }\">\n        <ma-checkbox ng-disabled=\"disabled\"\n          ng-if=\"multiple == 'true'\"\n          ng-model=\"item.checked\">\n          <span ng-bind-html=\"item[textKey]\"></span>\n        </ma-checkbox>\n\n        <span ng-if=\"multiple != 'true'\"\n          ng-bind-html=\"item[textKey]\"></span>\n\n      </div>\n    </div>\n\n    <div class=\"ma-dropdown-buttons\"\n      ng-show=\"clear == 'true'\"\n      ma-click=\"$ctrl.clearValue()\">\n      <ma-button ma-size=\"mini\"\n        ma-type=\"primary\">清空</ma-button>\n    </div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"ma-dropdown\">\n  <div ng-transclude></div>\n  <div class=\"ma-dropdown-container\"\n    ng-class=\"{\n      show: show || static == 'true'\n    }\">\n    <div class=\"ma-dropdown-search-bar\"\n      ng-if=\"searchBar == 'true'\">\n      <ma-input ng-model=\"searchKey\"\n        class=\"ma-input-search-normal\"></ma-input>\n    </div>\n    <div class=\"ma-dropdown-item null-text\"\n      ng-if=\"(nullText || nullText == 'true') && data.length <= 0\">{{nullText == 'true' ? '暂无数据' : nullText}}</div>\n\n    <div class=\"ma-dropdown-container-content\">\n    </div>\n\n    <div class=\"ma-dropdown-buttons\"\n      ng-show=\"clear == 'true'\"\n      ma-click=\"$ctrl.clearValue()\">\n      <ma-button ma-size=\"mini\"\n        ma-type=\"primary\">清空</ma-button>\n    </div>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -982,6 +1019,13 @@ function maIcon() {
 //     }
 //   };
 // }
+
+/***/ }),
+
+/***/ "sebW":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"ma-dropdown-item\"\nma-click=\"_itemClick($event, item&&{index})\"\nng-class=\"{\nactive: _activeItems.indexOf(item&&{index}[valueKey]) !== -1,\n'is-multiple': multiple == 'true',\nhide: item&&{index}.hide === true\n}\">\n<ma-checkbox ng-disabled=\"disabled\"\n  ng-if=\"multiple == 'true'\"\n  ng-model=\"item&&{index}.checked\">\n  <span ng-bind-html=\"item&&{index}[textKey]\"></span>\n</ma-checkbox>\n\n<span ng-if=\"multiple != 'true'\"\n  ng-bind-html=\"item&&{index}[textKey]\"></span>\n\n</div>\n";
 
 /***/ }),
 

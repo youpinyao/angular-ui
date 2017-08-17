@@ -50,37 +50,7 @@
     <ul tabindex="-1"
       class="ui-select-choices ui-select-choices-content select2-results ng-scope"
       ng-class="{'has-scrollbar' : $select.selectItems.length > 5, 'has-search': $select.search}">
-      <li ng-repeat="item in $select.selectItems"
-        class="ui-select-choices-row {{'tree-level-' +item._treeLevel}}"
-        ng-class="{'has-sub' : item.sub.length}"
-        data-tag-to="{{item._treeLinkTo}}"
-        ng-if="item.__item_is_show"
-        data-tag-from="{{item._treeLinkFrom}}">
-        <div class="select2-result-label ui-select-choices-row-inner"
-          ma-click="$select.doSelect($event, item)">
-          <div ng-class="{'tree-open': item.__tree_is_open}">
 
-            <i class="tree-arrow-click"
-              ng-if="item.sub.length"
-              ma-click="$select.toggleTree($event, item)">
-              <i class="tree-arrow"
-                ng-if="item.sub.length"></i>
-            </i>
-            <!-- <div class="click-mask"></div> -->
-            <ma-checkbox unclick
-              ng-model="item._selected"
-              style="pointer-events:none;"
-              ng-disabled="$select.selectDisabled"
-              ng-class="{
-            'has-sub': item.__checkbox_has_sub,
-            'has-parent': item.__checkbox_has_parent,
-            'custom-multi-select-checkbox-hidden': item.hiddenCheck
-          }">
-              <span ng-bind-html="item.text"></span>
-            </ma-checkbox>
-          </div>
-        </div>
-      </li>
     </ul>
     <div class="ma-dropdown-buttons"
       ng-show="$select.clear == 'true'"

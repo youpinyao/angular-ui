@@ -1,11 +1,14 @@
 import $ from 'jquery';
+import debounce from 'debounce';
+import trTpl from './trTpl.html';
+import tdTpl from './tdTpl.html';
 
 maTableController.$inject = ['NgTableParams', '$scope', '$element', '$interpolate', '$sce',
-  '$table', '$timeout', '$attrs', '$interval',
+  '$table', '$timeout', '$attrs', '$interval', '$compile',
 ];
 
 function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, $table, $timeout,
-  $attrs, $interval) {
+  $attrs, $interval, $compile) {
   var self = this;
 
   // var dataset = [{ id: 1, name: 'christian', age: 21 }, { id: 2, name: 'anthony', age: 88 },
@@ -203,12 +206,14 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       var deferred = $scope.tableConfig.getData.apply(this, arguments);
 
       if (deferred && deferred.then) {
-        deferred.then(function() {
+        deferred.then(function(data) {
           self.isLoading = false;
           setFloatTable();
+          updateHtmlItems(data);
         }, function() {
           self.isLoading = false;
           setFloatTable();
+          updateHtmlItems();
         });
       } else {
         self.isLoading = false;
@@ -356,14 +361,53 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       for (var i = 0; i < self.floatLeftCols.length; i++) {
         floatLeftBoxWidth += $($element).find('.main-table tr th').eq(i).outerWidth();
       }
+
       for (var j = self.cols.length - 1; j >= self.cols.length - self.floatRightCols.length; j--) {
         floatRightBoxWidth += $($element).find('.main-table tr th').eq(j).outerWidth();
       }
 
-
       self.floatLeftBoxWidth = floatLeftBoxWidth;
       self.floatRightBoxWidth = floatRightBoxWidth;
     });
+  }
+
+  function updateHtmlItems(data) {
+    const target = $($element).find('.tr-content');
+    let htmlItems = '';
+    let tdItems = '';
+    let index = -1;
+    let colIndex = -1;
+
+    target.html('');
+
+    angular.each(self.tableConfig.cols, col => {
+      if (col.show !== false) {
+        colIndex++;
+        tdItems += tdTpl.replace(/col&&\{index\}/g, `col${colIndex}`);
+        $scope[`col${colIndex}`] = col;
+      }
+    });
+
+    angular.each(data, item => {
+      index++;
+      const trElement = $(trTpl.replace(/&&\{index\}/g, index));
+      trElement.html(tdItems.replace(/&&\{index\}/g, index));
+
+      $scope[`row${index}`] = item;
+      target.append(trElement);
+    });
+
+    if (angular.isEmpty(data)) {
+      target.html(
+        `
+      <tr>
+        <td colspan="${colIndex + 1}" style="text-align:center;">暂无数据</td>
+      </tr>`
+      );
+    }
+
+    $compile(target.contents())($scope);
+    $timeout();
   }
 }
 

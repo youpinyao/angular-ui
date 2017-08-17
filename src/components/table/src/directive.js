@@ -2,6 +2,8 @@ import moduleName from './name.js';
 import $ from 'jquery';
 import maTableTpl from './maTableTpl.html';
 import pagerTpl from './pager.html';
+import headerCheckbox from './headerCheckbox.html';
+import header1 from './header1.html';
 import maTableController from './maTableController.js';
 
 const pagerPath = 'ng-table/pager.html';
@@ -9,6 +11,9 @@ const pagerPath = 'ng-table/pager.html';
 angular.module('ng').run(['$templateCache', function(c) {
   c.remove(pagerPath);
   c.put(pagerPath, pagerTpl);
+
+  c.put('headerCheckbox.html', headerCheckbox);
+  c.put('header1.html', header1);
 }]);
 
 angular.module(moduleName)
@@ -88,11 +93,13 @@ function commonTableColRender($compile) {
 
       value += '';
       value = value.replace(/ng-click="/g,
-        'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.');
+        'ng-click="$parent.$parent.');
       value = value.replace(/ma-click="/g,
-        'ma-click="$parent.$parent.$parent.$parent.$parent.$parent.');
+        'ma-click="$parent.$parent.');
 
       element.html(value);
+      scope.row = scope.$parent[attrs.commonTableColRender.split(', ')[1]];
+
       $compile(element.contents())(scope);
     }
   };
@@ -108,11 +115,13 @@ function commonTableColFloatRender($compile) {
 
       value += '';
       value = value.replace(/ng-click="/g,
-        'ng-click="$parent.$parent.$parent.$parent.$parent.$parent.$parent.');
+        'ng-click="$parent.$parent.');
       value = value.replace(/ma-click="/g,
-        'ma-click="$parent.$parent.$parent.$parent.$parent.$parent.$parent.');
+        'ma-click="$parent.$parent.');
 
       element.html(value);
+      scope.row = scope.$parent[attrs.commonTableColFloatRender.split(', ')[1]];
+
       $compile(element.contents())(scope);
     }
   };
@@ -146,7 +155,13 @@ function ngCompile($timeout, $compile) {
       content: '=ngCompile',
     },
     link: function(scope, elem, attrs, controller) {
-      scope.$watch('content', d => {
+      let compiled = false;
+
+      scope.$watch('content', (d, p) => {
+        if (d == p && compiled) {
+          return;
+        }
+        compiled = true;
         elem.html(d);
         $compile(elem.contents())(scope.$parent);
       });

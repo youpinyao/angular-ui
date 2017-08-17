@@ -1,13 +1,15 @@
 import moduleName from './name.js';
 import $ from 'jquery';
+import debounce from 'debounce';
 import maDropdownTpl from './maDropdownTpl.html';
+import itemTpl from './itemTpl.html';
 
 angular.module(moduleName)
   .directive('maDropdown', maDropdown);
 
-maDropdown.$inject = ['$timeout'];
+maDropdown.$inject = ['$timeout', '$compile'];
 
-function maDropdown($timeout) {
+function maDropdown($timeout, $compile) {
   return {
     restrict: 'E',
     replace: true,
@@ -44,6 +46,7 @@ function maDropdown($timeout) {
     }],
     link: function(scope, element, attrs, ctrl) {
       const containerCls = '.ma-dropdown-container';
+      const updateHtmlItem = debounce(_updateHtmlItem, 100);
       let showTimeout = null;
 
 
@@ -110,9 +113,11 @@ function maDropdown($timeout) {
 
       scope.$watch('data', d => {
         checkCheckbox();
+        updateHtmlItem();
       });
       scope.$watch('searchKey', d => {
         checkCheckbox();
+        updateHtmlItem();
       });
 
       // 监听选中变化
@@ -195,6 +200,32 @@ function maDropdown($timeout) {
             //
           }
         }
+      }
+
+      function _updateHtmlItem() {
+        const target = $(element).find('.ma-dropdown-container-content');
+        const items = scope.data;
+        const searchKey = scope.searchKey;
+        const valueKey = scope.valueKey;
+        const textKey = scope.textKey;
+        let index = -1;
+
+        target.html('');
+
+        angular.each(items, item => {
+          const text = item[textKey] + '';
+          const value = item[valueKey];
+
+          if (angular.isNull(searchKey) || text.indexOf(searchKey) !== -1) {
+            index++;
+            const itemElement = $(itemTpl.replace(/&&\{index\}/g, index));
+            target.append(itemElement);
+
+            scope[`item${index}`] = item;
+          }
+        });
+        $compile(target.contents())(scope);
+        $timeout();
       }
     }
   };

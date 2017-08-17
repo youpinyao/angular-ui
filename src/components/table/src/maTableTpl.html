@@ -1,30 +1,7 @@
 <div class="ma-table">
   <div class="data-table">
-
-    <script type="text/ng-template"
-      id="headerCheckbox.html">
-      <ma-checkbox type="checkbox"
-        id="ck_all"
-        ng-model="$tableCtrl.checkboxes.checked"
-        class="select-all"
-        ng-class="{
-          'has-sub' : $tableCtrl.tableParams.getSelected().length && $tableCtrl.tableParams.getSelected().length < $tableCtrl.tableParams.data.length
-        }"
-        value="">
-      </ma-checkbox>
-    </script>
-    <script type="text/ng-template"
-      id="header1.html">
-      <ng-table-group-row>
-      </ng-table-group-row>
-      <ng-table-sorter-row>
-      </ng-table-sorter-row>
-      <ng-table-filter-row>
-      </ng-table-filter-row>
-    </script>
     <!-- class="col-md-6" -->
     <div>
-
       <!-- 左边漂浮 table -->
       <div class="float-left-table"
         style="width: {{$tableCtrl.floatLeftBoxWidth}}px; height: {{$tableCtrl.floatTableHeight}}px;"
@@ -41,34 +18,10 @@
                 ng-style="{{group.styles}}" />
             </colgroup>
             <!-- <tr ng-repeat="row in $tableCtrl.$data"> -->
-            <tr ng-repeat="row in $data"
-              ng-class="{
-                'selected-row': $tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]
-              }"
-              class="{{$tableCtrl.tableConfig.rowCustomClass}}">
-
-              <td ng-repeat="col in $columns"
-                ng-switch="col.field"
-                ng-class='col.colClass'>
-                <!-- <input ng-switch-when="selector" type="checkbox" ng-model="$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]"/> -->
-                <div ng-switch-when="selector">
-                  <ma-checkbox id="ck_{{row.id}}"
-                    type="checkbox"
-                    ng-model="$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]">
-                  </ma-checkbox>
-                </div>
-
-                <div ng-if='col.render'
-                  common-table-col-float-render="col.render(this, row, row[col.field])"></div>
-
-                <div ng-if='!col.render && col.customHtml'
-                  ng-bind-html="col.customHtml(this, row, row[col.field])"></div>
-
-                <div ng-if='!col.render && !col.customHtml'>
-                  <span ng-switch-default>{{row[col.field]}}</span>
-                </div>
-              </td>
-
+            <tbody class="tr-content"></tbody>
+            <tr ng-if="$data.length <= 0">
+              <td colspan="{{$columns.length}}"
+                style="text-align:center;">暂无数据</td>
             </tr>
           </table>
         </div>
@@ -78,7 +31,6 @@
       <!-- 右边漂浮 table -->
       <div class="float-right-table"
         style="width: {{$tableCtrl.floatRightBoxWidth}}px; height: {{$tableCtrl.floatTableHeight}}px;"
-
         ng-if="$tableCtrl.floatRightCols !== false">
 
         <div style="width: {{$tableCtrl.floatTableWidth}}px;">
@@ -93,33 +45,10 @@
                 ng-style="{{group.styles}}" />
             </colgroup>
             <!-- <tr ng-repeat="row in $tableCtrl.$data"> -->
-            <tr ng-repeat="row in $data"
-              ng-class="{
-                'selected-row': $tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]
-              }"
-              class="{{$tableCtrl.tableConfig.rowCustomClass}}">
-
-              <td ng-repeat="col in $columns"
-                ng-switch="col.field"
-                ng-class='col.colClass'>
-                <!-- <input ng-switch-when="selector" type="checkbox" ng-model="$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]"/> -->
-                <div ng-switch-when="selector">
-                  <ma-checkbox id="ck_{{row.id}}"
-                    ng-model="$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]">
-                  </ma-checkbox>
-                </div>
-
-                <div ng-if='col.render'
-                  common-table-col-float-render="col.render(this, row, row[col.field])"></div>
-
-                <div ng-if='!col.render && col.customHtml'
-                  ng-bind-html="col.customHtml(this, row, row[col.field])"></div>
-
-                <div ng-if='!col.render && !col.customHtml'>
-                  <span ng-switch-default>{{row[col.field]}}</span>
-                </div>
-              </td>
-
+            <tbody class="tr-content"></tbody>
+            <tr ng-if="$data.length <= 0">
+              <td colspan="{{$columns.length}}"
+                style="text-align:center;">暂无数据</td>
             </tr>
           </table>
         </div>
@@ -139,35 +68,7 @@
               valign="{{group.valign}}"
               ng-style="{{group.styles}}" />
           </colgroup>
-          <!-- <tr ng-repeat="row in $tableCtrl.$data"> -->
-          <tr ng-repeat="row in $data"
-            ng-class="{
-                'selected-row': $tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]
-              }"
-            class="{{$tableCtrl.tableConfig.rowCustomClass}}">
-
-            <td ng-repeat="col in $columns"
-              ng-switch="col.field"
-              ng-class='col.colClass'>
-              <!-- <input ng-switch-when="selector" type="checkbox" ng-model="$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]"/> -->
-              <div ng-switch-when="selector">
-                <ma-checkbox id="ck_{{row.id}}"
-                  ng-model="$tableCtrl.checkboxes.items[row[$tableCtrl.dataflagId]]">
-                </ma-checkbox>
-              </div>
-
-              <div ng-if='col.render'
-                common-table-col-render="col.render(this, row, row[col.field])"></div>
-
-              <div ng-if='!col.render && col.customHtml'
-                ng-bind-html="col.customHtml(this, row, row[col.field])"></div>
-
-              <div ng-if='!col.render && !col.customHtml'>
-                <span ng-switch-default>{{row[col.field]}}</span>
-              </div>
-            </td>
-
-          </tr>
+          <tbody class="tr-content"></tbody>
 
           <tr ng-if="$data.length <= 0">
             <td colspan="{{$columns.length}}"
