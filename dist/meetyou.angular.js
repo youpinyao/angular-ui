@@ -37720,6 +37720,10 @@ var _maSiderMenuContentTpl = __webpack_require__("PIS4");
 
 var _maSiderMenuContentTpl2 = _interopRequireDefault(_maSiderMenuContentTpl);
 
+var _maSiderMenuContentItemTpl = __webpack_require__("RzpN");
+
+var _maSiderMenuContentItemTpl2 = _interopRequireDefault(_maSiderMenuContentItemTpl);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 angular.module(_name2['default']).directive('maUiTransition', maUiTransition).directive('maFirstMenu', maFirstMenu).directive('maSecondMenu', maSecondMenu).directive('maSiderMenu', maSiderMenu).directive('maSiderMenuContent', maSiderMenuContent).directive('maFullContainer', maFullContainer);
@@ -37890,9 +37894,9 @@ function maSiderMenu($state, $rootScope) {
   };
 }
 
-maSiderMenuContent.$inject = ['$state', '$timeout', '$rootScope'];
+maSiderMenuContent.$inject = ['$state', '$timeout', '$rootScope', '$compile'];
 
-function maSiderMenuContent($state, $timeout, $rootScope) {
+function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
   return {
     restrict: 'E',
     replace: true,
@@ -37906,7 +37910,6 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       $scope.$state = $state;
       $scope.itemClick = itemClick;
       $scope.iconClick = iconClick;
-      $scope.hasRouters = hasRouters;
       $scope.isParent = isParent;
       $scope.isActive = isActive;
       expandCurrentMenu();
@@ -37916,10 +37919,12 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
 
       function expandCurrentMenu() {
         var cState = $state.current.name;
-        var cUrl = $state.href(cState, $state.params);
+        var currentUrl = $state.href(cState, $state.params);
 
         if ($scope.routers) {
           angular.each($scope.routers, function (router) {
+            var routerUrl = $state.href(router.state, router.params);
+
             if (cState.indexOf(router.state + '.') !== -1) {
               router.expand = true;
             }
@@ -37927,45 +37932,23 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
             if (!!$scope.parentRouter && isActive(router)) {
               $scope.parentRouter.expand = true;
             }
+
+            router.cls = '';
+            router.cls += isActive(router) ? 'active ' : '';
+            router.cls += router.routers && router.routers.length ? 'arrow ' : '';
+            router.cls += isParent(currentUrl, routerUrl) ? 'parent ' : '';
           });
         }
-
-        updateCls();
-      }
-
-      function updateCls() {
-        var currentUrl = $state.href($state.current.name, $state.params);
-
-        angular.each($scope.routers, function (router) {
-          var routerUrl = $state.href(router.state, router.params);
-
-          router.cls = '';
-          router.cls += isActive(router) ? 'active ' : '';
-          router.cls += router.routers && router.routers.length ? 'arrow ' : '';
-          router.cls += isParent(currentUrl, routerUrl) ? 'parent ' : '';
-        });
-      }
-
-      function hasRouters(routers) {
-        var count = 0;
-
-        angular.each(routers, function (d) {
-          if (d.hidden !== true) {
-            count++;
-          }
-        });
-
-        return count > 0;
       }
 
       function itemClick(router, $event) {
-        if (hasRouters(router.routers) && angular.isNull(router.state)) {
+        if (router.routers && router.routers.length && angular.isNull(router.state)) {
           toggleMenu(router, $event);
         } else {
           $state.go(router.state, router.params);
         }
 
-        if (hasRouters(router.routers)) {
+        if (router.routers && router.routers.length) {
           router.expand = true;
         }
       }
@@ -38013,7 +37996,7 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
           });
         }
 
-        active = urls.indexOf($state.href($state.current.name, $state.params)) !== -1 || isParent($state.href($state.current.name, $state.params), urls[0]) && !hasRouters(router.routers);
+        active = urls.indexOf($state.href($state.current.name, $state.params)) !== -1 || isParent($state.href($state.current.name, $state.params), urls[0]) && !(router.routers && router.routers.length);
 
         if (active === false && router.childs && router.childs.length) {
           router.childs.forEach(function (d) {
@@ -38038,7 +38021,29 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
         return active;
       }
     }],
-    link: function link(scope, element, attrs, controllers) {}
+    link: function link(scope, element, attrs, controllers) {
+      var target = (0, _jquery2['default'])(element);
+
+      scope.$watch('routers', function (routers) {
+        var index = -1;
+
+        target.html('');
+
+        if (angular.isEmpty(routers)) {
+          return;
+        }
+
+        angular.each(routers, function (item) {
+          index++;
+          var itemElement = (0, _jquery2['default'])(_maSiderMenuContentItemTpl2['default'].replace(/&&\{index\}/g, index));
+          target.append(itemElement);
+
+          scope['router' + index] = item;
+        });
+        $compile(target.contents())(scope);
+        $timeout();
+      });
+    }
   };
 }
 
@@ -44267,7 +44272,7 @@ module.exports = "<div\n  class=\"ma-progress {{type}}\"\n  ng-class=\"{\n    su
 /***/ "PIS4":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sider-menu-content\">\n  <div class=\"sider-menu-item\"\n    ng-repeat=\"router in routers\"\n    ng-if=\"router.hidden !== true\">\n    <a href=\"javascript:void(0);\"\n      class=\"{{router.cls}}\"\n      ma-click=\"itemClick(router, $event)\">\n      <span>{{router.title}}</span>\n      <ma-icon ma-type=\"{{router.expand ? 'up' : 'down'}}\"\n        ng-if=\"hasRouters(router.routers)\"\n        ma-click=\"iconClick(router, $event)\"></ma-icon>\n    </a>\n    <ma-sider-menu-content ng-class=\"{hide: !router.expand}\"\n      ng-if=\"router.routers && router.routers.length\"\n      ma-routers=\"router.routers\"\n      ma-parent-router=\"router\"></ma-sider-menu-content>\n  </div>\n</div>\n";
+module.exports = "<div class=\"sider-menu-content\">\n\n</div>\n";
 
 /***/ }),
 
@@ -48766,6 +48771,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     return ka;
 });
+
+/***/ }),
+
+/***/ "RzpN":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"sider-menu-item\"\n  ng-if=\"router&&{index}.hidden !== true\">\n  <a href=\"javascript:void(0);\"\n    class=\"{{router&&{index}.cls}}\"\n    ma-click=\"itemClick(router&&{index}, $event)\">\n    <span>{{router&&{index}.title}}</span>\n    <ma-icon ma-type=\"{{router&&{index}.expand ? 'up' : 'down'}}\"\n      ng-if=\"router&&{index}.routers.length\"\n      ma-click=\"iconClick(router&&{index}, $event)\"></ma-icon>\n  </a>\n  <ma-sider-menu-content ng-class=\"{hide: !router&&{index}.expand}\"\n    ng-if=\"router&&{index}.routers && router&&{index}.routers.length && router&&{index}.expand\"\n    ma-routers=\"router&&{index}.routers\"\n    ma-parent-router=\"router&&{index}\"></ma-sider-menu-content>\n</div>\n";
 
 /***/ }),
 

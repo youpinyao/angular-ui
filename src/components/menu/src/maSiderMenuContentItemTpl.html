@@ -1,0 +1,15 @@
+<div class="sider-menu-item"
+  ng-if="router&&{index}.hidden !== true">
+  <a href="javascript:void(0);"
+    class="{{router&&{index}.cls}}"
+    ma-click="itemClick(router&&{index}, $event)">
+    <span>{{router&&{index}.title}}</span>
+    <ma-icon ma-type="{{router&&{index}.expand ? 'up' : 'down'}}"
+      ng-if="router&&{index}.routers.length"
+      ma-click="iconClick(router&&{index}, $event)"></ma-icon>
+  </a>
+  <ma-sider-menu-content ng-class="{hide: !router&&{index}.expand}"
+    ng-if="router&&{index}.routers && router&&{index}.routers.length && router&&{index}.expand"
+    ma-routers="router&&{index}.routers"
+    ma-parent-router="router&&{index}"></ma-sider-menu-content>
+</div>

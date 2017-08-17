@@ -5,6 +5,7 @@ import maFirstMenuTpl from './maFirstMenuTpl.html';
 import maSecondMenuTpl from './maSecondMenuTpl.html';
 import maSiderMenuTpl from './maSiderMenuTpl.html';
 import maSiderMenuContentTpl from './maSiderMenuContentTpl.html';
+import maSiderMenuContentItemTpl from './maSiderMenuContentItemTpl.html';
 
 angular.module(moduleName)
   .directive('maUiTransition', maUiTransition)
@@ -187,9 +188,9 @@ function maSiderMenu($state, $rootScope) {
   };
 }
 
-maSiderMenuContent.$inject = ['$state', '$timeout', '$rootScope'];
+maSiderMenuContent.$inject = ['$state', '$timeout', '$rootScope', '$compile'];
 
-function maSiderMenuContent($state, $timeout, $rootScope) {
+function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
   return {
     restrict: 'E',
     replace: true,
@@ -203,7 +204,6 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       $scope.$state = $state;
       $scope.itemClick = itemClick;
       $scope.iconClick = iconClick;
-      $scope.hasRouters = hasRouters;
       $scope.isParent = isParent;
       $scope.isActive = isActive;
       expandCurrentMenu();
@@ -213,10 +213,12 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
 
       function expandCurrentMenu() {
         const cState = $state.current.name;
-        const cUrl = $state.href(cState, $state.params);
+        const currentUrl = $state.href(cState, $state.params);
 
         if ($scope.routers) {
           angular.each($scope.routers, router => {
+            const routerUrl = $state.href(router.state, router.params);
+
             if (cState.indexOf(router.state + '.') !== -1) {
               router.expand = true;
             }
@@ -224,45 +226,23 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
             if (!!$scope.parentRouter && isActive(router)) {
               $scope.parentRouter.expand = true;
             }
+
+            router.cls = '';
+            router.cls += isActive(router) ? 'active ' : '';
+            router.cls += router.routers && router.routers.length ? 'arrow ' : '';
+            router.cls += isParent(currentUrl, routerUrl) ? 'parent ' : '';
           });
         }
-
-        updateCls();
-      }
-
-      function updateCls() {
-        const currentUrl = $state.href($state.current.name, $state.params);
-
-        angular.each($scope.routers, router => {
-          const routerUrl = $state.href(router.state, router.params);
-
-          router.cls = '';
-          router.cls += isActive(router) ? 'active ' : '';
-          router.cls += router.routers && router.routers.length ? 'arrow ' : '';
-          router.cls += isParent(currentUrl, routerUrl) ? 'parent ' : '';
-        });
-      }
-
-      function hasRouters(routers) {
-        let count = 0;
-
-        angular.each(routers, d => {
-          if (d.hidden !== true) {
-            count++;
-          }
-        });
-
-        return count > 0;
       }
 
       function itemClick(router, $event) {
-        if (hasRouters(router.routers) && angular.isNull(router.state)) {
+        if (router.routers && router.routers.length && angular.isNull(router.state)) {
           toggleMenu(router, $event);
         } else {
           $state.go(router.state, router.params);
         }
 
-        if (hasRouters(router.routers)) {
+        if (router.routers && router.routers.length) {
           router.expand = true;
         }
       }
@@ -312,7 +292,8 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
 
         active = urls.indexOf($state.href($state.current.name, $state.params)) !== -1 || (
           isParent(
-            $state.href($state.current.name, $state.params), urls[0]) && !hasRouters(router.routers)
+            $state.href($state.current.name, $state.params), urls[0]) && !(router.routers &&
+            router.routers.length)
         );
 
         if (active === false && router.childs && router.childs.length) {
@@ -339,7 +320,27 @@ function maSiderMenuContent($state, $timeout, $rootScope) {
       }
     }],
     link(scope, element, attrs, controllers) {
+      const target = $(element);
 
+      scope.$watch('routers', routers => {
+        let index = -1;
+
+        target.html('');
+
+        if (angular.isEmpty(routers)) {
+          return;
+        }
+
+        angular.each(routers, item => {
+          index++;
+          const itemElement = $(maSiderMenuContentItemTpl.replace(/&&\{index\}/g, index));
+          target.append(itemElement);
+
+          scope[`router${index}`] = item;
+        });
+        $compile(target.contents())(scope);
+        $timeout();
+      });
     }
   };
 }
