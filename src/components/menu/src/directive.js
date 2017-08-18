@@ -194,7 +194,7 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
   return {
     restrict: 'E',
     replace: true,
-    require: ['^maSiderMenu'],
+    // require: ['^maSiderMenu'],
     scope: {
       routers: '=maRouters',
       parentRouter: '=maParentRouter',
