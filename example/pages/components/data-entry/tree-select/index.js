@@ -7,14 +7,14 @@ angular.module('app').controller(controller, mainCtrl);
 mainCtrl.$inject = ['$scope', '$q', '$timeout', '$treeSelect'];
 
 function mainCtrl($scope, $q, $timeout, $treeSelect) {
-  $scope.selectValue = ['7777'];
+  $scope.selectValue = ['7777', '8888'];
   $scope.disabled = false;
 
   $scope.data = [{
     text1: '6666',
     value1: '6666',
     sub1: [{
-      text1: '7777',
+      text1: '77771',
       value1: '7777',
     }, {
       text1: '8888',

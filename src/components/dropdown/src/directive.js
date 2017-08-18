@@ -1,5 +1,6 @@
 import moduleName from './name.js';
 import $ from 'jquery';
+import uuid from 'uuid/v4';
 import debounce from 'debounce';
 import maDropdownTpl from './maDropdownTpl.html';
 import itemTpl from './itemTpl.html';
@@ -111,7 +112,7 @@ function maDropdown($timeout, $compile) {
         scope.valueKey = d || 'value';
       });
 
-      scope.$watch('data', d => {
+      scope.$watch('data', (d, p) => {
         checkCheckbox();
         updateHtmlItem();
       });
@@ -146,6 +147,18 @@ function maDropdown($timeout, $compile) {
 
         scope._activeItems = _activeItems;
 
+        if (!scope.multiple) {
+          $(scope.data).each(function() {
+            if (_activeItems.indexOf(this[scope.valueKey]) !== -1) {
+              $(element).find(`.ma-dropdown-item[data-uuid="${this._uuid}"]`).addClass(
+                  'active').siblings()
+                .removeClass('active');
+              return false;
+            }
+            return true;
+          });
+        }
+
         checkCheckbox();
       });
 
@@ -162,8 +175,9 @@ function maDropdown($timeout, $compile) {
         $event.stopPropagation();
         if (scope.selectedHide !== undefined && scope.multiple != 'true') {
           scope.show = false;
-          $timeout();
         }
+
+        $timeout();
       }
 
       function checkCheckbox() {
@@ -213,19 +227,53 @@ function maDropdown($timeout, $compile) {
         target.html('');
 
         angular.each(items, item => {
+          if (angular.isNull(item._uuid)) {
+            item._uuid = uuid();
+          }
+
           const text = item[textKey] + '';
           const value = item[valueKey];
 
           if (angular.isNull(searchKey) || text.indexOf(searchKey) !== -1) {
             index++;
             const itemElement = $(itemTpl.replace(/&&\{index\}/g, index));
+
+            itemElement.attr('data-uuid', item._uuid);
+
+
+            if (item.hide) {
+              itemElement.addClass('hide');
+            }
+
+            if (scope._activeItems.indexOf(item[scope.valueKey]) !== -1) {
+              itemElement.addClass('active');
+            }
+
+            if (!scope.multiple) {
+              itemElement.append(`<span>${item[scope.textKey]}</span>`);
+            } else {
+              itemElement.append(
+                `<ma-checkbox ng-cloak ng-disabled="disabled"
+                  ng-model="item${index}.checked">
+                  <span>${item[scope.textKey]}</span>
+                </ma-checkbox>`
+              );
+              itemElement.addClass('is-multiple');
+              $compile(itemElement.contents())(scope);
+            }
+
+            itemElement.on('click', e => {
+              scope._itemClick(e, item);
+            });
+
             target.append(itemElement);
 
             scope[`item${index}`] = item;
           }
         });
-        $compile(target.contents())(scope);
-        $timeout();
+        if (scope.multiple) {
+          $timeout();
+        }
       }
     }
   };

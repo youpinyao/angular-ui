@@ -1,17 +1,2 @@
-<div class="ma-dropdown-item"
-ma-click="_itemClick($event, item&&{index})"
-ng-class="{
-active: _activeItems.indexOf(item&&{index}[valueKey]) !== -1,
-'is-multiple': multiple == 'true',
-hide: item&&{index}.hide === true
-}">
-<ma-checkbox ng-disabled="disabled"
-  ng-if="multiple == 'true'"
-  ng-model="item&&{index}.checked">
-  <span ng-bind-html="item&&{index}[textKey]"></span>
-</ma-checkbox>
-
-<span ng-if="multiple != 'true'"
-  ng-bind-html="item&&{index}[textKey]"></span>
-
+<div class="ma-dropdown-item">
 </div>

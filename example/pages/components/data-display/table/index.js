@@ -253,6 +253,7 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
       cols: 表单头，形式数组，例子：[{
           field: 'selector',
           title: '',
+          titleRender: '', // 带compile 功能的title
           // headerTemplate: '<input type="checkbox" ng-model="$ctrl.checkboxes.checked" class="select-all" value="" />',
           headerTemplateURL: 'headerCheckbox.html',
           show: true

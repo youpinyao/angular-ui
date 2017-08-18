@@ -1,16 +1,20 @@
 import moduleName from './name.js';
 import $ from 'jquery';
 import maTableTpl from './maTableTpl.html';
+import sorterRow from './sorterRow.html';
 import pagerTpl from './pager.html';
 import headerCheckbox from './headerCheckbox.html';
 import header1 from './header1.html';
 import maTableController from './maTableController.js';
 
 const pagerPath = 'ng-table/pager.html';
+const sorterPath = 'ng-table/sorterRow.html';
 
 angular.module('ng').run(['$templateCache', function(c) {
   c.remove(pagerPath);
+  c.remove(sorterPath);
   c.put(pagerPath, pagerTpl);
+  c.put(sorterPath, sorterRow);
 
   c.put('headerCheckbox.html', headerCheckbox);
   c.put('header1.html', header1);

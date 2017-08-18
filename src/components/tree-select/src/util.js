@@ -135,12 +135,16 @@ const util = {
 
     return data;
   },
-  hiddenSelectTreeData: function(data, hiddenItem) {
+  hiddenSelectTreeData: function(data, hiddenItem, reverse) {
     var hiddenValues = [];
     var hide = true;
     angular.forEach(hiddenItem, function(d) {
       hiddenValues.push(d.value);
     });
+
+    if (reverse) {
+      hide = false;
+    }
 
     function hideItem(items) {
       angular.forEach(items, function(d) {
@@ -190,7 +194,7 @@ const util = {
         }
       });
       if (hideCount >= item.sub.length) {
-        item.isHidden = true;
+        item.isHidden = hide;
         if (item._parent) {
           hideParent(item._parent);
         }

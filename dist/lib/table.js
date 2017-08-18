@@ -417,6 +417,10 @@ var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _v = __webpack_require__("DtRx");
+
+var _v2 = _interopRequireDefault(_v);
+
 var _debounce = __webpack_require__("HhAh");
 
 var _debounce2 = _interopRequireDefault(_debounce);
@@ -536,7 +540,7 @@ function maDropdown($timeout, $compile) {
         scope.valueKey = d || 'value';
       });
 
-      scope.$watch('data', function (d) {
+      scope.$watch('data', function (d, p) {
         checkCheckbox();
         updateHtmlItem();
       });
@@ -571,6 +575,16 @@ function maDropdown($timeout, $compile) {
 
         scope._activeItems = _activeItems;
 
+        if (!scope.multiple) {
+          (0, _jquery2['default'])(scope.data).each(function () {
+            if (_activeItems.indexOf(this[scope.valueKey]) !== -1) {
+              (0, _jquery2['default'])(element).find('.ma-dropdown-item[data-uuid="' + this._uuid + '"]').addClass('active').siblings().removeClass('active');
+              return false;
+            }
+            return true;
+          });
+        }
+
         checkCheckbox();
       });
 
@@ -587,8 +601,9 @@ function maDropdown($timeout, $compile) {
         $event.stopPropagation();
         if (scope.selectedHide !== undefined && scope.multiple != 'true') {
           scope.show = false;
-          $timeout();
         }
+
+        $timeout();
       }
 
       function checkCheckbox() {
@@ -637,23 +652,58 @@ function maDropdown($timeout, $compile) {
         target.html('');
 
         angular.each(items, function (item) {
+          if (angular.isNull(item._uuid)) {
+            item._uuid = (0, _v2['default'])();
+          }
+
           var text = item[textKey] + '';
           var value = item[valueKey];
 
           if (angular.isNull(searchKey) || text.indexOf(searchKey) !== -1) {
             index++;
             var itemElement = (0, _jquery2['default'])(_itemTpl2['default'].replace(/&&\{index\}/g, index));
+
+            itemElement.attr('data-uuid', item._uuid);
+
+            if (item.hide) {
+              itemElement.addClass('hide');
+            }
+
+            if (scope._activeItems.indexOf(item[scope.valueKey]) !== -1) {
+              itemElement.addClass('active');
+            }
+
+            if (!scope.multiple) {
+              itemElement.append('<span>' + item[scope.textKey] + '</span>');
+            } else {
+              itemElement.append('<ma-checkbox ng-cloak ng-disabled="disabled"\n                  ng-model="item' + index + '.checked">\n                  <span>' + item[scope.textKey] + '</span>\n                </ma-checkbox>');
+              itemElement.addClass('is-multiple');
+              $compile(itemElement.contents())(scope);
+            }
+
+            itemElement.on('click', function (e) {
+              scope._itemClick(e, item);
+            });
+
             target.append(itemElement);
 
             scope['item' + index] = item;
           }
         });
-        $compile(target.contents())(scope);
-        $timeout();
+        if (scope.multiple) {
+          $timeout();
+        }
       }
     }
   };
 }
+
+/***/ }),
+
+/***/ "NXSO":
+/***/ (function(module, exports) {
+
+module.exports = "<tr class=\"ng-table-sort-header\">\n  <th title=\"{{$column.headerTitle(this)}}\"\n    ng-repeat=\"$column in $columns\"\n    ng-class=\"{\n      'sortable': $column.sortable(this),\n      'sort-asc': params.sorting()[$column.sortable(this)]=='asc',\n      'sort-desc': params.sorting()[$column.sortable(this)]=='desc'\n    }\"\n    ng-click=\"sortBy($column, $event)\"\n    ng-if=\"$column.show(this)\"\n    ng-init=\"template = $column.headerTemplateURL(this)\"\n    class=\"header {{$column.class(this)}}\">\n    <div ng-if=\"!template\"\n      class=\"ng-table-header\"\n      ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'div'}\">\n      <span ng-if=\"$column.titleRender\"\n        ng-compile=\"$column.titleRender\"\n        ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'span'}\"></span>\n      <span ng-if=\"!$column.titleRender\"\n        ng-bind-html=\"$column.title()\"\n        ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'span'}\"></span>\n    </div>\n    <div ng-if=\"template\"\n      ng-include=\"template\"></div>\n  </th>\n</tr>\n";
 
 /***/ }),
 
@@ -869,7 +919,7 @@ function maSelect($timeout) {
 /***/ "RCoB":
 /***/ (function(module, exports) {
 
-module.exports = "<tr ng-class=\"{\n    'selected-row': selector && $tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\n  }\"\n  class=\"{{$tableCtrl.tableConfig.rowCustomClass}}\">\n\n</tr>\n";
+module.exports = "<tr ng-class=\"{\n    'selected-row': selector && $tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\n  }\"\n  class=\"&&{rowCustomClass}\">\n\n</tr>\n";
 
 /***/ }),
 
@@ -1132,6 +1182,9 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     });
   }
   self.nextPageNum = 1;
+
+  var updateHtmlItems = (0, _debounce2['default'])(_updateHtmlItems, 0);
+
   self.tableParams = new NgTableParams({
     count: self.count,
     sorting: self.sorting,
@@ -1168,6 +1221,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         });
       } else {
         self.isLoading = false;
+        updateHtmlItems(deferred);
       }
 
       return deferred;
@@ -1318,10 +1372,11 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     });
   }
 
-  function updateHtmlItems(data) {
+  function _updateHtmlItems(data) {
     var target = (0, _jquery2['default'])($element).find('.tr-content');
+
     var htmlItems = '';
-    var tdItems = '';
+    var tdItems = [];
     var index = -1;
     var colIndex = -1;
 
@@ -1330,17 +1385,36 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     angular.each(self.tableConfig.cols, function (col) {
       if (col.show !== false) {
         colIndex++;
-        tdItems += _tdTpl2['default'].replace(/col&&\{index\}/g, 'col' + colIndex);
+        var td = _tdTpl2['default'].replace(/col&&\{index\}/g, 'col' + colIndex);
+        var hasCompile = col.render || col.customHtml || col.field == 'selector';
+
+        tdItems.push([td.replace(/&&\{colClass\}/g, col.colClass || ''), hasCompile, col]);
+
         $scope['col' + colIndex] = col;
       }
     });
 
     angular.each(data, function (item) {
       index++;
-      var trElement = (0, _jquery2['default'])(_trTpl2['default'].replace(/&&\{index\}/g, index));
-      trElement.html(tdItems.replace(/&&\{index\}/g, index));
+      var trElement = _trTpl2['default'].replace(/&&\{index\}/g, index);
+
+      trElement = (0, _jquery2['default'])(trElement.replace(/&&\{rowCustomClass\}/g, self.tableConfig.rowCustomClass));
 
       $scope['row' + index] = item;
+      $compile(trElement)($scope);
+
+      tdItems.forEach(function (d) {
+        var el = (0, _jquery2['default'])(d[0].replace(/&&\{index\}/g, index));
+        trElement.append(el);
+
+        if (d[1]) {
+          el.attr('has-compile', true);
+          // $compile(el)($scope);
+        } else {
+          el.html('\n          <div>\n            <span>' + item[d[2].field] + '</span>\n          </div>');
+        }
+      });
+
       target.append(trElement);
     });
 
@@ -1348,7 +1422,9 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       target.html('\n      <tr>\n        <td colspan="' + (colIndex + 1) + '" style="text-align:center;">\u6682\u65E0\u6570\u636E</td>\n      </tr>');
     }
 
-    $compile(target.contents())($scope);
+    target.find('td[has-compile="true"]').each(function () {
+      $compile(this)($scope);
+    });
     $timeout();
   }
 }
@@ -1484,7 +1560,7 @@ exports['default'] = 'meetyou.angular.ui.icons';
 /***/ "dgAy":
 /***/ (function(module, exports) {
 
-module.exports = "<td ng-class='col&&{index}.colClass'>\n  <div ng-if=\"col&&{index}.field == 'selector'\">\n    <ma-checkbox id=\"ck_{{row&&{index}.id}}\"\n      ng-model=\"$tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\">\n    </ma-checkbox>\n  </div>\n  <div ng-if='col&&{index}.render'\n    common-table-col-render=\"col&&{index}.render(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n\n  <div ng-if='!col&&{index}.render && col&&{index}.customHtml'\n    ng-bind-html=\"col&&{index}.customHtml(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n\n  <div ng-if='!col&&{index}.render && !col&&{index}.customHtml'>\n    <span>{{row&&{index}[col&&{index}.field]}}</span>\n  </div>\n</td>\n";
+module.exports = "<td class=\"&&{colClass}\">\n  <div ng-cloak ng-if=\"col&&{index}.field == 'selector'\">\n    <ma-checkbox id=\"ck_{{row&&{index}.id}}\"\n      ng-model=\"$tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\">\n    </ma-checkbox>\n  </div>\n  <div ng-cloak ng-if='col&&{index}.render'\n    common-table-col-render=\"col&&{index}.render(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n\n  <div ng-cloak ng-if='!col&&{index}.render && col&&{index}.customHtml'\n    ng-bind-html=\"col&&{index}.customHtml(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n</td>\n";
 
 /***/ }),
 
@@ -1795,6 +1871,10 @@ var _maTableTpl = __webpack_require__("0bzt");
 
 var _maTableTpl2 = _interopRequireDefault(_maTableTpl);
 
+var _sorterRow = __webpack_require__("NXSO");
+
+var _sorterRow2 = _interopRequireDefault(_sorterRow);
+
 var _pager = __webpack_require__("XVLJ");
 
 var _pager2 = _interopRequireDefault(_pager);
@@ -1814,10 +1894,13 @@ var _maTableController2 = _interopRequireDefault(_maTableController);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var pagerPath = 'ng-table/pager.html';
+var sorterPath = 'ng-table/sorterRow.html';
 
 angular.module('ng').run(['$templateCache', function (c) {
   c.remove(pagerPath);
+  c.remove(sorterPath);
   c.put(pagerPath, _pager2['default']);
+  c.put(sorterPath, _sorterRow2['default']);
 
   c.put('headerCheckbox.html', _headerCheckbox2['default']);
   c.put('header1.html', _header2['default']);
@@ -2449,6 +2532,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             (function (prop1) {
               // satisfy the arguments expected by the function returned by parsedAttribute in the ngTable directive
               var getterFn = extendedCol[prop1];
+
               extendedCol[prop1] = function () {
                 if (arguments.length === 1 && !isScopeLike(arguments[0])) {
                   getterFn.assign(null, arguments[0]);
@@ -4586,7 +4670,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     function (module, exports, __webpack_require__) {
 
       var path = 'ng-table/sorterRow.html';
-      var html = "<tr class=\"ng-table-sort-header\">\n    <th title=\"{{$column.headerTitle(this)}}\"\n        ng-repeat=\"$column in $columns\"\n        ng-class=\"{\n                    'sortable': $column.sortable(this),\n                    'sort-asc': params.sorting()[$column.sortable(this)]=='asc',\n                    'sort-desc': params.sorting()[$column.sortable(this)]=='desc'\n                  }\"\n        ng-click=\"sortBy($column, $event)\"\n        ng-if=\"$column.show(this)\"\n        ng-init=\"template = $column.headerTemplateURL(this)\"\n        class=\"header {{$column.class(this)}}\">\n        <div ng-if=\"!template\" class=\"ng-table-header\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'div'}\">\n            <span ng-compile=\"$column.title(this)\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'span'}\"></span>\n        </div>\n        <div ng-if=\"template\" ng-include=\"template\"></div>\n    </th>\n</tr>\n";
+      var html = "<tr class=\"ng-table-sort-header\">\n    <th title=\"{{$column.headerTitle(this)}}\"\n        ng-repeat=\"$column in $columns\"\n        ng-class=\"{\n                    'sortable': $column.sortable(this),\n                    'sort-asc': params.sorting()[$column.sortable(this)]=='asc',\n                    'sort-desc': params.sorting()[$column.sortable(this)]=='desc'\n                  }\"\n        ng-click=\"sortBy($column, $event)\"\n        ng-if=\"$column.show(this)\"\n        ng-init=\"template = $column.headerTemplateURL(this)\"\n        class=\"header {{$column.class(this)}}\">\n        <div ng-if=\"!template\" class=\"ng-table-header\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'div'}\">\n            <span ng-bind-html=\"$column.title\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'span'}\"></span>\n        </div>\n        <div ng-if=\"template\" ng-include=\"template\"></div>\n    </th>\n</tr>\n";
       var angular = __webpack_require__( /*! angular */0);
       angular.module('ng').run(['$templateCache', function (c) {
         c.put(path, html);
@@ -4777,7 +4861,7 @@ module.exports = "<ng-table-group-row>\n</ng-table-group-row>\n<ng-table-sorter-
 /***/ "sebW":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-dropdown-item\"\nma-click=\"_itemClick($event, item&&{index})\"\nng-class=\"{\nactive: _activeItems.indexOf(item&&{index}[valueKey]) !== -1,\n'is-multiple': multiple == 'true',\nhide: item&&{index}.hide === true\n}\">\n<ma-checkbox ng-disabled=\"disabled\"\n  ng-if=\"multiple == 'true'\"\n  ng-model=\"item&&{index}.checked\">\n  <span ng-bind-html=\"item&&{index}[textKey]\"></span>\n</ma-checkbox>\n\n<span ng-if=\"multiple != 'true'\"\n  ng-bind-html=\"item&&{index}[textKey]\"></span>\n\n</div>\n";
+module.exports = "<div class=\"ma-dropdown-item\">\n</div>\n";
 
 /***/ }),
 

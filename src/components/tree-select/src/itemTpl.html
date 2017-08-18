@@ -19,10 +19,10 @@
         style="pointer-events:none;"
         ng-disabled="$select.selectDisabled"
         ng-class="{
-    'has-sub': item&&{index}.__checkbox_has_sub,
-    'has-parent': item&&{index}.__checkbox_has_parent,
-    'custom-multi-select-checkbox-hidden': item&&{index}.hiddenCheck
-  }">
+          'has-sub': item&&{index}.__checkbox_has_sub,
+          'has-parent': item&&{index}.__checkbox_has_parent,
+          'custom-multi-select-checkbox-hidden': item&&{index}.hiddenCheck
+        }">
         <span ng-bind-html="item&&{index}.text"></span>
       </ma-checkbox>
     </div>

@@ -3462,7 +3462,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ "2hwL":
 /***/ (function(module, exports) {
 
-module.exports = "<li class=\"ui-select-choices-row {{'tree-level-' +item&&{index}._treeLevel}}\"\n  ng-class=\"{'has-sub' : item&&{index}.sub.length}\"\n  data-tag-to=\"{{item&&{index}._treeLinkTo}}\"\n  ng-if=\"item&&{index}.__item_is_show\"\n  data-tag-from=\"{{item&&{index}._treeLinkFrom}}\">\n  <div class=\"select2-result-label ui-select-choices-row-inner\"\n    ma-click=\"$select.doSelect($event, item&&{index})\">\n    <div ng-class=\"{'tree-open': item&&{index}.__tree_is_open}\">\n\n      <i class=\"tree-arrow-click\"\n        ng-if=\"item&&{index}.sub.length\"\n        ma-click=\"$select.toggleTree($event, item&&{index})\">\n        <i class=\"tree-arrow\"\n          ng-if=\"item&&{index}.sub.length\"></i>\n      </i>\n      <!-- <div class=\"click-mask\"></div> -->\n      <ma-checkbox unclick\n        ng-model=\"item&&{index}._selected\"\n        style=\"pointer-events:none;\"\n        ng-disabled=\"$select.selectDisabled\"\n        ng-class=\"{\n    'has-sub': item&&{index}.__checkbox_has_sub,\n    'has-parent': item&&{index}.__checkbox_has_parent,\n    'custom-multi-select-checkbox-hidden': item&&{index}.hiddenCheck\n  }\">\n        <span ng-bind-html=\"item&&{index}.text\"></span>\n      </ma-checkbox>\n    </div>\n  </div>\n</li>\n";
+module.exports = "<li class=\"ui-select-choices-row {{'tree-level-' +item&&{index}._treeLevel}}\"\n  ng-class=\"{'has-sub' : item&&{index}.sub.length}\"\n  data-tag-to=\"{{item&&{index}._treeLinkTo}}\"\n  ng-if=\"item&&{index}.__item_is_show\"\n  data-tag-from=\"{{item&&{index}._treeLinkFrom}}\">\n  <div class=\"select2-result-label ui-select-choices-row-inner\"\n    ma-click=\"$select.doSelect($event, item&&{index})\">\n    <div ng-class=\"{'tree-open': item&&{index}.__tree_is_open}\">\n\n      <i class=\"tree-arrow-click\"\n        ng-if=\"item&&{index}.sub.length\"\n        ma-click=\"$select.toggleTree($event, item&&{index})\">\n        <i class=\"tree-arrow\"\n          ng-if=\"item&&{index}.sub.length\"></i>\n      </i>\n      <!-- <div class=\"click-mask\"></div> -->\n      <ma-checkbox unclick\n        ng-model=\"item&&{index}._selected\"\n        style=\"pointer-events:none;\"\n        ng-disabled=\"$select.selectDisabled\"\n        ng-class=\"{\n          'has-sub': item&&{index}.__checkbox_has_sub,\n          'has-parent': item&&{index}.__checkbox_has_parent,\n          'custom-multi-select-checkbox-hidden': item&&{index}.hiddenCheck\n        }\">\n        <span ng-bind-html=\"item&&{index}.text\"></span>\n      </ma-checkbox>\n    </div>\n  </div>\n</li>\n";
 
 /***/ }),
 
@@ -5424,11 +5424,10 @@ function maTreeTransfer($treeSelect, $timeout) {
         }
         getSelectedValues($ctrl.leftSelected);
 
-        console.log(3333333, $scope.model);
+        $ctrl.leftData = $treeSelect.hiddenSelectTreeData($ctrl.leftData, $scope.model);
+        $ctrl.rightData = [].concat($treeSelect.hiddenSelectTreeData($ctrl.rightData, $scope.model, true));
+        // $ctrl.rightData = [].concat($treeSelect.hiddenSelectTreeDataReverse($ctrl.rightData));
 
-        $scope.leftData = $treeSelect.hiddenSelectTreeData($ctrl.leftData, $scope.model);
-        $scope.rightData = $treeSelect.hiddenSelectTreeData($ctrl.rightData, $scope.model);
-        $scope.rightData = $treeSelect.hiddenSelectTreeDataReverse($ctrl.rightData);
 
         $ctrl.leftSelected = [];
         $ctrl.rightSelected = [];
@@ -5478,9 +5477,9 @@ function maTreeTransfer($treeSelect, $timeout) {
 
         $scope.model = newModel;
 
-        $scope.leftData = $treeSelect.hiddenSelectTreeData($scope.leftData, $scope.model);
-        $scope.rightData = $treeSelect.hiddenSelectTreeData($scope.rightData, $scope.model);
-        $scope.rightData = $treeSelect.hiddenSelectTreeDataReverse($scope.rightData);
+        $ctrl.leftData = [].concat($treeSelect.hiddenSelectTreeData($ctrl.leftData, $scope.model));
+        $ctrl.rightData = $treeSelect.hiddenSelectTreeData($ctrl.rightData, $scope.model, true);
+        // $ctrl.rightData = $treeSelect.hiddenSelectTreeDataReverse($ctrl.rightData);
 
         $ctrl.leftSelected = [];
         $ctrl.rightSelected = [];
@@ -5575,7 +5574,7 @@ function maTreeTransfer($treeSelect, $timeout) {
       }
 
       function setMaModel() {
-        var d = $scope.rightData;
+        var d = $ctrl.rightData;
         var selected = [];
         var selectedIds = [];
 
@@ -41671,6 +41670,10 @@ var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _v = __webpack_require__("DtRx");
+
+var _v2 = _interopRequireDefault(_v);
+
 var _debounce = __webpack_require__("HhAh");
 
 var _debounce2 = _interopRequireDefault(_debounce);
@@ -41790,7 +41793,7 @@ function maDropdown($timeout, $compile) {
         scope.valueKey = d || 'value';
       });
 
-      scope.$watch('data', function (d) {
+      scope.$watch('data', function (d, p) {
         checkCheckbox();
         updateHtmlItem();
       });
@@ -41825,6 +41828,16 @@ function maDropdown($timeout, $compile) {
 
         scope._activeItems = _activeItems;
 
+        if (!scope.multiple) {
+          (0, _jquery2['default'])(scope.data).each(function () {
+            if (_activeItems.indexOf(this[scope.valueKey]) !== -1) {
+              (0, _jquery2['default'])(element).find('.ma-dropdown-item[data-uuid="' + this._uuid + '"]').addClass('active').siblings().removeClass('active');
+              return false;
+            }
+            return true;
+          });
+        }
+
         checkCheckbox();
       });
 
@@ -41841,8 +41854,9 @@ function maDropdown($timeout, $compile) {
         $event.stopPropagation();
         if (scope.selectedHide !== undefined && scope.multiple != 'true') {
           scope.show = false;
-          $timeout();
         }
+
+        $timeout();
       }
 
       function checkCheckbox() {
@@ -41891,19 +41905,47 @@ function maDropdown($timeout, $compile) {
         target.html('');
 
         angular.each(items, function (item) {
+          if (angular.isNull(item._uuid)) {
+            item._uuid = (0, _v2['default'])();
+          }
+
           var text = item[textKey] + '';
           var value = item[valueKey];
 
           if (angular.isNull(searchKey) || text.indexOf(searchKey) !== -1) {
             index++;
             var itemElement = (0, _jquery2['default'])(_itemTpl2['default'].replace(/&&\{index\}/g, index));
+
+            itemElement.attr('data-uuid', item._uuid);
+
+            if (item.hide) {
+              itemElement.addClass('hide');
+            }
+
+            if (scope._activeItems.indexOf(item[scope.valueKey]) !== -1) {
+              itemElement.addClass('active');
+            }
+
+            if (!scope.multiple) {
+              itemElement.append('<span>' + item[scope.textKey] + '</span>');
+            } else {
+              itemElement.append('<ma-checkbox ng-cloak ng-disabled="disabled"\n                  ng-model="item' + index + '.checked">\n                  <span>' + item[scope.textKey] + '</span>\n                </ma-checkbox>');
+              itemElement.addClass('is-multiple');
+              $compile(itemElement.contents())(scope);
+            }
+
+            itemElement.on('click', function (e) {
+              scope._itemClick(e, item);
+            });
+
             target.append(itemElement);
 
             scope['item' + index] = item;
           }
         });
-        $compile(target.contents())(scope);
-        $timeout();
+        if (scope.multiple) {
+          $timeout();
+        }
       }
     }
   };
@@ -43312,6 +43354,13 @@ exports['default'] = 'meetyou.angular.ui.upload';
 /***/ (function(module, exports) {
 
 module.exports = "\n<div class=\"ma-transfer\">\n  <div class=\"fl\">\n    <div class=\"ma-transfer-left-result\">\n      <ma-checkbox\n        ng-disabled=\"disabled\"\n        ng-class=\"{\n          'has-sub': $ctrl.leftSelected.length > 0 && $ctrl.leftSelected.length < $ctrl.leftShowCount\n        }\"\n        ng-model=\"$ctrl.leftCheckbox\"\n      >\n        <span>{{$ctrl.leftSelected.length || 0}}/{{$ctrl.leftShowCount || 0}} 项</span>\n      </ma-checkbox>\n\n      <span class=\"ma-transfer-title\">{{leftTitle || '所有'}}</span>\n    </div>\n    <ma-select\n      ma-multiple=\"true\"\n      ma-data=\"$ctrl.leftData\"\n      ma-search=\"true\"\n      ng-disabled=\"disabled\"\n      ma-value-key=\"{{valueKey}}\"\n      ma-text-key=\"{{textKey}}\"\n      ma-static=\"true\"\n\n      ng-model=\"$ctrl.leftSelected\"\n    ></ma-select>\n  </div>\n  <div class=\"fl ma-transfer-center\">\n    <div class=\"mb-20\">\n      <ma-button\n        ng-disabled=\"$ctrl.leftButtonDisabled\"\n        ma-click=\"$ctrl.toRight($event)\"\n      >\n        <span>添加</span>\n        <ma-icon ma-type=\"arrowright\"></ma-icon>\n      </ma-button>\n    </div>\n    <div>\n      <ma-button\n        ng-disabled=\"$ctrl.rightButtonDisabled\"\n        ma-click=\"$ctrl.toLeft($event)\"\n      >\n        <ma-icon ma-type=\"arrowleft\"></ma-icon>\n        <span>删除</span>\n      </ma-button>\n    </div>\n  </div>\n  <div class=\"fl\">\n    <div class=\"ma-transfer-right-result\">\n      <ma-checkbox\n        ng-disabled=\"disabled\"\n        ng-class=\"{\n          'has-sub': $ctrl.rightSelected.length > 0 && $ctrl.rightSelected.length < $ctrl.rightShowCount\n        }\"\n        ng-model=\"$ctrl.rightCheckbox\"\n      >\n        <span>{{$ctrl.rightSelected.length || 0}}/{{$ctrl.rightShowCount || 0}} 项</span>\n      </ma-checkbox>\n\n      <span class=\"ma-transfer-title\">{{rightTitle || '选中'}}</span>\n    </div>\n    <ma-select\n      ma-multiple=\"true\"\n      ma-data=\"$ctrl.rightData\"\n      ma-search=\"true\"\n      ng-disabled=\"disabled\"\n      ma-value-key=\"{{valueKey}}\"\n      ma-text-key=\"{{textKey}}\"\n      ma-static=\"true\"\n\n      ng-model=\"$ctrl.rightSelected\"\n    ></ma-select>\n  </div>\n</div>\n\n";
+
+/***/ }),
+
+/***/ "NXSO":
+/***/ (function(module, exports) {
+
+module.exports = "<tr class=\"ng-table-sort-header\">\n  <th title=\"{{$column.headerTitle(this)}}\"\n    ng-repeat=\"$column in $columns\"\n    ng-class=\"{\n      'sortable': $column.sortable(this),\n      'sort-asc': params.sorting()[$column.sortable(this)]=='asc',\n      'sort-desc': params.sorting()[$column.sortable(this)]=='desc'\n    }\"\n    ng-click=\"sortBy($column, $event)\"\n    ng-if=\"$column.show(this)\"\n    ng-init=\"template = $column.headerTemplateURL(this)\"\n    class=\"header {{$column.class(this)}}\">\n    <div ng-if=\"!template\"\n      class=\"ng-table-header\"\n      ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'div'}\">\n      <span ng-if=\"$column.titleRender\"\n        ng-compile=\"$column.titleRender\"\n        ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'span'}\"></span>\n      <span ng-if=\"!$column.titleRender\"\n        ng-bind-html=\"$column.title()\"\n        ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'span'}\"></span>\n    </div>\n    <div ng-if=\"template\"\n      ng-include=\"template\"></div>\n  </th>\n</tr>\n";
 
 /***/ }),
 
@@ -48682,7 +48731,7 @@ exports['default'] = _name2['default'];
 /***/ "RCoB":
 /***/ (function(module, exports) {
 
-module.exports = "<tr ng-class=\"{\n    'selected-row': selector && $tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\n  }\"\n  class=\"{{$tableCtrl.tableConfig.rowCustomClass}}\">\n\n</tr>\n";
+module.exports = "<tr ng-class=\"{\n    'selected-row': selector && $tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\n  }\"\n  class=\"&&{rowCustomClass}\">\n\n</tr>\n";
 
 /***/ }),
 
@@ -49161,6 +49210,9 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     });
   }
   self.nextPageNum = 1;
+
+  var updateHtmlItems = (0, _debounce2['default'])(_updateHtmlItems, 0);
+
   self.tableParams = new NgTableParams({
     count: self.count,
     sorting: self.sorting,
@@ -49197,6 +49249,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         });
       } else {
         self.isLoading = false;
+        updateHtmlItems(deferred);
       }
 
       return deferred;
@@ -49347,10 +49400,11 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     });
   }
 
-  function updateHtmlItems(data) {
+  function _updateHtmlItems(data) {
     var target = (0, _jquery2['default'])($element).find('.tr-content');
+
     var htmlItems = '';
-    var tdItems = '';
+    var tdItems = [];
     var index = -1;
     var colIndex = -1;
 
@@ -49359,17 +49413,36 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     angular.each(self.tableConfig.cols, function (col) {
       if (col.show !== false) {
         colIndex++;
-        tdItems += _tdTpl2['default'].replace(/col&&\{index\}/g, 'col' + colIndex);
+        var td = _tdTpl2['default'].replace(/col&&\{index\}/g, 'col' + colIndex);
+        var hasCompile = col.render || col.customHtml || col.field == 'selector';
+
+        tdItems.push([td.replace(/&&\{colClass\}/g, col.colClass || ''), hasCompile, col]);
+
         $scope['col' + colIndex] = col;
       }
     });
 
     angular.each(data, function (item) {
       index++;
-      var trElement = (0, _jquery2['default'])(_trTpl2['default'].replace(/&&\{index\}/g, index));
-      trElement.html(tdItems.replace(/&&\{index\}/g, index));
+      var trElement = _trTpl2['default'].replace(/&&\{index\}/g, index);
+
+      trElement = (0, _jquery2['default'])(trElement.replace(/&&\{rowCustomClass\}/g, self.tableConfig.rowCustomClass));
 
       $scope['row' + index] = item;
+      $compile(trElement)($scope);
+
+      tdItems.forEach(function (d) {
+        var el = (0, _jquery2['default'])(d[0].replace(/&&\{index\}/g, index));
+        trElement.append(el);
+
+        if (d[1]) {
+          el.attr('has-compile', true);
+          // $compile(el)($scope);
+        } else {
+          el.html('\n          <div>\n            <span>' + item[d[2].field] + '</span>\n          </div>');
+        }
+      });
+
       target.append(trElement);
     });
 
@@ -49377,7 +49450,9 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       target.html('\n      <tr>\n        <td colspan="' + (colIndex + 1) + '" style="text-align:center;">\u6682\u65E0\u6570\u636E</td>\n      </tr>');
     }
 
-    $compile(target.contents())($scope);
+    target.find('td[has-compile="true"]').each(function () {
+      $compile(this)($scope);
+    });
     $timeout();
   }
 }
@@ -52304,7 +52379,7 @@ function maTreeSelect($treeSelect) {
   return {
     restrict: 'E',
     replace: true,
-    template: '<div class="ma-tree-select">\n      <cmultiselect\n        tree\n        ng-model="newModel"\n        ng-items="newItems"\n        search-enabled="search"\n        limit="{{limit}}"\n        ng-disabled="disabled"\n        placeholder="{{placeholder}}"\n        clear="{{clear}}"\n        static="{{static}}"\n      >\n      </cmultiselect>\n    </div>',
+    template: '<div class="ma-tree-select">\n      <cmultiselect\n        tree\n        ng-model="model"\n        ng-items="newItems"\n        search-enabled="search"\n        limit="{{limit}}"\n        ng-disabled="disabled"\n        placeholder="{{placeholder}}"\n        clear="{{clear}}"\n        static="{{static}}"\n      >\n      </cmultiselect>\n    </div>',
     scope: {
       model: '=ngModel',
       maModel: '=maModel',
@@ -52322,7 +52397,6 @@ function maTreeSelect($treeSelect) {
     },
     controller: ['$scope', '$element', function ($scope, $element) {
       $scope.newItems = [];
-      $scope.newModel = [];
 
       $scope.$watch('items', function (data) {
         var newItems = [];
@@ -52352,18 +52426,6 @@ function maTreeSelect($treeSelect) {
         if ((0, _jquery2['default'])($element).attr('ma-model')) {
           $scope.maModel = getWithParent(d);
         }
-
-        if ($scope.isInnerWatch) {
-          $scope.isInnerWatch = false;
-          return;
-        }
-
-        $scope.newModel = $treeSelect.getDefaultSelectTreeData($scope.newItems, $scope.model);
-      });
-
-      $scope.$watch('newModel', function (d) {
-        $scope.model = d;
-        $scope.isInnerWatch = true;
       });
 
       function getWithParent(data) {
@@ -52420,8 +52482,8 @@ function cmultiselect($parse, $window, $document, $timeout) {
     scope: {
       selectDisabled: '=ngDisabled',
       'static': '@static',
-      ngModel: '@ngModel',
-      ngItems: '@ngItems'
+      ngModel: '=ngModel',
+      ngItems: '=ngItems'
     },
     replace: true,
     template: _multiSelectTpl2['default'],
@@ -52604,12 +52666,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
         $scope.$select.selectDisabled = d;
       });
 
-      $scope.$parent.$watch($scope.ngModel, function (d, p) {
-        $scope.$select.selectModel = d;
-        $scope.$select.fixSelected();
-      });
-
-      $scope.$parent.$watch($scope.ngItems, function (d, p) {
+      $scope.$watch('ngItems', function (d, p) {
         var items = _jquery2['default'].extend([], d);
         var newItems = [];
 
@@ -52638,8 +52695,13 @@ function cmultiselect($parse, $window, $document, $timeout) {
         updateHtmlItems();
       });
 
-      $scope.$watch('$select.selectModel', function (d, p) {
-        var model = $parse($scope.ngModel);
+      $scope.$watch('ngModel', function (d, p) {
+        if ($scope.isFixSelected) {
+          return;
+        }
+
+        $scope.$select.fixSelected();
+
         var hasOther = false;
 
         function setSelectedFalse(items) {
@@ -52665,31 +52727,33 @@ function cmultiselect($parse, $window, $document, $timeout) {
           return;
         }
 
-        if (model && typeof model.assign === 'function') {
-          model.assign($scope.$parent, d);
-        }
         updateStatus();
       });
 
       this.fixSelected = function () {
         // 纠正选中值
-        if (_this2.selectModel && _this2.selectModel.length && !_this2.selectModel[0].$$hashKey && !_this2.isTree) {
+        if ($scope.ngModel && $scope.ngModel.length && !$scope.ngModel[0].$$hashKey) {
           $scope.$applyAsync(function () {
             var selectValues = [];
 
-            angular.forEach(_this2.selectModel, function (d) {
+            angular.forEach($scope.ngModel, function (d) {
               selectValues.push((typeof d === 'undefined' ? 'undefined' : _typeof(d)) !== 'object' ? d : d.value);
             });
 
-            var selectModel = [];
+            var ngModel = [];
 
             angular.forEach(_this2.selectItems, function (d) {
               if (selectValues.indexOf(d.value) !== -1) {
-                selectModel.push(d);
+                ngModel.push(d);
+                d._selected = true;
               }
             });
 
-            _this2.selectModel = selectModel;
+            $scope.ngModel = ngModel;
+          });
+          $scope.isFixSelected = true;
+          $timeout(function () {
+            $scope.isFixSelected = false;
           });
         }
 
@@ -52697,7 +52761,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
       };
 
       this.clearSelect = function () {
-        _this2.selectModel = undefined;
+        $scope.ngModel = undefined;
         _this2.open = false;
       };
 
@@ -52725,13 +52789,13 @@ function cmultiselect($parse, $window, $document, $timeout) {
         $event.stopPropagation();
 
         var newSelected = [];
-        angular.forEach(_this2.selectModel, function (d, k) {
+        angular.forEach($scope.ngModel, function (d, k) {
           if (d !== item) {
             newSelected.push(d);
           }
         });
 
-        _this2.selectModel = newSelected;
+        $scope.ngModel = newSelected;
       };
 
       this.getParents = function (item) {
@@ -52762,7 +52826,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
         var isIn = false;
         var newSelected = [];
 
-        angular.forEach(_this2.selectModel, function (d, k) {
+        angular.forEach($scope.ngModel, function (d, k) {
           if (d === item) {
             isIn = true;
           } else {
@@ -52795,7 +52859,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
           }
         }
 
-        _this2.selectModel = newSelected;
+        $scope.ngModel = newSelected;
       };
 
       this.sameAllCheck = function (item, newSelected) {
@@ -52951,7 +53015,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
 
         var subSlected = function subSlected(item) {
           angular.forEach(item.sub, function (d) {
-            if (_this2.selectModel && _this2.selectModel.length && _this2.selectModel.indexOf(d) !== -1) {
+            if ($scope.ngModel && $scope.ngModel.length && $scope.ngModel.indexOf(d) !== -1) {
               has = true;
             }
 
@@ -52969,7 +53033,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
       this.hasParentSelect = function (item) {
         var has = false;
         var parentSlected = function parentSlected(item) {
-          if (item._parent && _this2.selectModel && _this2.selectModel.length && _this2.selectModel.indexOf(item._parent) !== -1) {
+          if (item._parent && $scope.ngModel && $scope.ngModel.length && $scope.ngModel.indexOf(item._parent) !== -1) {
             has = true;
           }
 
@@ -52994,7 +53058,6 @@ function cmultiselect($parse, $window, $document, $timeout) {
           }
         });
         updateStatus();
-        // updateHtmlItems();
       });
 
       function _updateHtmlItems() {
@@ -53007,14 +53070,17 @@ function cmultiselect($parse, $window, $document, $timeout) {
         angular.each($select.selectItems, function (item) {
           updateItem(item);
 
-          index++;
-          var itemElement = (0, _jquery2['default'])(_itemTpl2['default'].replace(/&&\{index\}/g, index));
+          if (item.isHidden !== true || $select.hasSubNotHidden(item)) {
+            index++;
+            var itemElement = (0, _jquery2['default'])(_itemTpl2['default'].replace(/&&\{index\}/g, index));
 
-          $scope['item' + index] = item;
-          target.append(itemElement);
+            $scope['item' + index] = item;
+            target.append(itemElement);
+          }
         });
 
         $compile(target.contents())($scope);
+
         $timeout(function () {
           $scope.inited = true;
         });
@@ -53069,7 +53135,7 @@ exports['default'] = _name2['default'];
 /***/ "Vm7e":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi\"\n  ng-class=\"{\n'hide-search': !$select.searchEnabled,\n'select2-container-active select2-dropdown-open open': $select.open,\n'select2-container-disabled': $select.selectDisabled,\n'custom-tree-select': $select.isTree,\n'custom-static-select': $select.isStatic\n}\">\n  <ma-input placeholder=\"{{$select.selectModel.length ? '' : $select.placeholder}}\"\n    ng-class=\"{\n    'ma-input-arrow-down': !$select.open,\n    'ma-input-arrow-up': $select.open\n  }\"\n    ng-disabled=\"selectDisabled\"></ma-input>\n  <ul class=\"select2-choices\"\n    ma-click=\"$select.showSelect()\"\n    ng-class=\"{\n    'has-selected': $select.selectModel.length\n  }\">\n    <li class=\"ui-select-match-item select2-search-choice ng-scope\"\n      ng-repeat=\"$item in $select.selectModel track by $index\">\n      <span>\n        <span class=\"ng-binding ng-scope\">{{$item.displayText || $item.text}}</span>\n      </span>\n      <ma-icon class=\"ui-select-match-close select2-search-choice-close\"\n        ma-type=\"closecircle\"\n        ma-click=\"$select.removeChoice($item, $event)\"></ma-icon>\n    </li>\n  </ul>\n  <div class=\"ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none\"\n\n    ng-class=\"{'select2-display-show': $select.open}\">\n    <div class=\"search-container select2-search\"\n      ng-class=\"{'ui-select-search-hidden':!$select.searchEnabled, 'select2-search':$select.searchEnabled}\">\n      <div class=\"ma-input ma-input-search-normal\">\n        <input type=\"text\"\n          autocomplete=\"off\"\n          autocorrect=\"off\"\n          autocapitalize=\"off\"\n          spellcheck=\"false\"\n          role=\"combobox\"\n          aria-expanded=\"true\"\n          aria-owns=\"ui-select-choices-0\"\n          aria-label=\"Select box\"\n          class=\"select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched\"\n          ng-model=\"$select.search\"\n          ondrop=\"return false;\">\n      </div>\n    </div>\n    <ul tabindex=\"-1\"\n      class=\"ui-select-choices ui-select-choices-content select2-results ng-scope\"\n      ng-class=\"{'has-scrollbar' : $select.selectItems.length > 5, 'has-search': $select.search}\">\n\n    </ul>\n    <div class=\"ma-dropdown-buttons\"\n      ng-show=\"$select.clear == 'true'\"\n      ma-click=\"$select.clearSelect()\">\n      <ma-button ma-size=\"mini\"\n        ma-type=\"primary\">清空</ma-button>\n    </div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi\"\n  ng-class=\"{\n'hide-search': !$select.searchEnabled,\n'select2-container-active select2-dropdown-open open': $select.open,\n'select2-container-disabled': $select.selectDisabled,\n'custom-tree-select': $select.isTree,\n'custom-static-select': $select.isStatic\n}\">\n  <ma-input placeholder=\"{{ngModel.length ? '' : $select.placeholder}}\"\n    ng-class=\"{\n    'ma-input-arrow-down': !$select.open,\n    'ma-input-arrow-up': $select.open\n  }\"\n    ng-disabled=\"selectDisabled\"></ma-input>\n  <ul class=\"select2-choices\"\n    ma-click=\"$select.showSelect()\"\n    ng-class=\"{\n    'has-selected': ngModel.length\n  }\">\n    <li class=\"ui-select-match-item select2-search-choice ng-scope\"\n      ng-repeat=\"$item in ngModel track by $index\">\n      <span>\n        <span class=\"ng-binding ng-scope\">{{$item.displayText || $item.text}}</span>\n      </span>\n      <ma-icon class=\"ui-select-match-close select2-search-choice-close\"\n        ma-type=\"closecircle\"\n        ma-click=\"$select.removeChoice($item, $event)\"></ma-icon>\n    </li>\n  </ul>\n  <div class=\"ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none\"\n\n    ng-class=\"{'select2-display-show': $select.open}\">\n    <div class=\"search-container select2-search\"\n      ng-class=\"{'ui-select-search-hidden':!$select.searchEnabled, 'select2-search':$select.searchEnabled}\">\n      <div class=\"ma-input ma-input-search-normal\">\n        <input type=\"text\"\n          autocomplete=\"off\"\n          autocorrect=\"off\"\n          autocapitalize=\"off\"\n          spellcheck=\"false\"\n          role=\"combobox\"\n          aria-expanded=\"true\"\n          aria-owns=\"ui-select-choices-0\"\n          aria-label=\"Select box\"\n          class=\"select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched\"\n          ng-model=\"$select.search\"\n          ondrop=\"return false;\">\n      </div>\n    </div>\n    <ul tabindex=\"-1\"\n      class=\"ui-select-choices ui-select-choices-content select2-results ng-scope\"\n      ng-class=\"{'has-scrollbar' : $select.selectItems.length > 5, 'has-search': $select.search}\">\n\n    </ul>\n    <div class=\"ma-dropdown-buttons\"\n      ng-show=\"$select.clear == 'true'\"\n      ma-click=\"$select.clearSelect()\">\n      <ma-button ma-size=\"mini\"\n        ma-type=\"primary\">清空</ma-button>\n    </div>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -54877,12 +54943,16 @@ var util = {
 
     return data;
   },
-  hiddenSelectTreeData: function hiddenSelectTreeData(data, hiddenItem) {
+  hiddenSelectTreeData: function hiddenSelectTreeData(data, hiddenItem, reverse) {
     var hiddenValues = [];
     var hide = true;
     angular.forEach(hiddenItem, function (d) {
       hiddenValues.push(d.value);
     });
+
+    if (reverse) {
+      hide = false;
+    }
 
     function hideItem(items) {
       angular.forEach(items, function (d) {
@@ -54932,7 +55002,7 @@ var util = {
         }
       });
       if (hideCount >= item.sub.length) {
-        item.isHidden = true;
+        item.isHidden = hide;
         if (item._parent) {
           hideParent(item._parent);
         }
@@ -55762,7 +55832,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ "dgAy":
 /***/ (function(module, exports) {
 
-module.exports = "<td ng-class='col&&{index}.colClass'>\n  <div ng-if=\"col&&{index}.field == 'selector'\">\n    <ma-checkbox id=\"ck_{{row&&{index}.id}}\"\n      ng-model=\"$tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\">\n    </ma-checkbox>\n  </div>\n  <div ng-if='col&&{index}.render'\n    common-table-col-render=\"col&&{index}.render(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n\n  <div ng-if='!col&&{index}.render && col&&{index}.customHtml'\n    ng-bind-html=\"col&&{index}.customHtml(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n\n  <div ng-if='!col&&{index}.render && !col&&{index}.customHtml'>\n    <span>{{row&&{index}[col&&{index}.field]}}</span>\n  </div>\n</td>\n";
+module.exports = "<td class=\"&&{colClass}\">\n  <div ng-cloak ng-if=\"col&&{index}.field == 'selector'\">\n    <ma-checkbox id=\"ck_{{row&&{index}.id}}\"\n      ng-model=\"$tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\">\n    </ma-checkbox>\n  </div>\n  <div ng-cloak ng-if='col&&{index}.render'\n    common-table-col-render=\"col&&{index}.render(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n\n  <div ng-cloak ng-if='!col&&{index}.render && col&&{index}.customHtml'\n    ng-bind-html=\"col&&{index}.customHtml(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n</td>\n";
 
 /***/ }),
 
@@ -58372,6 +58442,10 @@ var _maTableTpl = __webpack_require__("0bzt");
 
 var _maTableTpl2 = _interopRequireDefault(_maTableTpl);
 
+var _sorterRow = __webpack_require__("NXSO");
+
+var _sorterRow2 = _interopRequireDefault(_sorterRow);
+
 var _pager = __webpack_require__("XVLJ");
 
 var _pager2 = _interopRequireDefault(_pager);
@@ -58391,10 +58465,13 @@ var _maTableController2 = _interopRequireDefault(_maTableController);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var pagerPath = 'ng-table/pager.html';
+var sorterPath = 'ng-table/sorterRow.html';
 
 angular.module('ng').run(['$templateCache', function (c) {
   c.remove(pagerPath);
+  c.remove(sorterPath);
   c.put(pagerPath, _pager2['default']);
+  c.put(sorterPath, _sorterRow2['default']);
 
   c.put('headerCheckbox.html', _headerCheckbox2['default']);
   c.put('header1.html', _header2['default']);
@@ -59641,6 +59718,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             (function (prop1) {
               // satisfy the arguments expected by the function returned by parsedAttribute in the ngTable directive
               var getterFn = extendedCol[prop1];
+
               extendedCol[prop1] = function () {
                 if (arguments.length === 1 && !isScopeLike(arguments[0])) {
                   getterFn.assign(null, arguments[0]);
@@ -61778,7 +61856,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     function (module, exports, __webpack_require__) {
 
       var path = 'ng-table/sorterRow.html';
-      var html = "<tr class=\"ng-table-sort-header\">\n    <th title=\"{{$column.headerTitle(this)}}\"\n        ng-repeat=\"$column in $columns\"\n        ng-class=\"{\n                    'sortable': $column.sortable(this),\n                    'sort-asc': params.sorting()[$column.sortable(this)]=='asc',\n                    'sort-desc': params.sorting()[$column.sortable(this)]=='desc'\n                  }\"\n        ng-click=\"sortBy($column, $event)\"\n        ng-if=\"$column.show(this)\"\n        ng-init=\"template = $column.headerTemplateURL(this)\"\n        class=\"header {{$column.class(this)}}\">\n        <div ng-if=\"!template\" class=\"ng-table-header\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'div'}\">\n            <span ng-compile=\"$column.title(this)\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'span'}\"></span>\n        </div>\n        <div ng-if=\"template\" ng-include=\"template\"></div>\n    </th>\n</tr>\n";
+      var html = "<tr class=\"ng-table-sort-header\">\n    <th title=\"{{$column.headerTitle(this)}}\"\n        ng-repeat=\"$column in $columns\"\n        ng-class=\"{\n                    'sortable': $column.sortable(this),\n                    'sort-asc': params.sorting()[$column.sortable(this)]=='asc',\n                    'sort-desc': params.sorting()[$column.sortable(this)]=='desc'\n                  }\"\n        ng-click=\"sortBy($column, $event)\"\n        ng-if=\"$column.show(this)\"\n        ng-init=\"template = $column.headerTemplateURL(this)\"\n        class=\"header {{$column.class(this)}}\">\n        <div ng-if=\"!template\" class=\"ng-table-header\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'div'}\">\n            <span ng-bind-html=\"$column.title\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'span'}\"></span>\n        </div>\n        <div ng-if=\"template\" ng-include=\"template\"></div>\n    </th>\n</tr>\n";
       var angular = __webpack_require__( /*! angular */0);
       angular.module('ng').run(['$templateCache', function (c) {
         c.put(path, html);
@@ -63022,7 +63100,7 @@ module.exports = "<div class=\"crumb\">\n  <span class=\"crumb-item\" ng-repeat=
 /***/ "sebW":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-dropdown-item\"\nma-click=\"_itemClick($event, item&&{index})\"\nng-class=\"{\nactive: _activeItems.indexOf(item&&{index}[valueKey]) !== -1,\n'is-multiple': multiple == 'true',\nhide: item&&{index}.hide === true\n}\">\n<ma-checkbox ng-disabled=\"disabled\"\n  ng-if=\"multiple == 'true'\"\n  ng-model=\"item&&{index}.checked\">\n  <span ng-bind-html=\"item&&{index}[textKey]\"></span>\n</ma-checkbox>\n\n<span ng-if=\"multiple != 'true'\"\n  ng-bind-html=\"item&&{index}[textKey]\"></span>\n\n</div>\n";
+module.exports = "<div class=\"ma-dropdown-item\">\n</div>\n";
 
 /***/ }),
 

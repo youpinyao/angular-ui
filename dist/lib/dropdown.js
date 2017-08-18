@@ -255,6 +255,10 @@ var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _v = __webpack_require__("DtRx");
+
+var _v2 = _interopRequireDefault(_v);
+
 var _debounce = __webpack_require__("HhAh");
 
 var _debounce2 = _interopRequireDefault(_debounce);
@@ -374,7 +378,7 @@ function maDropdown($timeout, $compile) {
         scope.valueKey = d || 'value';
       });
 
-      scope.$watch('data', function (d) {
+      scope.$watch('data', function (d, p) {
         checkCheckbox();
         updateHtmlItem();
       });
@@ -409,6 +413,16 @@ function maDropdown($timeout, $compile) {
 
         scope._activeItems = _activeItems;
 
+        if (!scope.multiple) {
+          (0, _jquery2['default'])(scope.data).each(function () {
+            if (_activeItems.indexOf(this[scope.valueKey]) !== -1) {
+              (0, _jquery2['default'])(element).find('.ma-dropdown-item[data-uuid="' + this._uuid + '"]').addClass('active').siblings().removeClass('active');
+              return false;
+            }
+            return true;
+          });
+        }
+
         checkCheckbox();
       });
 
@@ -425,8 +439,9 @@ function maDropdown($timeout, $compile) {
         $event.stopPropagation();
         if (scope.selectedHide !== undefined && scope.multiple != 'true') {
           scope.show = false;
-          $timeout();
         }
+
+        $timeout();
       }
 
       function checkCheckbox() {
@@ -475,19 +490,47 @@ function maDropdown($timeout, $compile) {
         target.html('');
 
         angular.each(items, function (item) {
+          if (angular.isNull(item._uuid)) {
+            item._uuid = (0, _v2['default'])();
+          }
+
           var text = item[textKey] + '';
           var value = item[valueKey];
 
           if (angular.isNull(searchKey) || text.indexOf(searchKey) !== -1) {
             index++;
             var itemElement = (0, _jquery2['default'])(_itemTpl2['default'].replace(/&&\{index\}/g, index));
+
+            itemElement.attr('data-uuid', item._uuid);
+
+            if (item.hide) {
+              itemElement.addClass('hide');
+            }
+
+            if (scope._activeItems.indexOf(item[scope.valueKey]) !== -1) {
+              itemElement.addClass('active');
+            }
+
+            if (!scope.multiple) {
+              itemElement.append('<span>' + item[scope.textKey] + '</span>');
+            } else {
+              itemElement.append('<ma-checkbox ng-cloak ng-disabled="disabled"\n                  ng-model="item' + index + '.checked">\n                  <span>' + item[scope.textKey] + '</span>\n                </ma-checkbox>');
+              itemElement.addClass('is-multiple');
+              $compile(itemElement.contents())(scope);
+            }
+
+            itemElement.on('click', function (e) {
+              scope._itemClick(e, item);
+            });
+
             target.append(itemElement);
 
             scope['item' + index] = item;
           }
         });
-        $compile(target.contents())(scope);
-        $timeout();
+        if (scope.multiple) {
+          $timeout();
+        }
       }
     }
   };
@@ -1025,7 +1068,7 @@ function maIcon() {
 /***/ "sebW":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-dropdown-item\"\nma-click=\"_itemClick($event, item&&{index})\"\nng-class=\"{\nactive: _activeItems.indexOf(item&&{index}[valueKey]) !== -1,\n'is-multiple': multiple == 'true',\nhide: item&&{index}.hide === true\n}\">\n<ma-checkbox ng-disabled=\"disabled\"\n  ng-if=\"multiple == 'true'\"\n  ng-model=\"item&&{index}.checked\">\n  <span ng-bind-html=\"item&&{index}[textKey]\"></span>\n</ma-checkbox>\n\n<span ng-if=\"multiple != 'true'\"\n  ng-bind-html=\"item&&{index}[textKey]\"></span>\n\n</div>\n";
+module.exports = "<div class=\"ma-dropdown-item\">\n</div>\n";
 
 /***/ }),
 

@@ -181,6 +181,9 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     });
   }
   self.nextPageNum = 1;
+
+  const updateHtmlItems = debounce(_updateHtmlItems, 0);
+
   self.tableParams = new NgTableParams({
     count: self.count,
     sorting: self.sorting,
@@ -217,6 +220,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         });
       } else {
         self.isLoading = false;
+        updateHtmlItems(deferred);
       }
 
       return deferred;
@@ -371,10 +375,11 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     });
   }
 
-  function updateHtmlItems(data) {
+  function _updateHtmlItems(data) {
     const target = $($element).find('.tr-content');
+
     let htmlItems = '';
-    let tdItems = '';
+    let tdItems = [];
     let index = -1;
     let colIndex = -1;
 
@@ -383,17 +388,42 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     angular.each(self.tableConfig.cols, col => {
       if (col.show !== false) {
         colIndex++;
-        tdItems += tdTpl.replace(/col&&\{index\}/g, `col${colIndex}`);
+        const td = tdTpl.replace(/col&&\{index\}/g, `col${colIndex}`);
+        const hasCompile = col.render || col.customHtml || col.field == 'selector';
+
+        tdItems.push([td.replace(/&&\{colClass\}/g, col.colClass || ''), hasCompile, col]);
+
         $scope[`col${colIndex}`] = col;
       }
     });
 
+
     angular.each(data, item => {
       index++;
-      const trElement = $(trTpl.replace(/&&\{index\}/g, index));
-      trElement.html(tdItems.replace(/&&\{index\}/g, index));
+      let trElement = trTpl.replace(/&&\{index\}/g, index);
+
+      trElement = $(trElement.replace(/&&\{rowCustomClass\}/g, self.tableConfig.rowCustomClass));
 
       $scope[`row${index}`] = item;
+      $compile(trElement)($scope);
+
+      tdItems.forEach(d => {
+        const el = $(d[0].replace(/&&\{index\}/g, index));
+        trElement.append(el);
+
+        if (d[1]) {
+          el.attr('has-compile', true);
+          // $compile(el)($scope);
+        } else {
+          el.html(
+            `
+          <div>
+            <span>${item[d[2].field]}</span>
+          </div>`
+          );
+        }
+      });
+
       target.append(trElement);
     });
 
@@ -406,7 +436,9 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       );
     }
 
-    $compile(target.contents())($scope);
+    target.find('td[has-compile="true"]').each(function() {
+      $compile(this)($scope);
+    });
     $timeout();
   }
 }

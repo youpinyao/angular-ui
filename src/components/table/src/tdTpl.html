@@ -1,16 +1,12 @@
-<td ng-class='col&&{index}.colClass'>
-  <div ng-if="col&&{index}.field == 'selector'">
+<td class="&&{colClass}">
+  <div ng-cloak ng-if="col&&{index}.field == 'selector'">
     <ma-checkbox id="ck_{{row&&{index}.id}}"
       ng-model="$tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]">
     </ma-checkbox>
   </div>
-  <div ng-if='col&&{index}.render'
+  <div ng-cloak ng-if='col&&{index}.render'
     common-table-col-render="col&&{index}.render(this, row&&{index}, row&&{index}[col&&{index}.field])"></div>
 
-  <div ng-if='!col&&{index}.render && col&&{index}.customHtml'
+  <div ng-cloak ng-if='!col&&{index}.render && col&&{index}.customHtml'
     ng-bind-html="col&&{index}.customHtml(this, row&&{index}, row&&{index}[col&&{index}.field])"></div>
-
-  <div ng-if='!col&&{index}.render && !col&&{index}.customHtml'>
-    <span>{{row&&{index}[col&&{index}.field]}}</span>
-  </div>
 </td>

@@ -6,7 +6,7 @@
 'custom-tree-select': $select.isTree,
 'custom-static-select': $select.isStatic
 }">
-  <ma-input placeholder="{{$select.selectModel.length ? '' : $select.placeholder}}"
+  <ma-input placeholder="{{ngModel.length ? '' : $select.placeholder}}"
     ng-class="{
     'ma-input-arrow-down': !$select.open,
     'ma-input-arrow-up': $select.open
@@ -15,10 +15,10 @@
   <ul class="select2-choices"
     ma-click="$select.showSelect()"
     ng-class="{
-    'has-selected': $select.selectModel.length
+    'has-selected': ngModel.length
   }">
     <li class="ui-select-match-item select2-search-choice ng-scope"
-      ng-repeat="$item in $select.selectModel track by $index">
+      ng-repeat="$item in ngModel track by $index">
       <span>
         <span class="ng-binding ng-scope">{{$item.displayText || $item.text}}</span>
       </span>

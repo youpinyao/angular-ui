@@ -20,7 +20,7 @@ function maTreeSelect($treeSelect) {
     template: `<div class="ma-tree-select">
       <cmultiselect
         tree
-        ng-model="newModel"
+        ng-model="model"
         ng-items="newItems"
         search-enabled="search"
         limit="{{limit}}"
@@ -48,7 +48,6 @@ function maTreeSelect($treeSelect) {
     },
     controller: ['$scope', '$element', function($scope, $element) {
       $scope.newItems = [];
-      $scope.newModel = [];
 
       $scope.$watch('items', data => {
         const newItems = [];
@@ -78,19 +77,6 @@ function maTreeSelect($treeSelect) {
         if ($($element).attr('ma-model')) {
           $scope.maModel = getWithParent(d);
         }
-
-        if ($scope.isInnerWatch) {
-          $scope.isInnerWatch = false;
-          return;
-        }
-
-        $scope.newModel = $treeSelect.getDefaultSelectTreeData($scope.newItems,
-          $scope.model);
-      });
-
-      $scope.$watch('newModel', function(d) {
-        $scope.model = d;
-        $scope.isInnerWatch = true;
       });
 
       function getWithParent(data) {
@@ -147,8 +133,8 @@ function cmultiselect($parse, $window, $document, $timeout) {
     scope: {
       selectDisabled: '=ngDisabled',
       static: '@static',
-      ngModel: '@ngModel',
-      ngItems: '@ngItems',
+      ngModel: '=ngModel',
+      ngItems: '=ngItems',
     },
     replace: true,
     template: multiSelectTpl,
@@ -340,12 +326,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
         $scope.$select.selectDisabled = d;
       });
 
-      $scope.$parent.$watch($scope.ngModel, function(d, p) {
-        $scope.$select.selectModel = d;
-        $scope.$select.fixSelected();
-      });
-
-      $scope.$parent.$watch($scope.ngItems, function(d, p) {
+      $scope.$watch('ngItems', function(d, p) {
         var items = $.extend([], d);
         var newItems = [];
 
@@ -376,8 +357,13 @@ function cmultiselect($parse, $window, $document, $timeout) {
       });
 
 
-      $scope.$watch('$select.selectModel', function(d, p) {
-        let model = $parse($scope.ngModel);
+      $scope.$watch('ngModel', function(d, p) {
+        if ($scope.isFixSelected) {
+          return;
+        }
+
+        $scope.$select.fixSelected();
+
         let hasOther = false;
 
         function setSelectedFalse(items) {
@@ -403,32 +389,34 @@ function cmultiselect($parse, $window, $document, $timeout) {
           return;
         }
 
-        if (model && typeof model.assign === 'function') {
-          model.assign($scope.$parent, d);
-        }
         updateStatus();
       });
 
       this.fixSelected = () => {
         // 纠正选中值
-        if (this.selectModel && this.selectModel.length && !this.selectModel[
-            0].$$hashKey && !this.isTree) {
+        if ($scope.ngModel && $scope.ngModel.length && !$scope.ngModel[
+            0].$$hashKey) {
           $scope.$applyAsync(() => {
             let selectValues = [];
 
-            angular.forEach(this.selectModel, d => {
+            angular.forEach($scope.ngModel, d => {
               selectValues.push(typeof d !== 'object' ? d : d.value);
             });
 
-            let selectModel = [];
+            let ngModel = [];
 
             angular.forEach(this.selectItems, d => {
               if (selectValues.indexOf(d.value) !== -1) {
-                selectModel.push(d);
+                ngModel.push(d);
+                d._selected = true;
               }
             });
 
-            this.selectModel = selectModel;
+            $scope.ngModel = ngModel;
+          });
+          $scope.isFixSelected = true;
+          $timeout(() => {
+            $scope.isFixSelected = false;
           });
         }
 
@@ -436,7 +424,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
       };
 
       this.clearSelect = () => {
-        this.selectModel = undefined;
+        $scope.ngModel = undefined;
         this.open = false;
       };
 
@@ -465,13 +453,13 @@ function cmultiselect($parse, $window, $document, $timeout) {
         $event.stopPropagation();
 
         let newSelected = [];
-        angular.forEach(this.selectModel, (d, k) => {
+        angular.forEach($scope.ngModel, (d, k) => {
           if (d !== item) {
             newSelected.push(d);
           }
         });
 
-        this.selectModel = newSelected;
+        $scope.ngModel = newSelected;
       };
 
       this.getParents = function(item) {
@@ -504,7 +492,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
         let newSelected = [];
 
 
-        angular.forEach(this.selectModel, (d, k) => {
+        angular.forEach($scope.ngModel, (d, k) => {
           if (d === item) {
             isIn = true;
           } else {
@@ -537,7 +525,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
           }
         }
 
-        this.selectModel = newSelected;
+        $scope.ngModel = newSelected;
       };
 
       this.sameAllCheck = (item, newSelected) => {
@@ -698,8 +686,8 @@ function cmultiselect($parse, $window, $document, $timeout) {
 
         var subSlected = (item) => {
           angular.forEach(item.sub, (d) => {
-            if (this.selectModel && this.selectModel.length && this
-              .selectModel.indexOf(d) !== -1) {
+            if ($scope.ngModel && $scope.ngModel.length && $scope
+              .ngModel.indexOf(d) !== -1) {
               has = true;
             }
 
@@ -717,8 +705,8 @@ function cmultiselect($parse, $window, $document, $timeout) {
       this.hasParentSelect = (item) => {
         var has = false;
         var parentSlected = (item) => {
-          if (item._parent && this.selectModel && this.selectModel.length &&
-            this.selectModel.indexOf(item._parent) !== -1) {
+          if (item._parent && $scope.ngModel && $scope.ngModel.length &&
+            $scope.ngModel.indexOf(item._parent) !== -1) {
             has = true;
           }
 
@@ -743,7 +731,6 @@ function cmultiselect($parse, $window, $document, $timeout) {
           }
         });
         updateStatus();
-        // updateHtmlItems();
       });
 
       function _updateHtmlItems() {
@@ -756,14 +743,17 @@ function cmultiselect($parse, $window, $document, $timeout) {
         angular.each($select.selectItems, item => {
           updateItem(item);
 
-          index++;
-          const itemElement = $(itemTpl.replace(/&&\{index\}/g, index));
+          if (item.isHidden !== true || $select.hasSubNotHidden(item)) {
+            index++;
+            const itemElement = $(itemTpl.replace(/&&\{index\}/g, index));
 
-          $scope[`item${index}`] = item;
-          target.append(itemElement);
+            $scope[`item${index}`] = item;
+            target.append(itemElement);
+          }
         });
 
         $compile(target.contents())($scope);
+
         $timeout(() => {
           $scope.inited = true;
         });
@@ -771,8 +761,9 @@ function cmultiselect($parse, $window, $document, $timeout) {
 
       function updateItem(item) {
         item.__item_is_show = (!item._treeLinkFrom || $select.search || (item._treeLinkFrom &&
-          $select.treeIsOpen(item._treeLinkFrom))) && (item.isHidden !== true ||
-          $select.hasSubNotHidden(item)) && item.searchHidden !== true;
+            $select.treeIsOpen(item._treeLinkFrom))) &&
+          (item.isHidden !== true || $select.hasSubNotHidden(item)) &&
+          item.searchHidden !== true;
 
         item.__tree_is_open = $select.treeIsOpen(item._treeLinkTo);
         item.__checkbox_has_sub = $select.hasSubSelected(item);

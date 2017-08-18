@@ -214,11 +214,10 @@ function maTreeTransfer($treeSelect, $timeout) {
         }
         getSelectedValues($ctrl.leftSelected);
 
-        console.log(3333333, $scope.model);
+        $ctrl.leftData = $treeSelect.hiddenSelectTreeData($ctrl.leftData, $scope.model);
+        $ctrl.rightData = [].concat($treeSelect.hiddenSelectTreeData($ctrl.rightData, $scope.model, true));
+        // $ctrl.rightData = [].concat($treeSelect.hiddenSelectTreeDataReverse($ctrl.rightData));
 
-        $scope.leftData = $treeSelect.hiddenSelectTreeData($ctrl.leftData, $scope.model);
-        $scope.rightData = $treeSelect.hiddenSelectTreeData($ctrl.rightData, $scope.model);
-        $scope.rightData = $treeSelect.hiddenSelectTreeDataReverse($ctrl.rightData);
 
         $ctrl.leftSelected = [];
         $ctrl.rightSelected = [];
@@ -268,9 +267,9 @@ function maTreeTransfer($treeSelect, $timeout) {
 
         $scope.model = newModel;
 
-        $scope.leftData = $treeSelect.hiddenSelectTreeData($scope.leftData, $scope.model);
-        $scope.rightData = $treeSelect.hiddenSelectTreeData($scope.rightData, $scope.model);
-        $scope.rightData = $treeSelect.hiddenSelectTreeDataReverse($scope.rightData);
+        $ctrl.leftData = [].concat($treeSelect.hiddenSelectTreeData($ctrl.leftData, $scope.model));
+        $ctrl.rightData = $treeSelect.hiddenSelectTreeData($ctrl.rightData, $scope.model, true);
+        // $ctrl.rightData = $treeSelect.hiddenSelectTreeDataReverse($ctrl.rightData);
 
         $ctrl.leftSelected = [];
         $ctrl.rightSelected = [];
@@ -366,7 +365,7 @@ function maTreeTransfer($treeSelect, $timeout) {
       }
 
       function setMaModel() {
-        const d = $scope.rightData;
+        const d = $ctrl.rightData;
         const selected = [];
         const selectedIds = [];
 
