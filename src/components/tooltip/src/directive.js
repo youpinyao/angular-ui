@@ -122,6 +122,8 @@ function maTooltip($timeout, $compile) {
       }
 
       function showTip(newDirection) {
+        $timeout.cancel(scope.hideTimer);
+
         const offsetTop = $(element).offset().top;
         const offsetLeft = $(element).offset().left;
         const elHeight = el.outerHeight();
@@ -285,7 +287,7 @@ function maTooltip($timeout, $compile) {
           });
         }
         el.removeClass('show');
-        $timeout(() => {
+        scope.hideTimer = $timeout(() => {
           el.css({
             left: 0,
             top: 0,

@@ -172,6 +172,8 @@ function maTooltip($timeout, $compile) {
       }
 
       function showTip(newDirection) {
+        $timeout.cancel(scope.hideTimer);
+
         var offsetTop = (0, _jquery2['default'])(element).offset().top;
         var offsetLeft = (0, _jquery2['default'])(element).offset().left;
         var elHeight = el.outerHeight();
@@ -335,7 +337,7 @@ function maTooltip($timeout, $compile) {
           });
         }
         el.removeClass('show');
-        $timeout(function () {
+        scope.hideTimer = $timeout(function () {
           el.css({
             left: 0,
             top: 0
