@@ -3730,7 +3730,7 @@ textarea {
 
 body {
   font-size: 14px;
-  font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
+  font-family: PingFangSC-Regular, Microsoft YaHei, Helvetica, Arial, sans-serif;
   line-height: 20px;
   color: #323232;
   background-color: #F5F5F5;
@@ -9570,7 +9570,7 @@ disabled look for disabled choices in the results dropdown
   position: relative;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 4px;
-  padding: 5px 10px 6px 10px;
+  padding: 8px 10px 6px 10px;
   word-break: break-all;
   text-align: justify;
 }
