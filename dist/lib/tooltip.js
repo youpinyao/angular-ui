@@ -334,10 +334,13 @@ function maTooltip($timeout, $compile) {
             show: false
           });
         }
-        el.removeClass('show').css({
-          left: 0,
-          top: 0
-        });
+        el.removeClass('show');
+        $timeout(function () {
+          el.css({
+            left: 0,
+            top: 0
+          });
+        }, 300);
       }
 
       function stopp(e) {
