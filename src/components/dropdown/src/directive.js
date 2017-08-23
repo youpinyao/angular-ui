@@ -240,9 +240,11 @@ function maDropdown($timeout, $compile) {
 
             itemElement.attr('data-uuid', item._uuid);
 
-
             if (item.hide) {
               itemElement.addClass('hide');
+            }
+            if (scope.multiple) {
+              itemElement.attr('ng-class', `{'hide' :item${index}.hide}`);
             }
 
             if (scope._activeItems.indexOf(item[scope.valueKey]) !== -1) {
@@ -259,7 +261,7 @@ function maDropdown($timeout, $compile) {
                 </ma-checkbox>`
               );
               itemElement.addClass('is-multiple');
-              $compile(itemElement.contents())(scope);
+              $compile(itemElement)(scope);
             }
 
             itemElement.on('click', e => {
