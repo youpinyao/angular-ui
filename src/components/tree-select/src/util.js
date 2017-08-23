@@ -43,6 +43,22 @@ const util = {
 
     return selected;
   },
+  setParents: function(items) {
+    angular.forEach(items, item => {
+      if (item && item.sub && item.sub.length) {
+        _setParents(item.sub, item);
+      }
+    });
+
+    function _setParents(sub, parent) {
+      angular.each(sub, dd => {
+        dd._parent = parent;
+        if (dd.sub && dd.sub.length) {
+          _setParents(dd.sub, dd);
+        }
+      });
+    }
+  },
   filterSelectTreeData: function(data, selectedIds) {
     angular.forEach(data, function(d) {
       if (selectedIds.indexOf(d.value) !== -1 && d.sub && d.sub.length) {
@@ -146,42 +162,35 @@ const util = {
       hide = false;
     }
 
-    function hideItem(items) {
+    function hideItemSub(items) {
       angular.forEach(items, function(d) {
         if (!hiddenItem) {
           d.isHidden = hide;
           if (d.sub && d.sub.length) {
-            hideSub(d.sub);
-          }
-          if (d._parent) {
-            hideParent(d._parent);
+            hideItemSub(d.sub);
           }
         } else if (hiddenValues.indexOf(d.value) !== -1) {
           d.isHidden = hide;
           if (d.sub && d.sub.length) {
-            hideSub(d.sub);
-          }
-          if (d._parent) {
-            hideParent(d._parent);
+            hideItemSub(d.sub);
           }
         } else {
           d.isHidden = !hide;
 
           if (d.sub && d.sub.length) {
-            hideItem(d.sub);
+            hideItemSub(d.sub);
           }
         }
       });
     }
 
-    function hideSub(items) {
+    function hideItemParent(items) {
       angular.forEach(items, function(d) {
-        if (!hiddenItem || hiddenValues.indexOf(d.value) !== -1) {
-          d.isHidden = hide;
+        if (d._parent) {
+          hideParent(d._parent);
         }
-
         if (d.sub && d.sub.length) {
-          hideSub(d.sub);
+          hideItemParent(d.sub);
         }
       });
     }
@@ -194,7 +203,7 @@ const util = {
         }
       });
       if (hideCount >= item.sub.length) {
-        item.isHidden = hide;
+        item.isHidden = true;
         if (item._parent) {
           hideParent(item._parent);
         }
@@ -202,7 +211,8 @@ const util = {
     }
 
 
-    hideItem(data);
+    hideItemSub(data);
+    hideItemParent(data);
 
     return data;
   }

@@ -2,7 +2,7 @@
   ng-class="{'has-sub' : item&&{index}.sub.length}"
   data-tag-to="{{item&&{index}._treeLinkTo}}"
   ng-if="item&&{index}.__item_is_show"
-  data-tag-from="{{item&&{index}._treeLinkFrom}}">
+  data-tag-from="{{item&&{index}._treeLinkFrom}}" ng-cloak>
   <div class="select2-result-label ui-select-choices-row-inner"
     ma-click="$select.doSelect($event, item&&{index})">
     <div ng-class="{'tree-open': item&&{index}.__tree_is_open}">
