@@ -5356,10 +5356,13 @@ function maTreeTransfer($treeSelect, $timeout) {
       });
 
       function watchData() {
-        // updateData(true);
+        if ($scope.watchModeled) {
+          updateData(true);
+        }
       }
 
       function watchModel(d, p) {
+        $scope.watchModeled = true;
         if (angular.isEmpty($scope.data)) {
           return;
         }
