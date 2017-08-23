@@ -335,14 +335,14 @@ function maTooltip($timeout, $compile) {
           scope.changeCallback({
             show: false
           });
+          scope.hideTimer = $timeout(function () {
+            el.css({
+              left: 0,
+              top: 0
+            });
+          }, 300);
+          el.removeClass('show');
         }
-        el.removeClass('show');
-        scope.hideTimer = $timeout(function () {
-          el.css({
-            left: 0,
-            top: 0
-          });
-        }, 300);
       }
 
       function stopp(e) {

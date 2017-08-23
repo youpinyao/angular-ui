@@ -17,62 +17,62 @@ $arrowWidth: 5px;
   &[data-direction^="tc"] {
     -webkit-transform-origin: bottom center;
     transform-origin: bottom center;
-    @include transform(translate(0, 10px) scale(1));
+    @include transform(translate(0, -10px) scale(1));
   }
   &[data-direction^="tl"] {
     -webkit-transform-origin: bottom left;
     transform-origin: bottom left;
-    @include transform(translate(0, 10px) scale(1));
+    @include transform(translate(0, -10px) scale(1));
   }
   &[data-direction^="tr"] {
     -webkit-transform-origin: bottom right;
     transform-origin: bottom right;
-    @include transform(translate(0, 10px) scale(1));
+    @include transform(translate(0, -10px) scale(1));
   }
   &[data-direction^="lc"] {
     -webkit-transform-origin: right center;
     transform-origin: right center;
-    @include transform(translate(10px, 0) scale(1));
+    @include transform(translate(-10px, 0) scale(1));
   }
   &[data-direction^="lt"] {
     -webkit-transform-origin: right top;
     transform-origin: right top;
-    @include transform(translate(10px, 0) scale(1));
+    @include transform(translate(-10px, 0) scale(1));
   }
   &[data-direction^="lb"] {
     -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
-    @include transform(translate(10px, 0) scale(1));
+    @include transform(translate(-10px, 0) scale(1));
   }
   &[data-direction^="rc"] {
     -webkit-transform-origin: left center;
     transform-origin: left center;
-    @include transform(translate(-10px, 0) scale(1));
+    @include transform(translate(10px, 0) scale(1));
   }
   &[data-direction^="rt"] {
     -webkit-transform-origin: left top;
     transform-origin: left top;
-    @include transform(translate(-10px, 0) scale(1));
+    @include transform(translate(10px, 0) scale(1));
   }
   &[data-direction^="rb"] {
     -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
-    @include transform(translate(-10px, 0) scale(1));
+    @include transform(translate(10px, 0) scale(1));
   }
   &[data-direction^="bc"] {
     -webkit-transform-origin: top center;
     transform-origin: top center;
-    @include transform(translate(0, -10px) scale(1));
+    @include transform(translate(0, 10px) scale(1));
   }
   &[data-direction^="bl"] {
     -webkit-transform-origin: top left;
     transform-origin: top left;
-    @include transform(translate(0, -10px) scale(1));
+    @include transform(translate(0, 10px) scale(1));
   }
   &[data-direction^="br"] {
     -webkit-transform-origin: top right;
     transform-origin: top right;
-    @include transform(translate(0, -10px) scale(1));
+    @include transform(translate(0, 10px) scale(1));
   }
   .ma-tooltip-content {
     position: relative;
