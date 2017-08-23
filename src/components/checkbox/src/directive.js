@@ -54,6 +54,10 @@ function maCheckbox($timeout) {
           var checkboxs = $(element).parent().find('input[type="checkbox"]');
           var values = [];
 
+          if (scope.name) {
+            checkboxs = $(`input[name="${scope.name}"][type="checkbox"]`);
+          }
+
           if (!checkboxs.length) {
             checkboxs = $(element).find('input');
           }
