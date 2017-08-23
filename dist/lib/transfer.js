@@ -201,7 +201,7 @@ exports['default'] = _name2['default'];
 /***/ "2hwL":
 /***/ (function(module, exports) {
 
-module.exports = "<li class=\"ui-select-choices-row {{'tree-level-' +item&&{index}._treeLevel}}\"\n  ng-class=\"{'has-sub' : item&&{index}.sub.length}\"\n  data-tag-to=\"{{item&&{index}._treeLinkTo}}\"\n  ng-if=\"item&&{index}.__item_is_show\"\n  data-tag-from=\"{{item&&{index}._treeLinkFrom}}\">\n  <div class=\"select2-result-label ui-select-choices-row-inner\"\n    ma-click=\"$select.doSelect($event, item&&{index})\">\n    <div ng-class=\"{'tree-open': item&&{index}.__tree_is_open}\">\n\n      <i class=\"tree-arrow-click\"\n        ng-if=\"item&&{index}.sub.length\"\n        ma-click=\"$select.toggleTree($event, item&&{index})\">\n        <i class=\"tree-arrow\"\n          ng-if=\"item&&{index}.sub.length\"></i>\n      </i>\n      <!-- <div class=\"click-mask\"></div> -->\n      <ma-checkbox unclick\n        ng-model=\"item&&{index}._selected\"\n        style=\"pointer-events:none;\"\n        ng-disabled=\"$select.selectDisabled\"\n        ng-class=\"{\n          'has-sub': item&&{index}.__checkbox_has_sub,\n          'has-parent': item&&{index}.__checkbox_has_parent,\n          'custom-multi-select-checkbox-hidden': item&&{index}.hiddenCheck\n        }\">\n        <span ng-bind-html=\"item&&{index}.text\"></span>\n      </ma-checkbox>\n    </div>\n  </div>\n</li>\n";
+module.exports = "<li class=\"ui-select-choices-row {{'tree-level-' +item&&{index}._treeLevel}}\"\n  ng-class=\"{'has-sub' : item&&{index}.sub.length}\"\n  data-tag-to=\"{{item&&{index}._treeLinkTo}}\"\n  ng-if=\"item&&{index}.__item_is_show\"\n  data-tag-from=\"{{item&&{index}._treeLinkFrom}}\" ng-cloak>\n  <div class=\"select2-result-label ui-select-choices-row-inner\"\n    ma-click=\"$select.doSelect($event, item&&{index})\">\n    <div ng-class=\"{'tree-open': item&&{index}.__tree_is_open}\">\n\n      <i class=\"tree-arrow-click\"\n        ng-if=\"item&&{index}.sub.length\"\n        ma-click=\"$select.toggleTree($event, item&&{index})\">\n        <i class=\"tree-arrow\"\n          ng-if=\"item&&{index}.sub.length\"></i>\n      </i>\n      <!-- <div class=\"click-mask\"></div> -->\n      <ma-checkbox unclick\n        ng-model=\"item&&{index}._selected\"\n        style=\"pointer-events:none;\"\n        ng-disabled=\"$select.selectDisabled\"\n        ng-class=\"{\n          'has-sub': item&&{index}.__checkbox_has_sub,\n          'has-parent': item&&{index}.__checkbox_has_parent,\n          'custom-multi-select-checkbox-hidden': item&&{index}.hiddenCheck\n        }\">\n        <span ng-bind-html=\"item&&{index}.text\"></span>\n      </ma-checkbox>\n    </div>\n  </div>\n</li>\n";
 
 /***/ }),
 
@@ -273,6 +273,10 @@ var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _debounce = __webpack_require__("HhAh");
+
+var _debounce2 = _interopRequireDefault(_debounce);
+
 var _maTreeTransferTpl = __webpack_require__("5Rsw");
 
 var _maTreeTransferTpl2 = _interopRequireDefault(_maTreeTransferTpl);
@@ -334,14 +338,9 @@ function maTreeTransfer($treeSelect, $timeout) {
         return _jquery2['default'].extend(true, [], treeData);
       }
 
-      $scope.$watch('data', function (d) {
-        $ctrl.leftData = getData(d);
-        $ctrl.rightData = getData(d);
-
-        toRight(true);
-      });
-
+      $scope.$watch('data', watchData);
       $scope.$watch('model', watchModel);
+      $scope.$watch('rightData', setMaModel);
 
       $scope.$watch('$ctrl.leftSelected', function (d, p) {
         $ctrl.leftButtonDisabled = !(d && d.length);
@@ -415,11 +414,19 @@ function maTreeTransfer($treeSelect, $timeout) {
         }, 100);
       });
 
-      $scope.$watch('rightData', setMaModel);
+      function watchData() {
+        // updateData(true);
+      }
 
       function watchModel(d, p) {
         if (angular.isEmpty($scope.data)) {
           return;
+        }
+        if (angular.isNull(d)) {
+          d = [];
+        }
+        if (angular.isNull(p)) {
+          p = [];
         }
 
         setMaModel();
@@ -469,10 +476,17 @@ function maTreeTransfer($treeSelect, $timeout) {
         $ctrl.leftSelected = leftSelected;
         $scope.model = [];
 
+        updateData();
+      }
+
+      function updateData(isInit) {
         $ctrl.leftData = getData($scope.data);
         $ctrl.rightData = getData($scope.data);
 
-        toRight();
+        $treeSelect.setParents($ctrl.leftData);
+        $treeSelect.setParents($ctrl.rightData);
+
+        toRight(isInit);
       }
 
       function toRight(isInit) {
@@ -485,8 +499,6 @@ function maTreeTransfer($treeSelect, $timeout) {
 
         $ctrl.leftData = $treeSelect.hiddenSelectTreeData($ctrl.leftData, $scope.model);
         $ctrl.rightData = [].concat($treeSelect.hiddenSelectTreeData($ctrl.rightData, $scope.model, true));
-        // $ctrl.rightData = [].concat($treeSelect.hiddenSelectTreeDataReverse($ctrl.rightData));
-
 
         $ctrl.leftSelected = [];
         $ctrl.rightSelected = [];
@@ -538,7 +550,6 @@ function maTreeTransfer($treeSelect, $timeout) {
 
         $ctrl.leftData = [].concat($treeSelect.hiddenSelectTreeData($ctrl.leftData, $scope.model));
         $ctrl.rightData = $treeSelect.hiddenSelectTreeData($ctrl.rightData, $scope.model, true);
-        // $ctrl.rightData = $treeSelect.hiddenSelectTreeDataReverse($ctrl.rightData);
 
         $ctrl.leftSelected = [];
         $ctrl.rightSelected = [];
@@ -827,6 +838,10 @@ function maCheckbox($timeout) {
         $timeout(function () {
           var checkboxs = (0, _jquery2['default'])(element).parent().find('input[type="checkbox"]');
           var values = [];
+
+          if (scope.name) {
+            checkboxs = (0, _jquery2['default'])('input[name="' + scope.name + '"][type="checkbox"]');
+          }
 
           if (!checkboxs.length) {
             checkboxs = (0, _jquery2['default'])(element).find('input');
@@ -1174,6 +1189,9 @@ function maDropdown($timeout, $compile) {
             if (item.hide) {
               itemElement.addClass('hide');
             }
+            if (scope.multiple) {
+              itemElement.attr('ng-class', '{\'hide\' :item' + index + '.hide}');
+            }
 
             if (scope._activeItems.indexOf(item[scope.valueKey]) !== -1) {
               itemElement.addClass('active');
@@ -1184,7 +1202,7 @@ function maDropdown($timeout, $compile) {
             } else {
               itemElement.append('<ma-checkbox ng-cloak ng-disabled="disabled"\n                  ng-model="item' + index + '.checked">\n                  <span>' + item[scope.textKey] + '</span>\n                </ma-checkbox>');
               itemElement.addClass('is-multiple');
-              $compile(itemElement.contents())(scope);
+              $compile(itemElement)(scope);
             }
 
             itemElement.on('click', function (e) {
@@ -2364,6 +2382,22 @@ var util = {
 
     return selected;
   },
+  setParents: function setParents(items) {
+    angular.forEach(items, function (item) {
+      if (item && item.sub && item.sub.length) {
+        _setParents(item.sub, item);
+      }
+    });
+
+    function _setParents(sub, parent) {
+      angular.each(sub, function (dd) {
+        dd._parent = parent;
+        if (dd.sub && dd.sub.length) {
+          _setParents(dd.sub, dd);
+        }
+      });
+    }
+  },
   filterSelectTreeData: function filterSelectTreeData(data, selectedIds) {
     angular.forEach(data, function (d) {
       if (selectedIds.indexOf(d.value) !== -1 && d.sub && d.sub.length) {
@@ -2467,42 +2501,35 @@ var util = {
       hide = false;
     }
 
-    function hideItem(items) {
+    function hideItemSub(items) {
       angular.forEach(items, function (d) {
         if (!hiddenItem) {
           d.isHidden = hide;
           if (d.sub && d.sub.length) {
-            hideSub(d.sub);
-          }
-          if (d._parent) {
-            hideParent(d._parent);
+            hideItemSub(d.sub);
           }
         } else if (hiddenValues.indexOf(d.value) !== -1) {
           d.isHidden = hide;
           if (d.sub && d.sub.length) {
-            hideSub(d.sub);
-          }
-          if (d._parent) {
-            hideParent(d._parent);
+            hideItemSub(d.sub);
           }
         } else {
           d.isHidden = !hide;
 
           if (d.sub && d.sub.length) {
-            hideItem(d.sub);
+            hideItemSub(d.sub);
           }
         }
       });
     }
 
-    function hideSub(items) {
+    function hideItemParent(items) {
       angular.forEach(items, function (d) {
-        if (!hiddenItem || hiddenValues.indexOf(d.value) !== -1) {
-          d.isHidden = hide;
+        if (d._parent) {
+          hideParent(d._parent);
         }
-
         if (d.sub && d.sub.length) {
-          hideSub(d.sub);
+          hideItemParent(d.sub);
         }
       });
     }
@@ -2515,14 +2542,15 @@ var util = {
         }
       });
       if (hideCount >= item.sub.length) {
-        item.isHidden = hide;
+        item.isHidden = true;
         if (item._parent) {
           hideParent(item._parent);
         }
       }
     }
 
-    hideItem(data);
+    hideItemSub(data);
+    hideItemParent(data);
 
     return data;
   }

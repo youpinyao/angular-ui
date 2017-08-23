@@ -526,6 +526,9 @@ function maDropdown($timeout, $compile) {
             if (item.hide) {
               itemElement.addClass('hide');
             }
+            if (scope.multiple) {
+              itemElement.attr('ng-class', '{\'hide\' :item' + index + '.hide}');
+            }
 
             if (scope._activeItems.indexOf(item[scope.valueKey]) !== -1) {
               itemElement.addClass('active');
@@ -536,7 +539,7 @@ function maDropdown($timeout, $compile) {
             } else {
               itemElement.append('<ma-checkbox ng-cloak ng-disabled="disabled"\n                  ng-model="item' + index + '.checked">\n                  <span>' + item[scope.textKey] + '</span>\n                </ma-checkbox>');
               itemElement.addClass('is-multiple');
-              $compile(itemElement.contents())(scope);
+              $compile(itemElement)(scope);
             }
 
             itemElement.on('click', function (e) {

@@ -60,6 +60,10 @@ function maCheckbox($timeout) {
           var checkboxs = (0, _jquery2['default'])(element).parent().find('input[type="checkbox"]');
           var values = [];
 
+          if (scope.name) {
+            checkboxs = (0, _jquery2['default'])('input[name="' + scope.name + '"][type="checkbox"]');
+          }
+
           if (!checkboxs.length) {
             checkboxs = (0, _jquery2['default'])(element).find('input');
           }
