@@ -14,6 +14,7 @@ function maCheckbox($timeout) {
     template: `<label class="ma-checkbox">
     <input type="checkbox"
       value="{{value}}"
+      data-name="{{name}}"
       ng-disabled="disabled"
       ng-model="checked"
     />
@@ -55,7 +56,7 @@ function maCheckbox($timeout) {
           var values = [];
 
           if (scope.name) {
-            checkboxs = $(`input[name="${scope.name}"][type="checkbox"]`);
+            checkboxs = $(`input[data-name="${scope.name}"][type="checkbox"]`);
           }
 
           if (!checkboxs.length) {

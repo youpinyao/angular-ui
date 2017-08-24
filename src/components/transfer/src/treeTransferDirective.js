@@ -73,6 +73,10 @@ function maTreeTransfer($treeSelect, $timeout) {
 
         updateSelectedCount();
 
+        if (angular.isNull(d) || angular.isNull(p)) {
+          return;
+        }
+
         if ($scope.disabledWatch1 || angular.isNull(d) || d.length == p.length) {
           return;
         }
@@ -111,7 +115,11 @@ function maTreeTransfer($treeSelect, $timeout) {
 
         updateSelectedCount();
 
-        if ($scope.disabledWatch2 || angular.isNull(d) || d.length == p.length) {
+        if (angular.isNull(d) || angular.isNull(p)) {
+          return;
+        }
+
+        if ($scope.disabledWatch2 || d.length == p.length) {
           return;
         }
         if (d) {

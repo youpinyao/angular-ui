@@ -25,7 +25,7 @@ function maCheckbox($timeout) {
     restrict: 'E',
     transclude: true,
     replace: true,
-    template: '<label class="ma-checkbox">\n    <input type="checkbox"\n      value="{{value}}"\n      ng-disabled="disabled"\n      ng-model="checked"\n    />\n    <i class="checkbox-appearance"></i>\n    <span ng-transclude></span>\n    </label>',
+    template: '<label class="ma-checkbox">\n    <input type="checkbox"\n      value="{{value}}"\n      data-name="{{name}}"\n      ng-disabled="disabled"\n      ng-model="checked"\n    />\n    <i class="checkbox-appearance"></i>\n    <span ng-transclude></span>\n    </label>',
     scope: {
       name: '@name',
       value: '@value',
@@ -61,7 +61,7 @@ function maCheckbox($timeout) {
           var values = [];
 
           if (scope.name) {
-            checkboxs = (0, _jquery2['default'])('input[name="' + scope.name + '"][type="checkbox"]');
+            checkboxs = (0, _jquery2['default'])('input[data-name="' + scope.name + '"][type="checkbox"]');
           }
 
           if (!checkboxs.length) {
