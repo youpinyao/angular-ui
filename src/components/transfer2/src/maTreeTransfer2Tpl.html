@@ -1,0 +1,103 @@
+<div class="ma-transfer">
+  <div class="fl">
+    <div class="ma-transfer-left-result">
+      <ma-checkbox ng-disabled="disabled"
+        ng-class="{
+          'has-sub': $ctrl.leftSelectedCount > 0 && $ctrl.leftSelectedCount < $ctrl.leftShowCount
+        }"
+        ng-model="$ctrl.leftCheckbox">
+      </ma-checkbox>
+
+      <span class="ma-transfer-title">{{leftTitle || '所有'}}</span>
+    </div>
+    <div class="ma-tree-select">
+      <div class="custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi ng-isolate-scope ng-not-empty ng-valid custom-tree-select custom-static-select">
+
+        <div class="ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none"
+
+          ng-class="{'select2-display-show': $select.open}">
+          <div class="search-container select2-search"
+            ng-class="{'ui-select-search-hidden':!$select.searchEnabled, 'select2-search':$select.searchEnabled}">
+            <div class="ma-input ma-input-search-normal">
+              <input type="text"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+                role="combobox"
+                aria-expanded="true"
+                aria-owns="ui-select-choices-0"
+                aria-label="Select box"
+                class="select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched"
+                ng-model="$ctrl.searchKey"
+                ondrop="return false;">
+            </div>
+          </div>
+          <ul tabindex="-1"
+            class="ui-select-choices ui-select-choices-content select2-results ng-scope">
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fl ma-transfer-center">
+    <div class="mb-20">
+      <ma-button ng-disabled="$ctrl.leftButtonDisabled"
+        ma-click="$ctrl.toRight($event)">
+        <span>添加</span>
+        <ma-icon ma-type="arrowright"></ma-icon>
+      </ma-button>
+    </div>
+    <div>
+      <ma-button ng-disabled="$ctrl.rightButtonDisabled"
+        ma-click="$ctrl.toLeft($event)">
+        <ma-icon ma-type="arrowleft"></ma-icon>
+        <span>删除</span>
+      </ma-button>
+    </div>
+  </div>
+  <div class="fl">
+    <div class="ma-transfer-right-result">
+      <ma-checkbox ng-disabled="disabled"
+        ng-class="{
+          'has-sub': $ctrl.rightSelectedCount > 0 && $ctrl.rightSelectedCount < $ctrl.rightShowCount
+        }"
+        ng-model="$ctrl.rightCheckbox">
+      </ma-checkbox>
+
+      <span class="ma-transfer-title">{{rightTitle || '选中'}}</span>
+    </div>
+
+    <div class="ma-tree-select">
+      <div class="custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi ng-isolate-scope ng-not-empty ng-valid custom-tree-select custom-static-select">
+
+        <div class="ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none"
+
+          ng-class="{'select2-display-show': $select.open}">
+          <div class="search-container select2-search"
+            ng-class="{'ui-select-search-hidden':!$select.searchEnabled, 'select2-search':$select.searchEnabled}">
+            <div class="ma-input ma-input-search-normal">
+              <input type="text"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+                role="combobox"
+                aria-expanded="true"
+                aria-owns="ui-select-choices-0"
+                aria-label="Select box"
+                class="select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched"
+                ng-model="$ctrl.searchKey"
+                ondrop="return false;">
+            </div>
+          </div>
+          <ul tabindex="-1"
+            class="ui-select-choices ui-select-choices-content select2-results ng-scope">
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

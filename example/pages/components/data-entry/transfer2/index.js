@@ -31,7 +31,7 @@ function mainCtrl($scope, $q, $timeout, $treeSelect) {
     });
   });
 
-  console.log($scope.treeData);
+  // console.log($scope.treeData);
 
 
   $scope.data = [{
@@ -96,7 +96,7 @@ function mainCtrl($scope, $q, $timeout, $treeSelect) {
   });
 
   $scope.$watch('selectTreeValue', d => {
-    console.log('tree', d);
+    // console.log('tree', d);
   });
   $scope.$watch('selectTreeParentValue', d => {
     // console.log('tree parent', d);

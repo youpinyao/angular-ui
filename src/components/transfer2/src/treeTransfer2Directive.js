@@ -1,5 +1,6 @@
 import moduleName from './name.js';
 import $ from 'jquery';
+import maTreeTransfer2Tpl from './maTreeTransfer2Tpl.html';
 
 angular.module(moduleName)
   .directive('maTreeTransfer2', maTreeTransfer2);
@@ -20,10 +21,42 @@ function maTreeTransfer2() {
       leftTitle: '@maLeftTitle',
       rightTitle: '@maRightTitle',
     },
-    template: '',
+    template: maTreeTransfer2Tpl,
     controllerAs: '$ctrl',
     controller: ['$scope', function($scope) {
+      const $ctrl = this;
 
+      $ctrl.searchKey = '';
+
+      $ctrl.leftSelectedCount = 0;
+      $ctrl.leftShowCount = 0;
+      $ctrl.leftCheckbox = false;
+
+      $ctrl.leftButtonDisabled = true;
+      $ctrl.rightButtonDisabled = true;
+
+      $ctrl.rightSelectedCount = 0;
+      $ctrl.rightShowCount = 0;
+      $ctrl.rightCheckbox = false;
+
+      $ctrl.toRight = toRight;
+      $ctrl.toLeft = toLeft;
+
+      $scope.$watch('data', (d) => {
+        console.log('data', d);
+      });
+
+      $scope.$watch('model', (d) => {
+        console.log('model', d);
+      });
+
+      function toRight() {
+
+      }
+
+      function toLeft() {
+
+      }
     }],
     link: function(scope, element, attrs, ctrl) {
       scope.textKey = attrs.maTextKey || 'text';
