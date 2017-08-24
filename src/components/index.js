@@ -14,6 +14,7 @@ import autoComplete from './auto-complete';
 import select from './select';
 import treeSelect from './tree-select';
 import transfer from './transfer';
+import transfer2 from './transfer2';
 import upload from './upload';
 import lightgallery from './lightgallery';
 import message from './message';
@@ -45,6 +46,7 @@ angular.module(moduleName, [
   select,
   treeSelect,
   transfer,
+  transfer2,
   upload,
   lightgallery,
   message,

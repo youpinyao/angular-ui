@@ -38,6 +38,7 @@ import autoComplete from '../pages/components/data-entry/auto-complete';
 import select from '../pages/components/data-entry/select';
 import treeSelect from '../pages/components/data-entry/tree-select';
 import transfer from '../pages/components/data-entry/transfer';
+import transfer2 from '../pages/components/data-entry/transfer2';
 import upload from '../pages/components/data-entry/upload';
 import form from '../pages/components/data-entry/form';
 import datepicker from '../pages/components/data-entry/datepicker';
@@ -223,6 +224,11 @@ const routers = [{
       state: 'components.dataEntry.transfer',
       url: '/transfer',
       ...transfer,
+    }, {
+      title: 'Transfer2 穿梭框',
+      state: 'components.dataEntry.transfer2',
+      url: '/transfer2',
+      ...transfer2,
     }, {
       title: 'Upload 上传',
       state: 'components.dataEntry.upload',

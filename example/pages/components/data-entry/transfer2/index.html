@@ -1,0 +1,62 @@
+<!-- <ma-crumb>
+  <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
+  <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
+  <ma-crumb-item>Font 文字</ma-crumb-item>
+</ma-crumb> -->
+<ma-crumb-auto></ma-crumb-auto>
+<div class="data-entry-transfer-page">
+  <div class="container" ma-full-container>
+    <h2>Transfer2 穿梭框</h2>
+    <p>
+      双栏穿梭选择框。
+    </p>
+    <h3>代码演示</h3>
+    <div class="p clearfix">
+      <div class="col-24 mb-20">
+        <h4>disabled</h4>
+        <ma-switch
+          ng-model="disabled"
+        ></ma-switch>
+      </div>
+
+      <div class="col-24 mb-20">
+        <h4>普通穿梭框</h4>
+        <ma-transfer2
+          ng-model="selectValue"
+
+          ma-data="data"
+          ma-value-key="value1"
+          ma-text-key="text1"
+
+          ma-left-title="所有"
+          ma-right-title="选中"
+
+          ng-disabled="disabled"
+        ></ma-transfer2>
+      </div>
+
+      <div class="col-24">
+        <h4>树形穿梭框</h4>
+        <ma-tree-transfer2
+          ng-model="selectTreeValue"
+          ma-model="selectTreeParentValue"
+
+          ma-data="treeData"
+          ma-value-key="value1"
+          ma-text-key="text1"
+          ma-sub-key="sub1"
+
+          ma-left-title="所有"
+          ma-right-title="选中"
+
+          ng-disabled="disabled"
+        ></ma-tree-transfer2>
+      </div>
+
+    </div>
+    <h3>API</h3>
+    <div class="p">
+      <a href="#!/components/data-enpty/transfer">API<a>
+    </div>
+  </div>
+</div>

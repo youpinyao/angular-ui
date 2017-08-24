@@ -16,6 +16,7 @@
   "select": "./components/select",
   "treeSelect": "./components/tree-select",
   "transfer": "./components/transfer",
+  "transfer2": "./components/transfer2",
   "upload": "./components/upload",
   "lightgallery": "./components/lightgallery",
   "message": "./components/message",

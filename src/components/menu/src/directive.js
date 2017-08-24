@@ -282,7 +282,7 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
       }
 
       function isParent(currentUrl, routerUrl) {
-        return currentUrl.indexOf(routerUrl) !== -1 && currentUrl !== routerUrl;
+        return currentUrl.indexOf(routerUrl + '/') !== -1 && currentUrl !== routerUrl;
       }
 
       function isActive(router) {
