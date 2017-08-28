@@ -1,0 +1,29 @@
+<div class="ma-tree-select transition-none">
+  <div class="custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi ng-isolate-scope ng-not-empty ng-valid custom-tree-select custom-static-select">
+
+    <div class="ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none">
+      <div class="search-container select2-search">
+        <div class="ma-input ma-input-search-normal"
+          ng-disabled="disabled">
+          <input type="text"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            role="combobox"
+            aria-expanded="true"
+            aria-owns="ui-select-choices-0"
+            aria-label="Select box"
+            class="select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched"
+            ng-model="$ctrl.searchKey"
+            ng-disabled="disabled"
+            ondrop="return false;">
+        </div>
+      </div>
+      <ul tabindex="-1"
+        class="ui-select-choices ui-select-choices-content select2-results ng-scope">
+
+      </ul>
+    </div>
+  </div>
+</div>

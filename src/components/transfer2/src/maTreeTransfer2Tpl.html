@@ -3,43 +3,20 @@
     <div class="ma-transfer-left-result">
       <ma-checkbox ng-disabled="disabled"
         ng-class="{
-          'has-sub': $ctrl.leftSelectedCount > 0 && $ctrl.leftSelectedCount < $ctrl.leftShowCount
+          'has-sub': $ctrl.leftSub,
         }"
         ng-model="$ctrl.leftCheckbox">
       </ma-checkbox>
 
       <span class="ma-transfer-title">{{leftTitle || '所有'}}</span>
     </div>
-    <div class="ma-tree-select">
-      <div class="custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi ng-isolate-scope ng-not-empty ng-valid custom-tree-select custom-static-select">
-
-        <div class="ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none"
-
-          ng-class="{'select2-display-show': $select.open}">
-          <div class="search-container select2-search"
-            ng-class="{'ui-select-search-hidden':!$select.searchEnabled, 'select2-search':$select.searchEnabled}">
-            <div class="ma-input ma-input-search-normal">
-              <input type="text"
-                autocomplete="off"
-                autocorrect="off"
-                autocapitalize="off"
-                spellcheck="false"
-                role="combobox"
-                aria-expanded="true"
-                aria-owns="ui-select-choices-0"
-                aria-label="Select box"
-                class="select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched"
-                ng-model="$ctrl.searchKey"
-                ondrop="return false;">
-            </div>
-          </div>
-          <ul tabindex="-1"
-            class="ui-select-choices ui-select-choices-content select2-results ng-scope">
-
-          </ul>
-        </div>
-      </div>
-    </div>
+    <ma-tree ng-disabled="disabled"
+      ng-model="$ctrl.leftSelected"
+      ma-data="$ctrl.leftData"
+      ma-value-key="{{valueKey}}"
+      ma-sub-key="{{subKey}}"
+      ma-text-key="{{textKey}}"
+      ma-hide-items="$ctrl.leftHideItems"></ma-tree>
   </div>
   <div class="fl ma-transfer-center">
     <div class="mb-20">
@@ -61,43 +38,19 @@
     <div class="ma-transfer-right-result">
       <ma-checkbox ng-disabled="disabled"
         ng-class="{
-          'has-sub': $ctrl.rightSelectedCount > 0 && $ctrl.rightSelectedCount < $ctrl.rightShowCount
+          'has-sub': $ctrl.rightSub,
         }"
         ng-model="$ctrl.rightCheckbox">
       </ma-checkbox>
 
       <span class="ma-transfer-title">{{rightTitle || '选中'}}</span>
     </div>
-
-    <div class="ma-tree-select">
-      <div class="custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi ng-isolate-scope ng-not-empty ng-valid custom-tree-select custom-static-select">
-
-        <div class="ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none"
-
-          ng-class="{'select2-display-show': $select.open}">
-          <div class="search-container select2-search"
-            ng-class="{'ui-select-search-hidden':!$select.searchEnabled, 'select2-search':$select.searchEnabled}">
-            <div class="ma-input ma-input-search-normal">
-              <input type="text"
-                autocomplete="off"
-                autocorrect="off"
-                autocapitalize="off"
-                spellcheck="false"
-                role="combobox"
-                aria-expanded="true"
-                aria-owns="ui-select-choices-0"
-                aria-label="Select box"
-                class="select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched"
-                ng-model="$ctrl.searchKey"
-                ondrop="return false;">
-            </div>
-          </div>
-          <ul tabindex="-1"
-            class="ui-select-choices ui-select-choices-content select2-results ng-scope">
-
-          </ul>
-        </div>
-      </div>
-    </div>
+    <ma-tree ng-disabled="disabled"
+      ng-model="$ctrl.rightSelected"
+      ma-data="$ctrl.rightData"
+      ma-value-key="{{valueKey}}"
+      ma-sub-key="{{subKey}}"
+      ma-text-key="{{textKey}}"
+      ma-show-items="$ctrl.rightShowItems"></ma-tree>
   </div>
 </div>

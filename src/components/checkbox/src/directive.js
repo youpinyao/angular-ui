@@ -51,7 +51,7 @@ function maCheckbox($timeout) {
       });
 
       scope.$watch('checked', d => {
-        $timeout(function() {
+        scope.$applyAsync(function() {
           var checkboxs = $(element).parent().find('input[type="checkbox"]');
           var values = [];
 

@@ -1,7 +1,7 @@
 import './index.scss';
 import cityData from './data.json';
 
-const controller = 'transferCtrl';
+const controller = 'transfer2Ctrl';
 
 angular.module('app').controller(controller, mainCtrl);
 
@@ -9,7 +9,7 @@ mainCtrl.$inject = ['$scope', '$q', '$timeout', '$treeSelect'];
 
 function mainCtrl($scope, $q, $timeout, $treeSelect) {
   $scope.selectValue = ['6666', '66666'];
-  $scope.selectTreeValue = ['140100', '140200', '130100', '130200'];
+  $scope.selectTreeValue = ['110000', '130200', '130100'];
   $scope.disabled = false;
 
   $scope.treeData = [];

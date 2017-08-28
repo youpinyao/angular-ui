@@ -1,0 +1,24 @@
+ {{each data}}
+ {{if !$value._parent || renderSub}}
+<li class="ui-select-choices-row tree-level-{{$value._level}} {{$value._sub ? 'has-sub': ''}}"
+  data-value="{{$value[valueKey]}}"
+  data-from="{{$value._from}}"
+  data-to="{{$value._to}}">
+  <div class="select2-result-label ui-select-choices-row-inner">
+    <div>
+      {{if $value._sub}}
+      <i class="tree-arrow-click">
+        <i class="tree-arrow"></i>
+      </i>
+      {{/if}}
+      <!-- <div class="click-mask"></div> -->
+      <label class="ma-checkbox">
+        <input type="checkbox" />
+        <i class="checkbox-appearance"></i>
+        <span>{{$value[textKey]}}</span>
+      </label>
+    </div>
+  </div>
+</li>
+{{/if}}
+{{/each}}

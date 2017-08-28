@@ -25,6 +25,10 @@
   left: 0px !important;
   top: 0px !important;
 }
+.ui-select-choices-row.hidden,
+.ui-select-choices-row.hide {
+  display: none;
+}
 
 .ui-select-choices-row:hover {
   background-color: $hover;
@@ -1394,7 +1398,7 @@ disabled look for disabled choices in the results dropdown
 .select2-results li .ma-checkbox .checkbox-appearance {
   position: absolute;
   left: 0px;
-  top: 4px;
+  top: 8px;
 }
 
 .select2-container-multi .select2-results li.ui-select-choices-row .select2-result-label {
@@ -1450,7 +1454,10 @@ disabled look for disabled choices in the results dropdown
 }
 
 .custom-tree-select.select2-container-multi .select2-results li.ui-select-choices-row .select2-result-label > div {
-  padding: 4px 12px 4px 12px;
+  padding: 0px 12px 0px 12px;
+  .ma-checkbox {
+    padding:  4px 0;
+  }
 }
 
 .custom-tree-select.select2-container-multi .select2-results li.ui-select-choices-row .select2-result-label > div.ui-select-tree-list {
