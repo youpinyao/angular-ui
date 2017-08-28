@@ -165,12 +165,16 @@ function maTreeTransfer2() {
         const newSelected = [];
         const selected = $ctrl.rightSelected || [];
 
-        angular.each($scope.data, d => {
-          const sub = d[$scope.subKey];
-          if (selected.indexOf(d[$scope.valueKey]) !== -1 && sub && sub.length) {
-            pushSub(sub);
-          }
-        });
+        function checkSub(items) {
+          angular.each(items, d => {
+            const sub = d[$scope.subKey];
+            if (selected.indexOf(d[$scope.valueKey]) !== -1 && sub && sub.length) {
+              pushSub(sub);
+            } else if (sub && sub.length) {
+              checkSub(sub);
+            }
+          });
+        }
 
         function pushSub(sub) {
           angular.each(sub, dd => {
@@ -180,6 +184,8 @@ function maTreeTransfer2() {
             }
           });
         }
+
+        checkSub($scope.data);
 
         return selected.concat(newSelected);
       }
