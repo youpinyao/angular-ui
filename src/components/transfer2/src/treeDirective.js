@@ -159,8 +159,8 @@ function maTree() {
           if (itemValues.indexOf(d[$scope.valueKey]) !== -1) {
             let item = d;
             while (item._parent) {
-              parents.push(d._parent[$scope.valueKey]);
-              item = d._parent;
+              parents.push(item._parent[$scope.valueKey]);
+              item = item._parent;
             }
           }
         });

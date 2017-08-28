@@ -25,6 +25,13 @@ function mainCtrl($scope, $q, $timeout, $treeSelect) {
         data.sub1.push({
           text1: ddd.city_name,
           value1: ddd.city_id,
+          sub1: [{
+            text1: ddd.city_name,
+            value1: ddd.city_id + '11',
+          }, {
+            text1: ddd.city_name,
+            value1: ddd.city_id + '22',
+          }]
         });
       });
       $scope.treeData.push(data);
