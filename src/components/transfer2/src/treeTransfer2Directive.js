@@ -24,7 +24,7 @@ function maTreeTransfer2() {
     },
     template: maTreeTransfer2Tpl,
     controllerAs: '$ctrl',
-    controller: ['$scope', function($scope) {
+    controller: ['$scope', '$element', function($scope, $element) {
       const $ctrl = this;
 
       $ctrl.searchKey = '';
@@ -51,12 +51,12 @@ function maTreeTransfer2() {
       $ctrl.rightShowItems = [];
 
       $scope.$watch('data', (d) => {
-        console.log('transfer2 data', d);
+        // console.log('transfer2 data', d);
         updateLeftRigthData();
       });
 
       $scope.$watch('model', (d) => {
-        console.log('transfer2 model', d);
+        // console.log('transfer2 model', d);
 
         // 过滤掉父子同在
         const newModel = filterChild();
@@ -71,6 +71,11 @@ function maTreeTransfer2() {
       });
 
       $scope.$watch('$ctrl.leftCheckbox', d => {
+        if ($scope.isSelectedChangeCheckbox) {
+          $scope.isSelectedChangeCheckbox = false;
+          return;
+        }
+
         if (d === true) {
           $ctrl.leftSelected = 'all';
         }
@@ -80,6 +85,11 @@ function maTreeTransfer2() {
       });
 
       $scope.$watch('$ctrl.rightCheckbox', d => {
+        if ($scope.isSelectedChangeCheckbox) {
+          $scope.isSelectedChangeCheckbox = false;
+          return;
+        }
+
         if (d === true) {
           $ctrl.rightSelected = 'all';
         }
@@ -90,11 +100,60 @@ function maTreeTransfer2() {
 
       $scope.$watch('$ctrl.leftSelected', d => {
         $ctrl.leftButtonDisabled = !(d && d.length);
+        updateLeftSub();
       });
 
       $scope.$watch('$ctrl.rightSelected', d => {
         $ctrl.rightButtonDisabled = !(d && d.length);
+        updateRightSub();
       });
+
+      function updateLeftSub() {
+        updateSub('left');
+      }
+
+      function updateRightSub() {
+        updateSub('right');
+      }
+
+      function updateSub(direction) {
+        const level0Items = $($element).find(
+          `.ma-transfer-${direction}-tree.ma-tree-select .tree-level-0`);
+        const level0Values = [];
+        const selected = $ctrl[`${direction}Selected`] || [];
+        let count = 0;
+        let len = 0;
+
+        level0Items.each(function() {
+          if (!$(this).hasClass('hidden')) {
+            level0Values.push($(this).attr('data-value'));
+          }
+        });
+
+        level0Values.forEach(d => {
+          if (selected.indexOf(d) !== -1) {
+            count++;
+          }
+          len++;
+        });
+
+        if (len > 0) {
+          if (count > 0 && count < len) {
+            $ctrl[`${direction}Sub`] = true;
+          } else {
+            $ctrl[`${direction}Sub`] = false;
+          }
+          if (count === len) {
+            if ($ctrl[`${direction}Checkbox`] === false) {
+              $ctrl[`${direction}Checkbox`] = true;
+              $scope.isSelectedChangeCheckbox = true;
+            }
+          } else if ($ctrl[`${direction}Checkbox`] === true) {
+            $ctrl[`${direction}Checkbox`] = false;
+            $scope.isSelectedChangeCheckbox = true;
+          }
+        }
+      }
 
       function toRight() {
         if (angular.isNull($scope.model)) {

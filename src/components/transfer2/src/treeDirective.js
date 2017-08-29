@@ -31,6 +31,8 @@ function maTree() {
       const itemCls = '.ui-select-choices-row';
       let subStore = {};
 
+      $scope.$watch('disabled', updateDisabled);
+
       $scope.$watch('data', d => {
         const items = updateTree(d);
 
@@ -39,21 +41,22 @@ function maTree() {
       });
 
       $scope.$watch('showItems', d => {
-        console.log('show items', d);
+        // console.log('show items', d);
         if (d) {
           updateHideShow();
         }
       });
       $scope.$watch('hideItems', d => {
-        console.log('hide items', d);
+        // console.log('hide items', d);
         if (d) {
           updateHideShow();
         }
       });
 
       $scope.$watch('model', d => {
-        console.log('tree model', d);
+        // console.log('tree model', d);
 
+        // 全不选
         if (angular.isEmpty(d)) {
           contentTarget.find(itemCls).each(function() {
             // if (!$(this).hasClass('hidden')) {
@@ -62,6 +65,8 @@ function maTree() {
           });
           contentTarget.find('.ma-checkbox').removeClass('has-sub');
         }
+
+        // 全选
         if (d === 'all') {
           const newModel = [];
           contentTarget.find(itemCls).each(function() {
@@ -75,6 +80,14 @@ function maTree() {
           $scope.model = newModel;
         }
       });
+
+      function updateDisabled() {
+        if ($scope.disabled) {
+          contentTarget.find('input, .ma-checkbox').attr('disabled', true);
+        } else {
+          contentTarget.find('input, .ma-checkbox').attr('disabled', false);
+        }
+      }
 
       function renderContent(data) {
         const items = $(template.render(itemTpl, {
@@ -168,10 +181,14 @@ function maTree() {
       }
 
       function toggleTree(e) {
+        if ($scope.disabled) {
+          return;
+        }
+
         const target = $(e.target);
         const item = target.parents(itemCls);
         const to = item.attr('data-to');
-        let froms = contentTarget.find(`${itemCls}[data-from="${to}"]`);
+        let froms = contentTarget.find(`${itemCls}[data-from*="${to}"]`);
 
         if (!froms.length) {
           froms = $(template.render(itemTpl, {
@@ -199,10 +216,11 @@ function maTree() {
         if (parent) {
           checkedSub(parent.attr('data-to'), parent.find('input').prop('checked'));
         }
+        updateDisabled();
       }
 
       function updateModel() {
-        console.log('update model');
+        // console.log('update model');
         const newModel = [];
         const selectedes = contentTarget.find('input:checked');
 

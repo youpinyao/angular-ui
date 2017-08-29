@@ -6,7 +6,9 @@
   letter-spacing: -0.31em;
   margin-right: 10px;
   @include unselect();
-
+  &[disabled] {
+    cursor: not-allowed;
+  }
   > span {
     font-size: $font14;
     font-weight: normal;
@@ -15,7 +17,6 @@
     display: inline-block;
     padding: 0px 10px;
   }
-
   input[type="checkbox"] {
     display: none;
     & + .checkbox-appearance {
@@ -30,7 +31,6 @@
       cursor: pointer;
       transition: transform 300ms ease, -webkit-transform 300ms ease, opacity 300ms ease, background-color 300ms ease;
       -webkit-transition: transform 300ms ease, -webkit-transform 300ms ease, opacity 300ms ease, background-color 300ms ease;
-
       &:after {
         opacity: 0;
         @include transform(scale(0) rotate(45deg));
@@ -54,7 +54,6 @@
         @include transform(scale(1) rotate(45deg));
       }
     }
-
     &[disabled] + .checkbox-appearance {
       border-color: $shadow;
       cursor: not-allowed;
@@ -62,26 +61,22 @@
         cursor: not-allowed;
       }
     }
-
     &[disabled] + .checkbox-appearance {
       &:after {
         border-color: $shadow;
       }
     }
-
     &:checked[disabled] + .checkbox-appearance {
       opacity: 0.4;
       border-color: $primary;
     }
-
     &:checked[disabled] + .checkbox-appearance {
-      &:after{
+      &:after {
         border-color: $white;
         background-color: $primary;
       }
     }
   }
-
   &.has-sub {
     input[type="checkbox"] {
       & + .checkbox-appearance {
@@ -103,7 +98,6 @@
       }
     }
   }
-
   &.has-parent {
     input[type="checkbox"] {
       & + .checkbox-appearance {
@@ -116,9 +110,7 @@
       }
     }
   }
-
   &:hover .checkbox-appearance {
-    border-color:$primary;
+    border-color: $primary;
   }
 }
-

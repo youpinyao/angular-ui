@@ -11,6 +11,7 @@
       <span class="ma-transfer-title">{{leftTitle || '所有'}}</span>
     </div>
     <ma-tree ng-disabled="disabled"
+      class="ma-transfer-left-tree"
       ng-model="$ctrl.leftSelected"
       ma-data="$ctrl.leftData"
       ma-value-key="{{valueKey}}"
@@ -46,6 +47,7 @@
       <span class="ma-transfer-title">{{rightTitle || '选中'}}</span>
     </div>
     <ma-tree ng-disabled="disabled"
+      class="ma-transfer-right-tree"
       ng-model="$ctrl.rightSelected"
       ma-data="$ctrl.rightData"
       ma-value-key="{{valueKey}}"
