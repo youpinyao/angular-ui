@@ -6766,6 +6766,10 @@ textarea.ma-input {
   -moz-user-select: -moz-none;
 }
 
+.ma-checkbox[disabled] {
+  cursor: not-allowed;
+}
+
 .ma-checkbox > span {
   font-size: 14px;
   font-weight: normal;
@@ -7303,6 +7307,11 @@ textarea.ma-input {
   outline: 0 !important;
   left: 0px !important;
   top: 0px !important;
+}
+
+.ui-select-choices-row.hidden,
+.ui-select-choices-row.hide {
+  display: none;
 }
 
 .ui-select-choices-row:hover {
@@ -8600,7 +8609,7 @@ disabled look for disabled choices in the results dropdown
 .select2-results li .ma-checkbox .checkbox-appearance {
   position: absolute;
   left: 0px;
-  top: 4px;
+  top: 8px;
 }
 
 .select2-container-multi .select2-results li.ui-select-choices-row .select2-result-label {
@@ -8656,7 +8665,11 @@ disabled look for disabled choices in the results dropdown
 }
 
 .custom-tree-select.select2-container-multi .select2-results li.ui-select-choices-row .select2-result-label > div {
-  padding: 4px 12px 4px 12px;
+  padding: 0px 12px 0px 12px;
+}
+
+.custom-tree-select.select2-container-multi .select2-results li.ui-select-choices-row .select2-result-label > div .ma-checkbox {
+  padding: 4px 0;
 }
 
 .custom-tree-select.select2-container-multi .select2-results li.ui-select-choices-row .select2-result-label > div.ui-select-tree-list {
@@ -8843,6 +8856,14 @@ disabled look for disabled choices in the results dropdown
 .ma-tree-select {
   width: 240px;
   display: inline-block;
+}
+
+.ma-tree-select[disabled] * {
+  cursor: not-allowed;
+}
+
+.ma-tree-select[disabled] .ui-select-choices-row:hover {
+  background-color: inherit;
 }
 
 .ma-tree-select .custom-multi-select {

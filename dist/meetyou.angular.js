@@ -3462,7 +3462,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ "2hwL":
 /***/ (function(module, exports) {
 
-module.exports = "<li class=\"ui-select-choices-row {{'tree-level-' +item&&{index}._treeLevel}}\"\n  ng-class=\"{'has-sub' : item&&{index}.sub.length}\"\n  data-tag-to=\"{{item&&{index}._treeLinkTo}}\"\n  ng-if=\"item&&{index}.__item_is_show\"\n  data-tag-from=\"{{item&&{index}._treeLinkFrom}}\" ng-cloak>\n  <div class=\"select2-result-label ui-select-choices-row-inner\"\n    ma-click=\"$select.doSelect($event, item&&{index})\">\n    <div ng-class=\"{'tree-open': item&&{index}.__tree_is_open}\">\n\n      <i class=\"tree-arrow-click\"\n        ng-if=\"item&&{index}.sub.length\"\n        ma-click=\"$select.toggleTree($event, item&&{index})\">\n        <i class=\"tree-arrow\"\n          ng-if=\"item&&{index}.sub.length\"></i>\n      </i>\n      <!-- <div class=\"click-mask\"></div> -->\n      <ma-checkbox unclick\n        ng-model=\"item&&{index}._selected\"\n        style=\"pointer-events:none;\"\n        ng-disabled=\"$select.selectDisabled\"\n        ng-class=\"{\n          'has-sub': item&&{index}.__checkbox_has_sub,\n          'has-parent': item&&{index}.__checkbox_has_parent,\n          'custom-multi-select-checkbox-hidden': item&&{index}.hiddenCheck\n        }\">\n        <span ng-bind-html=\"item&&{index}.text\"></span>\n      </ma-checkbox>\n    </div>\n  </div>\n</li>\n";
+module.exports = "<li class=\"ui-select-choices-row {{'tree-level-' +item&&{index}._treeLevel}}\"\n  ng-class=\"{'has-sub' : item&&{index}.sub.length}\"\n  data-tag-to=\"{{item&&{index}._treeLinkTo}}\"\n  ng-if=\"item&&{index}.__item_is_show\"\n  data-tag-from=\"{{item&&{index}._treeLinkFrom}}\" ng-cloak>\n  <div class=\"select2-result-label ui-select-choices-row-inner\"\n    ma-click=\"$select.doSelect($event, item&&{index})\">\n    <div ng-class=\"{'tree-open': item&&{index}.__tree_is_open}\">\n\n      <i class=\"tree-arrow-click\"\n        ng-if=\"item&&{index}.sub.length\"\n        ma-click=\"$select.toggleTree($event, item&&{index})\">\n        <i class=\"tree-arrow\"></i>\n      </i>\n      <!-- <div class=\"click-mask\"></div> -->\n      <ma-checkbox unclick\n        ng-model=\"item&&{index}._selected\"\n        style=\"pointer-events:none;\"\n        ng-disabled=\"$select.selectDisabled\"\n        ng-class=\"{\n          'has-sub': item&&{index}.__checkbox_has_sub,\n          'has-parent': item&&{index}.__checkbox_has_parent,\n          'custom-multi-select-checkbox-hidden': item&&{index}.hiddenCheck\n        }\">\n        <span ng-bind-html=\"item&&{index}.text\"></span>\n      </ma-checkbox>\n    </div>\n  </div>\n</li>\n";
 
 /***/ }),
 
@@ -6101,6 +6101,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     return ss;
 });
+
+/***/ }),
+
+/***/ "7fJ5":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"ma-tree-select transition-none\"\n  ng-disabled=\"disabled\">\n  <div class=\"custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi ng-isolate-scope ng-not-empty ng-valid custom-tree-select custom-static-select\">\n\n    <div class=\"ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none\">\n      <div class=\"search-container select2-search\">\n        <div class=\"ma-input ma-input-search-normal\"\n          ng-disabled=\"disabled\">\n          <input type=\"text\"\n            autocomplete=\"off\"\n            autocorrect=\"off\"\n            autocapitalize=\"off\"\n            spellcheck=\"false\"\n            role=\"combobox\"\n            aria-expanded=\"true\"\n            aria-owns=\"ui-select-choices-0\"\n            aria-label=\"Select box\"\n            class=\"select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched\"\n            ng-model=\"$ctrl.searchKey\"\n            ng-disabled=\"disabled\"\n            ondrop=\"return false;\">\n        </div>\n      </div>\n      <ul tabindex=\"-1\"\n        class=\"ui-select-choices ui-select-choices-content select2-results ng-scope\">\n\n      </ul>\n    </div>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -17084,6 +17091,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     return arTn;
 });
+
+/***/ }),
+
+/***/ "BWKA":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"ma-transfer\">\n  <div class=\"fl\">\n    <div class=\"ma-transfer-left-result\">\n      <ma-checkbox ng-disabled=\"disabled\"\n        ng-class=\"{\n          'has-sub': $ctrl.leftSub,\n        }\"\n        ng-model=\"$ctrl.leftCheckbox\">\n      </ma-checkbox>\n\n      <span class=\"ma-transfer-title\">{{leftTitle || '所有'}}</span>\n    </div>\n    <ma-tree ng-disabled=\"disabled\"\n      class=\"ma-transfer-left-tree\"\n      ng-model=\"$ctrl.leftSelected\"\n      ma-data=\"$ctrl.leftData\"\n      ma-value-key=\"{{valueKey}}\"\n      ma-sub-key=\"{{subKey}}\"\n      ma-text-key=\"{{textKey}}\"\n      ma-hide-items=\"$ctrl.leftHideItems\"></ma-tree>\n  </div>\n  <div class=\"fl ma-transfer-center\">\n    <div class=\"mb-20\">\n      <ma-button ng-disabled=\"$ctrl.leftButtonDisabled\"\n        ma-click=\"$ctrl.toRight($event)\">\n        <span>添加</span>\n        <ma-icon ma-type=\"arrowright\"></ma-icon>\n      </ma-button>\n    </div>\n    <div>\n      <ma-button ng-disabled=\"$ctrl.rightButtonDisabled\"\n        ma-click=\"$ctrl.toLeft($event)\">\n        <ma-icon ma-type=\"arrowleft\"></ma-icon>\n        <span>删除</span>\n      </ma-button>\n    </div>\n  </div>\n  <div class=\"fl\">\n    <div class=\"ma-transfer-right-result\">\n      <ma-checkbox ng-disabled=\"disabled\"\n        ng-class=\"{\n          'has-sub': $ctrl.rightSub,\n        }\"\n        ng-model=\"$ctrl.rightCheckbox\">\n      </ma-checkbox>\n\n      <span class=\"ma-transfer-title\">{{rightTitle || '选中'}}</span>\n    </div>\n    <ma-tree ng-disabled=\"disabled\"\n      class=\"ma-transfer-right-tree\"\n      ng-model=\"$ctrl.rightSelected\"\n      ma-data=\"$ctrl.rightData\"\n      ma-value-key=\"{{valueKey}}\"\n      ma-sub-key=\"{{subKey}}\"\n      ma-text-key=\"{{textKey}}\"\n      ma-show-items=\"$ctrl.rightShowItems\"></ma-tree>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -37182,7 +37196,7 @@ function maCheckbox($timeout) {
       });
 
       scope.$watch('checked', function (d) {
-        $timeout(function () {
+        scope.$applyAsync(function () {
           var checkboxs = (0, _jquery2['default'])(element).parent().find('input[type="checkbox"]');
           var values = [];
 
@@ -38015,7 +38029,7 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
       }
 
       function isParent(currentUrl, routerUrl) {
-        return currentUrl.indexOf(routerUrl) !== -1 && currentUrl !== routerUrl;
+        return currentUrl.indexOf(routerUrl + '/') !== -1 && currentUrl !== routerUrl;
       }
 
       function isActive(router) {
@@ -38234,6 +38248,468 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     return hyAm;
 });
+
+/***/ }),
+
+/***/ "H+C6":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/*! art-template@4.12.1 for browser | https://github.com/aui/art-template */
+!function (e, t) {
+  "object" == ( false ? "undefined" : _typeof(exports)) && "object" == ( false ? "undefined" : _typeof(module)) ? module.exports = t() :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (t),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : "object" == (typeof exports === "undefined" ? "undefined" : _typeof(exports)) ? exports.template = t() : e.template = t();
+}(undefined, function () {
+  return function (e) {
+    function t(r) {
+      if (n[r]) return n[r].exports;var i = n[r] = { i: r, l: !1, exports: {} };return e[r].call(i.exports, i, i.exports, t), i.l = !0, i.exports;
+    }var n = {};return t.m = e, t.c = n, t.d = function (e, n, r) {
+      t.o(e, n) || Object.defineProperty(e, n, { configurable: !1, enumerable: !0, get: r });
+    }, t.n = function (e) {
+      var n = e && e.__esModule ? function () {
+        return e["default"];
+      } : function () {
+        return e;
+      };return t.d(n, "a", n), n;
+    }, t.o = function (e, t) {
+      return Object.prototype.hasOwnProperty.call(e, t);
+    }, t.p = "", t(t.s = 6);
+  }([function (e, t, n) {
+    (function (t) {
+      e.exports = !1;try {
+        e.exports = "[object process]" === Object.prototype.toString.call(t.process);
+      } catch (n) {}
+    }).call(t, n(4));
+  }, function (e, t, n) {
+    "use strict";
+    var r = n(8),
+        i = n(3),
+        o = n(23),
+        s = function s(e, t) {
+      t.onerror(e, t);var n = function n() {
+        return "{Template Error}";
+      };return n.mappings = [], n.sourcesContent = [], n;
+    },
+        a = function c(e) {
+      var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};"string" != typeof e ? t = e : t.source = e, t = i.$extend(t), e = t.source, !0 === t.debug && (t.cache = !1, t.minimize = !1, t.compileDebug = !0), t.compileDebug && (t.minimize = !1), t.filename && (t.filename = t.resolveFilename(t.filename, t));var n = t.filename,
+          a = t.cache,
+          u = t.caches;if (a && n) {
+        var p = u.get(n);if (p) return p;
+      }if (!e) try {
+        e = t.loader(n, t), t.source = e;
+      } catch (d) {
+        var l = new o({ name: "CompileError", path: n, message: "template not found: " + d.message, stack: d.stack });if (t.bail) throw l;return s(l, t);
+      }var f = void 0,
+          h = new r(t);try {
+        f = h.build();
+      } catch (l) {
+        if (l = new o(l), t.bail) throw l;return s(l, t);
+      }var m = function m(e, n) {
+        try {
+          return f(e, n);
+        } catch (l) {
+          if (!t.compileDebug) return t.cache = !1, t.compileDebug = !0, c(t)(e, n);if (l = new o(l), t.bail) throw l;return s(l, t)();
+        }
+      };return m.mappings = f.mappings, m.sourcesContent = f.sourcesContent, m.toString = function () {
+        return f.toString();
+      }, a && n && u.set(n, m), m;
+    };a.Compiler = r, e.exports = a;
+  }, function (e, t) {
+    Object.defineProperty(t, "__esModule", { value: !0 }), t["default"] = /((['"])(?:(?!\2|\\).|\\(?:\r\n|[\s\S]))*(\2)?|`(?:[^`\\$]|\\[\s\S]|\$(?!\{)|\$\{(?:[^{}]|\{[^}]*\}?)*\}?)*(`)?)|(\/\/.*)|(\/\*(?:[^*]|\*(?!\/))*(\*\/)?)|(\/(?!\*)(?:\[(?:(?![\]\\]).|\\.)*\]|(?![\/\]\\]).|\\.)+\/(?:(?!\s*(?:\b|[\u0080-\uFFFF$\\'"~({]|[+\-!](?!=)|\.?\d))|[gmiyu]{1,5}\b(?![\u0080-\uFFFF$\\]|\s*(?:[+\-*%&|^<>!=?({]|\/(?![\/*])))))|(0[xX][\da-fA-F]+|0[oO][0-7]+|0[bB][01]+|(?:\d*\.\d+|\d+\.?)(?:[eE][+-]?\d+)?)|((?!\d)(?:(?!\s)[$\w\u0080-\uFFFF]|\\u[\da-fA-F]{4}|\\u\{[\da-fA-F]+\})+)|(--|\+\+|&&|\|\||=>|\.{3}|(?:[+\-\/%&|^]|\*{1,2}|<{1,2}|>{1,3}|!=?|={1,2})=?|[?~.,:;[\](){}])|(\s+)|(^$|[\s\S])/g, t.matchToToken = function (e) {
+      var t = { type: "invalid", value: e[0] };return e[1] ? (t.type = "string", t.closed = !(!e[3] && !e[4])) : e[5] ? t.type = "comment" : e[6] ? (t.type = "comment", t.closed = !!e[7]) : e[8] ? t.type = "regex" : e[9] ? t.type = "number" : e[10] ? t.type = "name" : e[11] ? t.type = "punctuator" : e[12] && (t.type = "whitespace"), t;
+    };
+  }, function (e, t, n) {
+    "use strict";
+    function r() {
+      this.$extend = function (e) {
+        return e = e || {}, s(e, e instanceof r ? e : this);
+      };
+    }var i = n(0),
+        o = n(12),
+        s = n(13),
+        a = n(14),
+        c = n(15),
+        u = n(16),
+        p = n(17),
+        l = n(18),
+        f = n(19),
+        h = n(20),
+        m = n(22),
+        d = { source: null, filename: null, rules: [f, l], escape: !0, debug: !!i && "production" !== "production", bail: !0, cache: !0, minimize: !0, compileDebug: !1, resolveFilename: m, include: a, htmlMinifier: h, htmlMinifierOptions: { collapseWhitespace: !0, minifyCSS: !0, minifyJS: !0, ignoreCustomFragments: [] }, onerror: c, loader: p, caches: u, root: "/", extname: ".art", ignore: [], imports: o };r.prototype = d, e.exports = new r();
+  }, function (e, t) {
+    var n;n = function () {
+      return this;
+    }();try {
+      n = n || Function("return this")() || (0, eval)("this");
+    } catch (r) {
+      "object" == (typeof window === "undefined" ? "undefined" : _typeof(window)) && (n = window);
+    }e.exports = n;
+  }, function (e, t) {}, function (e, t, n) {
+    "use strict";
+    var r = n(7),
+        i = n(1),
+        o = n(24),
+        s = function s(e, t) {
+      return t instanceof Object ? r({ filename: e }, t) : i({ filename: e, source: t });
+    };s.render = r, s.compile = i, s.defaults = o, e.exports = s;
+  }, function (e, t, n) {
+    "use strict";
+    var r = n(1),
+        i = function i(e, t, n) {
+      return r(e, n)(t);
+    };e.exports = i;
+  }, function (e, t, n) {
+    "use strict";
+    function r(e, t) {
+      if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function");
+    }var i = n(9),
+        o = n(11),
+        s = "$data",
+        a = "$imports",
+        c = "print",
+        u = "include",
+        p = "extend",
+        l = "block",
+        f = "$$out",
+        h = "$$line",
+        m = "$$blocks",
+        d = "$$slice",
+        v = "$$from",
+        g = "$$options",
+        y = function y(e, t) {
+      return e.hasOwnProperty(t);
+    },
+        b = JSON.stringify,
+        x = function () {
+      function e(t) {
+        var n,
+            i,
+            y = this;r(this, e);var b = t.source,
+            x = t.minimize,
+            w = t.htmlMinifier;if (this.options = t, this.stacks = [], this.context = [], this.scripts = [], this.CONTEXT_MAP = {}, this.ignore = [s, a, g].concat(t.ignore), this.internal = (n = {}, n[f] = "''", n[h] = "[0,0]", n[m] = "arguments[1]||{}", n[v] = "null", n[c] = "function(){var s=''.concat.apply('',arguments);" + f + "+=s;return s}", n[u] = "function(src,data){var s=" + g + ".include(src,data||" + s + ",arguments[2]||" + m + "," + g + ");" + f + "+=s;return s}", n[p] = "function(from){" + v + "=from}", n[d] = "function(c,p,s){p=" + f + ";" + f + "='';c();s=" + f + ";" + f + "=p+s;return s}", n[l] = "function(){var a=arguments,s;if(typeof a[0]==='function'){return " + d + "(a[0])}else if(" + v + "){" + m + "[a[0]]=" + d + "(a[1])}else{s=" + m + "[a[0]];if(typeof s==='string'){" + f + "+=s}else{s=" + d + "(a[1])}return s}}", n), this.dependencies = (i = {}, i[c] = [f], i[u] = [f, g, s, m], i[p] = [v, u], i[l] = [d, v, f, m], i), this.importContext(f), t.compileDebug && this.importContext(h), x) try {
+          b = w(b, t);
+        } catch (E) {}this.source = b, this.getTplTokens(b, t.rules, this).forEach(function (e) {
+          e.type === o.TYPE_STRING ? y.parseString(e) : y.parseExpression(e);
+        });
+      }return e.prototype.getTplTokens = function () {
+        return o.apply(undefined, arguments);
+      }, e.prototype.getEsTokens = function (e) {
+        return i(e);
+      }, e.prototype.getVariables = function (e) {
+        var t = !1;return e.filter(function (e) {
+          return "whitespace" !== e.type && "comment" !== e.type;
+        }).filter(function (e) {
+          return "name" === e.type && !t || (t = "punctuator" === e.type && "." === e.value, !1);
+        }).map(function (e) {
+          return e.value;
+        });
+      }, e.prototype.importContext = function (e) {
+        var t = this,
+            n = "",
+            r = this.internal,
+            i = this.dependencies,
+            o = this.ignore,
+            c = this.context,
+            u = this.options,
+            p = u.imports,
+            l = this.CONTEXT_MAP;y(l, e) || -1 !== o.indexOf(e) || (y(r, e) ? (n = r[e], y(i, e) && i[e].forEach(function (e) {
+          return t.importContext(e);
+        })) : n = "$escape" === e || "$each" === e || y(p, e) ? a + "." + e : s + "." + e, l[e] = n, c.push({ name: e, value: n }));
+      }, e.prototype.parseString = function (e) {
+        var t = e.value;if (t) {
+          var n = f + "+=" + b(t);this.scripts.push({ source: t, tplToken: e, code: n });
+        }
+      }, e.prototype.parseExpression = function (e) {
+        var t = this,
+            n = e.value,
+            r = e.script,
+            i = r.output,
+            s = this.options.escape,
+            a = r.code;i && (a = !1 === s || i === o.TYPE_RAW ? f + "+=" + r.code : f + "+=$escape(" + r.code + ")");var c = this.getEsTokens(a);this.getVariables(c).forEach(function (e) {
+          return t.importContext(e);
+        }), this.scripts.push({ source: n, tplToken: e, code: a });
+      }, e.prototype.checkExpression = function (e) {
+        for (var t = [[/^\s*}[\w\W]*?{?[\s;]*$/, ""], [/(^[\w\W]*?\([\w\W]*?(?:=>|\([\w\W]*?\))\s*{[\s;]*$)/, "$1})"], [/(^[\w\W]*?\([\w\W]*?\)\s*{[\s;]*$)/, "$1}"]], n = 0; n < t.length;) {
+          if (t[n][0].test(e)) {
+            var r;e = (r = e).replace.apply(r, t[n]);break;
+          }n++;
+        }try {
+          return new Function(e), !0;
+        } catch (i) {
+          return !1;
+        }
+      }, e.prototype.build = function () {
+        var e = this.options,
+            t = this.context,
+            n = this.scripts,
+            r = this.stacks,
+            i = this.source,
+            c = e.filename,
+            l = e.imports,
+            d = [],
+            x = y(this.CONTEXT_MAP, p),
+            w = 0,
+            E = function E(e, t) {
+          var n = t.line,
+              i = t.start,
+              o = { generated: { line: r.length + w + 1, column: 1 }, original: { line: n + 1, column: i + 1 } };return w += e.split(/\n/).length - 1, o;
+        },
+            k = function k(e) {
+          return e.replace(/^[\t ]+|[\t ]$/g, "");
+        };r.push("function(" + s + "){"), r.push("'use strict'"), r.push(s + "=" + s + "||{}"), r.push("var " + t.map(function (e) {
+          return e.name + "=" + e.value;
+        }).join(",")), e.compileDebug ? (r.push("try{"), n.forEach(function (e) {
+          e.tplToken.type === o.TYPE_EXPRESSION && r.push(h + "=[" + [e.tplToken.line, e.tplToken.start].join(",") + "]"), d.push(E(e.code, e.tplToken)), r.push(k(e.code));
+        }), r.push("}catch(error){"), r.push("throw {" + ["name:'RuntimeError'", "path:" + b(c), "message:error.message", "line:" + h + "[0]+1", "column:" + h + "[1]+1", "source:" + b(i), "stack:error.stack"].join(",") + "}"), r.push("}")) : n.forEach(function (e) {
+          d.push(E(e.code, e.tplToken)), r.push(k(e.code));
+        }), x && (r.push(f + "=''"), r.push(u + "(" + v + "," + s + "," + m + ")")), r.push("return " + f), r.push("}");var T = r.join("\n");try {
+          var O = new Function(a, g, "return " + T)(l, e);return O.mappings = d, O.sourcesContent = [i], O;
+        } catch (F) {
+          for (var $ = 0, j = 0, S = 0, _ = void 0; $ < n.length;) {
+            var C = n[$];if (!this.checkExpression(C.code)) {
+              j = C.tplToken.line, S = C.tplToken.start, _ = C.code;break;
+            }$++;
+          }throw { name: "CompileError", path: c, message: F.message, line: j + 1, column: S + 1, source: i, generated: _, stack: F.stack };
+        }
+      }, e;
+    }();x.CONSTS = { DATA: s, IMPORTS: a, PRINT: c, INCLUDE: u, EXTEND: p, BLOCK: l, OPTIONS: g, OUT: f, LINE: h, BLOCKS: m, SLICE: d, FROM: v, ESCAPE: "$escape", EACH: "$each" }, e.exports = x;
+  }, function (e, t, n) {
+    "use strict";
+    var r = n(10),
+        i = n(2)["default"],
+        o = n(2).matchToToken,
+        s = function s(e) {
+      return e.match(i).map(function (e) {
+        return i.lastIndex = 0, o(i.exec(e));
+      }).map(function (e) {
+        return "name" === e.type && r(e.value) && (e.type = "keyword"), e;
+      });
+    };e.exports = s;
+  }, function (e, t, n) {
+    "use strict";
+    var r = { "abstract": !0, "await": !0, "boolean": !0, "break": !0, "byte": !0, "case": !0, "catch": !0, "char": !0, "class": !0, "const": !0, "continue": !0, "debugger": !0, "default": !0, "delete": !0, "do": !0, "double": !0, "else": !0, "enum": !0, "export": !0, "extends": !0, "false": !0, "final": !0, "finally": !0, "float": !0, "for": !0, "function": !0, "goto": !0, "if": !0, "implements": !0, "import": !0, "in": !0, "instanceof": !0, "int": !0, "interface": !0, "let": !0, "long": !0, "native": !0, "new": !0, "null": !0, "package": !0, "private": !0, "protected": !0, "public": !0, "return": !0, "short": !0, "static": !0, "super": !0, "switch": !0, "synchronized": !0, "this": !0, "throw": !0, "transient": !0, "true": !0, "try": !0, "typeof": !0, "var": !0, "void": !0, "volatile": !0, "while": !0, "with": !0, "yield": !0 };e.exports = function (e) {
+      return r.hasOwnProperty(e);
+    };
+  }, function (e, t, n) {
+    "use strict";
+    function r(e, t, n, r) {
+      var i = new String(e);return i.line = t, i.start = n, i.end = r, i;
+    }var i = function i(e, t) {
+      for (var n = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {}, i = [{ type: "string", value: e, line: 0, start: 0, end: e.length }], o = 0; o < t.length; o++) {
+        !function (e) {
+          for (var t = e.test.ignoreCase ? "ig" : "g", o = e.test.source + "|^$|[\\w\\W]", s = new RegExp(o, t), a = 0; a < i.length; a++) {
+            if ("string" === i[a].type) {
+              for (var c = i[a].line, u = i[a].start, p = i[a].end, l = i[a].value.match(s), f = [], h = 0; h < l.length; h++) {
+                var m = l[h];e.test.lastIndex = 0;var d = e.test.exec(m),
+                    v = d ? "expression" : "string",
+                    g = f[f.length - 1],
+                    y = g || i[a],
+                    b = y.value;u = y.line === c ? g ? g.end : u : b.length - b.lastIndexOf("\n") - 1, p = u + m.length;var x = { type: v, value: m, line: c, start: u, end: p };if ("string" === v) g && "string" === g.type ? (g.value += m, g.end += m.length) : f.push(x);else {
+                  d[0] = new r(d[0], c, u, p);var w = e.use.apply(n, d);x.script = w, f.push(x);
+                }c += m.split(/\n/).length - 1;
+              }i.splice.apply(i, [a, 1].concat(f)), a += f.length - 1;
+            }
+          }
+        }(t[o]);
+      }return i;
+    };i.TYPE_STRING = "string", i.TYPE_EXPRESSION = "expression", i.TYPE_RAW = "raw", i.TYPE_ESCAPE = "escape", e.exports = i;
+  }, function (e, t, n) {
+    "use strict";
+    (function (t) {
+      function r(e) {
+        return "string" != typeof e && (e = e === undefined || null === e ? "" : "function" == typeof e ? r(e.call(e)) : JSON.stringify(e)), e;
+      }function i(e) {
+        var t = "" + e,
+            n = a.exec(t);if (!n) return e;var r = "",
+            i = void 0,
+            o = void 0,
+            s = void 0;for (i = n.index, o = 0; i < t.length; i++) {
+          switch (t.charCodeAt(i)) {case 34:
+              s = "&#34;";break;case 38:
+              s = "&#38;";break;case 39:
+              s = "&#39;";break;case 60:
+              s = "&#60;";break;case 62:
+              s = "&#62;";break;default:
+              continue;}o !== i && (r += t.substring(o, i)), o = i + 1, r += s;
+        }return o !== i ? r + t.substring(o, i) : r;
+      } /*! art-template@runtime | https://github.com/aui/art-template */
+      var o = n(0),
+          s = Object.create(o ? t : window),
+          a = /["&'<>]/;s.$escape = function (e) {
+        return i(r(e));
+      }, s.$each = function (e, t) {
+        if (Array.isArray(e)) for (var n = 0, r = e.length; n < r; n++) {
+          t(e[n], n);
+        } else for (var i in e) {
+          t(e[i], i);
+        }
+      }, e.exports = s;
+    }).call(t, n(4));
+  }, function (e, t, n) {
+    "use strict";
+    var r = Object.prototype.toString,
+        i = function i(e) {
+      return null === e ? "Null" : r.call(e).slice(8, -1);
+    },
+        o = function s(e, t) {
+      var n = void 0,
+          r = i(e);if ("Object" === r ? n = Object.create(t || {}) : "Array" === r && (n = [].concat(t || [])), n) {
+        for (var o in e) {
+          e.hasOwnProperty(o) && (n[o] = s(e[o], n[o]));
+        }return n;
+      }return e;
+    };e.exports = o;
+  }, function (e, t, n) {
+    "use strict";
+    var r = function r(e, t, _r, i) {
+      var o = n(1);return i = i.$extend({ filename: i.resolveFilename(e, i), bail: !0, source: null }), o(i)(t, _r);
+    };e.exports = r;
+  }, function (e, t, n) {
+    "use strict";
+    var r = function r(e) {
+      console.error(e.name, e.message);
+    };e.exports = r;
+  }, function (e, t, n) {
+    "use strict";
+    var r = { __data: Object.create(null), set: function set(e, t) {
+        this.__data[e] = t;
+      }, get: function get(e) {
+        return this.__data[e];
+      }, reset: function reset() {
+        this.__data = {};
+      } };e.exports = r;
+  }, function (e, t, n) {
+    "use strict";
+    var r = n(0),
+        i = function i(e) {
+      if (r) {
+        return n(5).readFileSync(e, "utf8");
+      }var t = document.getElementById(e);return t.value || t.innerHTML;
+    };e.exports = i;
+  }, function (e, t, n) {
+    "use strict";
+    var r = { test: /{{([@#]?)[ \t]*(\/?)([\w\W]*?)[ \t]*}}/, use: function use(e, t, n, i) {
+        var o = this,
+            s = o.options,
+            a = o.getEsTokens(i),
+            c = a.map(function (e) {
+          return e.value;
+        }),
+            u = {},
+            p = void 0,
+            l = !!t && "raw",
+            f = n + c.shift(),
+            h = function h(t, n) {
+          console.warn((s.filename || "anonymous") + ":" + (e.line + 1) + ":" + (e.start + 1) + "\nTemplate upgrade: {{" + t + "}} -> {{" + n + "}}");
+        };switch ("#" === t && h("#value", "@value"), f) {case "set":
+            i = "var " + c.join("").trim();break;case "if":
+            i = "if(" + c.join("").trim() + "){";break;case "else":
+            var m = c.indexOf("if");~m ? (c.splice(0, m + 1), i = "}else if(" + c.join("").trim() + "){") : i = "}else{";break;case "/if":
+            i = "}";break;case "each":
+            p = r._split(a), p.shift(), "as" === p[1] && (h("each object as value index", "each object value index"), p.splice(1, 1));i = "$each(" + (p[0] || "$data") + ",function(" + (p[1] || "$value") + "," + (p[2] || "$index") + "){";break;case "/each":
+            i = "})";break;case "block":
+            p = r._split(a), p.shift(), i = "block(" + p.join(",").trim() + ",function(){";break;case "/block":
+            i = "})";break;case "echo":
+            f = "print", h("echo value", "value");case "print":case "include":case "extend":
+            if (0 !== c.join("").trim().indexOf("(")) {
+              p = r._split(a), p.shift(), i = f + "(" + p.join(",") + ")";break;
+            }default:
+            if (~c.indexOf("|")) {
+              var d = a.reduce(function (e, t) {
+                var n = t.value,
+                    r = t.type;return "|" === n ? e.push([]) : "whitespace" !== r && "comment" !== r && (e.length || e.push([]), ":" === n && 1 === e[e.length - 1].length ? h("value | filter: argv", "value | filter argv") : e[e.length - 1].push(t)), e;
+              }, []).map(function (e) {
+                return r._split(e);
+              });i = d.reduce(function (e, t) {
+                var n = t.shift();return t.unshift(e), "$imports." + n + "(" + t.join(",") + ")";
+              }, d.shift().join(" ").trim());
+            }l = l || "escape";}return u.code = i, u.output = l, u;
+      }, _split: function _split(e) {
+        e = e.filter(function (e) {
+          var t = e.type;return "whitespace" !== t && "comment" !== t;
+        });for (var t = 0, n = e.shift(), r = /\]|\)/, i = [[n]]; t < e.length;) {
+          var o = e[t];"punctuator" === o.type || "punctuator" === n.type && !r.test(n.value) ? i[i.length - 1].push(o) : i.push([o]), n = o, t++;
+        }return i.map(function (e) {
+          return e.map(function (e) {
+            return e.value;
+          }).join("");
+        });
+      } };e.exports = r;
+  }, function (e, t, n) {
+    "use strict";
+    var r = { test: /<%(#?)((?:==|=#|[=-])?)[ \t]*([\w\W]*?)[ \t]*(-?)%>/, use: function use(e, t, n, r) {
+        return n = { "-": "raw", "=": "escape", "": !1, "==": "raw", "=#": "raw" }[n], t && (r = "/*" + r + "*/", n = !1), { code: r, output: n };
+      } };e.exports = r;
+  }, function (e, t, n) {
+    "use strict";
+    var r = n(0),
+        i = function i(e, t) {
+      if (r) {
+        var i,
+            o = n(21).minify,
+            s = t.htmlMinifierOptions,
+            a = t.rules.map(function (e) {
+          return e.test;
+        });(i = s.ignoreCustomFragments).push.apply(i, a), e = o(e, s);
+      }return e;
+    };e.exports = i;
+  }, function (e, t) {
+    !function (e) {
+      e.noop = function () {};
+    }("object" == (typeof e === "undefined" ? "undefined" : _typeof(e)) && "object" == _typeof(e.exports) ? e.exports : window);
+  }, function (e, t, n) {
+    "use strict";
+    var r = n(0),
+        i = /^\.+\//,
+        o = function o(e, t) {
+      if (r) {
+        var o = n(5),
+            s = t.root,
+            a = t.extname;if (i.test(e)) {
+          var c = t.filename,
+              u = !c || e === c,
+              p = u ? s : o.dirname(c);e = o.resolve(p, e);
+        } else e = o.resolve(s, e);o.extname(e) || (e += a);
+      }return e;
+    };e.exports = o;
+  }, function (e, t, n) {
+    "use strict";
+    function r(e, t) {
+      if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function");
+    }function i(e, t) {
+      if (!e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t || "object" != (typeof t === "undefined" ? "undefined" : _typeof(t)) && "function" != typeof t ? e : t;
+    }function o(e, t) {
+      if ("function" != typeof t && null !== t) throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : _typeof(t)));e.prototype = Object.create(t && t.prototype, { constructor: { value: e, enumerable: !1, writable: !0, configurable: !0 } }), t && (Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t);
+    }function s(e) {
+      var t = e.name,
+          n = e.source,
+          r = e.path,
+          i = e.line,
+          o = e.column,
+          s = e.generated,
+          a = e.message;if (!n) return a;var c = n.split(/\n/),
+          u = Math.max(i - 3, 0),
+          p = Math.min(c.length, i + 3),
+          l = c.slice(u, p).map(function (e, t) {
+        var n = t + u + 1;return (n === i ? " >> " : "    ") + n + "| " + e;
+      }).join("\n");return (r || "anonymous") + ":" + i + ":" + o + "\n" + l + "\n\n" + t + ": " + a + (s ? "\n   generated: " + s : "");
+    }var a = function (e) {
+      function t(n) {
+        r(this, t);var o = i(this, e.call(this, n.message));return o.name = "TemplateError", o.message = s(n), Error.captureStackTrace && Error.captureStackTrace(o, o.constructor), o;
+      }return o(t, e), t;
+    }(Error);e.exports = a;
+  }, function (e, t, n) {
+    "use strict";
+    e.exports = n(3);
+  }]);
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("3IRH")(module)))
 
 /***/ }),
 
@@ -55328,6 +55804,10 @@ var _transfer = __webpack_require__("dAkS");
 
 var _transfer2 = _interopRequireDefault(_transfer);
 
+var _transfer3 = __webpack_require__("e2Tx");
+
+var _transfer4 = _interopRequireDefault(_transfer3);
+
 var _upload = __webpack_require__("5d4z");
 
 var _upload2 = _interopRequireDefault(_upload);
@@ -55378,7 +55858,7 @@ var _name2 = _interopRequireDefault(_name);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-angular.module(_name2['default'], [_icons2['default'], _menu2['default'], _button2['default'], _crumb2['default'], _tabs2['default'], _steps2['default'], _input2['default'], _inputNumber2['default'], _radio2['default'], _checkbox2['default'], _switch2['default'], _dropdown2['default'], _autoComplete2['default'], _select2['default'], _treeSelect2['default'], _transfer2['default'], _upload2['default'], _lightgallery2['default'], _message2['default'], _alert2['default'], _spin2['default'], _progress2['default'], _tooltip2['default'], _modal2['default'], _popconfirm2['default'], _datepicker2['default'], _table2['default']]).config(function () {}).run(function () {});
+angular.module(_name2['default'], [_icons2['default'], _menu2['default'], _button2['default'], _crumb2['default'], _tabs2['default'], _steps2['default'], _input2['default'], _inputNumber2['default'], _radio2['default'], _checkbox2['default'], _switch2['default'], _dropdown2['default'], _autoComplete2['default'], _select2['default'], _treeSelect2['default'], _transfer2['default'], _transfer4['default'], _upload2['default'], _lightgallery2['default'], _message2['default'], _alert2['default'], _spin2['default'], _progress2['default'], _tooltip2['default'], _modal2['default'], _popconfirm2['default'], _datepicker2['default'], _table2['default']]).config(function () {}).run(function () {});
 
 exports['default'] = _name2['default'];
 
@@ -56045,6 +56525,31 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     return xPseudo;
 });
+
+/***/ }),
+
+/***/ "e2Tx":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _name = __webpack_require__("pL48");
+
+var _name2 = _interopRequireDefault(_name);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default'], []).config(function () {}).run(function () {});
+
+__webpack_require__("xEAJ");
+__webpack_require__("s87f");
+
+exports['default'] = _name2['default'];
 
 /***/ }),
 
@@ -62531,6 +63036,13 @@ exports['default'] = _name2['default'];
 
 /***/ }),
 
+/***/ "oXUz":
+/***/ (function(module, exports) {
+
+module.exports = " {{each data}}\n {{if !$value._parent || renderSub}}\n<li class=\"ui-select-choices-row tree-level-{{$value._level}} {{$value._sub ? 'has-sub': ''}}\"\n  data-value=\"{{$value[valueKey]}}\"\n  data-from=\"{{$value._from}}\"\n  data-to=\"{{$value._to}}\">\n  <div class=\"select2-result-label ui-select-choices-row-inner\">\n    <div>\n      {{if $value._sub}}\n      <i class=\"tree-arrow-click\">\n        <i class=\"tree-arrow\"></i>\n      </i>\n      {{/if}}\n      <!-- <div class=\"click-mask\"></div> -->\n      <label class=\"ma-checkbox\">\n        <input type=\"checkbox\" />\n        <i class=\"checkbox-appearance\"></i>\n        <span>{{$value[textKey]}}</span>\n      </label>\n    </div>\n  </div>\n</li>\n{{/if}}\n{{/each}}\n";
+
+/***/ }),
+
 /***/ "oo1B":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -62709,6 +63221,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     return ms;
 });
+
+/***/ }),
+
+/***/ "pL48":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports['default'] = 'meetyou.angular.ui.transfer2';
 
 /***/ }),
 
@@ -63133,6 +63658,336 @@ __webpack_require__("KxN0");
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"crumb\">\n  <span class=\"crumb-item\" ng-repeat=\"item in crumbItems\" ng-if=\"!$last\">\n    <span>\n      <a href=\"javascript:void(0)\" ma-click=\"$state.go(item.state, item.params)\">{{item.title}}</a>\n    </span>\n    <span>{{separator}}</span>\n  </span>\n  <span class=\"crumb-item\" ng-repeat=\"item in crumbItems\" ng-if=\"$last && showCurrent === true\">\n    <span>{{item.title}}</span>\n    <span>{{separator}}</span>\n  </span>\n  <span class=\"crumb-item\">\n    <span ng-transclude></span>\n    <span>{{separator}}</span>\n  </span>\n</div>\n";
+
+/***/ }),
+
+/***/ "s87f":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _name = __webpack_require__("pL48");
+
+var _name2 = _interopRequireDefault(_name);
+
+var _jquery = __webpack_require__("7t+N");
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _maTreeTransfer2Tpl = __webpack_require__("BWKA");
+
+var _maTreeTransfer2Tpl2 = _interopRequireDefault(_maTreeTransfer2Tpl);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default']).directive('maTreeTransfer2', maTreeTransfer2);
+
+maTreeTransfer2.$inject = [];
+
+function maTreeTransfer2() {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      data: '=maData',
+      model: '=ngModel',
+      valueKey: '@maValueKey',
+      textKey: '@maTextKey',
+      subKey: '@maSubKey',
+      disabled: '=ngDisabled',
+
+      leftTitle: '@maLeftTitle',
+      rightTitle: '@maRightTitle'
+    },
+    template: _maTreeTransfer2Tpl2['default'],
+    controllerAs: '$ctrl',
+    controller: ['$scope', '$element', function ($scope, $element) {
+      var $ctrl = this;
+
+      $ctrl.searchKey = '';
+
+      $ctrl.leftSub = false;
+      $ctrl.leftCheckbox = false;
+
+      $ctrl.leftButtonDisabled = true;
+      $ctrl.rightButtonDisabled = true;
+
+      $ctrl.rightSub = false;
+      $ctrl.rightCheckbox = false;
+
+      $ctrl.toRight = toRight;
+      $ctrl.toLeft = toLeft;
+
+      $ctrl.leftSelected = [];
+      $ctrl.rightSelected = [];
+
+      $ctrl.leftData = [];
+      $ctrl.rightData = [];
+
+      $ctrl.leftHideItems = [];
+      $ctrl.rightShowItems = [];
+
+      $scope.$watch('data', function (d) {
+        // console.log('transfer2 data', d);
+        updateLeftRigthData();
+      });
+
+      $scope.$watch('model', function (d) {
+        // console.log('transfer2 model', d);
+
+        // 过滤掉父子同在
+        var newModel = filterChild();
+
+        if (newModel) {
+          $scope.model = newModel;
+          return;
+        }
+
+        $ctrl.leftHideItems = d || [];
+        $ctrl.rightShowItems = d || [];
+      });
+
+      $scope.$watch('$ctrl.leftCheckbox', function (d) {
+        if ($scope.isSelectedChangeCheckbox) {
+          $scope.isSelectedChangeCheckbox = false;
+          return;
+        }
+
+        if (d === true) {
+          $ctrl.leftSelected = 'all';
+        }
+        if (d === false) {
+          $ctrl.leftSelected = [];
+        }
+      });
+
+      $scope.$watch('$ctrl.rightCheckbox', function (d) {
+        if ($scope.isSelectedChangeCheckbox) {
+          $scope.isSelectedChangeCheckbox = false;
+          return;
+        }
+
+        if (d === true) {
+          $ctrl.rightSelected = 'all';
+        }
+        if (d === false) {
+          $ctrl.rightSelected = [];
+        }
+      });
+
+      $scope.$watch('$ctrl.leftSelected', function (d) {
+        $ctrl.leftButtonDisabled = !(d && d.length);
+        updateLeftSub();
+      });
+
+      $scope.$watch('$ctrl.rightSelected', function (d) {
+        $ctrl.rightButtonDisabled = !(d && d.length);
+        updateRightSub();
+      });
+
+      function updateLeftSub() {
+        updateSub('left');
+      }
+
+      function updateRightSub() {
+        updateSub('right');
+      }
+
+      function updateSub(direction) {
+        var level0Items = (0, _jquery2['default'])($element).find('.ma-transfer-' + direction + '-tree.ma-tree-select .tree-level-0');
+        var level0Values = [];
+        var selected = $ctrl[direction + 'Selected'] || [];
+        var count = 0;
+        var len = 0;
+
+        level0Items.each(function () {
+          if (!(0, _jquery2['default'])(this).hasClass('hidden')) {
+            level0Values.push((0, _jquery2['default'])(this).attr('data-value'));
+          }
+        });
+
+        level0Values.forEach(function (d) {
+          if (selected.indexOf(d) !== -1) {
+            count++;
+          }
+          len++;
+        });
+
+        if (len > 0) {
+          if (count > 0 && count < len) {
+            $ctrl[direction + 'Sub'] = true;
+          } else {
+            $ctrl[direction + 'Sub'] = false;
+          }
+          if (count === len) {
+            if ($ctrl[direction + 'Checkbox'] === false) {
+              $ctrl[direction + 'Checkbox'] = true;
+              $scope.isSelectedChangeCheckbox = true;
+            }
+          } else if ($ctrl[direction + 'Checkbox'] === true) {
+            $ctrl[direction + 'Checkbox'] = false;
+            $scope.isSelectedChangeCheckbox = true;
+          }
+        }
+      }
+
+      function toRight() {
+        if (angular.isNull($scope.model)) {
+          $scope.model = [];
+        }
+        $scope.model = $scope.model.concat($ctrl.leftSelected);
+        $ctrl.leftSelected = [];
+        $ctrl.rightSelected = [];
+        $ctrl.leftCheckbox = false;
+        $ctrl.rightCheckbox = false;
+      }
+
+      function toLeft() {
+        if (angular.isNull($scope.model)) {
+          $scope.model = [];
+        }
+        var oldModel = getModelWidthChild();
+        var newModel = [];
+        var selectWithChild = getSelectedWithChild();
+
+        angular.each(oldModel, function (d) {
+          if (selectWithChild.indexOf(d) === -1) {
+            newModel.push(d);
+          }
+        });
+
+        $scope.model = newModel;
+        $ctrl.leftSelected = [];
+        $ctrl.rightSelected = [];
+        $ctrl.leftCheckbox = false;
+        $ctrl.rightCheckbox = false;
+      }
+
+      function getModelWidthChild() {
+        var model = $scope.model || [];
+        var newModel = [];
+
+        function getSub(items) {
+          angular.each(items, function (d) {
+            if (model.indexOf(d[$scope.valueKey]) !== -1) {
+              if (d[$scope.subKey] && d[$scope.subKey].length) {
+                pushSub(d[$scope.subKey]);
+              } else {
+                newModel.push(d[$scope.valueKey]);
+              }
+            } else {
+              getSub(d[$scope.subKey]);
+            }
+          });
+        }
+
+        function pushSub(items) {
+          angular.each(items, function (d) {
+            if (d[$scope.subKey] && d[$scope.subKey].length) {
+              pushSub(d[$scope.subKey]);
+            } else {
+              newModel.push(d[$scope.valueKey]);
+            }
+          });
+        }
+
+        getSub($scope.data);
+
+        return newModel;
+      }
+
+      function getSelectedWithChild() {
+        var newSelected = [];
+        var selected = $ctrl.rightSelected || [];
+
+        function checkSub(items) {
+          angular.each(items, function (d) {
+            var sub = d[$scope.subKey];
+            if (selected.indexOf(d[$scope.valueKey]) !== -1 && sub && sub.length) {
+              pushSub(sub);
+            } else if (sub && sub.length) {
+              checkSub(sub);
+            }
+          });
+        }
+
+        function pushSub(sub) {
+          angular.each(sub, function (dd) {
+            newSelected.push(dd[$scope.valueKey]);
+            if (dd[$scope.subKey] && dd[$scope.subKey].length) {
+              pushSub(dd[$scope.subKey]);
+            }
+          });
+        }
+
+        checkSub($scope.data);
+
+        return selected.concat(newSelected);
+      }
+
+      function filterChild() {
+        var selected = $scope.model || [];
+        var newModel = [];
+        var sameCount = 0;
+
+        function checkSub(items) {
+          var subInLen = 0;
+          angular.forEach(items, function (d) {
+            if (selected.indexOf(d[$scope.valueKey]) !== -1) {
+              newModel.push(d[$scope.valueKey]);
+              subInLen++;
+            } else {
+              var sub = d[$scope.subKey];
+              if (sub && sub.length) {
+                var _subInLen = checkSub(sub);
+                // 如果子全部在，就只存在父级
+                if (_subInLen >= sub.length) {
+                  newModel.push(d[$scope.valueKey]);
+                  angular.each(sub, function (s) {
+                    if (newModel.indexOf(s[$scope.valueKey]) !== -1) {
+                      newModel.splice(newModel.indexOf(s[$scope.valueKey]), 1);
+                    }
+                  });
+                }
+              }
+            }
+          });
+          return subInLen;
+        }
+
+        checkSub($scope.data);
+
+        newModel.forEach(function (d) {
+          if (selected.indexOf(d) !== -1) {
+            sameCount++;
+          }
+        });
+
+        return sameCount && sameCount < selected.length ? newModel : false;
+      }
+
+      function updateLeftRigthData() {
+        var leftData = _jquery2['default'].extend(true, [], $scope.data);
+        var rightData = _jquery2['default'].extend(true, [], $scope.data);
+
+        $ctrl.leftData = leftData;
+        $ctrl.rightData = rightData;
+      }
+    }],
+    link: function link(scope, element, attrs, ctrl) {
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+
+      attrs.$observe('maTextKey', function (d) {
+        scope.textKey = d || 'text';
+      });
+      attrs.$observe('maValueKey', function (d) {
+        scope.valueKey = d || 'value';
+      });
+    }
+  };
+}
 
 /***/ }),
 
@@ -67486,6 +68341,391 @@ exports['default'] = 'meetyou.angular.ui.modal';
 
 __webpack_require__("TxVL");
 module.exports = 'ui.select';
+
+/***/ }),
+
+/***/ "xEAJ":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _name = __webpack_require__("pL48");
+
+var _name2 = _interopRequireDefault(_name);
+
+var _templateWeb = __webpack_require__("H+C6");
+
+var _templateWeb2 = _interopRequireDefault(_templateWeb);
+
+var _jquery = __webpack_require__("7t+N");
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _maTreeTpl = __webpack_require__("7fJ5");
+
+var _maTreeTpl2 = _interopRequireDefault(_maTreeTpl);
+
+var _itemTpl = __webpack_require__("oXUz");
+
+var _itemTpl2 = _interopRequireDefault(_itemTpl);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+angular.module(_name2['default']).directive('maTree', maTree);
+
+maTree.$inject = [];
+
+function maTree() {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      data: '=maData',
+      model: '=ngModel',
+      valueKey: '@maValueKey',
+      textKey: '@maTextKey',
+      subKey: '@maSubKey',
+      disabled: '=ngDisabled',
+
+      showItems: '=maShowItems',
+      hideItems: '=maHideItems'
+    },
+    template: _maTreeTpl2['default'],
+    controllerAs: '$ctrl',
+    controller: ['$scope', '$element', function ($scope, $element) {
+      var contentTarget = (0, _jquery2['default'])($element).find('.ui-select-choices-content');
+      var itemCls = '.ui-select-choices-row';
+      var subStore = {};
+
+      $scope.$watch('disabled', updateDisabled);
+
+      $scope.$watch('data', function (d) {
+        var items = updateTree(d);
+
+        $scope.newItems = items;
+        renderContent(items);
+      });
+
+      $scope.$watch('showItems', function (d) {
+        // console.log('show items', d);
+        if (d) {
+          updateHideShow();
+        }
+      });
+      $scope.$watch('hideItems', function (d) {
+        // console.log('hide items', d);
+        if (d) {
+          updateHideShow();
+        }
+      });
+
+      $scope.$watch('model', function (d) {
+        // console.log('tree model', d);
+
+        // 全不选
+        if (angular.isEmpty(d)) {
+          contentTarget.find(itemCls).each(function () {
+            // if (!$(this).hasClass('hidden')) {
+            (0, _jquery2['default'])(this).find('input').prop('checked', false);
+            // }
+          });
+          contentTarget.find('.ma-checkbox').removeClass('has-sub');
+        }
+
+        // 全选
+        if (d === 'all') {
+          var newModel = [];
+          contentTarget.find(itemCls).each(function () {
+            if (!(0, _jquery2['default'])(this).hasClass('hidden')) {
+              (0, _jquery2['default'])(this).find('input').prop('checked', true);
+              newModel.push((0, _jquery2['default'])(this).attr('data-value'));
+            }
+          });
+          contentTarget.find('.ma-checkbox').removeClass('has-sub');
+
+          $scope.model = newModel;
+        }
+      });
+
+      function updateDisabled() {
+        if ($scope.disabled) {
+          contentTarget.find('input, .ma-checkbox').attr('disabled', true);
+        } else {
+          contentTarget.find('input, .ma-checkbox').attr('disabled', false);
+        }
+      }
+
+      function renderContent(data) {
+        var items = (0, _jquery2['default'])(_templateWeb2['default'].render(_itemTpl2['default'], {
+          data: data,
+          textKey: $scope.textKey,
+          valueKey: $scope.valueKey
+        }));
+
+        bindEvent(items);
+
+        contentTarget.html(items);
+
+        updateHideShow();
+      }
+
+      function updateHideShow() {
+        // 如果有要隐藏的隐藏
+        if ($scope.hideItems) {
+          var parents = getParents($scope.hideItems);
+          var childs = getChilds($scope.hideItems);
+
+          contentTarget.find(itemCls).removeClass('hidden');
+          $scope.hideItems.forEach(function (d) {
+            var value = angular.isObject(d) ? d[$scope.valueKey] : d;
+            var item = contentTarget.find(itemCls + '[data-value="' + value + '"]');
+            item.addClass('hidden');
+          });
+          childs.forEach(function (d) {
+            contentTarget.find(itemCls + '[data-value="' + d + '"]').addClass('hidden');
+          });
+          parents.forEach(function (d) {
+            contentTarget.find(itemCls + '[data-value="' + d + '"]').removeClass('hidden');
+          });
+        }
+
+        // 如果有要现实的显示
+        if ($scope.showItems) {
+          var _parents = getParents($scope.showItems);
+          var _childs = getChilds($scope.showItems);
+
+          contentTarget.find(itemCls).addClass('hidden');
+
+          $scope.showItems.forEach(function (d) {
+            var value = angular.isObject(d) ? d[$scope.valueKey] : d;
+            var item = contentTarget.find(itemCls + '[data-value="' + value + '"]');
+
+            item.removeClass('hidden');
+          });
+
+          _parents.concat(_childs).forEach(function (d) {
+            contentTarget.find(itemCls + '[data-value="' + d + '"]').removeClass('hidden');
+          });
+        }
+      }
+
+      function getChilds(itemValues) {
+        var childs = [];
+        angular.each($scope.newItems, function (d) {
+          if (itemValues.indexOf(d[$scope.valueKey]) !== -1) {
+            getChild(d);
+          }
+        });
+
+        function getChild(item) {
+          var sub = item[$scope.subKey];
+          if (sub && sub.length) {
+            sub.forEach(function (d) {
+              childs.push(d[$scope.valueKey]);
+              getChild(d);
+            });
+          }
+        }
+        return childs;
+      }
+
+      function getParents(itemValues) {
+        var parents = [];
+        angular.each($scope.newItems, function (d) {
+          if (itemValues.indexOf(d[$scope.valueKey]) !== -1) {
+            var item = d;
+            while (item._parent) {
+              parents.push(item._parent[$scope.valueKey]);
+              item = item._parent;
+            }
+          }
+        });
+        return parents;
+      }
+
+      function toggleTree(e) {
+        if ($scope.disabled) {
+          return;
+        }
+
+        var target = (0, _jquery2['default'])(e.target);
+        var item = target.parents(itemCls);
+        var to = item.attr('data-to');
+        var froms = contentTarget.find(itemCls + '[data-from*="' + to + '"]');
+
+        if (!froms.length) {
+          froms = (0, _jquery2['default'])(_templateWeb2['default'].render(_itemTpl2['default'], {
+            data: subStore[to],
+            textKey: $scope.textKey,
+            valueKey: $scope.valueKey,
+            renderSub: true
+          }));
+          froms.insertAfter(item);
+          bindEvent(froms, item);
+          updateHideShow();
+        } else {
+          froms.toggleClass('hide');
+        }
+        target.parent().toggleClass('tree-open');
+      }
+
+      function bindEvent(items, parent) {
+        items.find('.tree-arrow-click').on('click', toggleTree);
+        items.find('input[type="checkbox"]').on('change', function (e) {
+          checkedSub((0, _jquery2['default'])(e.target).parents(itemCls).attr('data-to'), e.target.checked);
+          checkedParent((0, _jquery2['default'])(e.target).parents(itemCls).attr('data-from'), e.target.checked);
+          updateModel();
+        });
+        if (parent) {
+          checkedSub(parent.attr('data-to'), parent.find('input').prop('checked'));
+        }
+        updateDisabled();
+      }
+
+      function updateModel() {
+        // console.log('update model');
+        var newModel = [];
+        var selectedes = contentTarget.find('input:checked');
+
+        selectedes.each(function () {
+          var item = (0, _jquery2['default'])(this).parents(itemCls);
+          var from = item.attr('data-from');
+          var parent = contentTarget.find(itemCls + '[data-to="' + from + '"]');
+          var parentValue = parent.attr('data-value');
+
+          if (hasParentSelected(item)) {
+            return true;
+          }
+          newModel.push(item.attr('data-value'));
+          return true;
+        });
+
+        $scope.$applyAsync(function () {
+          $scope.model = newModel;
+        });
+      }
+
+      function hasParentSelected(item) {
+        var from = item.attr('data-from');
+        var parent = contentTarget.find(itemCls + '[data-to="' + from + '"]');
+        var ret = false;
+
+        ret = !!(from && parent.length && parent.find('input').prop('checked'));
+
+        if (ret === false && from && parent.attr('data-from')) {
+          ret = hasParentSelected(parent);
+        }
+
+        return ret;
+      }
+
+      function checkedSub(to, checked) {
+        if (to) {
+          var items = contentTarget.find(itemCls + '[data-from="' + to + '"]');
+          var item = contentTarget.find(itemCls + '[data-to="' + to + '"]');
+
+          items.each(function () {
+            if (!(0, _jquery2['default'])(this).hasClass('hidden')) {
+              (0, _jquery2['default'])(this).find('input').prop('checked', checked);
+              checkedSub((0, _jquery2['default'])(this).attr('data-to'), checked);
+            }
+          });
+          item.find('.ma-checkbox').removeClass('has-sub');
+        }
+      }
+
+      function checkedParent(from) {
+        if (from) {
+          var items = contentTarget.find(itemCls + '[data-to="' + from + '"]');
+          var maCheckbox = items.find('.ma-checkbox');
+          var data = getSubCheckedCount(from);
+
+          maCheckbox.removeClass('has-sub');
+          if (data.count <= 0) {
+            items.find('input').prop('checked', false);
+            if (data.sub) {
+              maCheckbox.addClass('has-sub');
+            }
+          } else if (data.count >= data.total) {
+            items.find('input').prop('checked', true);
+          } else {
+            items.find('input').prop('checked', false);
+            maCheckbox.addClass('has-sub');
+          }
+
+          checkedParent(items.attr('data-from'));
+        }
+      }
+
+      function getSubCheckedCount(from) {
+        var items = contentTarget.find(itemCls + '[data-from="' + from + '"]');
+        var count = 0;
+        var total = 0;
+        var sub = 0;
+
+        items.each(function () {
+          if (!(0, _jquery2['default'])(this).hasClass('hidden')) {
+            if ((0, _jquery2['default'])(this).find('input').prop('checked')) {
+              count++;
+            }
+            if ((0, _jquery2['default'])(this).find('.ma-checkbox').hasClass('has-sub')) {
+              sub++;
+            }
+            total++;
+          }
+        });
+        return {
+          total: total,
+          count: count,
+          sub: sub
+        };
+      }
+
+      function updateTree(items) {
+        var newItems = [];
+        var subKey = $scope.subKey;
+
+        subStore = {};
+
+        function getSub(items, parentItem, treeLevel) {
+          angular.each(items, function (d) {
+            var item = d;
+
+            newItems.push(item);
+
+            item._level = treeLevel;
+
+            if (item[subKey] && item[subKey].length) {
+              item.tagId = parentItem ? parentItem.tagId + '_' + angular.uuid() : 'tag_' + angular.uuid();
+              item._to = item.tagId;
+              item._sub = true;
+              subStore[item.tagId] = item[subKey];
+              angular.forEach(item[subKey], function (it) {
+                it._parent = item;
+                it._from = item.tagId;
+              });
+              getSub(item[subKey], item, treeLevel + 1);
+            }
+          });
+        }
+        getSub(items, null, 0);
+        return newItems;
+      }
+    }],
+    link: function link(scope, element, attrs, ctrl) {
+      scope.textKey = attrs.maTextKey || 'text';
+      scope.valueKey = attrs.maValueKey || 'value';
+
+      attrs.$observe('maTextKey', function (d) {
+        scope.textKey = d || 'text';
+      });
+      attrs.$observe('maValueKey', function (d) {
+        scope.valueKey = d || 'value';
+      });
+    }
+  };
+}
 
 /***/ }),
 

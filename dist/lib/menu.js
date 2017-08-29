@@ -1,4 +1,4 @@
-webpackJsonp([7,22,27],{
+webpackJsonp([7,23,28],{
 
 /***/ "/cD4":
 /***/ (function(module, exports, __webpack_require__) {
@@ -354,7 +354,7 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
       }
 
       function isParent(currentUrl, routerUrl) {
-        return currentUrl.indexOf(routerUrl) !== -1 && currentUrl !== routerUrl;
+        return currentUrl.indexOf(routerUrl + '/') !== -1 && currentUrl !== routerUrl;
       }
 
       function isActive(router) {

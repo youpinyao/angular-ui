@@ -1,4 +1,4 @@
-webpackJsonp([1,4,6,11,22,26,27],{
+webpackJsonp([1,4,6,11,23,27,28],{
 
 /***/ "+Ovo":
 /***/ (function(module, exports, __webpack_require__) {
@@ -357,7 +357,7 @@ function maCheckbox($timeout) {
       });
 
       scope.$watch('checked', function (d) {
-        $timeout(function () {
+        scope.$applyAsync(function () {
           var checkboxs = (0, _jquery2['default'])(element).parent().find('input[type="checkbox"]');
           var values = [];
 
