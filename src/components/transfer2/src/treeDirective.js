@@ -31,9 +31,12 @@ function maTree() {
       const contentTarget = $($element).find('.ui-select-choices-content');
       const itemCls = '.ui-select-choices-row';
       let subStore = {};
-      let alreadyExpandAll = false;
 
       $ctrl.searchKey = '';
+
+      $scope.$on('search.clear', () => {
+        $ctrl.searchKey = '';
+      });
 
       $scope.$watch('$ctrl.searchKey', d => {
         expandMatch(d);
@@ -89,18 +92,18 @@ function maTree() {
       });
 
       function expandMatch(searchKey) {
+        contentTarget.find('.search-match').removeClass('search-match');
         if (angular.isNull(searchKey)) {
           return;
         }
 
-        const exp = new RegExp(searchKey, 'g');
         let expands = [];
         let unexpand = [];
 
         $scope.newItems.forEach(d => {
           let item = d;
 
-          if (exp.test(item[$scope.textKey]) && item._from) {
+          if ((item[$scope.textKey] + '').indexOf(searchKey) !== -1 && item._from) {
             expands.push(item._from);
             while (item._parent && item._parent._from) {
               expands.push(item._parent._from);
@@ -114,7 +117,7 @@ function maTree() {
             const arrow = contentTarget.find(`${itemCls}[data-to="${d}"] .tree-arrow-click`);
 
             if (arrow.length) {
-              if (!arrow.hasClass('tree-open')) {
+              if (!arrow.parent().hasClass('tree-open')) {
                 arrow.trigger('click');
               }
             } else {
@@ -127,6 +130,16 @@ function maTree() {
             doExpand();
           }
         }
+
+        doExpand();
+
+        // 设置match class
+        $scope.newItems.forEach(d => {
+          if ((d[$scope.textKey] + '').indexOf(searchKey) !== -1) {
+            contentTarget.find(`${itemCls}[data-value="${d[$scope.valueKey]}"]`).addClass(
+              'search-match');
+          }
+        });
       }
 
       function updateDisabled() {

@@ -1682,4 +1682,18 @@ disabled look for disabled choices in the results dropdown
     border-color: $outlines;
     background-color: transparent;
   }
+
+  .ui-select-choices-content {
+    &.has-search {
+      .ui-select-choices-row {
+        display: none;
+        &.search-match {
+          display: block;
+          &.hidden {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }

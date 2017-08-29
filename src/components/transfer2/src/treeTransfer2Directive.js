@@ -156,6 +156,7 @@ function maTreeTransfer2() {
       }
 
       function toRight() {
+        $scope.$broadcast('search.clear');
         if (angular.isNull($scope.model)) {
           $scope.model = [];
         }
@@ -167,6 +168,7 @@ function maTreeTransfer2() {
       }
 
       function toLeft() {
+        $scope.$broadcast('search.clear');
         if (angular.isNull($scope.model)) {
           $scope.model = [];
         }
