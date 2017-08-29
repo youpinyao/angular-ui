@@ -56,7 +56,7 @@ function maTreeTransfer2() {
       });
 
       $scope.$watch('model', (d) => {
-        // console.log('transfer2 model', d);
+        console.log('transfer2 model', d);
 
         // 过滤掉父子同在
         const newModel = filterChild();

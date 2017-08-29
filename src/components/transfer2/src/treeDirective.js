@@ -27,10 +27,17 @@ function maTree() {
     template: maTreeTpl,
     controllerAs: '$ctrl',
     controller: ['$scope', '$element', function($scope, $element) {
+      const $ctrl = this;
       const contentTarget = $($element).find('.ui-select-choices-content');
       const itemCls = '.ui-select-choices-row';
       let subStore = {};
+      let alreadyExpandAll = false;
 
+      $ctrl.searchKey = '';
+
+      $scope.$watch('$ctrl.searchKey', d => {
+        expandMatch(d);
+      });
       $scope.$watch('disabled', updateDisabled);
 
       $scope.$watch('data', d => {
@@ -41,13 +48,13 @@ function maTree() {
       });
 
       $scope.$watch('showItems', d => {
-        console.log('show items', d);
+        // console.log('show items', d);
         if (d) {
           updateHideShow();
         }
       });
       $scope.$watch('hideItems', d => {
-        console.log('hide items', d);
+        // console.log('hide items', d);
         if (d) {
           updateHideShow();
         }
@@ -80,6 +87,47 @@ function maTree() {
           $scope.model = newModel;
         }
       });
+
+      function expandMatch(searchKey) {
+        if (angular.isNull(searchKey)) {
+          return;
+        }
+
+        const exp = new RegExp(searchKey, 'g');
+        let expands = [];
+        let unexpand = [];
+
+        $scope.newItems.forEach(d => {
+          let item = d;
+
+          if (exp.test(item[$scope.textKey]) && item._from) {
+            expands.push(item._from);
+            while (item._parent && item._parent._from) {
+              expands.push(item._parent._from);
+              item = item._parent;
+            }
+          }
+        });
+
+        function doExpand() {
+          expands.forEach(d => {
+            const arrow = contentTarget.find(`${itemCls}[data-to="${d}"] .tree-arrow-click`);
+
+            if (arrow.length) {
+              if (!arrow.hasClass('tree-open')) {
+                arrow.trigger('click');
+              }
+            } else {
+              unexpand.push(d);
+            }
+          });
+          expands = unexpand;
+          unexpand = [];
+          if (expands.length) {
+            doExpand();
+          }
+        }
+      }
 
       function updateDisabled() {
         if ($scope.disabled) {

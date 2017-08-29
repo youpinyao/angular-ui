@@ -213,7 +213,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
             return true;
           }
 
-          let types = '|jpg|png|jpeg|bmp|gif|svg';
+          let types = '|jpg|png|jpeg|bmp|gif|svg|';
           const type = '|' + item.type.slice(item.type.lastIndexOf('/') +
             1) + '|';
 
@@ -229,6 +229,8 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
               return true;
             }
           }
+
+          types += types.toUpperCase();
 
           if (types.indexOf(type) === -1) {
             $message.danger('请选择图片');

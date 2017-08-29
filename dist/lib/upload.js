@@ -722,7 +722,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
             return true;
           }
 
-          var types = '|jpg|png|jpeg|bmp|gif|svg';
+          var types = '|jpg|png|jpeg|bmp|gif|svg|';
           var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
 
           if (config.accept !== 'image/*' && config.accept !== allImageAccept) {
@@ -736,6 +736,8 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
               return true;
             }
           }
+
+          types += types.toUpperCase();
 
           if (types.indexOf(type) === -1) {
             $message.danger('请选择图片');

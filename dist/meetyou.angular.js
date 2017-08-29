@@ -59620,7 +59620,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
             return true;
           }
 
-          var types = '|jpg|png|jpeg|bmp|gif|svg';
+          var types = '|jpg|png|jpeg|bmp|gif|svg|';
           var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
 
           if (config.accept !== 'image/*' && config.accept !== allImageAccept) {
@@ -59634,6 +59634,8 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
               return true;
             }
           }
+
+          types += types.toUpperCase();
 
           if (types.indexOf(type) === -1) {
             $message.danger('请选择图片');
@@ -63734,7 +63736,7 @@ function maTreeTransfer2() {
       });
 
       $scope.$watch('model', function (d) {
-        // console.log('transfer2 model', d);
+        console.log('transfer2 model', d);
 
         // 过滤掉父子同在
         var newModel = filterChild();
@@ -68395,10 +68397,17 @@ function maTree() {
     template: _maTreeTpl2['default'],
     controllerAs: '$ctrl',
     controller: ['$scope', '$element', function ($scope, $element) {
+      var $ctrl = this;
       var contentTarget = (0, _jquery2['default'])($element).find('.ui-select-choices-content');
       var itemCls = '.ui-select-choices-row';
       var subStore = {};
+      var alreadyExpandAll = false;
 
+      $ctrl.searchKey = '';
+
+      $scope.$watch('$ctrl.searchKey', function (d) {
+        expandMatch(d);
+      });
       $scope.$watch('disabled', updateDisabled);
 
       $scope.$watch('data', function (d) {
@@ -68409,13 +68418,13 @@ function maTree() {
       });
 
       $scope.$watch('showItems', function (d) {
-        console.log('show items', d);
+        // console.log('show items', d);
         if (d) {
           updateHideShow();
         }
       });
       $scope.$watch('hideItems', function (d) {
-        console.log('hide items', d);
+        // console.log('hide items', d);
         if (d) {
           updateHideShow();
         }
@@ -68448,6 +68457,47 @@ function maTree() {
           $scope.model = newModel;
         }
       });
+
+      function expandMatch(searchKey) {
+        if (angular.isNull(searchKey)) {
+          return;
+        }
+
+        var exp = new RegExp(searchKey, 'g');
+        var expands = [];
+        var unexpand = [];
+
+        $scope.newItems.forEach(function (d) {
+          var item = d;
+
+          if (exp.test(item[$scope.textKey]) && item._from) {
+            expands.push(item._from);
+            while (item._parent && item._parent._from) {
+              expands.push(item._parent._from);
+              item = item._parent;
+            }
+          }
+        });
+
+        function doExpand() {
+          expands.forEach(function (d) {
+            var arrow = contentTarget.find(itemCls + '[data-to="' + d + '"] .tree-arrow-click');
+
+            if (arrow.length) {
+              if (!arrow.hasClass('tree-open')) {
+                arrow.trigger('click');
+              }
+            } else {
+              unexpand.push(d);
+            }
+          });
+          expands = unexpand;
+          unexpand = [];
+          if (expands.length) {
+            doExpand();
+          }
+        }
+      }
 
       function updateDisabled() {
         if ($scope.disabled) {
