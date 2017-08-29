@@ -252,6 +252,7 @@ function maTreeTransfer2() {
       function filterChild() {
         const selected = $scope.model || [];
         const newModel = [];
+        const splicedArray = [];
         let sameCount = 0;
 
         function checkSub(items) {
@@ -287,7 +288,7 @@ function maTreeTransfer2() {
           }
         });
 
-        return sameCount && sameCount < selected.length ? newModel : false;
+        return sameCount < selected.length ? newModel : false;
       }
 
       function updateLeftRigthData() {

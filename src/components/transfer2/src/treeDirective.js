@@ -41,13 +41,13 @@ function maTree() {
       });
 
       $scope.$watch('showItems', d => {
-        // console.log('show items', d);
+        console.log('show items', d);
         if (d) {
           updateHideShow();
         }
       });
       $scope.$watch('hideItems', d => {
-        // console.log('hide items', d);
+        console.log('hide items', d);
         if (d) {
           updateHideShow();
         }
@@ -188,7 +188,8 @@ function maTree() {
         const target = $(e.target);
         const item = target.parents(itemCls);
         const to = item.attr('data-to');
-        let froms = contentTarget.find(`${itemCls}[data-from*="${to}"]`);
+        let froms = contentTarget.find(`${itemCls}[data-from="${to}"]`);
+        let fromChilds = contentTarget.find(`${itemCls}[data-from*="${to}_"]`);
 
         if (!froms.length) {
           froms = $(template.render(itemTpl, {
@@ -202,6 +203,7 @@ function maTree() {
           updateHideShow();
         } else {
           froms.toggleClass('hide');
+          fromChilds.toggleClass('child-hide');
         }
         target.parent().toggleClass('tree-open');
       }
