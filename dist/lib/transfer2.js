@@ -3,7 +3,7 @@ webpackJsonp([17],{
 /***/ "7fJ5":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-tree-select transition-none\"\n  ng-disabled=\"disabled\">\n  <div class=\"custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi ng-isolate-scope ng-not-empty ng-valid custom-tree-select custom-static-select\">\n\n    <div class=\"ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none\">\n      <div class=\"search-container select2-search\">\n        <div class=\"ma-input ma-input-search-normal\"\n          ng-disabled=\"disabled\">\n          <input type=\"text\"\n            autocomplete=\"off\"\n            autocorrect=\"off\"\n            autocapitalize=\"off\"\n            spellcheck=\"false\"\n            role=\"combobox\"\n            aria-expanded=\"true\"\n            aria-owns=\"ui-select-choices-0\"\n            aria-label=\"Select box\"\n            class=\"select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched\"\n            ng-model=\"$ctrl.searchKey\"\n            ng-disabled=\"disabled\"\n            ondrop=\"return false;\">\n        </div>\n      </div>\n      <ul tabindex=\"-1\"\n        class=\"ui-select-choices ui-select-choices-content select2-results ng-scope\">\n\n      </ul>\n    </div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"ma-tree-select transition-none\"\n  ng-disabled=\"disabled\">\n  <div class=\"custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi ng-isolate-scope ng-not-empty ng-valid custom-tree-select custom-static-select\">\n\n    <div class=\"ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none\">\n      <div class=\"search-container select2-search\">\n        <div class=\"ma-input ma-input-search-normal\"\n          ng-disabled=\"disabled\">\n          <input type=\"text\"\n            autocomplete=\"off\"\n            autocorrect=\"off\"\n            autocapitalize=\"off\"\n            spellcheck=\"false\"\n            role=\"combobox\"\n            aria-expanded=\"true\"\n            aria-owns=\"ui-select-choices-0\"\n            aria-label=\"Select box\"\n            class=\"select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched\"\n            ng-model=\"$ctrl.searchKey\"\n            ng-disabled=\"disabled\"\n            ondrop=\"return false;\">\n        </div>\n      </div>\n      <ul tabindex=\"-1\"\n        ng-class=\"{'has-search': $ctrl.searchKey}\"\n        class=\"ui-select-choices ui-select-choices-content select2-results ng-scope\">\n\n      </ul>\n    </div>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -231,6 +231,7 @@ function maTreeTransfer2() {
       }
 
       function toRight() {
+        $scope.$broadcast('search.clear');
         if (angular.isNull($scope.model)) {
           $scope.model = [];
         }
@@ -242,6 +243,7 @@ function maTreeTransfer2() {
       }
 
       function toLeft() {
+        $scope.$broadcast('search.clear');
         if (angular.isNull($scope.model)) {
           $scope.model = [];
         }
@@ -444,9 +446,12 @@ function maTree() {
       var contentTarget = (0, _jquery2['default'])($element).find('.ui-select-choices-content');
       var itemCls = '.ui-select-choices-row';
       var subStore = {};
-      var alreadyExpandAll = false;
 
       $ctrl.searchKey = '';
+
+      $scope.$on('search.clear', function () {
+        $ctrl.searchKey = '';
+      });
 
       $scope.$watch('$ctrl.searchKey', function (d) {
         expandMatch(d);
@@ -502,18 +507,18 @@ function maTree() {
       });
 
       function expandMatch(searchKey) {
+        contentTarget.find('.search-match').removeClass('search-match');
         if (angular.isNull(searchKey)) {
           return;
         }
 
-        var exp = new RegExp(searchKey, 'g');
         var expands = [];
         var unexpand = [];
 
         $scope.newItems.forEach(function (d) {
           var item = d;
 
-          if (exp.test(item[$scope.textKey]) && item._from) {
+          if ((item[$scope.textKey] + '').indexOf(searchKey) !== -1 && item._from) {
             expands.push(item._from);
             while (item._parent && item._parent._from) {
               expands.push(item._parent._from);
@@ -527,7 +532,7 @@ function maTree() {
             var arrow = contentTarget.find(itemCls + '[data-to="' + d + '"] .tree-arrow-click');
 
             if (arrow.length) {
-              if (!arrow.hasClass('tree-open')) {
+              if (!arrow.parent().hasClass('tree-open')) {
                 arrow.trigger('click');
               }
             } else {
@@ -540,6 +545,15 @@ function maTree() {
             doExpand();
           }
         }
+
+        doExpand();
+
+        // 设置match class
+        $scope.newItems.forEach(function (d) {
+          if ((d[$scope.textKey] + '').indexOf(searchKey) !== -1) {
+            contentTarget.find(itemCls + '[data-value="' + d[$scope.valueKey] + '"]').addClass('search-match');
+          }
+        });
       }
 
       function updateDisabled() {

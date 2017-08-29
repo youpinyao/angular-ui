@@ -6107,7 +6107,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ "7fJ5":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-tree-select transition-none\"\n  ng-disabled=\"disabled\">\n  <div class=\"custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi ng-isolate-scope ng-not-empty ng-valid custom-tree-select custom-static-select\">\n\n    <div class=\"ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none\">\n      <div class=\"search-container select2-search\">\n        <div class=\"ma-input ma-input-search-normal\"\n          ng-disabled=\"disabled\">\n          <input type=\"text\"\n            autocomplete=\"off\"\n            autocorrect=\"off\"\n            autocapitalize=\"off\"\n            spellcheck=\"false\"\n            role=\"combobox\"\n            aria-expanded=\"true\"\n            aria-owns=\"ui-select-choices-0\"\n            aria-label=\"Select box\"\n            class=\"select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched\"\n            ng-model=\"$ctrl.searchKey\"\n            ng-disabled=\"disabled\"\n            ondrop=\"return false;\">\n        </div>\n      </div>\n      <ul tabindex=\"-1\"\n        class=\"ui-select-choices ui-select-choices-content select2-results ng-scope\">\n\n      </ul>\n    </div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"ma-tree-select transition-none\"\n  ng-disabled=\"disabled\">\n  <div class=\"custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi ng-isolate-scope ng-not-empty ng-valid custom-tree-select custom-static-select\">\n\n    <div class=\"ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none\">\n      <div class=\"search-container select2-search\">\n        <div class=\"ma-input ma-input-search-normal\"\n          ng-disabled=\"disabled\">\n          <input type=\"text\"\n            autocomplete=\"off\"\n            autocorrect=\"off\"\n            autocapitalize=\"off\"\n            spellcheck=\"false\"\n            role=\"combobox\"\n            aria-expanded=\"true\"\n            aria-owns=\"ui-select-choices-0\"\n            aria-label=\"Select box\"\n            class=\"select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched\"\n            ng-model=\"$ctrl.searchKey\"\n            ng-disabled=\"disabled\"\n            ondrop=\"return false;\">\n        </div>\n      </div>\n      <ul tabindex=\"-1\"\n        ng-class=\"{'has-search': $ctrl.searchKey}\"\n        class=\"ui-select-choices ui-select-choices-content select2-results ng-scope\">\n\n      </ul>\n    </div>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -53640,7 +53640,7 @@ exports['default'] = _name2['default'];
 /***/ "Vm7e":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi\"\n  ng-class=\"{\n'hide-search': !$select.searchEnabled,\n'select2-container-active select2-dropdown-open open': $select.open,\n'select2-container-disabled': $select.selectDisabled,\n'custom-tree-select': $select.isTree,\n'custom-static-select': $select.isStatic\n}\">\n  <ma-input placeholder=\"{{ngModel.length ? '' : $select.placeholder}}\"\n    ng-class=\"{\n    'ma-input-arrow-down': !$select.open,\n    'ma-input-arrow-up': $select.open\n  }\"\n    ng-disabled=\"selectDisabled\"></ma-input>\n  <ul class=\"select2-choices\"\n    ma-click=\"$select.showSelect()\"\n    ng-class=\"{\n    'has-selected': ngModel.length\n  }\">\n    <li class=\"ui-select-match-item select2-search-choice ng-scope\"\n      ng-repeat=\"$item in ngModel track by $index\">\n      <span>\n        <span class=\"ng-binding ng-scope\">{{$item.displayText || $item.text}}</span>\n      </span>\n      <ma-icon class=\"ui-select-match-close select2-search-choice-close\"\n        ma-type=\"closecircle\"\n        ma-click=\"$select.removeChoice($item, $event)\"></ma-icon>\n    </li>\n  </ul>\n  <div class=\"ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none\"\n\n    ng-class=\"{'select2-display-show': $select.open}\">\n    <div class=\"search-container select2-search\"\n      ng-class=\"{'ui-select-search-hidden':!$select.searchEnabled, 'select2-search':$select.searchEnabled}\">\n      <div class=\"ma-input ma-input-search-normal\">\n        <input type=\"text\"\n          autocomplete=\"off\"\n          autocorrect=\"off\"\n          autocapitalize=\"off\"\n          spellcheck=\"false\"\n          role=\"combobox\"\n          aria-expanded=\"true\"\n          aria-owns=\"ui-select-choices-0\"\n          aria-label=\"Select box\"\n          class=\"select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched\"\n          ng-model=\"$select.search\"\n          ondrop=\"return false;\">\n      </div>\n    </div>\n    <ul tabindex=\"-1\"\n      class=\"ui-select-choices ui-select-choices-content select2-results ng-scope\"\n      ng-class=\"{'has-scrollbar' : $select.selectItems.length > 5, 'has-search': $select.search}\">\n\n    </ul>\n    <div class=\"ma-dropdown-buttons\"\n      ng-show=\"$select.clear == 'true'\"\n      ma-click=\"$select.clearSelect()\">\n      <ma-button ma-size=\"mini\"\n        ma-type=\"primary\">清空</ma-button>\n    </div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"custom-multi-select form-control ui-select-container ui-select-multiple select2 select2-container select2-container-multi\"\n  ng-class=\"{\n'hide-search': !$select.searchEnabled,\n'select2-container-active select2-dropdown-open open': $select.open,\n'select2-container-disabled': $select.selectDisabled,\n'custom-tree-select': $select.isTree,\n'custom-static-select': $select.isStatic\n}\">\n  <ma-input placeholder=\"{{ngModel.length ? '' : $select.placeholder}}\"\n    ng-class=\"{\n    'ma-input-arrow-down': !$select.open,\n    'ma-input-arrow-up': $select.open\n  }\"\n    ng-disabled=\"selectDisabled\"></ma-input>\n  <ul class=\"select2-choices\"\n    ma-click=\"$select.showSelect()\"\n    ng-class=\"{\n    'has-selected': ngModel.length\n  }\">\n    <li class=\"ui-select-match-item select2-search-choice ng-scope\"\n      ng-repeat=\"$item in ngModel track by $index\">\n      <span>\n        <span class=\"ng-binding ng-scope\">{{$item.displayText || $item.text}}</span>\n      </span>\n      <ma-icon class=\"ui-select-match-close select2-search-choice-close\"\n        ma-type=\"closecircle\"\n        ma-click=\"$select.removeChoice($item, $event)\"></ma-icon>\n    </li>\n  </ul>\n  <div class=\"ui-select-dropdown select2-drop select2-with-searchbox select2-drop-active select2-display-none\"\n\n    ng-class=\"{'select2-display-show': $select.open}\">\n    <div class=\"search-container select2-search\"\n      ng-class=\"{'ui-select-search-hidden':!$select.searchEnabled, 'select2-search':$select.searchEnabled}\">\n      <div class=\"ma-input ma-input-search-normal\"\n        ng-disabled=\"selectDisabled\">\n        <input type=\"text\"\n          autocomplete=\"off\"\n          autocorrect=\"off\"\n          autocapitalize=\"off\"\n          spellcheck=\"false\"\n          role=\"combobox\"\n          aria-expanded=\"true\"\n          aria-owns=\"ui-select-choices-0\"\n          aria-label=\"Select box\"\n          class=\"select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched\"\n          ng-model=\"$select.search\"\n          ng-disabled=\"selectDisabled\"\n          ondrop=\"return false;\">\n      </div>\n    </div>\n    <ul tabindex=\"-1\"\n      class=\"ui-select-choices ui-select-choices-content select2-results ng-scope\"\n      ng-class=\"{'has-scrollbar' : $select.selectItems.length > 5, 'has-search': $select.search}\">\n\n    </ul>\n    <div class=\"ma-dropdown-buttons\"\n      ng-show=\"$select.clear == 'true'\"\n      ma-click=\"$select.clearSelect()\">\n      <ma-button ma-size=\"mini\"\n        ma-type=\"primary\">清空</ma-button>\n    </div>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -59336,7 +59336,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ "lQqW":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-dropdown\">\n  <div ng-transclude></div>\n  <div class=\"ma-dropdown-container\"\n    ng-class=\"{\n      show: show || static == 'true'\n    }\">\n    <div class=\"ma-dropdown-search-bar\"\n      ng-if=\"searchBar == 'true'\">\n      <ma-input ng-model=\"searchKey\"\n        class=\"ma-input-search-normal\"></ma-input>\n    </div>\n    <div class=\"ma-dropdown-item null-text\"\n      ng-if=\"(nullText || nullText == 'true') && data.length <= 0\">{{nullText == 'true' ? '暂无数据' : nullText}}</div>\n\n    <div class=\"ma-dropdown-container-content\">\n    </div>\n\n    <div class=\"ma-dropdown-buttons\"\n      ng-show=\"clear == 'true'\"\n      ma-click=\"$ctrl.clearValue()\">\n      <ma-button ma-size=\"mini\"\n        ma-type=\"primary\">清空</ma-button>\n    </div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"ma-dropdown\">\n  <div ng-transclude></div>\n  <div class=\"ma-dropdown-container\"\n    ng-class=\"{\n      show: show || static == 'true'\n    }\">\n    <div class=\"ma-dropdown-search-bar\"\n      ng-if=\"searchBar == 'true'\">\n      <ma-input ng-model=\"searchKey\"\n        ng-disabled=\"disabled\"\n        class=\"ma-input-search-normal\"></ma-input>\n    </div>\n    <div class=\"ma-dropdown-item null-text\"\n      ng-if=\"(nullText || nullText == 'true') && data.length <= 0\">{{nullText == 'true' ? '暂无数据' : nullText}}</div>\n\n    <div class=\"ma-dropdown-container-content\"\n      ng-disabled=\"disabled\">\n    </div>\n\n    <div class=\"ma-dropdown-buttons\"\n      ng-show=\"clear == 'true'\"\n      ma-click=\"$ctrl.clearValue()\">\n      <ma-button ma-size=\"mini\"\n        ma-type=\"primary\">清空</ma-button>\n    </div>\n  </div>\n</div>\n";
 
 /***/ }),
 
@@ -63835,6 +63835,7 @@ function maTreeTransfer2() {
       }
 
       function toRight() {
+        $scope.$broadcast('search.clear');
         if (angular.isNull($scope.model)) {
           $scope.model = [];
         }
@@ -63846,6 +63847,7 @@ function maTreeTransfer2() {
       }
 
       function toLeft() {
+        $scope.$broadcast('search.clear');
         if (angular.isNull($scope.model)) {
           $scope.model = [];
         }
@@ -68401,9 +68403,12 @@ function maTree() {
       var contentTarget = (0, _jquery2['default'])($element).find('.ui-select-choices-content');
       var itemCls = '.ui-select-choices-row';
       var subStore = {};
-      var alreadyExpandAll = false;
 
       $ctrl.searchKey = '';
+
+      $scope.$on('search.clear', function () {
+        $ctrl.searchKey = '';
+      });
 
       $scope.$watch('$ctrl.searchKey', function (d) {
         expandMatch(d);
@@ -68459,18 +68464,18 @@ function maTree() {
       });
 
       function expandMatch(searchKey) {
+        contentTarget.find('.search-match').removeClass('search-match');
         if (angular.isNull(searchKey)) {
           return;
         }
 
-        var exp = new RegExp(searchKey, 'g');
         var expands = [];
         var unexpand = [];
 
         $scope.newItems.forEach(function (d) {
           var item = d;
 
-          if (exp.test(item[$scope.textKey]) && item._from) {
+          if ((item[$scope.textKey] + '').indexOf(searchKey) !== -1 && item._from) {
             expands.push(item._from);
             while (item._parent && item._parent._from) {
               expands.push(item._parent._from);
@@ -68484,7 +68489,7 @@ function maTree() {
             var arrow = contentTarget.find(itemCls + '[data-to="' + d + '"] .tree-arrow-click');
 
             if (arrow.length) {
-              if (!arrow.hasClass('tree-open')) {
+              if (!arrow.parent().hasClass('tree-open')) {
                 arrow.trigger('click');
               }
             } else {
@@ -68497,6 +68502,15 @@ function maTree() {
             doExpand();
           }
         }
+
+        doExpand();
+
+        // 设置match class
+        $scope.newItems.forEach(function (d) {
+          if ((d[$scope.textKey] + '').indexOf(searchKey) !== -1) {
+            contentTarget.find(itemCls + '[data-value="' + d[$scope.valueKey] + '"]').addClass('search-match');
+          }
+        });
       }
 
       function updateDisabled() {

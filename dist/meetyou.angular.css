@@ -7067,6 +7067,14 @@ textarea.ma-input {
   overflow: auto;
 }
 
+.ma-dropdown .ma-dropdown-container .ma-dropdown-container-content[disabled] .ma-dropdown-item {
+  cursor: not-allowed;
+}
+
+.ma-dropdown .ma-dropdown-container .ma-dropdown-container-content[disabled] .ma-dropdown-item:hover {
+  background-color: inherit;
+}
+
 .ma-dropdown .ma-dropdown-container .ma-dropdown-buttons {
   text-align: right;
   border-top: 1px solid #E5E5E5;
@@ -8900,6 +8908,18 @@ disabled look for disabled choices in the results dropdown
 .ma-tree-select .select2-container-multi.select2-container-disabled .select2-choices {
   border-color: #CCCCCC;
   background-color: transparent;
+}
+
+.ma-tree-select .ui-select-choices-content.has-search .ui-select-choices-row {
+  display: none;
+}
+
+.ma-tree-select .ui-select-choices-content.has-search .ui-select-choices-row.search-match {
+  display: block;
+}
+
+.ma-tree-select .ui-select-choices-content.has-search .ui-select-choices-row.search-match.hidden {
+  display: none;
 }
 
 .ma-transfer {
