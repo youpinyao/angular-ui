@@ -7,12 +7,14 @@
     <div class="ma-dropdown-search-bar"
       ng-if="searchBar == 'true'">
       <ma-input ng-model="searchKey"
+        ng-disabled="disabled"
         class="ma-input-search-normal"></ma-input>
     </div>
     <div class="ma-dropdown-item null-text"
       ng-if="(nullText || nullText == 'true') && data.length <= 0">{{nullText == 'true' ? '暂无数据' : nullText}}</div>
 
-    <div class="ma-dropdown-container-content">
+    <div class="ma-dropdown-container-content"
+      ng-disabled="disabled">
     </div>
 
     <div class="ma-dropdown-buttons"

@@ -32,7 +32,8 @@
     ng-class="{'select2-display-show': $select.open}">
     <div class="search-container select2-search"
       ng-class="{'ui-select-search-hidden':!$select.searchEnabled, 'select2-search':$select.searchEnabled}">
-      <div class="ma-input ma-input-search-normal">
+      <div class="ma-input ma-input-search-normal"
+        ng-disabled="selectDisabled">
         <input type="text"
           autocomplete="off"
           autocorrect="off"
@@ -44,6 +45,7 @@
           aria-label="Select box"
           class="select2-input ui-select-search ng-pristine ng-valid ng-empty ng-touched"
           ng-model="$select.search"
+          ng-disabled="selectDisabled"
           ondrop="return false;">
       </div>
     </div>
