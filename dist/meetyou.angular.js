@@ -63929,6 +63929,7 @@ function maTreeTransfer2() {
       function filterChild() {
         var selected = $scope.model || [];
         var newModel = [];
+        var splicedArray = [];
         var sameCount = 0;
 
         function checkSub(items) {
@@ -63964,7 +63965,7 @@ function maTreeTransfer2() {
           }
         });
 
-        return sameCount && sameCount < selected.length ? newModel : false;
+        return sameCount < selected.length ? newModel : false;
       }
 
       function updateLeftRigthData() {
@@ -68408,13 +68409,13 @@ function maTree() {
       });
 
       $scope.$watch('showItems', function (d) {
-        // console.log('show items', d);
+        console.log('show items', d);
         if (d) {
           updateHideShow();
         }
       });
       $scope.$watch('hideItems', function (d) {
-        // console.log('hide items', d);
+        console.log('hide items', d);
         if (d) {
           updateHideShow();
         }
@@ -68552,7 +68553,8 @@ function maTree() {
         var target = (0, _jquery2['default'])(e.target);
         var item = target.parents(itemCls);
         var to = item.attr('data-to');
-        var froms = contentTarget.find(itemCls + '[data-from*="' + to + '"]');
+        var froms = contentTarget.find(itemCls + '[data-from="' + to + '"]');
+        var fromChilds = contentTarget.find(itemCls + '[data-from*="' + to + '_"]');
 
         if (!froms.length) {
           froms = (0, _jquery2['default'])(_templateWeb2['default'].render(_itemTpl2['default'], {
@@ -68566,6 +68568,7 @@ function maTree() {
           updateHideShow();
         } else {
           froms.toggleClass('hide');
+          fromChilds.toggleClass('child-hide');
         }
         target.parent().toggleClass('tree-open');
       }

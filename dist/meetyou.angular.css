@@ -7310,6 +7310,7 @@ textarea.ma-input {
 }
 
 .ui-select-choices-row.hidden,
+.ui-select-choices-row.child-hide,
 .ui-select-choices-row.hide {
   display: none;
 }
