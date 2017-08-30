@@ -5,7 +5,7 @@
       show: show || static == 'true'
     }">
     <div class="ma-dropdown-search-bar"
-      ng-if="searchBar == 'true'">
+      ng-show="searchBar == 'true'">
       <ma-input ng-model="searchKey"
         ng-disabled="disabled"
         class="ma-input-search-normal"></ma-input>

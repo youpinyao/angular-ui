@@ -765,6 +765,7 @@ function cmultiselect($parse, $window, $document, $timeout) {
           (item.isHidden !== true || $select.hasSubNotHidden(item)) &&
           item.searchHidden !== true;
 
+        item.__search_match = item.searchHidden !== true;
         item.__tree_is_open = $select.treeIsOpen(item._treeLinkTo);
         item.__checkbox_has_sub = $select.hasSubSelected(item);
         item.__checkbox_has_parent = $select.hasParentSelect(item);

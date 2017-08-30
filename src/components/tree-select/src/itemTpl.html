@@ -1,5 +1,5 @@
 <li class="ui-select-choices-row {{'tree-level-' +item&&{index}._treeLevel}}"
-  ng-class="{'has-sub' : item&&{index}.sub.length}"
+  ng-class="{'has-sub' : item&&{index}.sub.length, 'search-match': item&&{index}.__search_match}"
   data-tag-to="{{item&&{index}._treeLinkTo}}"
   ng-if="item&&{index}.__item_is_show"
   data-tag-from="{{item&&{index}._treeLinkFrom}}" ng-cloak>
