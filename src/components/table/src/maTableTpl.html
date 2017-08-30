@@ -4,9 +4,9 @@
     <div>
       <!-- 左边漂浮 table -->
       <div class="float-left-table"
-        style="width: {{$tableCtrl.floatLeftBoxWidth}}px; height: {{$tableCtrl.floatTableHeight}}px;"
+        ng-style="{width: $tableCtrl.floatLeftBoxWidth + 'px', height:$tableCtrl.floatTableHeight + 'px'}"
         ng-if="$tableCtrl.floatLeftCols !== false">
-        <div style="width: {{$tableCtrl.floatTableWidth}}px;">
+        <div ng-style="{width: $tableCtrl.floatTableWidth + 'px'}">
           <table template-header='header1.html'
             ng-table-dynamic="$tableCtrl.tableParams with $tableCtrl.cols"
             class="table table-condensed table-bordered table-striped">
@@ -30,10 +30,10 @@
 
       <!-- 右边漂浮 table -->
       <div class="float-right-table"
-        style="width: {{$tableCtrl.floatRightBoxWidth}}px; height: {{$tableCtrl.floatTableHeight}}px;"
+        ng-style="{width: $tableCtrl.floatRightBoxWidth + 'px', height:$tableCtrl.floatTableHeight + 'px'}"
         ng-if="$tableCtrl.floatRightCols !== false">
 
-        <div style="width: {{$tableCtrl.floatTableWidth}}px;">
+        <div ng-style="{width: $tableCtrl.floatTableWidth + 'px'}">
           <table template-header='header1.html'
             ng-table-dynamic="$tableCtrl.tableParams with $tableCtrl.cols"
             class="table table-condensed table-bordered table-striped">
@@ -60,7 +60,7 @@
           class="table table-condensed table-bordered table-striped main-table"
           ng-class="{'has-float-table': $tableCtrl.floatLeftCols.length || $tableCtrl.floatRightCols.length}"
 
-          style="width: {{$tableCtrl.tableWidth && $tableCtrl.tableWidth > $tableCtrl.mainContainerWidth ? $tableCtrl.tableWidth + 'px' : '100%'}}">
+          ng-style="{width: $tableCtrl.tableWidth && $tableCtrl.tableWidth > $tableCtrl.mainContainerWidth ? $tableCtrl.tableWidth + 'px' : '100%'}">
           <colgroup ng-if="$tableCtrl.colsGroup && $tableCtrl.colsGroup.length == $tableCtrl.cols.length">
             <col ng-repeat="group in $tableCtrl.colsGroup"
               width="{{group.width}}"
