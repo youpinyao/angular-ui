@@ -11,7 +11,9 @@ angular.module(moduleName, [
   utils,
   components,
 ]).config(['$qProvider', function($qProvider) {
-  $qProvider.errorOnUnhandledRejections(false);
+  if ($qProvider && typeof $qProvider.errorOnUnhandledRejections === 'function') {
+    $qProvider.errorOnUnhandledRejections(false);
+  }
 }]).run(function() {});
 
 export default moduleName;
