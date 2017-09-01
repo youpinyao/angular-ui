@@ -14,6 +14,7 @@ function maTreeTransfer2() {
     scope: {
       data: '=maData',
       model: '=ngModel',
+      maModel: '=maModel',
       valueKey: '@maValueKey',
       textKey: '@maTextKey',
       subKey: '@maSubKey',
@@ -24,7 +25,7 @@ function maTreeTransfer2() {
     },
     template: maTreeTransfer2Tpl,
     controllerAs: '$ctrl',
-    controller: ['$scope', '$element', function($scope, $element) {
+    controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
       const $ctrl = this;
 
       $ctrl.searchKey = '';
@@ -68,6 +69,10 @@ function maTreeTransfer2() {
 
         $ctrl.leftHideItems = d || [];
         $ctrl.rightShowItems = d || [];
+
+        if ($attrs.maModel) {
+          $scope.maModel = getParentAndChild(d);
+        }
       });
 
       $scope.$watch('$ctrl.leftCheckbox', d => {
@@ -299,6 +304,46 @@ function maTreeTransfer2() {
 
         $ctrl.leftData = leftData;
         $ctrl.rightData = rightData;
+      }
+
+      function getParentAndChild(selected) {
+        const newSelected = [];
+
+        function get(items) {
+          angular.each(items, item => {
+            if (selected.indexOf(item[$scope.valueKey]) !== -1) {
+              let cItem = item;
+
+              newSelected.push(item[$scope.valueKey]);
+
+              while (cItem._parent) {
+                if (newSelected.indexOf(cItem._parent[$scope.valueKey]) === -1) {
+                  newSelected.push(cItem._parent[$scope.valueKey]);
+                }
+                cItem = cItem._parent;
+              }
+
+              getSub(item[$scope.subKey]);
+            }
+
+            if (item[$scope.subKey] && item[$scope.subKey].length) {
+              get(item[$scope.subKey]);
+            }
+          });
+        }
+
+        function getSub(sub) {
+          if (sub && sub.length) {
+            angular.each(sub, item => {
+              newSelected.push(item[$scope.valueKey]);
+              getSub(item[$scope.subKey]);
+            });
+          }
+        }
+
+        get($ctrl.leftData);
+
+        return newSelected;
       }
     }],
     link: function(scope, element, attrs, ctrl) {

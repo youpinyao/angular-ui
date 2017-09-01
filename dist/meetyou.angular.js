@@ -49236,7 +49236,7 @@ exports['default'] = _name2['default'];
 /***/ "RCoB":
 /***/ (function(module, exports) {
 
-module.exports = "<tr ng-class=\"{\n    'selected-row': selector && $tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\n  }\"\n  class=\"&&{rowCustomClass}\">\n\n</tr>\n";
+module.exports = "<tr class=\"&&{rowCustomClass}\">\n\n</tr>\n";
 
 /***/ }),
 
@@ -49536,6 +49536,10 @@ var _debounce = __webpack_require__("HhAh");
 
 var _debounce2 = _interopRequireDefault(_debounce);
 
+var _templateWeb = __webpack_require__("H+C6");
+
+var _templateWeb2 = _interopRequireDefault(_templateWeb);
+
 var _trTpl = __webpack_require__("RCoB");
 
 var _trTpl2 = _interopRequireDefault(_trTpl);
@@ -49794,6 +49798,15 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     }
     // grayed checkbox
     angular.element((0, _jquery2['default'])($element).find('.main-table').get(0).getElementsByClassName('select-all')).prop('indeterminate', checked != 0 && unchecked != 0);
+
+    angular.each(values, function (value, key) {
+      var tr = (0, _jquery2['default'])($element).find('tr[data-flag="' + key + '"]');
+      if (value) {
+        tr.addClass('selected-row');
+      } else {
+        tr.removeClass('selected-row');
+      }
+    });
   }, true);
 
   // 获取选中行数据
@@ -49919,7 +49932,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       if (col.show !== false) {
         colIndex++;
         var td = _tdTpl2['default'].replace(/col&&\{index\}/g, 'col' + colIndex);
-        var hasCompile = col.render || col.customHtml || col.field == 'selector';
+        var hasCompile = col.render || col.field == 'selector';
 
         tdItems.push([td.replace(/&&\{colClass\}/g, col.colClass || ''), hasCompile, col]);
 
@@ -49931,10 +49944,11 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       index++;
       var trElement = _trTpl2['default'].replace(/&&\{index\}/g, index);
 
-      trElement = (0, _jquery2['default'])(trElement.replace(/&&\{rowCustomClass\}/g, self.tableConfig.rowCustomClass));
+      trElement = (0, _jquery2['default'])(trElement.replace(/&&\{rowCustomClass\}/g, self.tableConfig.rowCustomClass || ''));
+      trElement.attr('data-flag', item[self.dataflagId]);
 
       $scope['row' + index] = item;
-      $compile(trElement)($scope);
+      // $compile(trElement)($scope);
 
       tdItems.forEach(function (d) {
         var el = (0, _jquery2['default'])(d[0].replace(/&&\{index\}/g, index));
@@ -49943,8 +49957,14 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         if (d[1]) {
           el.attr('has-compile', true);
           // $compile(el)($scope);
+        } else if (d[2].customHtml || d[2].renderHtml) {
+          el.html(_templateWeb2['default'].render('<div>' + (d[2].customHtml || d[2].renderHtml)($scope, item, item[d[2].field]) + '</div>', {
+            $scope: $scope,
+            row: item,
+            col: item[d[2].field]
+          }));
         } else {
-          el.html('\n          <div>\n            <span>' + item[d[2].field] + '</span>\n          </div>');
+          el.html('<div>' + (item[d[2].field] || '') + '</div>');
         }
       });
 
@@ -56352,7 +56372,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ "dgAy":
 /***/ (function(module, exports) {
 
-module.exports = "<td class=\"&&{colClass}\">\n  <div ng-cloak ng-if=\"col&&{index}.field == 'selector'\">\n    <ma-checkbox id=\"ck_{{row&&{index}.id}}\"\n      ng-model=\"$tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\">\n    </ma-checkbox>\n  </div>\n  <div ng-cloak ng-if='col&&{index}.render'\n    common-table-col-render=\"col&&{index}.render(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n\n  <div ng-cloak ng-if='!col&&{index}.render && col&&{index}.customHtml'\n    ng-bind-html=\"col&&{index}.customHtml(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n</td>\n";
+module.exports = "<td class=\"&&{colClass}\">\n  <div ng-cloak\n    ng-if=\"col&&{index}.field == 'selector'\">\n    <ma-checkbox id=\"ck_{{row&&{index}.id}}\"\n      ng-model=\"$tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\">\n    </ma-checkbox>\n  </div>\n  <div ng-cloak\n    ng-if='col&&{index}.render'\n    common-table-col-render=\"col&&{index}.render(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n</td>\n";
 
 /***/ }),
 
@@ -59368,7 +59388,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 var moduleName = __webpack_require__("KidU");
 
 angular.module(moduleName, [_utils2['default'], _index2['default']]).config(['$qProvider', function ($qProvider) {
-  $qProvider.errorOnUnhandledRejections(false);
+  if ($qProvider && typeof $qProvider.errorOnUnhandledRejections === 'function') {
+    $qProvider.errorOnUnhandledRejections(false);
+  }
 }]).run(function () {});
 
 exports['default'] = moduleName;
@@ -63695,6 +63717,7 @@ function maTreeTransfer2() {
     scope: {
       data: '=maData',
       model: '=ngModel',
+      maModel: '=maModel',
       valueKey: '@maValueKey',
       textKey: '@maTextKey',
       subKey: '@maSubKey',
@@ -63705,7 +63728,7 @@ function maTreeTransfer2() {
     },
     template: _maTreeTransfer2Tpl2['default'],
     controllerAs: '$ctrl',
-    controller: ['$scope', '$element', function ($scope, $element) {
+    controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
       var $ctrl = this;
 
       $ctrl.searchKey = '';
@@ -63749,6 +63772,10 @@ function maTreeTransfer2() {
 
         $ctrl.leftHideItems = d || [];
         $ctrl.rightShowItems = d || [];
+
+        if ($attrs.maModel) {
+          $scope.maModel = getParentAndChild(d);
+        }
       });
 
       $scope.$watch('$ctrl.leftCheckbox', function (d) {
@@ -63979,6 +64006,46 @@ function maTreeTransfer2() {
 
         $ctrl.leftData = leftData;
         $ctrl.rightData = rightData;
+      }
+
+      function getParentAndChild(selected) {
+        var newSelected = [];
+
+        function get(items) {
+          angular.each(items, function (item) {
+            if (selected.indexOf(item[$scope.valueKey]) !== -1) {
+              var cItem = item;
+
+              newSelected.push(item[$scope.valueKey]);
+
+              while (cItem._parent) {
+                if (newSelected.indexOf(cItem._parent[$scope.valueKey]) === -1) {
+                  newSelected.push(cItem._parent[$scope.valueKey]);
+                }
+                cItem = cItem._parent;
+              }
+
+              getSub(item[$scope.subKey]);
+            }
+
+            if (item[$scope.subKey] && item[$scope.subKey].length) {
+              get(item[$scope.subKey]);
+            }
+          });
+        }
+
+        function getSub(sub) {
+          if (sub && sub.length) {
+            angular.each(sub, function (item) {
+              newSelected.push(item[$scope.valueKey]);
+              getSub(item[$scope.subKey]);
+            });
+          }
+        }
+
+        get($ctrl.leftData);
+
+        return newSelected;
       }
     }],
     link: function link(scope, element, attrs, ctrl) {

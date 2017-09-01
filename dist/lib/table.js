@@ -926,7 +926,7 @@ function maSelect($timeout) {
 /***/ "RCoB":
 /***/ (function(module, exports) {
 
-module.exports = "<tr ng-class=\"{\n    'selected-row': selector && $tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\n  }\"\n  class=\"&&{rowCustomClass}\">\n\n</tr>\n";
+module.exports = "<tr class=\"&&{rowCustomClass}\">\n\n</tr>\n";
 
 /***/ }),
 
@@ -1009,6 +1009,10 @@ var _jquery2 = _interopRequireDefault(_jquery);
 var _debounce = __webpack_require__("HhAh");
 
 var _debounce2 = _interopRequireDefault(_debounce);
+
+var _templateWeb = __webpack_require__("H+C6");
+
+var _templateWeb2 = _interopRequireDefault(_templateWeb);
 
 var _trTpl = __webpack_require__("RCoB");
 
@@ -1268,6 +1272,15 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     }
     // grayed checkbox
     angular.element((0, _jquery2['default'])($element).find('.main-table').get(0).getElementsByClassName('select-all')).prop('indeterminate', checked != 0 && unchecked != 0);
+
+    angular.each(values, function (value, key) {
+      var tr = (0, _jquery2['default'])($element).find('tr[data-flag="' + key + '"]');
+      if (value) {
+        tr.addClass('selected-row');
+      } else {
+        tr.removeClass('selected-row');
+      }
+    });
   }, true);
 
   // 获取选中行数据
@@ -1393,7 +1406,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       if (col.show !== false) {
         colIndex++;
         var td = _tdTpl2['default'].replace(/col&&\{index\}/g, 'col' + colIndex);
-        var hasCompile = col.render || col.customHtml || col.field == 'selector';
+        var hasCompile = col.render || col.field == 'selector';
 
         tdItems.push([td.replace(/&&\{colClass\}/g, col.colClass || ''), hasCompile, col]);
 
@@ -1405,10 +1418,11 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       index++;
       var trElement = _trTpl2['default'].replace(/&&\{index\}/g, index);
 
-      trElement = (0, _jquery2['default'])(trElement.replace(/&&\{rowCustomClass\}/g, self.tableConfig.rowCustomClass));
+      trElement = (0, _jquery2['default'])(trElement.replace(/&&\{rowCustomClass\}/g, self.tableConfig.rowCustomClass || ''));
+      trElement.attr('data-flag', item[self.dataflagId]);
 
       $scope['row' + index] = item;
-      $compile(trElement)($scope);
+      // $compile(trElement)($scope);
 
       tdItems.forEach(function (d) {
         var el = (0, _jquery2['default'])(d[0].replace(/&&\{index\}/g, index));
@@ -1417,8 +1431,14 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         if (d[1]) {
           el.attr('has-compile', true);
           // $compile(el)($scope);
+        } else if (d[2].customHtml || d[2].renderHtml) {
+          el.html(_templateWeb2['default'].render('<div>' + (d[2].customHtml || d[2].renderHtml)($scope, item, item[d[2].field]) + '</div>', {
+            $scope: $scope,
+            row: item,
+            col: item[d[2].field]
+          }));
         } else {
-          el.html('\n          <div>\n            <span>' + item[d[2].field] + '</span>\n          </div>');
+          el.html('<div>' + (item[d[2].field] || '') + '</div>');
         }
       });
 
@@ -1567,7 +1587,7 @@ exports['default'] = 'meetyou.angular.ui.icons';
 /***/ "dgAy":
 /***/ (function(module, exports) {
 
-module.exports = "<td class=\"&&{colClass}\">\n  <div ng-cloak ng-if=\"col&&{index}.field == 'selector'\">\n    <ma-checkbox id=\"ck_{{row&&{index}.id}}\"\n      ng-model=\"$tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\">\n    </ma-checkbox>\n  </div>\n  <div ng-cloak ng-if='col&&{index}.render'\n    common-table-col-render=\"col&&{index}.render(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n\n  <div ng-cloak ng-if='!col&&{index}.render && col&&{index}.customHtml'\n    ng-bind-html=\"col&&{index}.customHtml(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n</td>\n";
+module.exports = "<td class=\"&&{colClass}\">\n  <div ng-cloak\n    ng-if=\"col&&{index}.field == 'selector'\">\n    <ma-checkbox id=\"ck_{{row&&{index}.id}}\"\n      ng-model=\"$tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\">\n    </ma-checkbox>\n  </div>\n  <div ng-cloak\n    ng-if='col&&{index}.render'\n    common-table-col-render=\"col&&{index}.render(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n</td>\n";
 
 /***/ }),
 

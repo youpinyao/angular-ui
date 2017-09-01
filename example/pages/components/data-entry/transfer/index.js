@@ -9,7 +9,7 @@ mainCtrl.$inject = ['$scope', '$q', '$timeout', '$treeSelect'];
 
 function mainCtrl($scope, $q, $timeout, $treeSelect) {
   $scope.selectValue = ['6666', '66666'];
-  $scope.selectTreeValue = ['140100', '140200', '130100', '130200'];
+  $scope.selectTreeValue = ['110000', '130200', '130100'];
   $scope.disabled = false;
 
   $scope.treeData = [];
@@ -99,7 +99,7 @@ function mainCtrl($scope, $q, $timeout, $treeSelect) {
     console.log('tree', d);
   });
   $scope.$watch('selectTreeParentValue', d => {
-    // console.log('tree parent', d);
+    console.log('tree parent', d);
   });
 }
 
