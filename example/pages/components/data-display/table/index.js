@@ -53,35 +53,35 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
     cols: [{
       field: 'real_name',
       title: '代理姓名/公司名',
-      render() {
-        return 6666;
+      renderHtml() {
+        return '{{col}}{{row.user_id}}';
       },
       show: true
     }, {
       field: 'shows1',
       title: '曝光数1',
       render() {
-        return 6666;
+        return '{{row.real_name}}';
       },
       show: true
     }, {
       field: 'shows2',
       title: '曝光数2',
-      render() {
+      renderHtml() {
         return 6666;
       },
       show: true
     }, {
       field: 'shows3',
       title: '曝光数3',
-      render() {
+      renderHtml() {
         return 6666;
       },
       show: true
     }, {
       field: 'shows4',
       title: '曝光数4',
-      render() {
+      renderHtml() {
         return 6666;
       },
       show: true
@@ -122,7 +122,7 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
       field: 'real_name',
       title: '代理姓名/公司名',
       fLeft: true,
-      render($scope, row, cell) {
+      renderHtml($scope, row, cell) {
         return Math.random();
       },
       show: true
@@ -132,7 +132,7 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
       sortable: 'shows1',
       class: 'table-number-col',
       colClass: 'table-number-col',
-      render() {
+      renderHtml() {
         return 6666;
       },
       show: true
@@ -142,7 +142,7 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
       sortable: 'shows2',
       class: 'table-number-col',
       colClass: 'table-number-col',
-      render() {
+      renderHtml() {
         return 6666;
       },
       show: true
@@ -152,7 +152,7 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
       sortable: 'shows3',
       class: 'table-number-col',
       colClass: 'table-number-col',
-      render() {
+      renderHtml() {
         return 6666;
       },
       show: true
@@ -163,7 +163,7 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
       sortable: 'shows4',
       class: 'table-number-col',
       colClass: 'table-number-col',
-      render() {
+      renderHtml() {
         return 6666;
       },
       show: true
@@ -194,37 +194,37 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
       shows: 101,
       remain_amount: 103
     }, {
-      user_id: 4,
+      user_id: 74,
       real_name: 'dsfd',
       shows: 10,
       remain_amount: 104
     }, {
-      user_id: 4,
+      user_id: 64,
       real_name: 'dsfd',
       shows: 10,
       remain_amount: 104
     }, {
-      user_id: 4,
+      user_id: 54,
       real_name: 'dsfd',
       shows: 10,
       remain_amount: 104
     }, {
-      user_id: 4,
+      user_id: 44,
       real_name: 'dsfd',
       shows: 10,
       remain_amount: 104
     }, {
-      user_id: 4,
+      user_id: 34,
       real_name: 'dsfd',
       shows: 10,
       remain_amount: 104
     }, {
-      user_id: 4,
+      user_id: 24,
       real_name: 'dsfd',
       shows: 10,
       remain_amount: 104
     }, {
-      user_id: 4,
+      user_id: 14,
       real_name: 'dsfd',
       shows: 10,
       remain_amount: 104
@@ -258,9 +258,10 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
           headerTemplateURL: 'headerCheckbox.html',
           show: true
           fLeft: true,// 列漂浮在左边
-          fRight: true // 列漂浮在右边
-          render: Function($scope, row) // 渲染 带作用域
-          customHtml: Function($scope, row) // 渲染
+          fRight: true, // 列漂浮在右边
+          render: Function($scope, row, col), // 渲染 带作用域
+          renderHtml: Function($scope, row, col),// 渲染 同customHtml, 只是命名更改，customHtml保留，支持artTemplate 语法
+          customHtml: Function($scope, row, col) // 渲染
         }]
       count: 表单单页数量，类型int，例子：10
       counts：表单单页可选数量访问，类型数组，例子：[5, 10, 15]

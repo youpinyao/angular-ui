@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import debounce from 'debounce';
+import template from 'art-template/lib/template-web.js';
 import trTpl from './trTpl.html';
 import tdTpl from './tdTpl.html';
 
@@ -261,6 +262,15 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     // grayed checkbox
     angular.element($($element).find('.main-table').get(0).getElementsByClassName('select-all'))
       .prop('indeterminate', (checked != 0 && unchecked != 0));
+
+    angular.each(values, (value, key) => {
+      const tr = $($element).find(`tr[data-flag="${key}"]`);
+      if (value) {
+        tr.addClass('selected-row');
+      } else {
+        tr.removeClass('selected-row');
+      }
+    });
   }, true);
 
 
@@ -388,8 +398,9 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     angular.each(self.tableConfig.cols, col => {
       if (col.show !== false) {
         colIndex++;
-        const td = tdTpl.replace(/col&&\{index\}/g, `col${colIndex}`);
-        const hasCompile = col.render || col.customHtml || col.field == 'selector';
+        let td = tdTpl.replace(/col&&\{index\}/g, `col${colIndex}`);
+        const hasCompile = col.render || col.field ==
+          'selector';
 
         tdItems.push([td.replace(/&&\{colClass\}/g, col.colClass || ''), hasCompile, col]);
 
@@ -402,10 +413,12 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       index++;
       let trElement = trTpl.replace(/&&\{index\}/g, index);
 
-      trElement = $(trElement.replace(/&&\{rowCustomClass\}/g, self.tableConfig.rowCustomClass));
+      trElement = $(trElement.replace(/&&\{rowCustomClass\}/g, self.tableConfig.rowCustomClass ||
+        ''));
+      trElement.attr('data-flag', item[self.dataflagId]);
 
       $scope[`row${index}`] = item;
-      $compile(trElement)($scope);
+      // $compile(trElement)($scope);
 
       tdItems.forEach(d => {
         const el = $(d[0].replace(/&&\{index\}/g, index));
@@ -414,13 +427,15 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         if (d[1]) {
           el.attr('has-compile', true);
           // $compile(el)($scope);
+        } else if (d[2].customHtml || d[2].renderHtml) {
+          el.html(template.render(
+            `<div>${(d[2].customHtml || d[2].renderHtml)($scope, item, item[d[2].field])}</div>`, {
+              $scope,
+              row: item,
+              col: item[d[2].field],
+            }));
         } else {
-          el.html(
-            `
-          <div>
-            <span>${item[d[2].field]}</span>
-          </div>`
-          );
+          el.html(`<div>${item[d[2].field] || ''}</div>`);
         }
       });
 
