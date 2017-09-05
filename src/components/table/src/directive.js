@@ -22,8 +22,8 @@ angular.module('ng').run(['$templateCache', function(c) {
 
 angular.module(moduleName)
   .directive('maTable', maTable)
-  .directive('commonTableColRender', commonTableColRender)
-  .directive('commonTableColFloatRender', commonTableColFloatRender)
+  .directive('maTableColRender', maTableColRender)
+  .directive('maTableColFloatRender', maTableColFloatRender)
   .directive('ngEnter', ngEnter)
   .directive('ngCompile', ngCompile);
 
@@ -87,13 +87,13 @@ function maTable() {
   };
 }
 
-commonTableColRender.$inject = ['$compile'];
+maTableColRender.$inject = ['$compile'];
 
-function commonTableColRender($compile) {
+function maTableColRender($compile) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
-      let value = scope.$eval(attrs.commonTableColRender, scope);
+      let value = scope.$eval(attrs.maTableColRender, scope);
 
       value += '';
       value = value.replace(/ng-click="/g,
@@ -102,20 +102,20 @@ function commonTableColRender($compile) {
         'ma-click="$parent.$parent.');
 
       element.html(value);
-      scope.row = scope.$parent[attrs.commonTableColRender.split(', ')[1]];
+      scope.row = scope.$parent[attrs.maTableColRender.split(', ')[1]];
 
       $compile(element.contents())(scope);
     }
   };
 }
 
-commonTableColFloatRender.$inject = ['$compile'];
+maTableColFloatRender.$inject = ['$compile'];
 
-function commonTableColFloatRender($compile) {
+function maTableColFloatRender($compile) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
-      let value = scope.$eval(attrs.commonTableColFloatRender, scope);
+      let value = scope.$eval(attrs.maTableColFloatRender, scope);
 
       value += '';
       value = value.replace(/ng-click="/g,
@@ -124,7 +124,7 @@ function commonTableColFloatRender($compile) {
         'ma-click="$parent.$parent.');
 
       element.html(value);
-      scope.row = scope.$parent[attrs.commonTableColFloatRender.split(', ')[1]];
+      scope.row = scope.$parent[attrs.maTableColFloatRender.split(', ')[1]];
 
       $compile(element.contents())(scope);
     }

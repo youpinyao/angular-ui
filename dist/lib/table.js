@@ -1587,7 +1587,7 @@ exports['default'] = 'meetyou.angular.ui.icons';
 /***/ "dgAy":
 /***/ (function(module, exports) {
 
-module.exports = "<td class=\"&&{colClass}\">\n  <div ng-cloak\n    ng-if=\"col&&{index}.field == 'selector'\">\n    <ma-checkbox id=\"ck_{{row&&{index}.id}}\"\n      ng-model=\"$tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\">\n    </ma-checkbox>\n  </div>\n  <div ng-cloak\n    ng-if='col&&{index}.render'\n    common-table-col-render=\"col&&{index}.render(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n</td>\n";
+module.exports = "<td class=\"&&{colClass}\">\n  <div ng-cloak\n    ng-if=\"col&&{index}.field == 'selector'\">\n    <ma-checkbox id=\"ck_{{row&&{index}.id}}\"\n      ng-model=\"$tableCtrl.checkboxes.items[row&&{index}[$tableCtrl.dataflagId]]\">\n    </ma-checkbox>\n  </div>\n  <div ng-cloak\n    ng-if='col&&{index}.render'\n    ma-table-col-render=\"col&&{index}.render(this, row&&{index}, row&&{index}[col&&{index}.field])\"></div>\n</td>\n";
 
 /***/ }),
 
@@ -1933,7 +1933,7 @@ angular.module('ng').run(['$templateCache', function (c) {
   c.put('header1.html', _header2['default']);
 }]);
 
-angular.module(_name2['default']).directive('maTable', maTable).directive('commonTableColRender', commonTableColRender).directive('commonTableColFloatRender', commonTableColFloatRender).directive('ngEnter', ngEnter).directive('ngCompile', ngCompile);
+angular.module(_name2['default']).directive('maTable', maTable).directive('maTableColRender', maTableColRender).directive('maTableColFloatRender', maTableColFloatRender).directive('ngEnter', ngEnter).directive('ngCompile', ngCompile);
 
 /**
   数据表组件
@@ -1995,40 +1995,40 @@ function maTable() {
   };
 }
 
-commonTableColRender.$inject = ['$compile'];
+maTableColRender.$inject = ['$compile'];
 
-function commonTableColRender($compile) {
+function maTableColRender($compile) {
   return {
     restrict: 'A',
     link: function link(scope, element, attrs) {
-      var value = scope.$eval(attrs.commonTableColRender, scope);
+      var value = scope.$eval(attrs.maTableColRender, scope);
 
       value += '';
       value = value.replace(/ng-click="/g, 'ng-click="$parent.$parent.');
       value = value.replace(/ma-click="/g, 'ma-click="$parent.$parent.');
 
       element.html(value);
-      scope.row = scope.$parent[attrs.commonTableColRender.split(', ')[1]];
+      scope.row = scope.$parent[attrs.maTableColRender.split(', ')[1]];
 
       $compile(element.contents())(scope);
     }
   };
 }
 
-commonTableColFloatRender.$inject = ['$compile'];
+maTableColFloatRender.$inject = ['$compile'];
 
-function commonTableColFloatRender($compile) {
+function maTableColFloatRender($compile) {
   return {
     restrict: 'A',
     link: function link(scope, element, attrs) {
-      var value = scope.$eval(attrs.commonTableColFloatRender, scope);
+      var value = scope.$eval(attrs.maTableColFloatRender, scope);
 
       value += '';
       value = value.replace(/ng-click="/g, 'ng-click="$parent.$parent.');
       value = value.replace(/ma-click="/g, 'ma-click="$parent.$parent.');
 
       element.html(value);
-      scope.row = scope.$parent[attrs.commonTableColFloatRender.split(', ')[1]];
+      scope.row = scope.$parent[attrs.maTableColFloatRender.split(', ')[1]];
 
       $compile(element.contents())(scope);
     }
@@ -4913,8 +4913,6 @@ var _name = __webpack_require__("YO30");
 
 var _name2 = _interopRequireDefault(_name);
 
-__webpack_require__("AFu3");
-
 var _button = __webpack_require__("lkey");
 
 var _button2 = _interopRequireDefault(_button);
@@ -4925,7 +4923,10 @@ var _input2 = _interopRequireDefault(_input);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-angular.module(_name2['default'], ['ngSanitize', _button2['default'], _input2['default']]).config(function () {}).run(function () {});
+// import 'angular-sanitize';
+angular.module(_name2['default'], [
+// 'ngSanitize',
+_button2['default'], _input2['default']]).config(function () {}).run(function () {});
 
 __webpack_require__("LJOD");
 

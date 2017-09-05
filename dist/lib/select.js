@@ -1345,8 +1345,6 @@ var _name = __webpack_require__("YO30");
 
 var _name2 = _interopRequireDefault(_name);
 
-__webpack_require__("AFu3");
-
 var _button = __webpack_require__("lkey");
 
 var _button2 = _interopRequireDefault(_button);
@@ -1357,7 +1355,10 @@ var _input2 = _interopRequireDefault(_input);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-angular.module(_name2['default'], ['ngSanitize', _button2['default'], _input2['default']]).config(function () {}).run(function () {});
+// import 'angular-sanitize';
+angular.module(_name2['default'], [
+// 'ngSanitize',
+_button2['default'], _input2['default']]).config(function () {}).run(function () {});
 
 __webpack_require__("LJOD");
 
