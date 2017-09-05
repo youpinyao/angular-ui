@@ -36435,7 +36435,7 @@ function maCheckbox($timeout) {
     restrict: 'E',
     transclude: true,
     replace: true,
-    template: '<label class="ma-checkbox">\n    <input type="checkbox"\n      value="{{value}}"\n      data-name="{{name}}"\n      ng-disabled="disabled"\n      ng-model="checked"\n    />\n    <i class="checkbox-appearance"></i>\n    <span ng-transclude></span>\n    </label>',
+    template: '<label class="ma-checkbox">\n    <input type="checkbox"\n      value="{{value}}"\n      data-name="{{name}}"\n      ng-disabled="disabled"\n      ng-model="checked"\n    />\n    <i class="ma-checkbox-appearance"></i>\n    <span ng-transclude></span>\n    </label>',
     scope: {
       name: '@name',
       value: '@value',
@@ -52166,7 +52166,7 @@ __webpack_require__("akj6");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-angular.module(_name2['default']).directive('maTreeSelect', maTreeSelect).directive('cmultiselect', cmultiselect);
+angular.module(_name2['default']).directive('maTreeSelect', maTreeSelect).directive('maCmultiselect', cmultiselect);
 
 maTreeSelect.$inject = ['$treeSelect'];
 
@@ -52174,7 +52174,7 @@ function maTreeSelect($treeSelect) {
   return {
     restrict: 'E',
     replace: true,
-    template: '<div class="ma-tree-select">\n      <cmultiselect\n        tree\n        ng-model="model"\n        ng-items="newItems"\n        search-enabled="search"\n        limit="{{limit}}"\n        ng-disabled="disabled"\n        placeholder="{{placeholder}}"\n        clear="{{clear}}"\n        static="{{static}}"\n      >\n      </cmultiselect>\n    </div>',
+    template: '<div class="ma-tree-select">\n      <ma-cmultiselect\n        tree\n        ng-model="model"\n        ng-items="newItems"\n        search-enabled="search"\n        limit="{{limit}}"\n        ng-disabled="disabled"\n        placeholder="{{placeholder}}"\n        clear="{{clear}}"\n        static="{{static}}"\n      >\n      </ma-cmultiselect>\n    </div>',
     scope: {
       model: '=ngModel',
       maModel: '=maModel',
@@ -62334,7 +62334,7 @@ exports['default'] = _name2['default'];
 /***/ "oXUz":
 /***/ (function(module, exports) {
 
-module.exports = " {{each data}}\n {{if !$value._parent || renderSub}}\n<li class=\"ui-select-choices-row tree-level-{{$value._level}} {{$value._sub ? 'has-sub': ''}}\"\n  data-value=\"{{$value[valueKey]}}\"\n  data-from=\"{{$value._from}}\"\n  data-to=\"{{$value._to}}\">\n  <div class=\"select2-result-label ui-select-choices-row-inner\">\n    <div>\n      {{if $value._sub}}\n      <i class=\"tree-arrow-click\">\n        <i class=\"tree-arrow\"></i>\n      </i>\n      {{/if}}\n      <!-- <div class=\"click-mask\"></div> -->\n      <label class=\"ma-checkbox\">\n        <input type=\"checkbox\" />\n        <i class=\"checkbox-appearance\"></i>\n        <span>{{$value[textKey]}}</span>\n      </label>\n    </div>\n  </div>\n</li>\n{{/if}}\n{{/each}}\n";
+module.exports = " {{each data}}\n {{if !$value._parent || renderSub}}\n<li class=\"ui-select-choices-row tree-level-{{$value._level}} {{$value._sub ? 'has-sub': ''}}\"\n  data-value=\"{{$value[valueKey]}}\"\n  data-from=\"{{$value._from}}\"\n  data-to=\"{{$value._to}}\">\n  <div class=\"select2-result-label ui-select-choices-row-inner\">\n    <div>\n      {{if $value._sub}}\n      <i class=\"tree-arrow-click\">\n        <i class=\"tree-arrow\"></i>\n      </i>\n      {{/if}}\n      <!-- <div class=\"click-mask\"></div> -->\n      <label class=\"ma-checkbox\">\n        <input type=\"checkbox\" />\n        <i class=\"ma-checkbox-appearance\"></i>\n        <span>{{$value[textKey]}}</span>\n      </label>\n    </div>\n  </div>\n</li>\n{{/if}}\n{{/each}}\n";
 
 /***/ }),
 

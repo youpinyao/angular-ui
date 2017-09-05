@@ -18,7 +18,7 @@ function maCheckbox($timeout) {
       ng-disabled="disabled"
       ng-model="checked"
     />
-    <i class="checkbox-appearance"></i>
+    <i class="ma-checkbox-appearance"></i>
     <span ng-transclude></span>
     </label>`,
     scope: {

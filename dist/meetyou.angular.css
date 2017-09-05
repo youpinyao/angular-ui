@@ -6667,7 +6667,7 @@ textarea.ma-input {
   -moz-user-select: -moz-none;
 }
 
-.ma-radio span {
+.ma-radio > span {
   font-size: 14px;
   font-weight: normal;
   color: #323232;
@@ -6783,7 +6783,7 @@ textarea.ma-input {
   display: none;
 }
 
-.ma-checkbox input[type="checkbox"] + .checkbox-appearance {
+.ma-checkbox input[type="checkbox"] + .ma-checkbox-appearance {
   display: inline-block;
   width: 16px;
   height: 16px;
@@ -6797,7 +6797,7 @@ textarea.ma-input {
   -webkit-transition: transform 300ms ease, -webkit-transform 300ms ease, opacity 300ms ease, background-color 300ms ease;
 }
 
-.ma-checkbox input[type="checkbox"] + .checkbox-appearance:after {
+.ma-checkbox input[type="checkbox"] + .ma-checkbox-appearance:after {
   opacity: 0;
   transform: scale(0) rotate(45deg);
   -webkit-transform: scale(0) rotate(45deg);
@@ -6816,12 +6816,12 @@ textarea.ma-input {
   border-left: 0px;
 }
 
-.ma-checkbox input[type="checkbox"]:checked + .checkbox-appearance {
+.ma-checkbox input[type="checkbox"]:checked + .ma-checkbox-appearance {
   border-color: #FF74B9;
   background-color: #FF74B9;
 }
 
-.ma-checkbox input[type="checkbox"]:checked + .checkbox-appearance:after {
+.ma-checkbox input[type="checkbox"]:checked + .ma-checkbox-appearance:after {
   opacity: 1;
   transform: scale(1) rotate(45deg);
   -webkit-transform: scale(1) rotate(45deg);
@@ -6829,35 +6829,35 @@ textarea.ma-input {
   -moz-transform: scale(1) rotate(45deg);
 }
 
-.ma-checkbox input[type="checkbox"][disabled] + .checkbox-appearance {
+.ma-checkbox input[type="checkbox"][disabled] + .ma-checkbox-appearance {
   border-color: #DDDDDD;
   cursor: not-allowed;
 }
 
-.ma-checkbox input[type="checkbox"][disabled] + .checkbox-appearance + span {
+.ma-checkbox input[type="checkbox"][disabled] + .ma-checkbox-appearance + span {
   cursor: not-allowed;
 }
 
-.ma-checkbox input[type="checkbox"][disabled] + .checkbox-appearance:after {
+.ma-checkbox input[type="checkbox"][disabled] + .ma-checkbox-appearance:after {
   border-color: #DDDDDD;
 }
 
-.ma-checkbox input[type="checkbox"]:checked[disabled] + .checkbox-appearance {
+.ma-checkbox input[type="checkbox"]:checked[disabled] + .ma-checkbox-appearance {
   opacity: 0.4;
   border-color: #FF74B9;
 }
 
-.ma-checkbox input[type="checkbox"]:checked[disabled] + .checkbox-appearance:after {
+.ma-checkbox input[type="checkbox"]:checked[disabled] + .ma-checkbox-appearance:after {
   border-color: #FFFFFF;
   background-color: #FF74B9;
 }
 
-.ma-checkbox.has-sub input[type="checkbox"] + .checkbox-appearance {
+.ma-checkbox.has-sub input[type="checkbox"] + .ma-checkbox-appearance {
   border-color: #FF74B9;
   background-color: #FF74B9;
 }
 
-.ma-checkbox.has-sub input[type="checkbox"] + .checkbox-appearance:after {
+.ma-checkbox.has-sub input[type="checkbox"] + .ma-checkbox-appearance:after {
   opacity: 1;
   width: 8px;
   height: 2px;
@@ -6874,12 +6874,12 @@ textarea.ma-input {
   -moz-transform: scale(1);
 }
 
-.ma-checkbox.has-parent input[type="checkbox"] + .checkbox-appearance {
+.ma-checkbox.has-parent input[type="checkbox"] + .ma-checkbox-appearance {
   border-color: #FF74B9;
   background-color: #FF74B9;
 }
 
-.ma-checkbox.has-parent input[type="checkbox"] + .checkbox-appearance:after {
+.ma-checkbox.has-parent input[type="checkbox"] + .ma-checkbox-appearance:after {
   opacity: 1;
   transform: scale(1) rotate(45deg);
   -webkit-transform: scale(1) rotate(45deg);
@@ -6887,7 +6887,7 @@ textarea.ma-input {
   -moz-transform: scale(1) rotate(45deg);
 }
 
-.ma-checkbox:hover .checkbox-appearance {
+.ma-checkbox:hover .ma-checkbox-appearance {
   border-color: #FF74B9;
 }
 
@@ -8615,7 +8615,7 @@ disabled look for disabled choices in the results dropdown
   padding-left: 23px;
 }
 
-.select2-results li .ma-checkbox .checkbox-appearance {
+.select2-results li .ma-checkbox .ma-checkbox-appearance {
   position: absolute;
   left: 0px;
   top: 8px;
@@ -8689,13 +8689,13 @@ disabled look for disabled choices in the results dropdown
   padding-left: 27px;
 }
 
-.custom-tree-select .select2-results li .ma-checkbox .checkbox-appearance {
+.custom-tree-select .select2-results li .ma-checkbox .ma-checkbox-appearance {
   left: auto;
   right: 0px;
   margin: 0px 0px 0px 10px;
 }
 
-.custom-tree-select .select2-results li .ma-checkbox.custom-multi-select-checkbox-hidden .checkbox-appearance {
+.custom-tree-select .select2-results li .ma-checkbox.custom-multi-select-checkbox-hidden .ma-checkbox-appearance {
   opacity: 0;
 }
 

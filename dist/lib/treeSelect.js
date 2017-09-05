@@ -286,7 +286,7 @@ function maCheckbox($timeout) {
     restrict: 'E',
     transclude: true,
     replace: true,
-    template: '<label class="ma-checkbox">\n    <input type="checkbox"\n      value="{{value}}"\n      data-name="{{name}}"\n      ng-disabled="disabled"\n      ng-model="checked"\n    />\n    <i class="checkbox-appearance"></i>\n    <span ng-transclude></span>\n    </label>',
+    template: '<label class="ma-checkbox">\n    <input type="checkbox"\n      value="{{value}}"\n      data-name="{{name}}"\n      ng-disabled="disabled"\n      ng-model="checked"\n    />\n    <i class="ma-checkbox-appearance"></i>\n    <span ng-transclude></span>\n    </label>',
     scope: {
       name: '@name',
       value: '@value',
@@ -489,7 +489,7 @@ __webpack_require__("akj6");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-angular.module(_name2['default']).directive('maTreeSelect', maTreeSelect).directive('cmultiselect', cmultiselect);
+angular.module(_name2['default']).directive('maTreeSelect', maTreeSelect).directive('maCmultiselect', cmultiselect);
 
 maTreeSelect.$inject = ['$treeSelect'];
 
@@ -497,7 +497,7 @@ function maTreeSelect($treeSelect) {
   return {
     restrict: 'E',
     replace: true,
-    template: '<div class="ma-tree-select">\n      <cmultiselect\n        tree\n        ng-model="model"\n        ng-items="newItems"\n        search-enabled="search"\n        limit="{{limit}}"\n        ng-disabled="disabled"\n        placeholder="{{placeholder}}"\n        clear="{{clear}}"\n        static="{{static}}"\n      >\n      </cmultiselect>\n    </div>',
+    template: '<div class="ma-tree-select">\n      <ma-cmultiselect\n        tree\n        ng-model="model"\n        ng-items="newItems"\n        search-enabled="search"\n        limit="{{limit}}"\n        ng-disabled="disabled"\n        placeholder="{{placeholder}}"\n        clear="{{clear}}"\n        static="{{static}}"\n      >\n      </ma-cmultiselect>\n    </div>',
     scope: {
       model: '=ngModel',
       maModel: '=maModel',

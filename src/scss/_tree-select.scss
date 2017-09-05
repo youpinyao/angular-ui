@@ -1397,7 +1397,7 @@ disabled look for disabled choices in the results dropdown
   padding-left: 23px;
 }
 
-.select2-results li .ma-checkbox .checkbox-appearance {
+.select2-results li .ma-checkbox .ma-checkbox-appearance {
   position: absolute;
   left: 0px;
   top: 8px;
@@ -1470,13 +1470,13 @@ disabled look for disabled choices in the results dropdown
   padding-left: 27px;
 }
 
-.custom-tree-select .select2-results li .ma-checkbox .checkbox-appearance {
+.custom-tree-select .select2-results li .ma-checkbox .ma-checkbox-appearance {
   left: auto;
   right: 0px;
   margin: 0px 0px 0px 10px;
 }
 
-.custom-tree-select .select2-results li .ma-checkbox.custom-multi-select-checkbox-hidden .checkbox-appearance {
+.custom-tree-select .select2-results li .ma-checkbox.custom-multi-select-checkbox-hidden .ma-checkbox-appearance {
   opacity: 0;
 }
 

@@ -9,7 +9,7 @@ import './util.js';
 
 angular.module(moduleName)
   .directive('maTreeSelect', maTreeSelect)
-  .directive('cmultiselect', cmultiselect);
+  .directive('maCmultiselect', cmultiselect);
 
 maTreeSelect.$inject = ['$treeSelect'];
 
@@ -18,7 +18,7 @@ function maTreeSelect($treeSelect) {
     restrict: 'E',
     replace: true,
     template: `<div class="ma-tree-select">
-      <cmultiselect
+      <ma-cmultiselect
         tree
         ng-model="model"
         ng-items="newItems"
@@ -29,7 +29,7 @@ function maTreeSelect($treeSelect) {
         clear="{{clear}}"
         static="{{static}}"
       >
-      </cmultiselect>
+      </ma-cmultiselect>
     </div>`,
     scope: {
       model: '=ngModel',

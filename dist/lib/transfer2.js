@@ -42,7 +42,7 @@ exports['default'] = _name2['default'];
 /***/ "oXUz":
 /***/ (function(module, exports) {
 
-module.exports = " {{each data}}\n {{if !$value._parent || renderSub}}\n<li class=\"ui-select-choices-row tree-level-{{$value._level}} {{$value._sub ? 'has-sub': ''}}\"\n  data-value=\"{{$value[valueKey]}}\"\n  data-from=\"{{$value._from}}\"\n  data-to=\"{{$value._to}}\">\n  <div class=\"select2-result-label ui-select-choices-row-inner\">\n    <div>\n      {{if $value._sub}}\n      <i class=\"tree-arrow-click\">\n        <i class=\"tree-arrow\"></i>\n      </i>\n      {{/if}}\n      <!-- <div class=\"click-mask\"></div> -->\n      <label class=\"ma-checkbox\">\n        <input type=\"checkbox\" />\n        <i class=\"checkbox-appearance\"></i>\n        <span>{{$value[textKey]}}</span>\n      </label>\n    </div>\n  </div>\n</li>\n{{/if}}\n{{/each}}\n";
+module.exports = " {{each data}}\n {{if !$value._parent || renderSub}}\n<li class=\"ui-select-choices-row tree-level-{{$value._level}} {{$value._sub ? 'has-sub': ''}}\"\n  data-value=\"{{$value[valueKey]}}\"\n  data-from=\"{{$value._from}}\"\n  data-to=\"{{$value._to}}\">\n  <div class=\"select2-result-label ui-select-choices-row-inner\">\n    <div>\n      {{if $value._sub}}\n      <i class=\"tree-arrow-click\">\n        <i class=\"tree-arrow\"></i>\n      </i>\n      {{/if}}\n      <!-- <div class=\"click-mask\"></div> -->\n      <label class=\"ma-checkbox\">\n        <input type=\"checkbox\" />\n        <i class=\"ma-checkbox-appearance\"></i>\n        <span>{{$value[textKey]}}</span>\n      </label>\n    </div>\n  </div>\n</li>\n{{/if}}\n{{/each}}\n";
 
 /***/ }),
 
