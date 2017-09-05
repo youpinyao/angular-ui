@@ -7,7 +7,7 @@
   margin-right: 10px;
   @include unselect();
 
-  span {
+  > span {
     font-size: $font14;
     font-weight: normal;
     color: $base;
