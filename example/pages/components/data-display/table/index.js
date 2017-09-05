@@ -256,7 +256,8 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
           titleRender: '', // 带compile 功能的title
           // headerTemplate: '<input type="checkbox" ng-model="$ctrl.checkboxes.checked" class="select-all" value="" />',
           headerTemplateURL: 'headerCheckbox.html',
-          show: true
+          show: true,
+          sortable: 'selector', // 要排序的字段名称
           fLeft: true,// 列漂浮在左边
           fRight: true, // 列漂浮在右边
           render: Function($scope, row, col), // 渲染 带作用域
