@@ -13,7 +13,7 @@
       ng-show="file.progress === undefined || file.progress === 100"
       ma-type="paperclip"
     ></ma-icon>
-    <a href="javascript:void(0)" ma-click="viewFile(file)">{{file.name}}</a>
+    <a href="javascript:void(0)" ma-click="viewFile(ngModel, file, $index)">{{file.name}}</a>
     <ma-icon
       class="close"
       ma-type="close"
