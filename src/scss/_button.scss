@@ -1,9 +1,7 @@
-
 $press: #EDEDEF;
 $primaryPress: #c85e93;
 $dangerPress: #cc405c;
 $disabledOpacity: 0.6;
-
 @mixin flat {
   background-color: transparent;
   border-color: transparent;
@@ -17,7 +15,6 @@ $disabledOpacity: 0.6;
     border-color: $press;
   }
   &.disabled {
-
     &.active,
     &:active,
     &:hover {
@@ -40,14 +37,11 @@ $disabledOpacity: 0.6;
   min-width: 90px;
   cursor: pointer;
   @include unselect();
-
   .iconfont {
+    font-size: $font14;
     position: relative;
-    top: -1px;
     margin-right: 5px;
-    vertical-align: middle;
   }
-
   > span {
     display: inline-block;
     + .iconfont {
@@ -55,17 +49,14 @@ $disabledOpacity: 0.6;
       margin-left: 5px;
     }
   }
-
   &.large {
     padding: 8px 15px;
-    font-size: $font16;
     min-width: 100px;
     .iconfont {
-      font-size: $font16;
+      font-size: $font14;
       @include transition();
     }
   }
-
   &.small {
     padding: 4px 10px;
     font-size: $font12;
@@ -76,8 +67,6 @@ $disabledOpacity: 0.6;
       @include transition();
     }
   }
-
-
   &.mini {
     padding: 2px 8px;
     font-size: $font12;
@@ -89,7 +78,6 @@ $disabledOpacity: 0.6;
       margin-right: 4px;
     }
   }
-
   &.active,
   &:active {
     background-color: $press;
@@ -97,17 +85,14 @@ $disabledOpacity: 0.6;
   &.disabled {
     opacity: $disabledOpacity;
     cursor: not-allowed;
-
     &.active,
     &:active {
       background-color: $white;
     }
   }
-
   &.flat {
     @include flat();
   }
-
   &.primary {
     background-color: $primary;
     border-color: $primary;
@@ -120,25 +105,21 @@ $disabledOpacity: 0.6;
     &.disabled {
       opacity: $disabledOpacity;
       cursor: not-allowed;
-
       &.active,
       &:active {
         background-color: $primary;
         border-color: $primary;
       }
     }
-
     &.flat {
       @include flat();
       color: $primary;
     }
   }
-
   &.danger {
     background-color: $danger;
     border-color: $danger;
     color: $white;
-
     &.active,
     &:active {
       background-color: $dangerPress;
@@ -147,14 +128,12 @@ $disabledOpacity: 0.6;
     &.disabled {
       opacity: $disabledOpacity;
       cursor: not-allowed;
-
       &.active,
       &:active {
         background-color: $danger;
         border-color: $danger;
       }
     }
-
     &.flat {
       @include flat();
       color: $danger;
@@ -164,7 +143,6 @@ $disabledOpacity: 0.6;
 
 .ma-button-group {
   letter-spacing: -0.33em;
-
   > .ma-button {
     letter-spacing: normal;
     border-radius: 0px;
