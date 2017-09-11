@@ -28,6 +28,11 @@ angular.module(moduleName)
 // multiple: false
 // limit: Number.MAX_VALUE,
 // size: 10 * 1024 * 1000,
+// size: {
+//   gif: 10 * 1024 * 1000,
+//   png: 10 * 1024 * 1000,
+//   jpg: 10 * 1024 * 1000
+// },
 // accept: '',
 // convert: function(data, response){}, // 上传成功后回调
 // uploadText: '上传照片',
@@ -186,18 +191,26 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
       config.filters.push({
         name: 'sizeFilter',
         fn(item, options) {
-          if (item.size > config.size) {
-            const m = config.size / 1000 / 1024;
-            const mText = (m + '').indexOf('.') !== -1 ? parseFloat(m).toFixed(2) : parseFloat(m);
-            const k = config.size / 1000;
+          const itemName = item.name.toUpperCase();
 
-            if (m < 1) {
-              $message.danger('最大只能上传' + parseInt(k, 10) + 'K的文件');
-            } else {
-              $message.danger('最大只能上传' + mText + 'M的文件');
-            }
-
+          if (typeof config.size === 'number' && item.size > config.size) {
+            showSizeTip(config.size);
             return false;
+          }
+          if (typeof config.size === 'object') {
+            let hasOver = false;
+            angular.each(config.size, (size, type) => {
+              type = type.toUpperCase();
+              if (type === '*' || itemName.includes(`.${type}`)) {
+                if (item.size > size && !hasOver) {
+                  showSizeTip(size, type);
+                  hasOver = true;
+                }
+              }
+            });
+            if (hasOver) {
+              return false;
+            }
           }
           return true;
         }
@@ -300,6 +313,18 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
 
     function onCompleteItem(fileItem, response, status, headers) {
       $(element).find('input[type="file"]').val('');
+    }
+
+    function showSizeTip(size, type) {
+      const m = size / 1000 / 1024;
+      const mText = (m + '').indexOf('.') !== -1 ? parseFloat(m).toFixed(2) : parseFloat(m);
+      const k = size / 1000;
+
+      if (m < 1) {
+        $message.danger(`${type || ''}最大只能上传${parseInt(k, 10)}K的文件`);
+      } else {
+        $message.danger(`${type || ''}最大只能上传${mText}M的文件`);
+      }
     }
   }
 }

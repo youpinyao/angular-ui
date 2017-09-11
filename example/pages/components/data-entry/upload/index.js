@@ -26,6 +26,11 @@ function mainCtrl($scope, $timeout, $interval) {
 
   $scope.uploadConfig = {
     accept: 'image/gif,image/jpeg,image/bmp,image/jpg,image/png,image/svg,application/pdf',
+    size: {
+      gif: 0.5 * 1024 * 1000,
+      png: 0.5 * 1024 * 1000,
+      pdf: 5 * 1024 * 1000
+    },
   };
 
   $scope.codeText =

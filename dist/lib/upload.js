@@ -506,6 +506,8 @@ exports['default'] = _name2['default'];
 "use strict";
 
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _name = __webpack_require__("N6Gv");
 
 var _name2 = _interopRequireDefault(_name);
@@ -547,6 +549,11 @@ angular.module(_name2['default']).directive('maUpload', maUpload).directive('maU
 // multiple: false
 // limit: Number.MAX_VALUE,
 // size: 10 * 1024 * 1000,
+// size: {
+//   gif: 10 * 1024 * 1000,
+//   png: 10 * 1024 * 1000,
+//   jpg: 10 * 1024 * 1000
+// },
 // accept: '',
 // convert: function(data, response){}, // 上传成功后回调
 // uploadText: '上传照片',
@@ -695,18 +702,26 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
       config.filters.push({
         name: 'sizeFilter',
         fn: function fn(item, options) {
-          if (item.size > config.size) {
-            var m = config.size / 1000 / 1024;
-            var mText = (m + '').indexOf('.') !== -1 ? parseFloat(m).toFixed(2) : parseFloat(m);
-            var k = config.size / 1000;
+          var itemName = item.name.toUpperCase();
 
-            if (m < 1) {
-              $message.danger('最大只能上传' + parseInt(k, 10) + 'K的文件');
-            } else {
-              $message.danger('最大只能上传' + mText + 'M的文件');
-            }
-
+          if (typeof config.size === 'number' && item.size > config.size) {
+            showSizeTip(config.size);
             return false;
+          }
+          if (_typeof(config.size) === 'object') {
+            var hasOver = false;
+            angular.each(config.size, function (size, type) {
+              type = type.toUpperCase();
+              if (type === '*' || itemName.includes('.' + type)) {
+                if (item.size > size && !hasOver) {
+                  showSizeTip(size, type);
+                  hasOver = true;
+                }
+              }
+            });
+            if (hasOver) {
+              return false;
+            }
           }
           return true;
         }
@@ -807,6 +822,18 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
 
     function onCompleteItem(fileItem, response, status, headers) {
       (0, _jquery2['default'])(element).find('input[type="file"]').val('');
+    }
+
+    function showSizeTip(size, type) {
+      var m = size / 1000 / 1024;
+      var mText = (m + '').indexOf('.') !== -1 ? parseFloat(m).toFixed(2) : parseFloat(m);
+      var k = size / 1000;
+
+      if (m < 1) {
+        $message.danger((type || '') + '\u6700\u5927\u53EA\u80FD\u4E0A\u4F20' + parseInt(k, 10) + 'K\u7684\u6587\u4EF6');
+      } else {
+        $message.danger((type || '') + '\u6700\u5927\u53EA\u80FD\u4E0A\u4F20' + mText + 'M\u7684\u6587\u4EF6');
+      }
     }
   }
 }

@@ -21,12 +21,12 @@
         </div>
         <div class="col-12">
           <ma-button>
-            <div ma-upload ng-model="uploadValue">上传文件</div>
+            <div ma-upload ma-upload-config="uploadConfig" ng-model="uploadValue">上传文件</div>
           </ma-button>
         </div>
       </div>
       <div class="col-24">
-        <div ma-upload-image ng-model="uploadValue"></div>
+        <div ma-upload-image ma-upload-config="uploadConfig" ng-model="uploadValue"></div>
       </div>
     </div>
     <div class="p">
@@ -60,6 +60,11 @@
           multiple: false
           limit: Number.MAX_VALUE,
           size: 10 * 1024 * 1000,
+          size: {
+            gif: 10 * 1024 * 1000,
+            png: 10 * 1024 * 1000,
+            jpg: 10 * 1024 * 1000
+          },
           accept: '',
           uploadText: '上传图片',
           convert: function (data, response){
