@@ -548,11 +548,11 @@ angular.module(_name2['default']).directive('maUpload', maUpload).directive('maU
 // 非插件额外配置
 // multiple: false
 // limit: Number.MAX_VALUE,
-// size: 10 * 1024 * 1000,
+// size: 10 * 1024 * 1024,
 // size: {
-//   gif: 10 * 1024 * 1000,
-//   png: 10 * 1024 * 1000,
-//   jpg: 10 * 1024 * 1000
+//   gif: 10 * 1024 * 1024,
+//   png: 10 * 1024 * 1024,
+//   jpg: 10 * 1024 * 1024
 // },
 // accept: '',
 // convert: function(data, response){}, // 上传成功后回调
@@ -672,7 +672,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         autoUpload: true,
         multiple: false,
         filters: [],
-        size: 10 * 1024 * 1000,
+        size: 10 * 1024 * 1024,
         accept: '',
         convertData: function convertData(data) {}
       }, _jquery2['default'].extend(true, _jquery2['default'].extend(true, {}, defaultConfig), scope.uploadConfig || {}));
@@ -825,9 +825,9 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
     }
 
     function showSizeTip(size, type) {
-      var m = size / 1000 / 1024;
+      var m = size / 1024 / 1024;
       var mText = (m + '').indexOf('.') !== -1 ? parseFloat(m).toFixed(2) : parseFloat(m);
-      var k = size / 1000;
+      var k = size / 1024;
 
       if (m < 1) {
         $message.danger((type || '') + '\u6700\u5927\u53EA\u80FD\u4E0A\u4F20' + parseInt(k, 10) + 'K\u7684\u6587\u4EF6');

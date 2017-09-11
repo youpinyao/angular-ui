@@ -58739,11 +58739,11 @@ angular.module(_name2['default']).directive('maUpload', maUpload).directive('maU
 // 非插件额外配置
 // multiple: false
 // limit: Number.MAX_VALUE,
-// size: 10 * 1024 * 1000,
+// size: 10 * 1024 * 1024,
 // size: {
-//   gif: 10 * 1024 * 1000,
-//   png: 10 * 1024 * 1000,
-//   jpg: 10 * 1024 * 1000
+//   gif: 10 * 1024 * 1024,
+//   png: 10 * 1024 * 1024,
+//   jpg: 10 * 1024 * 1024
 // },
 // accept: '',
 // convert: function(data, response){}, // 上传成功后回调
@@ -58863,7 +58863,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         autoUpload: true,
         multiple: false,
         filters: [],
-        size: 10 * 1024 * 1000,
+        size: 10 * 1024 * 1024,
         accept: '',
         convertData: function convertData(data) {}
       }, _jquery2['default'].extend(true, _jquery2['default'].extend(true, {}, defaultConfig), scope.uploadConfig || {}));
@@ -59016,9 +59016,9 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
     }
 
     function showSizeTip(size, type) {
-      var m = size / 1000 / 1024;
+      var m = size / 1024 / 1024;
       var mText = (m + '').indexOf('.') !== -1 ? parseFloat(m).toFixed(2) : parseFloat(m);
-      var k = size / 1000;
+      var k = size / 1024;
 
       if (m < 1) {
         $message.danger((type || '') + '\u6700\u5927\u53EA\u80FD\u4E0A\u4F20' + parseInt(k, 10) + 'K\u7684\u6587\u4EF6');
@@ -63199,11 +63199,11 @@ function maTreeTransfer2() {
 
         function getSub(items) {
           angular.each(items, function (d) {
-            if (model.indexOf(d[$scope.valueKey]) !== -1) {
+            if (model.indexOf(d[$scope.valueKey] + '') !== -1) {
               if (d[$scope.subKey] && d[$scope.subKey].length) {
                 pushSub(d[$scope.subKey]);
               } else {
-                newModel.push(d[$scope.valueKey]);
+                newModel.push(d[$scope.valueKey] + '');
               }
             } else {
               getSub(d[$scope.subKey]);
@@ -63216,7 +63216,7 @@ function maTreeTransfer2() {
             if (d[$scope.subKey] && d[$scope.subKey].length) {
               pushSub(d[$scope.subKey]);
             } else {
-              newModel.push(d[$scope.valueKey]);
+              newModel.push(d[$scope.valueKey] + '');
             }
           });
         }
@@ -63233,7 +63233,7 @@ function maTreeTransfer2() {
         function checkSub(items) {
           angular.each(items, function (d) {
             var sub = d[$scope.subKey];
-            if (selected.indexOf(d[$scope.valueKey]) !== -1 && sub && sub.length) {
+            if (selected.indexOf(d[$scope.valueKey] + '') !== -1 && sub && sub.length) {
               pushSub(sub);
             } else if (sub && sub.length) {
               checkSub(sub);
@@ -63243,7 +63243,7 @@ function maTreeTransfer2() {
 
         function pushSub(sub) {
           angular.each(sub, function (dd) {
-            newSelected.push(dd[$scope.valueKey]);
+            newSelected.push(dd[$scope.valueKey] + '');
             if (dd[$scope.subKey] && dd[$scope.subKey].length) {
               pushSub(dd[$scope.subKey]);
             }
@@ -63264,8 +63264,8 @@ function maTreeTransfer2() {
         function checkSub(items) {
           var subInLen = 0;
           angular.forEach(items, function (d) {
-            if (selected.indexOf(d[$scope.valueKey]) !== -1) {
-              newModel.push(d[$scope.valueKey]);
+            if (selected.indexOf(d[$scope.valueKey] + '') !== -1) {
+              newModel.push(d[$scope.valueKey] + '');
               subInLen++;
             } else {
               var sub = d[$scope.subKey];
@@ -63273,10 +63273,10 @@ function maTreeTransfer2() {
                 var _subInLen = checkSub(sub);
                 // 如果子全部在，就只存在父级
                 if (_subInLen >= sub.length) {
-                  newModel.push(d[$scope.valueKey]);
+                  newModel.push(d[$scope.valueKey] + '');
                   angular.each(sub, function (s) {
-                    if (newModel.indexOf(s[$scope.valueKey]) !== -1) {
-                      newModel.splice(newModel.indexOf(s[$scope.valueKey]), 1);
+                    if (newModel.indexOf(s[$scope.valueKey] + '') !== -1) {
+                      newModel.splice(newModel.indexOf(s[$scope.valueKey] + ''), 1);
                     }
                   });
                 }
@@ -63310,14 +63310,14 @@ function maTreeTransfer2() {
 
         function get(items) {
           angular.each(items, function (item) {
-            if (selected.indexOf(item[$scope.valueKey]) !== -1) {
+            if (selected.indexOf(item[$scope.valueKey] + '') !== -1) {
               var cItem = item;
 
-              newSelected.push(item[$scope.valueKey]);
+              newSelected.push(item[$scope.valueKey] + '');
 
               while (cItem._parent) {
-                if (newSelected.indexOf(cItem._parent[$scope.valueKey]) === -1) {
-                  newSelected.push(cItem._parent[$scope.valueKey]);
+                if (newSelected.indexOf(cItem._parent[$scope.valueKey] + '') === -1) {
+                  newSelected.push(cItem._parent[$scope.valueKey] + '');
                 }
                 cItem = cItem._parent;
               }
@@ -63334,7 +63334,7 @@ function maTreeTransfer2() {
         function getSub(sub) {
           if (sub && sub.length) {
             angular.each(sub, function (item) {
-              newSelected.push(item[$scope.valueKey]);
+              newSelected.push(item[$scope.valueKey] + '');
               getSub(item[$scope.subKey]);
             });
           }
@@ -67873,7 +67873,7 @@ function maTree() {
         // 设置match class
         $scope.newItems.forEach(function (d) {
           if ((d[$scope.textKey] + '').indexOf(searchKey) !== -1) {
-            contentTarget.find(itemCls + '[data-value="' + d[$scope.valueKey] + '"]').addClass('search-match');
+            contentTarget.find(itemCls + '[data-value="' + (d[$scope.valueKey] + '') + '"]').addClass('search-match');
           }
         });
       }
@@ -67908,7 +67908,7 @@ function maTree() {
 
           contentTarget.find(itemCls).removeClass('hidden');
           $scope.hideItems.forEach(function (d) {
-            var value = angular.isObject(d) ? d[$scope.valueKey] : d;
+            var value = angular.isObject(d) ? d[$scope.valueKey] + '' : d;
             var item = contentTarget.find(itemCls + '[data-value="' + value + '"]');
             item.addClass('hidden');
           });
@@ -67928,7 +67928,7 @@ function maTree() {
           contentTarget.find(itemCls).addClass('hidden');
 
           $scope.showItems.forEach(function (d) {
-            var value = angular.isObject(d) ? d[$scope.valueKey] : d;
+            var value = angular.isObject(d) ? d[$scope.valueKey] + '' : d;
             var item = contentTarget.find(itemCls + '[data-value="' + value + '"]');
 
             item.removeClass('hidden');
@@ -67943,7 +67943,7 @@ function maTree() {
       function getChilds(itemValues) {
         var childs = [];
         angular.each($scope.newItems, function (d) {
-          if (itemValues.indexOf(d[$scope.valueKey]) !== -1) {
+          if (itemValues.indexOf(d[$scope.valueKey] + '') !== -1) {
             getChild(d);
           }
         });
@@ -67952,7 +67952,7 @@ function maTree() {
           var sub = item[$scope.subKey];
           if (sub && sub.length) {
             sub.forEach(function (d) {
-              childs.push(d[$scope.valueKey]);
+              childs.push(d[$scope.valueKey] + '');
               getChild(d);
             });
           }
@@ -67963,10 +67963,10 @@ function maTree() {
       function getParents(itemValues) {
         var parents = [];
         angular.each($scope.newItems, function (d) {
-          if (itemValues.indexOf(d[$scope.valueKey]) !== -1) {
+          if (itemValues.indexOf(d[$scope.valueKey] + '') !== -1) {
             var item = d;
             while (item._parent) {
-              parents.push(item._parent[$scope.valueKey]);
+              parents.push(item._parent[$scope.valueKey] + '');
               item = item._parent;
             }
           }

@@ -136,7 +136,7 @@ function maTree() {
         // 设置match class
         $scope.newItems.forEach(d => {
           if ((d[$scope.textKey] + '').indexOf(searchKey) !== -1) {
-            contentTarget.find(`${itemCls}[data-value="${d[$scope.valueKey]}"]`).addClass(
+            contentTarget.find(`${itemCls}[data-value="${d[$scope.valueKey] + ''}"]`).addClass(
               'search-match');
           }
         });
@@ -172,7 +172,7 @@ function maTree() {
 
           contentTarget.find(itemCls).removeClass('hidden');
           $scope.hideItems.forEach(d => {
-            const value = angular.isObject(d) ? d[$scope.valueKey] : d;
+            const value = angular.isObject(d) ? (d[$scope.valueKey] + '') : d;
             const item = contentTarget.find(`${itemCls}[data-value="${value}"]`);
             item.addClass('hidden');
           });
@@ -194,7 +194,7 @@ function maTree() {
           contentTarget.find(itemCls).addClass('hidden');
 
           $scope.showItems.forEach(d => {
-            const value = angular.isObject(d) ? d[$scope.valueKey] : d;
+            const value = angular.isObject(d) ? (d[$scope.valueKey] + '') : d;
             const item = contentTarget.find(`${itemCls}[data-value="${value}"]`);
 
             item.removeClass('hidden');
@@ -210,7 +210,7 @@ function maTree() {
       function getChilds(itemValues) {
         const childs = [];
         angular.each($scope.newItems, d => {
-          if (itemValues.indexOf(d[$scope.valueKey]) !== -1) {
+          if (itemValues.indexOf(d[$scope.valueKey] + '') !== -1) {
             getChild(d);
           }
         });
@@ -219,7 +219,7 @@ function maTree() {
           let sub = item[$scope.subKey];
           if (sub && sub.length) {
             sub.forEach(d => {
-              childs.push(d[$scope.valueKey]);
+              childs.push(d[$scope.valueKey] + '');
               getChild(d);
             });
           }
@@ -230,10 +230,10 @@ function maTree() {
       function getParents(itemValues) {
         const parents = [];
         angular.each($scope.newItems, d => {
-          if (itemValues.indexOf(d[$scope.valueKey]) !== -1) {
+          if (itemValues.indexOf(d[$scope.valueKey] + '') !== -1) {
             let item = d;
             while (item._parent) {
-              parents.push(item._parent[$scope.valueKey]);
+              parents.push(item._parent[$scope.valueKey] + '');
               item = item._parent;
             }
           }

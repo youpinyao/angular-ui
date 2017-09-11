@@ -27,11 +27,11 @@ angular.module(moduleName)
 // 非插件额外配置
 // multiple: false
 // limit: Number.MAX_VALUE,
-// size: 10 * 1024 * 1000,
+// size: 10 * 1024 * 1024,
 // size: {
-//   gif: 10 * 1024 * 1000,
-//   png: 10 * 1024 * 1000,
-//   jpg: 10 * 1024 * 1000
+//   gif: 10 * 1024 * 1024,
+//   png: 10 * 1024 * 1024,
+//   jpg: 10 * 1024 * 1024
 // },
 // accept: '',
 // convert: function(data, response){}, // 上传成功后回调
@@ -159,7 +159,7 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         autoUpload: true,
         multiple: false,
         filters: [],
-        size: 10 * 1024 * 1000,
+        size: 10 * 1024 * 1024,
         accept: '',
         convertData(data) {
 
@@ -316,9 +316,9 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
     }
 
     function showSizeTip(size, type) {
-      const m = size / 1000 / 1024;
+      const m = size / 1024 / 1024;
       const mText = (m + '').indexOf('.') !== -1 ? parseFloat(m).toFixed(2) : parseFloat(m);
-      const k = size / 1000;
+      const k = size / 1024;
 
       if (m < 1) {
         $message.danger(`${type || ''}最大只能上传${parseInt(k, 10)}K的文件`);

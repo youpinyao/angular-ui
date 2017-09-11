@@ -200,11 +200,11 @@ function maTreeTransfer2() {
 
         function getSub(items) {
           angular.each(items, d => {
-            if (model.indexOf(d[$scope.valueKey]) !== -1) {
+            if (model.indexOf(d[$scope.valueKey] + '') !== -1) {
               if (d[$scope.subKey] && d[$scope.subKey].length) {
                 pushSub(d[$scope.subKey]);
               } else {
-                newModel.push(d[$scope.valueKey]);
+                newModel.push(d[$scope.valueKey] + '');
               }
             } else {
               getSub(d[$scope.subKey]);
@@ -217,7 +217,7 @@ function maTreeTransfer2() {
             if (d[$scope.subKey] && d[$scope.subKey].length) {
               pushSub(d[$scope.subKey]);
             } else {
-              newModel.push(d[$scope.valueKey]);
+              newModel.push(d[$scope.valueKey] + '');
             }
           });
         }
@@ -234,7 +234,7 @@ function maTreeTransfer2() {
         function checkSub(items) {
           angular.each(items, d => {
             const sub = d[$scope.subKey];
-            if (selected.indexOf(d[$scope.valueKey]) !== -1 && sub && sub.length) {
+            if (selected.indexOf(d[$scope.valueKey] + '') !== -1 && sub && sub.length) {
               pushSub(sub);
             } else if (sub && sub.length) {
               checkSub(sub);
@@ -244,7 +244,7 @@ function maTreeTransfer2() {
 
         function pushSub(sub) {
           angular.each(sub, dd => {
-            newSelected.push(dd[$scope.valueKey]);
+            newSelected.push(dd[$scope.valueKey] + '');
             if (dd[$scope.subKey] && dd[$scope.subKey].length) {
               pushSub(dd[$scope.subKey]);
             }
@@ -265,8 +265,8 @@ function maTreeTransfer2() {
         function checkSub(items) {
           let subInLen = 0;
           angular.forEach(items, d => {
-            if (selected.indexOf(d[$scope.valueKey]) !== -1) {
-              newModel.push(d[$scope.valueKey]);
+            if (selected.indexOf(d[$scope.valueKey] + '') !== -1) {
+              newModel.push(d[$scope.valueKey] + '');
               subInLen++;
             } else {
               const sub = d[$scope.subKey];
@@ -274,10 +274,10 @@ function maTreeTransfer2() {
                 const subInLen = checkSub(sub);
                 // 如果子全部在，就只存在父级
                 if (subInLen >= sub.length) {
-                  newModel.push(d[$scope.valueKey]);
+                  newModel.push(d[$scope.valueKey] + '');
                   angular.each(sub, s => {
-                    if (newModel.indexOf(s[$scope.valueKey]) !== -1) {
-                      newModel.splice(newModel.indexOf(s[$scope.valueKey]), 1);
+                    if (newModel.indexOf(s[$scope.valueKey] + '') !== -1) {
+                      newModel.splice(newModel.indexOf(s[$scope.valueKey] + ''), 1);
                     }
                   });
                 }
@@ -311,14 +311,14 @@ function maTreeTransfer2() {
 
         function get(items) {
           angular.each(items, item => {
-            if (selected.indexOf(item[$scope.valueKey]) !== -1) {
+            if (selected.indexOf(item[$scope.valueKey] + '') !== -1) {
               let cItem = item;
 
-              newSelected.push(item[$scope.valueKey]);
+              newSelected.push(item[$scope.valueKey] + '');
 
               while (cItem._parent) {
-                if (newSelected.indexOf(cItem._parent[$scope.valueKey]) === -1) {
-                  newSelected.push(cItem._parent[$scope.valueKey]);
+                if (newSelected.indexOf(cItem._parent[$scope.valueKey] + '') === -1) {
+                  newSelected.push(cItem._parent[$scope.valueKey] + '');
                 }
                 cItem = cItem._parent;
               }
@@ -335,7 +335,7 @@ function maTreeTransfer2() {
         function getSub(sub) {
           if (sub && sub.length) {
             angular.each(sub, item => {
-              newSelected.push(item[$scope.valueKey]);
+              newSelected.push(item[$scope.valueKey] + '');
               getSub(item[$scope.subKey]);
             });
           }
