@@ -7315,9 +7315,9 @@ textarea.ma-input {
   top: 0px !important;
 }
 
-.ui-select-choices-row.hidden,
-.ui-select-choices-row.child-hide,
-.ui-select-choices-row.hide {
+.ma-tree-select .ui-select-choices-row.hidden,
+.ma-tree-select .ui-select-choices-row.child-hide,
+.ma-tree-select .ui-select-choices-row.hide {
   display: none;
 }
 

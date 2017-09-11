@@ -26,10 +26,12 @@
   top: 0px !important;
 }
 
-.ui-select-choices-row.hidden,
-.ui-select-choices-row.child-hide,
-.ui-select-choices-row.hide {
-  display: none;
+.ma-tree-select {
+  .ui-select-choices-row.hidden,
+  .ui-select-choices-row.child-hide,
+  .ui-select-choices-row.hide {
+    display: none;
+  }
 }
 
 .ui-select-choices-row:hover {
