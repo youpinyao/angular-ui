@@ -58,6 +58,13 @@ function lightGalleryService() {
     $('body').append(div);
 
     images.forEach(function(d) {
+      if (/.gif/g.test(`${d}`.toLowerCase())) {
+        if (/\?/g.test(`${d}`.toLowerCase())) {
+          d += `&t=${+new Date()}`;
+        } else {
+          d += `?t=${+new Date()}`;
+        }
+      }
       div.append('<div data-src="' + d + '"></div>');
     });
 

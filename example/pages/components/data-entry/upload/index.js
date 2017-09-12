@@ -15,7 +15,7 @@ function mainCtrl($scope, $timeout, $interval) {
   }, {
     id: 2,
     name: '666.jpg',
-    url: 'http://inews.gtimg.com/newsapp_match/0/1467611934/0',
+    url: 'http://img1.0515yc.cn/material/news/img/640x/2016/11/20161129104030q4Px.gif',
     progress: 100,
   }, {
     id: 3,
