@@ -318,7 +318,7 @@ function maCheckbox($timeout) {
 
       scope.$watch('checked', function (d) {
         scope.$applyAsync(function () {
-          var checkboxs = (0, _jquery2['default'])(element).parent().find('input[type="checkbox"]');
+          var checkboxs = (0, _jquery2['default'])(element).parent().find('> .ma-checkbox input[type="checkbox"]');
           var values = [];
 
           if (scope.name) {
