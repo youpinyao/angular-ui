@@ -63,7 +63,7 @@ function messageFactory($rootScope, $q, $http, $timeout, $compile) {
         setTimeout(function(msg) {
           msg.remove = true;
           $timeout();
-        }, 800, msg);
+        }, 350, msg);
       }, 2000, msg);
     },
     clearList() {
