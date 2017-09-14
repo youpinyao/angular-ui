@@ -2,6 +2,8 @@ import moduleName from './name.js';
 import maModalTpl from './maModalTpl.html';
 import $ from 'jquery';
 
+const isIE9 = /msie 9\.0/g.test(window.navigator.userAgent.toLowerCase());
+
 angular.module(moduleName)
   .directive('maModal', maModal);
 
@@ -17,20 +19,26 @@ function maModal($timeout, $compile) {
     replace: true,
     template: maModalTpl,
     controllerAs: '$ctrl',
-    controller: ['$scope', '$element', function ($scope, $element) {
+    controller: ['$scope', '$element', function($scope, $element) {
       const config = $scope.config;
       this.close = close;
       this.buttonClick = buttonClick;
 
       // 渲染弹窗内容
-      $($element).find('.ma-modal-body').html(config.template);
-      $compile($($element).find('.ma-modal-body'))(config.scope);
+      $timeout(() => {
+        $($element).find('.ma-modal-body').html(config.template);
+        $compile($($element).find('.ma-modal-body'))(config.scope);
+      });
 
       function close($event) {
         config.show = false;
+
         $timeout(() => {
           $($element).remove();
-        }, 400);
+          if (!$('.ma-modal.show').length) {
+            $('body').removeClass('has-ma-modal');
+          }
+        }, isIE9 ? 0 : 310);
       }
 
       function buttonClick($event, callback) {
@@ -39,7 +47,7 @@ function maModal($timeout, $compile) {
         }
       }
     }],
-    link: function (scope, element, attrs, ctrl) {
+    link: function(scope, element, attrs, ctrl) {
 
     }
   };

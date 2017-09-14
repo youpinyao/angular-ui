@@ -178,8 +178,11 @@ function modalFactroy($rootScope, $compile, $timeout) {
     }
     newConfig.scope.modals[uuid] = newConfig;
 
-    $('body').append(maModalEl);
-    newConfig.show = true;
+    $('body').append(maModalEl).addClass('has-ma-modal');
     $compile(maModalEl)(newConfig.scope);
+
+    $timeout(() => {
+      newConfig.show = true;
+    }, 0);
   }
 }

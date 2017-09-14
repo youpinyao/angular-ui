@@ -9717,6 +9717,10 @@ disabled look for disabled choices in the results dropdown
   -moz-transform: translate(0px, 0px) scale(1);
 }
 
+body.has-ma-modal {
+  overflow: hidden;
+}
+
 .ma-modal {
   position: fixed;
   z-index: 20;

@@ -18467,9 +18467,12 @@ function modalFactroy($rootScope, $compile, $timeout) {
     }
     newConfig.scope.modals[uuid] = newConfig;
 
-    (0, _jquery2['default'])('body').append(maModalEl);
-    newConfig.show = true;
+    (0, _jquery2['default'])('body').append(maModalEl).addClass('has-ma-modal');
     $compile(maModalEl)(newConfig.scope);
+
+    $timeout(function () {
+      newConfig.show = true;
+    }, 0);
   }
 }
 
@@ -64068,6 +64071,8 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+var isIE9 = /msie 9\.0/g.test(window.navigator.userAgent.toLowerCase());
+
 angular.module(_name2['default']).directive('maModal', maModal);
 
 maModal.$inject = ['$timeout', '$compile'];
@@ -64088,14 +64093,20 @@ function maModal($timeout, $compile) {
       this.buttonClick = buttonClick;
 
       // 渲染弹窗内容
-      (0, _jquery2['default'])($element).find('.ma-modal-body').html(config.template);
-      $compile((0, _jquery2['default'])($element).find('.ma-modal-body'))(config.scope);
+      $timeout(function () {
+        (0, _jquery2['default'])($element).find('.ma-modal-body').html(config.template);
+        $compile((0, _jquery2['default'])($element).find('.ma-modal-body'))(config.scope);
+      });
 
       function close($event) {
         config.show = false;
+
         $timeout(function () {
           (0, _jquery2['default'])($element).remove();
-        }, 400);
+          if (!(0, _jquery2['default'])('.ma-modal.show').length) {
+            (0, _jquery2['default'])('body').removeClass('has-ma-modal');
+          }
+        }, isIE9 ? 0 : 310);
       }
 
       function buttonClick($event, callback) {
