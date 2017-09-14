@@ -741,7 +741,7 @@ function messageFactory($rootScope, $q, $http, $timeout, $compile) {
         setTimeout(function (msg) {
           msg.remove = true;
           $timeout();
-        }, 800, msg);
+        }, 350, msg);
       }, 2000, msg);
     },
     clearList: function clearList() {
@@ -18468,12 +18468,8 @@ function modalFactroy($rootScope, $compile, $timeout) {
     newConfig.scope.modals[uuid] = newConfig;
 
     (0, _jquery2['default'])('body').append(maModalEl);
-
+    newConfig.show = true;
     $compile(maModalEl)(newConfig.scope);
-
-    $timeout(function () {
-      newConfig.show = true;
-    }, 50);
   }
 }
 
@@ -64099,7 +64095,7 @@ function maModal($timeout, $compile) {
         config.show = false;
         $timeout(function () {
           (0, _jquery2['default'])($element).remove();
-        }, 1000);
+        }, 400);
       }
 
       function buttonClick($event, callback) {

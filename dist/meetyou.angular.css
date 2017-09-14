@@ -10059,7 +10059,7 @@ disabled look for disabled choices in the results dropdown
 .ma-date-range-picker-wrapper.date-picker-wrapper {
   display: none;
   position: absolute;
-  z-index: 2;
+  z-index: 999;
   border: 1px solid #ebebeb;
   background-color: #fff;
   padding: 0px;

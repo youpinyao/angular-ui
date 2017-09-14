@@ -30,7 +30,7 @@ function maModal($timeout, $compile) {
         config.show = false;
         $timeout(() => {
           $($element).remove();
-        }, 1000);
+        }, 400);
       }
 
       function buttonClick($event, callback) {
