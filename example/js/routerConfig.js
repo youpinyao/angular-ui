@@ -172,7 +172,7 @@ const routers = [{
   }, {
     title: 'Data Entry 数据输入',
     state: 'components.dataEntry',
-    url: '/data-enpty',
+    url: '/data-entry',
     ...dataEntry,
     routers: [{
       title: 'Input 输入框',
