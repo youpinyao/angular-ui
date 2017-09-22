@@ -26,7 +26,6 @@ function maDatePicker($filter) {
       maPlaceholder: '@maPlaceholder',
       showClear: '@maClear',
       disabled: '=ngDisabled',
-      autoClose: '@maAutoClose',
     },
     require: 'ngModel',
     template: maDatePickerTpl,
