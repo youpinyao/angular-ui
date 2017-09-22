@@ -9,6 +9,7 @@
 #### [项目注入](#项目注入)
 #### [浏览器引入](#浏览器引入)
 #### [CLI](#CLI)
+#### [demo](#demo)
 ---
   
 > ## 原因
@@ -60,3 +61,6 @@ angular.module('app', [
 > ## CLI
 
 [meetyou-angular-cli](https://www.npmjs.com/package/meetyou-angular-cli)
+
+> ## demo
+[https://youpinyao.github.io/meetyou-angular-ui/](https://youpinyao.github.io/meetyou-angular-ui/)
