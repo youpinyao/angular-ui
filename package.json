@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/youpinyao/meetyou-angular-ui#readme",
   "dependencies": {
-    "angular-datepicker-custom": "2.1.12",
+    "angular-datepicker-custom": "2.1.13",
     "angular-file-upload": "2.5.0",
     "angular-validation-custom": "1.4.5",
     "art-template": "4.12.1",
