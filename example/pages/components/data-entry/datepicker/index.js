@@ -13,6 +13,10 @@ function mainCtrl($scope, $timeout) {
 
   $scope.maxDate = new Date();
 
+  $scope.$watch('pickerDate', d => {
+    console.log('pickerDate', d);
+  });
+
   $timeout(() => {
     $scope.maxDate = null;
     $scope.pickerDate = new Date();
