@@ -1408,7 +1408,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         var td = _tdTpl2['default'].replace(/col&&\{index\}/g, 'col' + colIndex);
         var hasCompile = col.render || col.field == 'selector';
 
-        tdItems.push([td.replace(/&&\{colClass\}/g, col.colClass || ''), hasCompile, col]);
+        tdItems.push([td.replace(/&&\{colClass\}/g, col.colClass || ''), hasCompile, col, col.field === 'selector']);
 
         $scope['col' + colIndex] = col;
       }
@@ -1429,6 +1429,9 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         trElement.append(el);
 
         if (d[1]) {
+          if (d[3]) {
+            el.attr('is-checkbox', true);
+          }
           el.attr('has-compile', true);
           // $compile(el)($scope);
         } else if (d[2].customHtml || d[2].renderHtml) {
@@ -1450,7 +1453,19 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     }
 
     target.find('td[has-compile="true"]').each(function () {
-      $compile(this)($scope);
+      if ((0, _jquery2['default'])(this).attr('is-checkbox') == 'true') {
+        if (self.floatLeftCols !== false && (0, _jquery2['default'])(this).parents('.float-left-table').length) {
+          // 如果是漂浮的checkbox 就不compile
+          $compile(this)($scope);
+          console.log('compile');
+        } else if (self.floatLeftCols === false) {
+          $compile(this)($scope);
+          console.log('compile');
+        }
+      } else {
+        $compile(this)($scope);
+        console.log('compile');
+      }
     });
     $timeout();
   }
