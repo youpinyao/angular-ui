@@ -60,7 +60,7 @@ angular.module('app', [
 
 > ## CLI
 
-[meetyou-angular-cli](https://www.npmjs.com/package/meetyou-angular-cli)
+[meetyou-angular-cli](https://www.npmjs.com/package/meetyou-angular-cli){:target="_blank"}
 
 > ## demo
-[https://youpinyao.github.io/meetyou-angular-ui/](https://youpinyao.github.io/meetyou-angular-ui/)
+[https://youpinyao.github.io/meetyou-angular-ui/](https://youpinyao.github.io/meetyou-angular-ui/){:target="_blank"}
