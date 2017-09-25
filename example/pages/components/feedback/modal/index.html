@@ -12,49 +12,50 @@
     </p>
     <h3>代码演示</h3>
     <div class="p clearfix">
-      <ma-button ma-click="openModal()">open</ma-button>
-      <ma-button ma-click="openConfirm()">confirm</ma-button>
-      <ma-button ma-click="openDelete()">delete</ma-button>
-      <ma-button ma-click="openAlert()">alert</ma-button>
-    </div>
-    <div class="p">
-      <code>
-        const defaultConfig = {
-          scope: null, // 作用域 默认 $rootScope
-          title: '', // 标题
-          cls: '', // 样式名称
-          content: '', //内容 只有在 confirm 和 delete 的时候使用，其它无效
-          template: '', // 主体内容模板
-          showClose: true, // 显示关闭按钮
-          clickMaskClose: false, // 点击遮罩是否关闭对话框
-          okCallback: undefined, // 如果使用默认按钮的保存回调
-          cancelCallback: undefined, // 如果使用默认按钮的放弃回调
-          buttons: [{
-            text: '保存修改',
-            type: 'primary',
-            size: 'default',
-            disabled: false,
-            callback($ctrl, config) {
-              // 点击回调
-              if (typeof config.okCallback === 'function') {
-                config.okCallback($ctrl, config);
-              }
-            },
-          }, {
-            text: '放弃',
-            type: 'default',
-            size: 'default',
-            disabled: false,
-            callback($ctrl, config) {
-              // 点击回调
-              if (typeof config.okCallback === 'function') {
-                config.cancelCallback($ctrl, config);
-              }
-            },
-          }], // 底部按钮
-        };
+      ${require('./code.html')}
+      <ma-code>
+        <div class="right">
+          <a href="https://jsfiddle.net/youpinyao/n8ymn6uf/" target="_blank">jsfiddle</a>
+        </div>
+        <code><div ng-bind="codeText"></div>
+const defaultConfig = {
+  scope: null, // 作用域 默认 $rootScope
+  title: '', // 标题
+  cls: '', // 样式名称
+  content: '', //内容 只有在 confirm 和 delete 的时候使用，其它无效
+  template: '', // 主体内容模板
+  showClose: true, // 显示关闭按钮
+  clickMaskClose: false, // 点击遮罩是否关闭对话框
+  okCallback: undefined, // 如果使用默认按钮的保存回调
+  cancelCallback: undefined, // 如果使用默认按钮的放弃回调
+  buttons: [{
+    text: '保存修改',
+    type: 'primary',
+    size: 'default',
+    disabled: false,
+    callback($ctrl, config) {
+      // 点击回调
+      if (typeof config.okCallback === 'function') {
+        config.okCallback($ctrl, config);
+      }
+    },
+  }, {
+    text: '放弃',
+    type: 'default',
+    size: 'default',
+    disabled: false,
+    callback($ctrl, config) {
+      // 点击回调
+      if (typeof config.okCallback === 'function') {
+        config.cancelCallback($ctrl, config);
+      }
+    },
+  }], // 底部按钮
+};
 
-      </code>
+        </code>
+      </ma-code>
+
     </div>
 
     <h3>API</h3>

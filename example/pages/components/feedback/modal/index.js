@@ -7,6 +7,7 @@ angular.module('app').controller(controller, mainCtrl);
 mainCtrl.$inject = ['$scope', '$timeout', '$interval', '$modal', '$message'];
 
 function mainCtrl($scope, $timeout, $interval, $modal, $message) {
+  $scope.codeText = require('./code.html');
   const cb = {
     okCallback($ctrl) {
       $ctrl.close();
