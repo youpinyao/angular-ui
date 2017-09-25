@@ -5,16 +5,23 @@
 </ma-crumb> -->
 <ma-crumb-auto></ma-crumb-auto>
 <div class="feedback-spin-page">
-  <div class="container" ma-full-container>
+  <div class="container"
+    ma-full-container>
     <h2>Spin 加载中</h2>
     <p>
-     用于页面和区块的加载中状态。
+      用于页面和区块的加载中状态。
     </p>
     <h3>代码演示</h3>
     <div class="p clearfix">
-      <ma-spin
-        ma-size="120"
-      ></ma-spin>
+      <ma-input-number name="test"
+        min="40"
+        max="200"
+        step="10"
+        ng-model="numberTestValue"></ma-input-number>
+      <ma-spin ma-size="{{numberTestValue}}"></ma-spin>
+    </div>
+    <div class="p">
+      <code ng-bind="codeText"></code>
     </div>
 
     <h3>API</h3>
