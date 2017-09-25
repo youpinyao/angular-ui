@@ -8,10 +8,14 @@ import '../scss/app.scss';
 import loginService from './services/loginService.js';
 import requestService from './services/requestService.js';
 
+
+import codeDirective from './directives/codeDirective.js';
+
 const app = angular.module('app', [
   meetyou,
   loginService,
   requestService,
+  codeDirective,
   'ui.router',
   'ngSanitize',
 ]);

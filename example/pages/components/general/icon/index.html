@@ -16,12 +16,16 @@
     </p>
     <h3>如何使用</h3>
     <div class="p">
-      <code ng-bind="iconSampleCode"></code>
-      <div class="pt-10">
-        <a target="_blank"
-          href="https://jsfiddle.net/youpinyao/adqdf6cs/">jsfiddle</a>
-      </div>
+      ${require('./code.html')}
+      <ma-code>
+        <div class="right">
+          <a target="_blank"
+            href="https://jsfiddle.net/youpinyao/adqdf6cs/">jsfiddle</a>
+        </div>
+        <code ng-bind="codeText"></code>
+      </ma-code>
     </div>
+
     <h3>API</h3>
     <div class="p">
       <table>

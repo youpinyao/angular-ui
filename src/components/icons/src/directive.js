@@ -13,6 +13,7 @@ function maIcon() {
   return {
     restrict: 'E',
     replace: true,
+    transclude: true,
     scope: {
       type: '@maType',
       size: '@maSize',
@@ -21,6 +22,7 @@ function maIcon() {
     <i
       class="iconfont icon-{{type}}"
       ng-style="{fontSize: size + 'px'}"
+      ng-transclude
     ></i>`,
     link: function (scope, element, attrs, controllers) {
 

@@ -13,15 +13,13 @@
     </p>
     <h3>代码演示</h3>
     <div class="p clearfix">
-      <ma-input-number name="test"
-        min="40"
-        max="200"
-        step="10"
-        ng-model="numberTestValue"></ma-input-number>
-      <ma-spin ma-size="{{numberTestValue}}"></ma-spin>
-    </div>
-    <div class="p">
-      <code ng-bind="codeText"></code>
+      ${require('./code.html')}
+      <ma-code>
+        <div class="right">
+          <a href="https://jsfiddle.net/youpinyao/s1gxLaft/" target="_blank">jsfiddle</a>
+        </div>
+        <code ng-bind="codeText"></code>
+      </ma-code>
     </div>
 
     <h3>API</h3>

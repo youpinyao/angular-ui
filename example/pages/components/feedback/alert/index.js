@@ -7,6 +7,7 @@ angular.module('app').controller(controller, mainCtrl);
 mainCtrl.$inject = ['$scope', '$timeout', '$interval', '$message'];
 
 function mainCtrl($scope, $timeout, $interval, $message) {
+  $scope.codeText = require('./code.html');
   $scope.alertItems = [{
     type: 'success',
     text: '成功提示框，主要用来显示成功信息。',

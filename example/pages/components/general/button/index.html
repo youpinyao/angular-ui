@@ -11,74 +11,15 @@
     <p>按钮用于开始一个即时操作。</p>
     <h3>代码演示</h3>
     <div class="p clearfix">
-      <div class="col-24">
-        <h4>Size</h4>
-        <div class="ma-button-group">
-          <ma-button ma-size="{{sizeModel}}"
-            ma-active="{{sizeModel == 'large'}}"
-            ma-click="sizeModel = 'large'">Large</ma-button>
-          <ma-button ma-size="{{sizeModel}}"
-            ma-active="{{sizeModel == 'default'}}"
-            ma-click="sizeModel = 'default'">Default</ma-button>
-          <ma-button ma-size="{{sizeModel}}"
-            ma-active="{{sizeModel == 'small'}}"
-            ma-click="sizeModel = 'small'">Small</ma-button>
-          <ma-button ma-size="{{sizeModel}}"
-            ma-active="{{sizeModel == 'mini'}}"
-            ma-click="sizeModel = 'mini'">Mini</ma-button>
-        </div>
-      </div>
-      <div class="col-12">
-        <h4>Default</h4>
-        <ma-button ma-size="{{sizeModel}}">
-          <ma-icon ma-type="download"></ma-icon>Default</ma-button>
-        <ma-button ma-size="{{sizeModel}}"
-          ng-disabled="true">Default</ma-button>
-
-        <h4>Primary</h4>
-        <ma-button ma-size="{{sizeModel}}"
-          ma-type="primary">Primary</ma-button>
-        <ma-button ma-size="{{sizeModel}}"
-          ma-type="primary"
-          ng-disabled="true">Primary</ma-button>
-
-        <h4>Danger</h4>
-        <ma-button ma-size="{{sizeModel}}"
-          ma-type="danger">Danger</ma-button>
-        <ma-button ma-size="{{sizeModel}}"
-          ma-type="danger"
-          ng-disabled="true">Danger</ma-button>
-      </div>
-
-      <div class="col-12">
-        <h4>Default Flat</h4>
-        <ma-button ma-size="{{sizeModel}}"
-          ma-flat="true">Default</ma-button>
-        <ma-button ma-size="{{sizeModel}}"
-          ma-flat="true"
-          ng-disabled="true">Default</ma-button>
-
-        <h4>Primary Flat</h4>
-        <ma-button ma-size="{{sizeModel}}"
-          ma-flat="true"
-          ma-type="primary">Primary</ma-button>
-        <ma-button ma-size="{{sizeModel}}"
-          ma-flat="true"
-          ma-type="primary"
-          ng-disabled="true">Primary</ma-button>
-
-        <h4>Danger Flat</h4>
-        <ma-button ma-size="{{sizeModel}}"
-          ma-flat="true"
-          ma-type="danger">Danger</ma-button>
-        <ma-button ma-size="{{sizeModel}}"
-          ma-flat="true"
-          ma-type="danger"
-          ng-disabled="true">Danger</ma-button>
-      </div>
+      ${require('./code.html')}
       <div class="col-24 pt-10">
-        <a href="https://jsfiddle.net/youpinyao/q3bw0zsz/"
-          target="_blank">jsfiddle</a>
+        <ma-code>
+          <div class="right">
+            <a href="https://jsfiddle.net/youpinyao/q3bw0zsz/"
+              target="_blank">jsfiddle</a>
+          </div>
+          <code ng-bind="codeText"></code>
+        </ma-code>
       </div>
     </div>
 

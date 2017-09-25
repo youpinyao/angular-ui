@@ -11,7 +11,7 @@ angular.module('app').controller(controller, mainCtrl);
 mainCtrl.$inject = ['$scope', '$timeout'];
 
 function mainCtrl($scope, $timeout) {
-  $scope.iconSampleCode = '<ma-icon ma-type="unlock" />';
+  $scope.codeText = require('./code.html');
   $scope.icons = $.extend(true, [], icons);
 
   $scope.icons.forEach((icon, i) => {

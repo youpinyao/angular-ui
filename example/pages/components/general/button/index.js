@@ -8,6 +8,7 @@ mainCtrl.$inject = ['$scope'];
 
 function mainCtrl($scope) {
   $scope.sizeModel = 'default';
+  $scope.codeText = require('./code.html');
 }
 
 export default {

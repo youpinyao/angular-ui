@@ -13,29 +13,24 @@
     </p>
     <h3>代码演示</h3>
     <div class="p clearfix">
-      <ma-alert
-        ma-items="alertItems"
-        ma-class="mb-20"
-      ></ma-alert>
-    </div>
-    <div class="p">
-      <code>
-        // ma-items
-        $scope.alertItems = [{
-          type: 'success',
-          text: '成功提示框，主要用来显示成功信息。',
-          close: false,
-        }, {
-          type: 'danger',
-          text: '危险提示框，主要用来显示错误信息。',
-        }, {
-          type: 'warning',
-          text: '警告提示框，主要用来显示重要信息。',
-        }];
+      ${require('./code.html')}
+      <ma-code>
+        <div class="right"><a href="https://jsfiddle.net/youpinyao/4zqqwuej/" target="_blank">jsfiddle</a></div>
+        <code><div ng-bind="codeText"></div>
+// ma-items
+$scope.alertItems = [{
+  type: 'success',
+  text: '成功提示框，主要用来显示成功信息。',
+  close: false,
+}, {
+  type: 'danger',
+  text: '危险提示框，主要用来显示错误信息。',
+}, {
+  type: 'warning',
+  text: '警告提示框，主要用来显示重要信息。',
+}];
       </code>
-      <div class="pt-10">
-        <a href="https://jsfiddle.net/youpinyao/4zqqwuej/" target="_blank">jsfiddle</a>
-      </div>
+      </ma-code>
     </div>
     <h3>API</h3>
     <div class="p">

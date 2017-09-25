@@ -29,13 +29,13 @@ p {
   padding-bottom: 30px;
   font-size: $font14;
   line-height: $font24;
-  code {
-    display: block;
-    border-radius: 5px;
-    padding: 10px 10px 10px 10px;
-    background-color: $background;
-    white-space: pre-wrap;
-  }
+}
+
+code {
+  padding: 10px;
+  white-space: pre-wrap;
+  display: block;
+  background-color: $background;
 }
 
 .p:last-child,
@@ -55,5 +55,29 @@ h3 + .p > table {
   th {
     background-color: $background;
     color: $base;
+  }
+}
+
+.ma-code {
+  border: 1px solid $disabled;
+  margin-top: 10px;
+  .ma-code-bar {
+    padding: 5px 10px;
+    text-align: right;
+    .iconfont {
+      cursor: pointer;
+      &:before {
+        margin-right: 5px;
+      }
+    }
+  }
+  .ma-code-more {
+    background-color: $background;
+    padding: 10px;
+    code {
+      padding: 0;
+      white-space: pre-wrap;
+      display: block;
+    }
   }
 }
