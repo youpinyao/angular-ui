@@ -5,85 +5,26 @@
 </ma-crumb> -->
 <ma-crumb-auto></ma-crumb-auto>
 <div class="feedback-progress-page">
-  <div class="container" ma-full-container>
+  <div class="container"
+    ma-full-container>
     <h2>Progress 进度条</h2>
     <p>
-      在操作需要较长时间才能完成时，为用户显示该操作的当前进度和状态。<br/>
-      当一个操作会打断当前界面，或者需要在后台运行，且耗时可能超过2秒时；<br/>
-      当需要显示一个操作完成的百分比时。
+      在操作需要较长时间才能完成时，为用户显示该操作的当前进度和状态。
+      <br/> 当一个操作会打断当前界面，或者需要在后台运行，且耗时可能超过2秒时；
+      <br/> 当需要显示一个操作完成的百分比时。
     </p>
     <h3>代码演示</h3>
     <div class="p">
-      <ma-input-number
-        ng-model="percent"
-        min="0"
-        max="100"
-        step="10"
-      ></ma-input-number>
+      ${require('./code.html')}
+      <ma-code>
+        <div class="right">
+          <a href="https://jsfiddle.net/youpinyao/1ywc7qnk/"
+            target="_blank">jsfiddle</a>
+        </div>
+        <code ng-bind="codeText"></code>
+      </ma-code>
     </div>
-    <div class="p clearfix">
-      <ma-progress
-        ma-percent="{{percent}}"
-        ma-stroke-width="6"
-        ma-size="120"
-        ma-status="success"
-        ma-type="circle"
-        class="mr-20"
-      >
-      {{percent}}%
-      </ma-progress>
-      <ma-progress
-        ma-percent="{{percent}}"
-        ma-stroke-width="6"
-        ma-size="120"
-        ma-status="danger"
-        ma-type="circle"
-        class="mr-20"
-      >
-      {{percent}}%
-      </ma-progress>
-      <ma-progress
-        ma-percent="{{percent}}"
-        ma-stroke-width="6"
-        ma-size="120"
-        ma-status="warning"
-        ma-type="circle"
-        class="mr-20"
-      >
-      {{percent}}%
-      </ma-progress>
 
-      <ma-progress
-        ma-percent="{{percent}}"
-        ma-stroke-width="6"
-        ma-size="120"
-        ma-status="success"
-        ma-type="line"
-        class="mr-20"
-      >
-      {{percent}}%
-      </ma-progress>
-      <ma-progress
-        ma-percent="{{percent}}"
-        ma-stroke-width="6"
-        ma-size="120"
-        ma-status="danger"
-        ma-type="line"
-        class="mr-20"
-      >
-      {{percent}}%
-      </ma-progress>
-      <ma-progress
-        ma-percent="{{percent}}"
-        ma-stroke-width="6"
-        ma-size="120"
-        ma-status="warning"
-        ma-type="line"
-        class="mr-20"
-      >
-      {{percent}}%
-      </ma-progress>
-    </div>
 
     <h3>API</h3>
     <div class="p">

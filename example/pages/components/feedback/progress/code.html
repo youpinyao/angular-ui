@@ -1,0 +1,57 @@
+<ma-input-number ng-model="percent"
+  class="mb-20"
+  min="0"
+  max="100"
+  step="10"></ma-input-number>
+
+<div class="clearfix pb-20">
+  <ma-progress ma-percent="{{percent}}"
+    ma-stroke-width="6"
+    ma-size="120"
+    ma-status="success"
+    ma-type="circle"
+    class="mr-20">
+    {{percent}}%
+  </ma-progress>
+  <ma-progress ma-percent="{{percent}}"
+    ma-stroke-width="6"
+    ma-size="120"
+    ma-status="danger"
+    ma-type="circle"
+    class="mr-20">
+    {{percent}}%
+  </ma-progress>
+  <ma-progress ma-percent="{{percent}}"
+    ma-stroke-width="6"
+    ma-size="120"
+    ma-status="warning"
+    ma-type="circle"
+    class="mr-20">
+    {{percent}}%
+  </ma-progress>
+
+  <ma-progress ma-percent="{{percent}}"
+    ma-stroke-width="6"
+    ma-size="120"
+    ma-status="success"
+    ma-type="line"
+    class="mr-20">
+    {{percent}}%
+  </ma-progress>
+  <ma-progress ma-percent="{{percent}}"
+    ma-stroke-width="6"
+    ma-size="120"
+    ma-status="danger"
+    ma-type="line"
+    class="mr-20">
+    {{percent}}%
+  </ma-progress>
+  <ma-progress ma-percent="{{percent}}"
+    ma-stroke-width="6"
+    ma-size="120"
+    ma-status="warning"
+    ma-type="line"
+    class="mr-20">
+    {{percent}}%
+  </ma-progress>
+</div>
