@@ -14,7 +14,7 @@
     color: $base;
     &:after,
     &:before {
-      border-color: rgba(0, 0, 0, 0.20);
+      border-color: rgba(0, 0, 0, 0.05);
     }
     &:after {
       border-color: $white;

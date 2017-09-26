@@ -13,6 +13,7 @@ mainCtrl.$inject = ['$scope', '$timeout', '$interval', '$modal', '$message', '$i
 function mainCtrl($scope, $timeout, $interval, $modal, $message, $injector, $popconfirm) {
   const $validationProvider = $injector.get('$validation');
 
+  $scope.codeText = require('./code.html');
 
   $scope.inputValue = '777';
   $scope.popconfirmTemplate = popconfirmTemplate;

@@ -14,20 +14,15 @@
     </p>
     <h3>代码演示</h3>
     <div class="p clearfix">
-      <div class="col-12">
-        <ma-popconfirm ma-template="popconfirmTemplate"
-          ma-click-hide="true"
-          ma-change-callback="changeCallback(show)"
-          ma-direction="tr">
-          <a href="javascript:void(0)">鼠标点击其他隐藏</a>
-        </ma-popconfirm>
-      </div>
-      <div class="col-12">
-        <ma-popconfirm ma-template="popconfirmTemplateText"
-          ma-direction="tr"
-          ma-click-hide="false">
-          <a href="javascript:void(0)">鼠标离开我自动隐藏</a>
-        </ma-popconfirm>
+      ${require('./code.html')}
+      <div class="col-24">
+        <ma-code>
+          <div class="right">
+            <a href="https://jsfiddle.net/youpinyao/s0m3aL5j/"
+              target="_blank">jsfiddle</a>
+          </div>
+          <code ng-bind="codeText"></code>
+        </ma-code>
       </div>
     </div>
 
