@@ -10,20 +10,31 @@
     <h2>Menu 菜单</h2>
     <p>为页面和功能提供导航的菜单列表。</p>
 
+    <h3>依赖</h3>
+    <div class="p">
+      <a href="https://ui-router.github.io/ng1/">https://ui-router.github.io/ng1/</a>
+    </div>
+
     <h3>代码演示</h3>
     <div class="p">
       <h4>当路由只显示两级的时候使用</h4>
-      <code ng-bind="firstSecondMenu"></code>
+      <div class="clearfix header-bg">${require('./code1.html')}</div>
+      <code class="mt-20"
+        ng-bind="code1Text"></code>
       <div class="mt-10">菜单配置详见 example/index.html</div>
       <div>自动生成菜单需要在 $rootScope 下赋值 routerConfig，路由配置及赋值详见 example/js/routerConfig.js 和 example/js/app.js</div>
     </div>
     <div class="p">
       <h3>侧边栏菜单</h3>
-      <code ng-bind="siderMenu"></code>
-
+      <div class="sider-menu-box clearfix">
+        ${require('./code2.html')}
+      </div>
+      <ma-code>
+        <code ng-bind="code3Text"></code>
+      </ma-code>
     </div>
     <h3>API</h3>
-    <p>
+    <div class="p">
       <table>
         <tr>
           <th>属性</th>
@@ -47,6 +58,6 @@
           <td>YES</td>
         </tr>
       </table>
-    </p>
+    </div>
   </div>
 </div>

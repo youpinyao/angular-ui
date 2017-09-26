@@ -147,6 +147,11 @@ function maSiderMenu($state, $rootScope) {
 
       $('body').addClass(cls);
 
+      if (!$rootScope.$siderMenuCount) {
+        $rootScope.$siderMenuCount = 0;
+      }
+      $rootScope.$siderMenuCount++;
+
       $scope.$watch('routers', d => {
         $timeout(() => {
           $scope.$broadcast('update.sider.menu.cls');
@@ -154,7 +159,10 @@ function maSiderMenu($state, $rootScope) {
       });
 
       $scope.$on('$destroy', e => {
-        $('body').removeClass(cls);
+        $rootScope.$siderMenuCount--;
+        if ($rootScope.$siderMenuCount <= 0) {
+          $('body').removeClass(cls);
+        }
         $(window).off('scroll', setTop);
         $(window).off('resize', setTop);
       });

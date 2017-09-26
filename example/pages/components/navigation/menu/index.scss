@@ -1,2 +1,18 @@
 @import '../../../../../src/scss/theme';
 @import '../../../../../src/scss/mixin';
+
+
+.navigation-menu-page {
+  .header-bg {
+    background-color: $headerColor;
+    position: relative;
+  }
+  .sider-menu-box {
+    background-color: $background;
+    padding: 20px;
+  }
+  .sider-menu {
+    position: static;
+    float: left;
+  }
+}
