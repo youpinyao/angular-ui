@@ -4786,11 +4786,12 @@ function maIcon() {
   return {
     restrict: 'E',
     replace: true,
+    transclude: true,
     scope: {
       type: '@maType',
       size: '@maSize'
     },
-    template: '\n    <i\n      class="iconfont icon-{{type}}"\n      ng-style="{fontSize: size + \'px\'}"\n    ></i>',
+    template: '\n    <i\n      class="iconfont icon-{{type}}"\n      ng-style="{fontSize: size + \'px\'}"\n      ng-transclude\n    ></i>',
     link: function link(scope, element, attrs, controllers) {}
   };
 }

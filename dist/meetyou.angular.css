@@ -9870,7 +9870,7 @@ body.has-ma-modal {
 
 .ma-popconfirm-tooltip .ma-tooltip-content:after,
 .ma-popconfirm-tooltip .ma-tooltip-content:before {
-  border-color: rgba(0, 0, 0, 0.2);
+  border-color: rgba(0, 0, 0, 0.05);
 }
 
 .ma-popconfirm-tooltip .ma-tooltip-content:after {

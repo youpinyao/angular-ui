@@ -154,7 +154,7 @@ function maSecondMenu($state, $rootScope) {
         var hasSecondNav = false;
 
         $scope.routers.forEach(function (router) {
-          if (router.parent && router.state.indexOf(router.parent.state + '.') !== -1 && $state.current.name.indexOf(router.parent.state + '.') !== -1 && router.hidden !== true && router.hiddenSecond !== true && router.level <= 2) {
+          if (router.parent && (router.state + '').indexOf(router.parent.state + '.') !== -1 && ($state.current.name + '').indexOf(router.parent.state + '.') !== -1 && router.hidden !== true && router.hiddenSecond !== true && router.level <= 2) {
             hasSecondNav = true;
           }
         });
@@ -221,6 +221,11 @@ function maSiderMenu($state, $rootScope) {
 
       (0, _jquery2['default'])('body').addClass(cls);
 
+      if (!$rootScope.$siderMenuCount) {
+        $rootScope.$siderMenuCount = 0;
+      }
+      $rootScope.$siderMenuCount++;
+
       $scope.$watch('routers', function (d) {
         $timeout(function () {
           $scope.$broadcast('update.sider.menu.cls');
@@ -228,7 +233,10 @@ function maSiderMenu($state, $rootScope) {
       });
 
       $scope.$on('$destroy', function (e) {
-        (0, _jquery2['default'])('body').removeClass(cls);
+        $rootScope.$siderMenuCount--;
+        if ($rootScope.$siderMenuCount <= 0) {
+          (0, _jquery2['default'])('body').removeClass(cls);
+        }
         (0, _jquery2['default'])(window).off('scroll', setTop);
         (0, _jquery2['default'])(window).off('resize', setTop);
       });
@@ -284,7 +292,7 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
       $scope.$on('$stateChangeSuccess', expandCurrentMenu);
 
       function expandCurrentMenu(routers) {
-        var cState = $state.current.name;
+        var cState = $state.current.name + '';
         var currentUrl = $state.href(cState, $state.params);
         var isFromParent = angular.isArray(routers);
 
@@ -354,7 +362,7 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
       }
 
       function isParent(currentUrl, routerUrl) {
-        return currentUrl.indexOf(routerUrl + '/') !== -1 && currentUrl !== routerUrl;
+        return (currentUrl + '').indexOf(routerUrl + '/') !== -1 && currentUrl !== routerUrl;
       }
 
       function isActive(router) {
@@ -633,11 +641,12 @@ function maIcon() {
   return {
     restrict: 'E',
     replace: true,
+    transclude: true,
     scope: {
       type: '@maType',
       size: '@maSize'
     },
-    template: '\n    <i\n      class="iconfont icon-{{type}}"\n      ng-style="{fontSize: size + \'px\'}"\n    ></i>',
+    template: '\n    <i\n      class="iconfont icon-{{type}}"\n      ng-style="{fontSize: size + \'px\'}"\n      ng-transclude\n    ></i>',
     link: function link(scope, element, attrs, controllers) {}
   };
 }

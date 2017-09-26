@@ -77,8 +77,8 @@ function maSecondMenu($state, $rootScope) {
         let hasSecondNav = false;
 
         $scope.routers.forEach(router => {
-          if (router.parent && router.state.indexOf(router.parent.state + '.') !== -1 &&
-            $state.current.name.indexOf(router.parent.state + '.') !== -1 &&
+          if (router.parent && (router.state + '').indexOf(router.parent.state + '.') !== -1 &&
+            ($state.current.name + '').indexOf(router.parent.state + '.') !== -1 &&
             router.hidden !== true && router.hiddenSecond !== true && router.level <= 2
           ) {
             hasSecondNav = true;
@@ -220,7 +220,7 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
       $scope.$on('$stateChangeSuccess', expandCurrentMenu);
 
       function expandCurrentMenu(routers) {
-        const cState = $state.current.name;
+        const cState = $state.current.name + '';
         const currentUrl = $state.href(cState, $state.params);
         const isFromParent = angular.isArray(routers);
 
@@ -290,7 +290,7 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
       }
 
       function isParent(currentUrl, routerUrl) {
-        return currentUrl.indexOf(routerUrl + '/') !== -1 && currentUrl !== routerUrl;
+        return (currentUrl + '').indexOf(routerUrl + '/') !== -1 && currentUrl !== routerUrl;
       }
 
       function isActive(router) {
