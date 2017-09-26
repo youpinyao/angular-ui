@@ -36338,7 +36338,7 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
                   }
                   count++;
                 });
-                active = count === sameCount;
+                active = count === sameCount && count;
               }
             }
           });
