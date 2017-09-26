@@ -36327,7 +36327,7 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
 
         if (active === false && router.childs && router.childs.length) {
           router.childs.forEach(function (d) {
-            if ($state.current.name === d.state) {
+            if ($state.current.name && $state.current.name === d.state) {
               if (angular.isEmpty(d.params)) {
                 active = true;
               } else {
