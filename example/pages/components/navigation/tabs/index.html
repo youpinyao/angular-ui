@@ -5,28 +5,22 @@
 </ma-crumb> -->
 <ma-crumb-auto></ma-crumb-auto>
 <div class="navigation-tabs-page">
-  <div class="container" ma-full-container>
+  <div class="container"
+    ma-full-container>
     <h2>Tabs 标签页</h2>
     <p>选项卡切换组件。</p>
 
     <h3>代码演示</h3>
-    <h4>类型一</h4>
+    ${require('./code.html')}
     <div class="p">
-      <ma-tabs ng-model="selectTab">
-        <ma-tab ma-value="0">选项卡1</ma-tab>
-        <ma-tab ma-value="1">选项卡2</ma-tab>
-        <ma-tab ma-value="2">选项卡3</ma-tab>
-      </ma-tabs>
-      <code class="mt-20" ng-bind="defaultTabs"></code>
-    </div>
-    <h4>类型二</h4>
-    <div class="p">
-      <ma-tabs ng-model="selectTab2">
-        <ma-tab-button ma-size="{{selectTab2}}" ma-value="large">选项卡 大</ma-tab-button>
-        <ma-tab-button ma-size="{{selectTab2}}" ma-value="default">选项卡 中</ma-tab-button>
-        <ma-tab-button ma-size="{{selectTab2}}" ma-value="small">选项卡 小</ma-tab-button>
-      </ma-tabs>
-      <code class="mt-20" ng-bind="buttonTabs"></code>
+      <ma-code>
+        <div class="right">
+          <a href="https://jsfiddle.net/youpinyao/deh99sjc/"
+            target="_blank">jsfiddle</a>
+        </div>
+
+        <code ng-bind="codeText"></code>
+      </ma-code>
     </div>
     <h3>API</h3>
     <h3>ma-tabs</h3>
@@ -71,4 +65,3 @@
     </div>
   </div>
 </div>
-
