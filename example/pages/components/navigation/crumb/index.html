@@ -15,16 +15,21 @@
       当需要告知用户『你在哪里』时；<br/>
       当需要向上导航的功能时。
     </div>
+    <h3>依赖</h3>
+    <div class="p">
+      <a href="https://ui-router.github.io/ng1/">https://ui-router.github.io/ng1/</a>
+    </div>
 
     <h3>代码演示</h3>
     <div class="p">
       <h4>1. 通过手动配置</h4>
-      <ma-crumb>
-        <ma-crumb-item ma-href="#!/components">Components 组件</ma-crumb-item>
-        <ma-crumb-item ma-href="#!/components/global">Global 全局</ma-crumb-item>
-        <ma-crumb-item>Font 文字</ma-crumb-item>
-      </ma-crumb>
-      <code ng-bind="normalCrumb"></code>
+      ${require('./code.html')}
+      <ma-code>
+        <div class="right">
+          <a href="https://jsfiddle.net/youpinyao/d1znt5ap/" target="_blank">jsfiddle</a>
+        </div>
+        <code ng-bind="codeText"></code>
+      </ma-code>
     </div>
     <h3>API</h3>
     <div class="p">
