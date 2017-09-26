@@ -368,6 +368,7 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
       function isActive(router) {
         var urls = [];
         var params = _jquery2['default'].extend(true, {}, router.params);
+        var currentUrl = $state.href($state.current.name, $state.params);
         var active = false;
 
         urls.push($state.href(router.state, params));
@@ -378,7 +379,7 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
           });
         }
 
-        active = urls.indexOf($state.href($state.current.name, $state.params)) !== -1 || isParent($state.href($state.current.name, $state.params), urls[0]) && !(router.routers && router.routers.length);
+        active = currentUrl && urls.indexOf(currentUrl) !== -1 || isParent($state.href($state.current.name, $state.params), urls[0]) && !(router.routers && router.routers.length);
 
         if (active === false && router.childs && router.childs.length) {
           router.childs.forEach(function (d) {
@@ -394,7 +395,7 @@ function maSiderMenuContent($state, $timeout, $rootScope, $compile) {
                   }
                   count++;
                 });
-                active = count === sameCount && count;
+                active = count === sameCount;
               }
             }
           });
