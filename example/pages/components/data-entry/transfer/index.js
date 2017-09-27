@@ -12,6 +12,8 @@ function mainCtrl($scope, $q, $timeout, $treeSelect) {
   $scope.selectTreeValue = ['110000', '130200', '130100'];
   $scope.disabled = false;
 
+  $scope.codeText = require('./code.html');
+
   $scope.treeData = [];
 
   angular.each(cityData.provinces, d => {

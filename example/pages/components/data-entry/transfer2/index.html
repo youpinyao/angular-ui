@@ -5,42 +5,29 @@
 </ma-crumb> -->
 <ma-crumb-auto></ma-crumb-auto>
 <div class="data-entry-transfer-page">
-  <div class="container" ma-full-container>
+  <div class="container"
+    ma-full-container>
     <h2>Transfer2 穿梭框</h2>
     <p>
       双栏穿梭选择框。内部使用jquery 实现性能相对ma-tree-transfer 好很多
     </p>
     <h3>代码演示</h3>
     <div class="p clearfix">
-      <div class="col-24 mb-20">
-        <h4>disabled</h4>
-        <ma-switch
-          ng-model="disabled"
-        ></ma-switch>
-      </div>
-
+      ${require('./code.html')}
       <div class="col-24">
-        <h4>树形穿梭框</h4>
-        <ma-tree-transfer2
-          ng-model="selectTreeValue"
-          ma-model="selectTreeParentValue"
-
-          ma-data="treeData"
-          ma-value-key="value1"
-          ma-text-key="text1"
-          ma-sub-key="sub1"
-
-          ma-left-title="所有"
-          ma-right-title="选中"
-
-          ng-disabled="disabled"
-        ></ma-tree-transfer2>
+        <ma-code>
+          <div class="right">
+            <a href="https://jsfiddle.net/youpinyao/8vyLdmum/"
+              target="_blank">jsfiddle</a>
+          </div>
+          <code ng-bind="codeText"></code>
+        </ma-code>
       </div>
-
     </div>
     <h3>API</h3>
     <div class="p">
-      <a href="#!/components/data-entry/transfer">同transfer API<a>
+      <a href="#!/components/data-entry/transfer">同transfer API
+        <a>
     </div>
   </div>
 </div>
