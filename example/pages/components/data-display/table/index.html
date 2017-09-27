@@ -12,27 +12,17 @@
       当有大量结构化的数据需要展现时；<br/> 当需要对数据进行排序、搜索、分页、自定义操作等复杂行为时。
     </p>
     <h3>代码演示</h3>
-    <div class="mb-20">
-      <ma-button ma-click="selectAll()">全选</ma-button>
-      <ma-button ma-click="unSelectAll()">全不选</ma-button>
-      <ma-button ma-click="setSelect()">选择部分</ma-button>
-      <ma-button ma-click="setUnSelect()">不选择部分</ma-button>
-    </div>
-    <div class="p clearfix mb-20">
-      <h4>传统table</h4>
-      <ma-table ma-config="tableConfig1">
-      </ma-table>
-    </div>
+    ${require('./code.html')}
 
-    <div class="p clearfix">
-      <h4>左右漂浮table</h4>
-      <ma-table ma-config="tableConfig2">
-      </ma-table>
-    </div>
-
-    <div class="p">
-      <h4>ma-config</h4>
-      <code ng-bind="configText"></code>
+    <div class="col-24 pb-20">
+      <ma-code>
+        <div class="right">
+          <a href="https://jsfiddle.net/youpinyao/pqok1tvL/" target="_blank">jsfiddle</a>
+        </div>
+        <code ng-bind="codeText"></code>
+        <h3>ma-config</h3>
+        <code ng-bind="configText"></code>
+      </ma-code>
     </div>
 
     <h3>API</h3>

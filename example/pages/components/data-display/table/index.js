@@ -7,6 +7,8 @@ angular.module('app').controller(controller, mainCtrl);
 mainCtrl.$inject = ['$scope', '$timeout', '$interval', '$message', '$q', '$table'];
 
 function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
+  $scope.codeText = require('./code.html');
+
   $scope.selectAll = selectAll;
   $scope.unSelectAll = unSelectAll;
   $scope.setSelect = setSelect;
@@ -231,8 +233,7 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
     }];
   }
 
-  $scope.configText = `
-<ma-table ma-config="tableConfig"></ma-table>
+  $scope.configText = `<ma-table ma-config="tableConfig"></ma-table>
 /**
   数据表组件
   @param： {
