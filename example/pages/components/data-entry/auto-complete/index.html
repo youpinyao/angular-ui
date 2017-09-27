@@ -5,48 +5,29 @@
 </ma-crumb> -->
 <ma-crumb-auto></ma-crumb-auto>
 <div class="data-entry-page">
-  <div class="container" ma-full-container>
+  <div class="container"
+    ma-full-container>
     <h2>AutoComplete 自动完成</h2>
     <p>
       输入框自动完成功能。
     </p>
     <h3>代码演示</h3>
     <div class="p clearfix">
-      <div class="col-12">
-        <h4>static data</h4>
-        <div>
-          <ma-auto-complete
-            ma-clear="true"
-            ng-model="autoCompleteValue"
-            placeholder="auto complete"
-
-            ma-value-key="value"
-            ma-text-key="text"
-            ma-data="data"
-          >
-          </ma-auto-complete>
-        </div>
+      ${require('./code.html')}
+      <div class="col-24">
+        <ma-code>
+          <div class="right">
+            <a href="https://jsfiddle.net/youpinyao/8zvokcc6/"
+              target="_blank">jsfiddle</a>
+          </div>
+          <code ng-bind="codeText"></code>
+        </ma-code>
       </div>
-      <div class="col-12">
-        <h4>dynamic data</h4>
-        <div>
-          <ma-auto-complete
-            ma-clear="true"
-            ng-model="autoCompleteValue"
-            placeholder="auto complete dynamic"
-
-            ma-value-key="value"
-            ma-text-key="text"
-            ma-get-data="getData($searchKey)"
-          >
-          </ma-auto-complete>
-        </div>
-      </div>
-
     </div>
     <h3>API</h3>
     <div class="p">
-      <div class="p mb-20">同 <a href="#!/components/data-entry/input">Input</a> 配置相同多出以下配置</div>
+      <div class="p mb-20">同
+        <a href="#!/components/data-entry/input">Input</a> 配置相同多出以下配置</div>
       <table>
         <tr>
           <th>属性</th>

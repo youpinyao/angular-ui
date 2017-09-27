@@ -9,6 +9,8 @@ mainCtrl.$inject = ['$scope', '$q', '$timeout'];
 function mainCtrl($scope, $q, $timeout) {
   $scope.autoCompleteValue = '';
 
+  $scope.codeText = require('./code.html');
+
   $scope.getData = function ($searchKey, isPromise) {
     if (angular.isNull($searchKey)) {
       return [];

@@ -1,0 +1,24 @@
+<div class="col-12">
+  <h4>static data</h4>
+  <div>
+    <ma-auto-complete ma-clear="true"
+      ng-model="autoCompleteValue"
+      placeholder="auto complete"
+      ma-value-key="value"
+      ma-text-key="text"
+      ma-data="data">
+    </ma-auto-complete>
+  </div>
+</div>
+<div class="col-12">
+  <h4>dynamic data</h4>
+  <div>
+    <ma-auto-complete ma-clear="true"
+      ng-model="autoCompleteValue"
+      placeholder="auto complete dynamic"
+      ma-value-key="value"
+      ma-text-key="text"
+      ma-get-data="getData($searchKey)">
+    </ma-auto-complete>
+  </div>
+</div>
