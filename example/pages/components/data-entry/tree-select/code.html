@@ -1,0 +1,20 @@
+<div class="col-24">
+  <h4>disabled</h4>
+  <ma-switch ng-model="disabled"></ma-switch>
+</div>
+<div class="col-12">
+  <h4>static data</h4>
+  <div>
+    <ma-tree-select ng-model="selectValue"
+      ma-model="selectValueWithParent"
+      ma-placeholder="select"
+      ma-text-key="text1"
+      ma-value-key="value1"
+      ma-sub-key="sub1"
+      ma-search="true"
+      ma-clear="true"
+      ma-data="data"
+      ng-disabled="disabled">
+    </ma-tree-select>
+  </div>
+</div>

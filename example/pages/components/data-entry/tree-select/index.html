@@ -5,39 +5,24 @@
 </ma-crumb> -->
 <ma-crumb-auto></ma-crumb-auto>
 <div class="data-entry-tree-select-page">
-  <div class="container" ma-full-container>
+  <div class="container"
+    ma-full-container>
     <h2>TreeSelect 树形选择器</h2>
     <p>
       类似 Select2 的选择器。
     </p>
     <h3>代码演示</h3>
     <div class="p clearfix">
+      ${require('./code.html')}
+
       <div class="col-24">
-        <h4>disabled</h4>
-        <ma-switch
-          ng-model="disabled"
-        ></ma-switch>
-      </div>
-      <div class="col-12">
-        <h4>static data</h4>
-        <div>
-          <ma-tree-select
-            ng-model="selectValue"
-            ma-model="selectValueWithParent"
-            ma-placeholder="select"
-
-            ma-text-key="text1"
-            ma-value-key="value1"
-            ma-sub-key="sub1"
-
-            ma-search="true"
-            ma-clear="true"
-
-            ma-data="data"
-            ng-disabled="disabled"
-          >
-          </ma-tree-select>
-        </div>
+        <ma-code>
+          <div class="right">
+            <a href="https://jsfiddle.net/youpinyao/bfxLe643/"
+              target="_blank">jsfiddle</a>
+          </div>
+          <code ng-bind="codeText"></code>
+        </ma-code>
       </div>
 
     </div>

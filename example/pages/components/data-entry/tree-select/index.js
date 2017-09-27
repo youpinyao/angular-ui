@@ -10,6 +10,8 @@ function mainCtrl($scope, $q, $timeout, $treeSelect) {
   $scope.selectValue = ['7777', '8888'];
   $scope.disabled = false;
 
+  $scope.codeText = require('./code.html');
+
   $scope.data = [{
     text1: '6666',
     value1: '6666',
