@@ -1,7 +1,7 @@
 <div class="ma-input">
   <input
     ng-show="type !== 'textarea'"
-    type="{{type}}"
+    type="{{type || 'text'}}"
     ng-model="model"
     maxlength="{{maxlength}}"
     placeholder="{{placeholder}}"
@@ -16,7 +16,7 @@
 
   <textarea
     ng-show="type === 'textarea'"
-    type="{{type}}"
+    type="{{type || 'text'}}"
     ng-model="model"
     maxlength="{{maxlength}}"
     accept="{{accept}}"
