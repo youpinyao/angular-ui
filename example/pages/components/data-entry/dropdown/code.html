@@ -1,0 +1,21 @@
+<div class="col-12">
+  <ma-dropdown class="mb-20"
+    ma-show-hover
+    ma-selected-hide
+    ma-data="dropdownItems"
+    ma-item-click="dropdownItemClick($event, $item)"
+    ma-text-key="text"
+    ma-value-key="value"
+    ma-show="showDropDown1"
+    ng-model="dropdownActiveItems">鼠标覆盖显示下拉</ma-dropdown>
+</div>
+<div class="col-12">
+  <ma-dropdown ma-show-click
+    ma-selected-hide
+    ma-data="dropdownItems"
+    ma-item-click="dropdownItemClick($event, $item)"
+    ma-text-key="text"
+    ma-value-key="value"
+    ma-show="showDropDown2"
+    ng-model="dropdownActiveItems">鼠标点击显示下拉</ma-dropdown>
+</div>

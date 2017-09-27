@@ -34,9 +34,11 @@ function mainCtrl($scope) {
     value: '1'
   }];
 
+  $scope.codeText = require('./code.html');
 
   $scope.dropdownItemClick = function ($event, $item) {
     $scope.dropdownActiveItems = $item;
+    console.log('dropdownItemClick');
   };
 }
 

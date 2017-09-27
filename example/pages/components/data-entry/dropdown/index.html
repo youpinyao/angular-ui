@@ -5,40 +5,24 @@
 </ma-crumb> -->
 <ma-crumb-auto></ma-crumb-auto>
 <div class="data-entry-page">
-  <div class="container" ma-full-container>
+  <div class="container"
+    ma-full-container>
     <h2>Dropdown 下拉菜单</h2>
     <p>
       当页面上的操作命令过多时，用此组件可以收纳操作元素。点击或移入触点，会出现一个下拉菜单。可在列表中进行选择，并执行相应的命令。
     </p>
     <h3>代码演示</h3>
     <div class="p clearfix">
-
-      <div class="col-12">
-        <ma-dropdown
-          class="mb-20"
-          ma-show-hover
-          ma-selected-hide
-          ma-data="dropdownItems"
-          ma-item-click="dropdownItemClick($event, $item)"
-          ma-text-key="text"
-          ma-value-key="value"
-          ma-show="showDropDown1"
-          ng-model="dropdownActiveItems"
-        >鼠标覆盖显示下拉</ma-dropdown>
+      ${require('./code.html')}
+      <div class="col-24">
+        <ma-code>
+          <div class="right">
+            <a href="https://jsfiddle.net/youpinyao/ft2v2zzs/"
+              target="_blank">jsfiddle</a>
+          </div>
+          <code ng-bind="codeText"></code>
+        </ma-code>
       </div>
-      <div class="col-12">
-        <ma-dropdown
-          ma-show-click
-          ma-selected-hide
-          ma-data="dropdownItems"
-          ma-item-click="dropdownItemClick($event, $item)"
-          ma-text-key="text"
-          ma-value-key="value"
-          ma-show="showDropDown2"
-          ng-model="dropdownActiveItems"
-        >鼠标点击显示下拉</ma-dropdown>
-      </div>
-
     </div>
     <h3>API</h3>
     <div class="p">
@@ -86,7 +70,7 @@
           <td>-</td>
         </tr>
         <tr>
-          <td>ma-show-hover</td>
+          <td>ma-selected-hover</td>
           <td>选中下拉后关闭下拉</td>
           <td>-</td>
           <td>-</td>
