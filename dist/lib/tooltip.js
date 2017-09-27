@@ -173,6 +173,7 @@ function maTooltip($timeout, $compile) {
 
       function showTip(newDirection) {
         $timeout.cancel(scope.hideTimer);
+        $timeout.cancel(scope.hidePosTimer);
 
         var offsetTop = (0, _jquery2['default'])(element).offset().top;
         var offsetLeft = (0, _jquery2['default'])(element).offset().left;
@@ -262,17 +263,17 @@ function maTooltip($timeout, $compile) {
           left: left
         });
 
-        $timeout(function () {
-          if (!hasNew) {
-            checkPositon();
-          }
-          if (!el.hasClass('show')) {
-            scope.changeCallback({
-              show: true
-            });
-          }
-          el.addClass('show');
-        }, 10);
+        // $timeout(function() {
+        if (!hasNew) {
+          checkPositon();
+        }
+        if (!el.hasClass('show')) {
+          scope.changeCallback({
+            show: true
+          });
+        }
+        el.addClass('show');
+        // }, 10);
       }
 
       function checkPositon() {
@@ -331,17 +332,21 @@ function maTooltip($timeout, $compile) {
       }
 
       function hideTip() {
+        $timeout.cancel(scope.hidePosTimer);
+        $timeout.cancel(scope.hideTimer);
         if (el.hasClass('show')) {
           scope.changeCallback({
             show: false
           });
-          scope.hideTimer = $timeout(function () {
+          scope.hidePosTimer = $timeout(function () {
             el.css({
               left: 0,
               top: 0
             });
           }, 300);
-          el.removeClass('show');
+          scope.hideTimer = $timeout(function () {
+            el.removeClass('show');
+          }, 10);
         }
       }
 
