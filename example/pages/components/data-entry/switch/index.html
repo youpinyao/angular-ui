@@ -13,10 +13,13 @@
     </p>
     <h3>代码演示</h3>
     <div class="p">
-      <div class="mb-10">
-        <ma-button ma-type="primary" ma-click="radioDisabled = !radioDisabled">Toggle disabled {{!!radioDisabled}}</ma-button>
-      </div>
-      <ma-switch ng-model="selectSwitch" ng-disabled="radioDisabled"></ma-switch>
+      ${require('./code.html')}
+      <ma-code>
+        <div class="right">
+          <a href="https://jsfiddle.net/youpinyao/3sd3nkbv/" target="_blank">jsfiddle</a>
+        </div>
+        <code ng-bind="codeText"></code>
+      </ma-code>
     </div>
     <h3>API</h3>
     <div class="p">

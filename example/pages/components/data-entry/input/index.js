@@ -11,6 +11,8 @@ function mainCtrl($scope) {
   $scope.numberTestValue = 3.12;
   $scope.placeholder = '提示文本';
 
+  $scope.codeText = require('./code.html');
+
   $scope.iconClick = function(e) {
     console.log('iconClick');
   };

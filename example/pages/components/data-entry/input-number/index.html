@@ -5,22 +5,26 @@
 </ma-crumb> -->
 <ma-crumb-auto></ma-crumb-auto>
 <div class="data-entry-number-input-page">
-  <div class="container" ma-full-container>
+  <div class="container"
+    ma-full-container>
     <h2>InputNumber 数字输入框</h2>
     <p>通过鼠标或键盘，输入范围内的数值。</p>
     <h3>代码演示</h3>
     <div class="p clearfix">
-      <ma-input-number
-        name="test"
-        min="1"
-        max="5"
-        ng-model="numberTestValue"
-      ></ma-input-number>
+      ${require('./code.html')}
+      <ma-code>
+        <div class="right">
+          <a href="https://jsfiddle.net/youpinyao/z67dq9pt/"
+            target="_blank">jsfiddle</a>
+        </div>
+        <code ng-bind="codeText"></code>
+      </ma-code>
     </div>
 
     <h3>API</h3>
     <div class="p">
-      只能输入数字，其它与 <a href="#!/components/data-entry/input">Input 组件</a>。
+      只能输入数字，其它与
+      <a href="#!/components/data-entry/input">Input 组件</a>。
     </div>
   </div>
 </div>

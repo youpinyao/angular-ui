@@ -11,9 +11,9 @@ function codeDirective($rootScope, $q, $timeout) {
     transclude: true,
     template: `
     <div class="ma-code">
-      <div class="ma-code-bar">
-        <ma-icon ng-show="!show" ng-click="show = true" ma-type="codesquareo1">code</ma-icon>
-        <ma-icon ng-show="show" ng-click="show = false" ma-type="codesquare">code</ma-icon>
+      <div class="ma-code-bar" ng-click="show = !show">
+        <ma-icon ng-show="!show" ma-type="codesquareo1">code</ma-icon>
+        <ma-icon ng-show="show" ma-type="codesquare">code</ma-icon>
       </div>
       <div class="ma-code-more" ng-show="show">
         <div class="transclude" ng-transclude></div>

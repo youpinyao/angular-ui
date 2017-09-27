@@ -9,6 +9,7 @@ mainCtrl.$inject = ['$scope'];
 function mainCtrl($scope) {
   $scope.numberTestValue = 4;
   $scope.placeholder = '提示文本';
+  $scope.codeText = require('./code.html');
 }
 
 export default {

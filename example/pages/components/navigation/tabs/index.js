@@ -11,10 +11,6 @@ function mainCtrl($scope, $timeout) {
   $scope.selectTab2 = 'default';
 
   $scope.codeText = require('./code.html');
-
-  $timeout(() => {
-    $scope.selectTab = 1;
-  }, 1000);
 }
 
 export default {

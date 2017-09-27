@@ -8,6 +8,7 @@ mainCtrl.$inject = ['$scope'];
 
 function mainCtrl($scope) {
   $scope.selectSwitch = true;
+  $scope.codeText = require('./code.html');
 }
 
 export default {

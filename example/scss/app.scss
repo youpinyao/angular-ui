@@ -59,13 +59,14 @@ h3 + .p > table {
 }
 
 .ma-code {
+  color: $grey;
   border: 1px solid $disabled;
   margin-top: 20px;
   .ma-code-bar {
     padding: 5px 10px;
     text-align: right;
+    cursor: pointer;
     .iconfont {
-      cursor: pointer;
       &:before {
         margin-right: 5px;
       }
