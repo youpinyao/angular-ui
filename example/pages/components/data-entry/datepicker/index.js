@@ -11,6 +11,8 @@ function mainCtrl($scope, $timeout) {
   $scope.pickerDate = new Date();
   $scope.rangePickerDate = [new Date(), new Date()];
 
+  $scope.codeText = require('./code.html');
+
   $scope.maxDate = new Date();
 
   $scope.$watch('pickerDate', d => {

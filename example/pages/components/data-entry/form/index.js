@@ -9,6 +9,8 @@ mainCtrl.$inject = ['$scope', '$injector', '$timeout'];
 function mainCtrl($scope, $injector, $timeout) {
   const $validationProvider = $injector.get('$validation');
 
+  $scope.codeText = require('./code.html');
+
   $scope.formLayout = 'horizontal';
   $scope.radioValue = 1;
   $scope.checkboxValue = [1, 2];

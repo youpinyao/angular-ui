@@ -1,0 +1,217 @@
+<div class="col-24">
+  <div class="mb-20">
+    <ma-switch ng-model="disabled"></ma-switch>
+  </div>
+  <div class="mb-20">
+    <ma-tabs ng-model="formLayout">
+      <ma-tab-button ma-value="horizontal">水平排列</ma-tab-button>
+      <ma-tab-button ma-value="vertical">垂直排列</ma-tab-button>
+    </ma-tabs>
+  </div>
+  <form name="Form"
+    ng-class="{
+      'form-horizontal': formLayout == 'horizontal',
+      'form-vertical': formLayout == 'vertical',
+    }">
+    <div class="control-group">
+      <div class="control-label">输入框：</div>
+      <div class="controls">
+        <input name="inputNative"
+          class="ma-input"
+          ng-model="inputValue"
+          ng-disabled="disabled"
+          placeholder="native input"
+          validator="required"
+          valid-method="submit" />
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="control-label">输入框：</div>
+      <div class="controls">
+        <ma-input name="input"
+          ng-model="inputValue"
+          ng-disabled="disabled"
+          validator="required"
+          valid-method="submit"></ma-input>
+        <span class="control-tip">我是提示文本</span>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="control-label">输入框排列：</div>
+      <div class="controls">
+        <div class="clearfix">
+          <ma-input name="input1"
+            class="mr-10 fl"
+            style="width: 115px;"
+            ng-model="inputValue"
+            ng-disabled="disabled"
+            validator="required"
+            valid-method="submit"></ma-input>
+          <ma-input name="input2"
+            class="fl"
+            style="width: 115px;"
+            ng-model="inputValue"
+            ng-disabled="disabled"
+            validator="required"
+            valid-method="submit"></ma-input>
+        </div>
+        <div class="mt-10">
+          <ma-input name="input3"
+            ng-model="inputValue"
+            ng-disabled="disabled"
+            validator="required"
+            valid-method="submit"></ma-input>
+        </div>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="control-label">数字输入框：</div>
+      <div class="controls">
+        <ma-input-number name="inputNumber"
+          ng-model="inputNumberValue"
+          ng-disabled="disabled"
+          validator="required"
+          valid-method="submit"></ma-input-number>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="control-label">单选框：</div>
+      <div class="controls">
+        <ma-radio name="radio"
+          value="1"
+          ng-model="radioValue"
+          ng-disabled="disabled">选项1</ma-radio>
+        <ma-radio name="radio"
+          value="2"
+          ng-model="radioValue"
+          ng-disabled="disabled">选项2</ma-radio>
+        <ma-radio name="radio"
+          value="3"
+          ng-model="radioValue"
+          ng-disabled="disabled">选项3</ma-radio>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="control-label">单选框：</div>
+      <div class="controls">
+        <ma-checkbox name="checkbox"
+          value="1"
+          ng-model="checkboxValue"
+          ng-disabled="disabled">选项1</ma-checkbox>
+        <ma-checkbox name="checkbox"
+          value="2"
+          ng-model="checkboxValue"
+          ng-disabled="disabled">选项2</ma-checkbox>
+        <ma-checkbox name="checkbox"
+          value="3"
+          ng-model="checkboxValue"
+          ng-disabled="disabled">选项3</ma-checkbox>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="control-label">开关：</div>
+      <div class="controls">
+        <ma-switch name="switch"
+          ng-model="switchValue"></ma-switch>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="control-label">选择器：</div>
+      <div class="controls">
+        <ma-select name="select"
+          ng-model="selectValue"
+          ma-placeholder="select"
+          ma-value-key="value"
+          ma-text-key="text"
+          ma-data="data"
+          ng-disabled="disabled"
+          ma-search="true"
+          ma-clear="true"
+          validator="required"
+          valid-method="submit">
+        </ma-select>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="control-label">多选选择器：</div>
+      <div class="controls">
+        <ma-select name="multiSelect"
+          ng-model="multiSelectValue"
+          ma-placeholder="select"
+          ma-value-key="value"
+          ma-text-key="text"
+          ma-data="data"
+          ng-disabled="disabled"
+          ma-search="true"
+          ma-clear="true"
+          ma-multiple="true"
+          ma-limit="10"
+          validator="required"
+          valid-method="submit">
+        </ma-select>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="control-label">树形选择器：</div>
+      <div class="controls">
+        <ma-tree-select name="treeSelect"
+          ng-model="treeSelectValue"
+          ma-placeholder="select"
+          ma-search="true"
+          ma-clear="true"
+          ma-data="treeData"
+          ng-disabled="disabled"
+          validator="required"
+          valid-method="submit">
+        </ma-tree-select>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="control-label">时间选择器：</div>
+      <div class="controls">
+        <ma-date-picker name="datepicker"
+          ng-model="pickerDate"
+          ma-view="date"
+          ma-min-view="date"
+          validator="required"
+          valid-method="submit"
+          ng-disabled="disabled"
+          ma-format="YYYY-MM-DD"></ma-date-picker>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">时间范围选择器：</div>
+      <div class="controls">
+        <ma-date-range-picker name="daterangepicker"
+          ng-model="rangePickerDate"
+          validator="required"
+          valid-method="submit"
+          ng-disabled="disabled"
+          ma-format="YYYY-MM-DD"></ma-date-range-picker>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="control-label">上传文件：</div>
+      <div class="controls">
+        <ma-button>
+          <div ma-upload
+            ng-model="uploadValue">上传文件</div>
+        </ma-button>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="control-label">上传图片：</div>
+      <div class="controls">
+        <div ma-upload-image
+          ng-model="uploadValue"></div>
+      </div>
+    </div>
+    <div class="form-buttons">
+      <ma-button ma-click="submit()"
+        ma-type="primary">提交</ma-button>
+      <ma-button ma-click="save()">保存</ma-button>
+      <ma-button ma-click="reset()">重置</ma-button>
+    </div>
+  </form>
+</div>

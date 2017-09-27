@@ -1,0 +1,41 @@
+<div class="col-8 mb-20">
+  <h4>year</h4>
+  <ma-date-picker name="datepicker1"
+    ng-model="pickerDate"
+    ma-view="year"
+    ma-auto-close="true"
+    ma-min-view="year"
+    ma-format="YYYY"></ma-date-picker>
+</div>
+<div class="col-8 mb-20">
+  <h4>month</h4>
+  <ma-date-picker name="datepicker2"
+    ng-model="pickerDate"
+    ma-view="month"
+    ma-min-view="month"
+    ma-format="YYYY-MM"></ma-date-picker>
+</div>
+<div class="col-8 mb-20">
+  <h4>date</h4>
+  <ma-date-picker name="datepicker3"
+    ng-model="pickerDate"
+    ma-view="date"
+    ma-min-view="date"
+    ma-max-date="maxDate"
+    ma-format="YYYY-MM-DD"></ma-date-picker>
+</div>
+<div class="col-8 mb-20">
+  <h4>minutes</h4>
+  <ma-date-picker name="datepicker4"
+    ng-model="pickerDate"
+    ma-view="minutes"
+    ma-min-view="minutes"
+    ma-format="YYYY-MM-DD HH:mm"></ma-date-picker>
+</div>
+<div class="col-8 mb-20">
+  <h4>date range picker</h4>
+  <ma-date-range-picker name="datepicer5"
+    ng-model="rangePickerDate"
+    ma-max-date="maxDate"
+    ma-format="YYYY-MM-DD"></ma-date-range-picker>
+</div>
