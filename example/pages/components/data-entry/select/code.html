@@ -1,0 +1,66 @@
+<div class="col-24">
+  <h4>disabled</h4>
+  <ma-switch ng-model="disabled"></ma-switch>
+</div>
+<div class="col-12">
+  <h4>static data</h4>
+  <div>
+    <ma-select ng-model="selectValue"
+      ma-placeholder="select"
+      ma-value-key="value"
+      ma-text-key="text"
+      ma-data="data"
+      ng-disabled="disabled"
+      ma-search="true"
+      ma-clear="true">
+    </ma-select>
+  </div>
+</div>
+<div class="col-12">
+  <h4>dynamic data</h4>
+  <div>
+    <ma-select ng-model="selectValue"
+      ma-placeholder="select dynamic"
+      ma-value-key="value"
+      ma-text-key="text"
+      ma-get-data="getData($searchKey)"
+      ng-disabled="disabled"
+      ma-search="true">
+    </ma-select>
+  </div>
+</div>
+
+<div class="col-12">
+  <h4>static data multiple</h4>
+  <div>
+    <ma-select ng-model="selectValue"
+      ma-placeholder="select"
+      ma-value-key="value"
+      ma-text-key="text"
+      ma-data="data"
+      ng-disabled="disabled"
+      ma-search="true"
+      ma-clear="true"
+      ma-multiple="true"
+      ma-limit="10">
+    </ma-select>
+  </div>
+</div>
+
+
+<div class="col-12">
+  <h4>dynamic data multiple</h4>
+  <div>
+    <ma-select ng-model="selectValue"
+      ma-placeholder="select"
+      ma-value-key="value"
+      ma-text-key="text"
+      ma-get-data="getData($searchKey)"
+      ng-disabled="disabled"
+      ma-search="true"
+      ma-clear="true"
+      ma-multiple="true"
+      ma-limit="10">
+    </ma-select>
+  </div>
+</div>

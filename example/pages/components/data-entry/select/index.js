@@ -10,6 +10,8 @@ function mainCtrl($scope, $q, $timeout) {
   $scope.selectValue = ['6660'];
   $scope.disabled = false;
 
+  $scope.codeText = require('./code.html');
+
   $scope.getData = function ($searchKey, isPromise) {
     if (angular.isNull($searchKey)) {
       return [];
