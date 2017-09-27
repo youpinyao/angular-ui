@@ -43,6 +43,7 @@ function maDropdown($timeout, $compile) {
     controller: ['$scope', function($scope) {
       this.clearValue = () => {
         $scope.activeItems = undefined;
+        $scope.show = false;
       };
     }],
     link: function(scope, element, attrs, ctrl) {
