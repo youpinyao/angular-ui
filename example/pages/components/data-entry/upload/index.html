@@ -15,65 +15,57 @@
     </p>
     <h3>代码演示</h3>
     <div class="p clearfix">
-      <div class="mb-20 clearfix">
-        <div class="col-12 pr-20">
-          <div ma-upload ma-upload-config="uploadConfig" ng-model="uploadValue"></div>
-        </div>
-        <div class="col-12">
-          <ma-button>
-            <div ma-upload ma-upload-config="uploadConfig" ng-model="uploadValue">上传文件</div>
-          </ma-button>
-        </div>
-      </div>
+      ${require('./code.html')}
       <div class="col-24">
-        <div ma-upload-image ma-upload-config="uploadConfig" ng-model="uploadValue"></div>
-      </div>
-    </div>
-    <div class="p">
-      <code ng-bind="codeText"></code>
-      <code>
-        ng-model 数据结构
-        [{
-          id: '',
-          name: '',
-          progress: 100, //选填
-          showDelete: false, //选填
-        }]
-      </code>
-      <code>
-        ma-upload-config 配置详细
-        {
-          url: '/upload/index',
-          viewUrl: '/upload/download',
-          alias: 'file',
-          headers: {},
-          queue: [],
-          progress: 0,
-          autoUpload: true,
-          removeAfterUpload: false,
-          method: 'POST',
-          filters: [],
-          formData: [],
-          queueLimit: Number.MAX_VALUE,
-          withCredentials: false,
-          disableMultipart: false
-          multiple: false
-          limit: Number.MAX_VALUE,
-          size: 10 * 1024 * 1000,
-          size: {
-            gif: 10 * 1024 * 1000,
-            png: 10 * 1024 * 1000,
-            jpg: 10 * 1024 * 1000
-          },
-          accept: '',
-          uploadText: '上传图片',
-          convert: function (data, response){
+      <ma-code>
+        <div class="right">
+          <a href="https://jsfiddle.net/youpinyao/4onopdvu/" target="_blank">jsfiddle</a>
+        </div>
+        <code ng-bind="codeText"></code>
+        <code>
+          ng-model 数据结构
+          [{
+            id: '',
+            name: '',
+            progress: 100, //选填
+            showDelete: false, //选填
+          }]
+        </code>
+        <code>
+          ma-upload-config 配置详细
+          {
+            url: '/upload/index',
+            viewUrl: '/upload/download',
+            alias: 'file',
+            headers: {},
+            queue: [],
+            progress: 0,
+            autoUpload: true,
+            removeAfterUpload: false,
+            method: 'POST',
+            filters: [],
+            formData: [],
+            queueLimit: Number.MAX_VALUE,
+            withCredentials: false,
+            disableMultipart: false
+            multiple: false
+            limit: Number.MAX_VALUE,
+            size: 10 * 1024 * 1024,
+            size: {
+              gif: 10 * 1024 * 1024,
+              png: 10 * 1024 * 1024,
+              jpg: 10 * 1024 * 1024
+            },
+            accept: '',
+            uploadText: '上传图片',
+            convert: function (data, response){
 
+            }
           }
-        }
-      </code>
+        </code>
+      </ma-code>
     </div>
-
+    </div>
     <h3>API</h3>
     <div class="p">
       <table>

@@ -33,16 +33,7 @@ function mainCtrl($scope, $timeout, $interval) {
     },
   };
 
-  $scope.codeText =
-    `
-  <div ma-upload ng-model="uploadValue"></div>
-
-  <ma-button>
-    <div ma-upload ng-model="uploadValue">上传文件</div>
-  </ma-button>
-
-  <div ma-upload-image ng-model="uploadValue"></div>
-  `;
+  $scope.codeText = require('./code.html');
 }
 
 export default {
