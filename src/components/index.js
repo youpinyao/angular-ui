@@ -17,6 +17,7 @@ import transfer from './transfer';
 import transfer2 from './transfer2';
 import upload from './upload';
 import lightgallery from './lightgallery';
+import notification from './notification';
 import message from './message';
 import alert from './alert';
 import spin from './spin';
@@ -49,6 +50,7 @@ angular.module(moduleName, [
   transfer2,
   upload,
   lightgallery,
+  notification,
   message,
   alert,
   spin,

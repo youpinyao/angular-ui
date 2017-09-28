@@ -14,6 +14,7 @@ import icon from '../pages/components/general/icon';
 import button from '../pages/components/general/button';
 
 import feedback from '../pages/components/feedback';
+import notification from '../pages/components/feedback/notification';
 import message from '../pages/components/feedback/message';
 import alert from '../pages/components/feedback/alert';
 import spin from '../pages/components/feedback/spin';
@@ -117,6 +118,11 @@ const routers = [{
       state: 'components.feedback.message',
       url: '/message',
       ...message,
+    }, {
+      title: 'Notification 通知',
+      state: 'components.feedback.notification',
+      url: '/notification',
+      ...notification,
     }, {
       title: 'Alert 警告提示',
       state: 'components.feedback.alert',
