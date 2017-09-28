@@ -1,0 +1,10 @@
+<div class="ma-notification">
+  <div class="ma-notification__group">
+    <h2 class="ma-notification__title"
+      ng-show="title">{{title}}</h2>
+    <div class="ma-notification__content"
+      ng-bind-html="message"></div>
+    <a class="ma-notification__closeBtn ma-icon-close"
+      ng-click="nClick()"><i class="iconfont icon-close"></i></a>
+  </div>
+</div>
