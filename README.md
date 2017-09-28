@@ -63,4 +63,4 @@ angular.module('app', [
 [meetyou-angular-cli](https://www.npmjs.com/package/meetyou-angular-cli)
 
 > ## demo
-[https://youpinyao.github.io/meetyou-angular-ui/](https://youpinyao.github.io/meetyou-angular-ui/)
+[https://youpinyao.github.io/meetyou-angular-ui/dist/example/index.html](https://youpinyao.github.io/meetyou-angular-ui/dist/example/index.html)
