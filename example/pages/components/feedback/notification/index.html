@@ -1,0 +1,36 @@
+<ma-crumb-auto></ma-crumb-auto>
+<div class="feedback-modal-page">
+  <div class="container" ma-full-container>
+    <h2>Notimication 通知</h2>
+    <p>
+      模态对话框。
+    </p>
+    <h3>代码演示</h3>
+    <h4>基本用法</h4>
+    <div class="p clearfix">
+      <ma-button ma-click="showNotification1()">可自动关闭</ma-button>
+      <ma-button ma-click="showNotification2()">不会自动关闭</ma-button>
+      <p>回掉文字：<span ng-bind="test"></span></p>
+    </div>
+    <div class="p">
+      <code>
+        function mainCtrl($scope, $timeout, $interval, $notification) {
+            $scope.showNotification = function() {
+              console.log($notification);
+              $notification({
+                title: 'Notification Title',  // 标题
+                delay: null,   // 是否自动关闭
+                message: 'hello the world!', // 通知文本
+                onClose: function() {   // 点击卡片回掉
+                  $scope.test = '回掉成功'
+                },
+              });
+            };
+          }
+      </code>
+    </div>
+
+    <h3>API</h3>
+</div>
+  </div>
+</div>
