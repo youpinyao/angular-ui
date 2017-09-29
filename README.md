@@ -10,6 +10,7 @@
 #### [浏览器引入](#浏览器引入-1)
 #### [CLI](#CLI-1)
 #### [demo](#demo-1)
+#### [测试uirecorder](#uirecorder)
 ---
   
 > ## 原因
@@ -64,3 +65,6 @@ angular.module('app', [
 
 > ## demo
 [https://youpinyao.github.io/meetyou-angular-ui/dist/example/index.html](https://youpinyao.github.io/meetyou-angular-ui/dist/example/index.html)
+
+> ## uirecorder
+[https://github.com/youpinyao/meetyou-angular-ui-uirecorder](https://github.com/youpinyao/meetyou-angular-ui-uirecorder)
