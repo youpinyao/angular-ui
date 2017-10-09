@@ -18,9 +18,14 @@
     <h3>代码演示</h3>
     <div class="p">
       <h4>当路由只显示两级的时候使用</h4>
-      <div class="clearfix header-bg">${require('./code1.html')}</div>
-      <code class="mt-20"
+      <div class="clearfix header-bg mb-20">${require('./code1.html')}</div>
+      <code class="mt-20 mb-20"
         ng-bind="code1Text"></code>
+
+      <h4>非指令实现</h4>
+      <div class="clearfix header-bg mb-20">${require('./code3.html')}</div>
+      <code class="mt-20"
+        ng-bind="code3Text"></code>
       <div class="mt-10">菜单配置详见 example/index.html</div>
       <div>自动生成菜单需要在 $rootScope 下赋值 routerConfig，路由配置及赋值详见 example/js/routerConfig.js 和 example/js/app.js</div>
     </div>
@@ -36,7 +41,7 @@
         </div>
         <code>
           <div ng-bind="code2Text"></div>
-          <div ng-bind="code3Text"></div>
+          <div ng-bind="code3Js"></div>
         </code>
       </ma-code>
     </div>

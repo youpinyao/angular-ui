@@ -9,7 +9,8 @@ mainCtrl.$inject = ['$scope'];
 function mainCtrl($scope) {
   $scope.code1Text = require('./code1.html');
   $scope.code2Text = require('./code2.html');
-  $scope.code3Text = require('./code3.js');
+  $scope.code3Text = require('./code3.html');
+  $scope.code3Js = require('./code3.js');
 
   $scope.siderMenuConfig = [{
     title: 'General 一般',
