@@ -1,5 +1,17 @@
-<ma-input-number name="test"
-  min="1"
-  max="5"
-  ng-model="numberTestValue">
-</ma-input-number>
+<div class="pb-10">
+  <ma-input-number name="test"
+    min="1"
+    max="5"
+    ng-model="numberTestValue1">
+  </ma-input-number>
+  min 0, max 5, ma-decimal 0
+</div>
+<div class="pb-10">
+  <ma-input-number name="test"
+    min="1"
+    max="5"
+    ma-decimal="2"
+    ng-model="numberTestValue2">
+  </ma-input-number>
+  min 0, max 5, ma-decimal 2
+</div>
