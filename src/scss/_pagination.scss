@@ -25,6 +25,7 @@
       border-radius: 4px;
       background: $white;
       border: 1px solid $outlines;
+      -webkit-user-select: none;
     }
     li.prev {
       color: transparent;

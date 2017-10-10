@@ -13,7 +13,7 @@ function maPagination($timeout, $compile) {
     replace: true,
     template: maPaginationTpl,
     scope: {
-      conf: '='
+      conf: '=maConfig'
     },
     link: function(scope, element, attrs) {
       var conf = scope.conf;
@@ -166,10 +166,10 @@ function maPagination($timeout, $compile) {
       scope.prevPage = function() {
         if (conf.currentPage > 1) {
           conf.currentPage -= 1;
-        }
-        getPagination();
-        if (conf.onChange) {
-          conf.onChange();
+          getPagination();
+          if (conf.onChange) {
+            conf.onChange(conf.currentPage, conf.itemsPerPage);
+          }
         }
       };
 
@@ -177,44 +177,43 @@ function maPagination($timeout, $compile) {
       scope.nextPage = function() {
         if (conf.currentPage < conf.numberOfPages) {
           conf.currentPage += 1;
-        }
-        getPagination();
-        if (conf.onChange) {
-          conf.onChange();
+          getPagination();
+          if (conf.onChange) {
+            conf.onChange(conf.currentPage, conf.itemsPerPage);
+          }
         }
       };
 
       // 变更当前页
       scope.changeCurrentPage = function(item) {
-        if (item == '...') {
-          return false;
+        if (item !== '...' && item !== conf.currentPage) {
+          conf.currentPage = item;
+          conf.jumpPageNum = conf.currentPage;
+          getPagination();
+          // conf.onChange()函数
+          if (conf.onChange) {
+            conf.onChange(conf.currentPage, conf.itemsPerPage);
+          }
         }
-        conf.currentPage = item;
-        getPagination();
-        // conf.onChange()函数
-        if (conf.onChange) {
-          conf.onChange();
-        }
-        return true;
       };
 
       // 修改每页展示的条数
       scope.changeItemsPerPage = function() {
         // 一发展示条数变更，当前页将重置为1
         conf.currentPage = 1;
+        conf.jumpPageNum = 1;
         getPagination();
         // conf.onChange()函数
         if (conf.onChange) {
-          conf.onChange();
+          conf.onChange(conf.currentPage, conf.itemsPerPage);
         }
       };
 
       // 跳转页
       scope.jumpToPage = function() {
-        var num = conf.jumpPageNum;
+        let num = conf.jumpPageNum;
         if (num.match(/\d+/)) {
           num = parseInt(num, 10);
-
           if (num && num != conf.currentPage) {
             if (num > conf.numberOfPages) {
               num = conf.numberOfPages;
@@ -225,7 +224,7 @@ function maPagination($timeout, $compile) {
             getPagination();
             // conf.onChange()函数
             if (conf.onChange) {
-              conf.onChange();
+              conf.onChange(conf.currentPage, conf.itemsPerPage);
             }
             scope.jumpPageNum = '';
           }
@@ -240,11 +239,11 @@ function maPagination($timeout, $compile) {
         }
       };
       scope.$watch('conf.totalItems', function(value, oldValue) {
-        if (!value || value == oldValue) {
-          if (conf.onChange) {
-            conf.onChange();
-          }
-        }
+        // if (!value || value == oldValue) {
+        //   if (conf.onChange) {
+        //     conf.onChange();
+        //   }
+        // }
         getPagination();
       });
       scope.$watch('conf.selectItem', function(value, oldValue) {
@@ -253,11 +252,12 @@ function maPagination($timeout, $compile) {
           scope.changeItemsPerPage();
         }
       });
-      scope.$watch('conf.currentPage', function(value, oldValue) {
-        if (value || value !== oldValue) {
-          conf.jumpPageNum = value;
-        }
-      });
+      // scope.$watch('conf.currentPage', function(value, oldValue) {
+      //   if (value || conf.currentPage !== conf.jumpPageNum) {
+      //     // conf.jumpPageNum = value;
+      //     scope.changeCurrentPage(value);
+      //   }
+      // });
     }
   };
 }
