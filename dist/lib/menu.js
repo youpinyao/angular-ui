@@ -1,4 +1,4 @@
-webpackJsonp([7,23,28],{
+webpackJsonp([7,25,30],{
 
 /***/ "/cD4":
 /***/ (function(module, exports, __webpack_require__) {
@@ -132,51 +132,65 @@ function maFirstMenu($state, $rootScope) {
   };
 }
 
-maSecondMenu.$inject = ['$state', '$rootScope'];
+maSecondMenu.$inject = ['$state', '$rootScope', '$timeout'];
 
-function maSecondMenu($state, $rootScope) {
+function maSecondMenu($state, $rootScope, $timeout) {
   return {
-    restrict: 'E',
+    restrict: 'EA',
     replace: true,
-    require: ['^maFirstMenu'],
-    template: _maSecondMenuTpl2['default'],
-    controller: ['$scope', function ($scope) {
+    template: function template(element, attrs) {
+      if (attrs.maSecondMenu !== undefined) {
+        element.removeAttr('ma-second-menu');
+        return element[0].outerHTML;
+      }
+      return _maSecondMenuTpl2['default'];
+    },
+    controller: ['$scope', '$attrs', '$element', function ($scope, $attrs, $element) {
       var cls = 'has-second-nav';
 
-      $scope.$state = $state;
+      // 如果是通过元素标签初始化 E
+      if ($attrs.maSecondMenu === undefined) {
+        $scope.$state = $state;
 
-      if (!$rootScope.routerConfig) {
-        console.error('请在 $rootScope 下赋值 routerConfig');
-      }
-      $scope.routers = $rootScope.routerConfig;
-
-      $scope.$on('$stateChangeSuccess', function () {
-        var hasSecondNav = false;
-
-        $scope.routers.forEach(function (router) {
-          if (router.parent && (router.state + '').indexOf(router.parent.state + '.') !== -1 && ($state.current.name + '').indexOf(router.parent.state + '.') !== -1 && router.hidden !== true && router.hiddenSecond !== true && router.level <= 2) {
-            hasSecondNav = true;
-          }
-        });
-
-        if (hasSecondNav) {
-          (0, _jquery2['default'])('body').addClass(cls);
-        } else {
-          (0, _jquery2['default'])('body').removeClass(cls);
+        if (!$rootScope.routerConfig) {
+          console.error('请在 $rootScope 下赋值 routerConfig');
         }
+        $scope.routers = $rootScope.routerConfig;
 
+        $scope.$on('$stateChangeSuccess', function () {
+          var hasSecondNav = false;
+
+          $scope.routers.forEach(function (router) {
+            if (router.parent && (router.state + '').indexOf(router.parent.state + '.') !== -1 && ($state.current.name + '').indexOf(router.parent.state + '.') !== -1 && router.hidden !== true && router.hiddenSecond !== true && router.level <= 2) {
+              hasSecondNav = true;
+            }
+          });
+
+          if (hasSecondNav) {
+            (0, _jquery2['default'])('body').addClass(cls);
+          } else {
+            (0, _jquery2['default'])('body').removeClass(cls);
+            $element.addClass('second-nav').addClass('show');
+          }
+
+          $rootScope.$broadcast('update.second.menu');
+
+          $scope.hasSecondNav = hasSecondNav;
+        });
+      } else {
+        (0, _jquery2['default'])('body').addClass(cls);
         $rootScope.$broadcast('update.second.menu');
-
-        $scope.hasSecondNav = hasSecondNav;
-      });
+      }
 
       $scope.$on('$destroy', function (e) {
         (0, _jquery2['default'])('body').removeClass(cls);
         (0, _jquery2['default'])(window).off('resize', $scope.resize);
+        $rootScope.$broadcast('update.second.menu');
       });
     }],
     link: function link(scope, element, attrs, controllers) {
       (0, _jquery2['default'])(window).on('resize', resize);
+      (0, _jquery2['default'])(window).on('scroll', resize);
 
       scope.$watch(function () {
         return (0, _jquery2['default'])(window).width();
@@ -186,17 +200,21 @@ function maSecondMenu($state, $rootScope) {
 
       scope.resize = resize;
 
-      resize();
+      $timeout(function () {
+        resize();
+      });
 
       function resize() {
-        var minWidth = parseInt((0, _jquery2['default'])(element).parents('.header').css('min-width'), 10);
+        var header = (0, _jquery2['default'])('.header').eq(0);
+        var minWidth = parseInt(header.css('min-width'), 10);
 
         if ((0, _jquery2['default'])(window).width() > minWidth) {
           minWidth = (0, _jquery2['default'])(window).width();
         }
 
         (0, _jquery2['default'])(element).css({
-          'min-width': minWidth
+          'min-width': minWidth,
+          top: header.outerHeight() - (0, _jquery2['default'])(window).scrollTop()
         });
       }
     }
@@ -207,13 +225,19 @@ maSiderMenu.$inject = ['$state', '$rootScope'];
 
 function maSiderMenu($state, $rootScope) {
   return {
-    restrict: 'E',
+    restrict: 'EA',
     replace: true,
     scope: {
       routers: '=maRouters',
       title: '@maTitle'
     },
-    template: _maSiderMenuTpl2['default'],
+    template: function template(element, attrs) {
+      if (attrs.maSiderMenu !== undefined) {
+        element.removeAttr('ma-sider-menu');
+        return element[0].outerHTML;
+      }
+      return _maSiderMenuTpl2['default'];
+    },
     controller: ['$scope', '$element', '$timeout', function ($scope, $element, $timeout) {
       var cls = 'has-sider-menu';
 
@@ -245,14 +269,21 @@ function maSiderMenu($state, $rootScope) {
       (0, _jquery2['default'])(window).on('scroll', setTop);
       (0, _jquery2['default'])(window).on('resize', setTop);
       $scope.$on('update.second.menu', setTop);
-      setTop();
+
+      $timeout(function () {
+        setTop();
+      });
 
       function setTop() {
         var header = (0, _jquery2['default'])('body > .header');
         var top = header.height() - (0, _jquery2['default'])(window).scrollTop();
 
+        if ((0, _jquery2['default'])('.header-fixed').length) {
+          top = header.height();
+        }
+
         if ((0, _jquery2['default'])('.has-second-nav').length) {
-          top += (0, _jquery2['default'])('.header .second-nav').height();
+          top += (0, _jquery2['default'])('.second-nav').height();
         }
 
         if (top < 0) {
@@ -264,7 +295,46 @@ function maSiderMenu($state, $rootScope) {
         });
       }
     }],
-    link: function link(scope, element, attrs, controllers) {}
+    link: function link(scope, element, attrs, controllers) {
+      if (attrs.maSiderMenu !== undefined) {
+        var items = (0, _jquery2['default'])(element).find('.sider-menu-item');
+
+        items.each(function (i) {
+          if (items.eq(i).find('> a').next('.sider-menu-content').length) {
+            var icon = (0, _jquery2['default'])('<i class="iconfont icon-down"></i>');
+            var a = items.eq(i).find('> a');
+            a.append(icon).addClass('arrow');
+
+            icon.bind('click', toggleMenu);
+            if (a.attr('ma-toggle') !== undefined) {
+              a.bind('click', toggleMenu);
+            }
+          }
+        });
+      }
+
+      function toggleMenu(e) {
+        e.stopPropagation();
+
+        var icon = (0, _jquery2['default'])(this);
+        var a = icon.parent();
+
+        if (icon.get(0).tagName.toLowerCase() === 'a') {
+          icon = icon.find('.iconfont');
+          a = icon.parent();
+        }
+
+        if (icon.hasClass('icon-down')) {
+          icon.removeClass('icon-down');
+          icon.addClass('icon-up');
+        } else {
+          icon.addClass('icon-down');
+          icon.removeClass('icon-up');
+        }
+
+        a.next().toggleClass('hide');
+      }
+    }
   };
 }
 
