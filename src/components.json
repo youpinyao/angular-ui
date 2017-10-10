@@ -19,6 +19,7 @@
   "transfer2": "./components/transfer2",
   "upload": "./components/upload",
   "lightgallery": "./components/lightgallery",
+  "notification": "./components/notification",
   "message": "./components/message",
   "alert": "./components/alert",
   "spin": "./components/spin",
@@ -27,5 +28,6 @@
   "modal": "./components/modal",
   "popconfirm": "./components/popconfirm",
   "datepicker": "./components/datepicker",
-  "table": "./components/table"
+  "table": "./components/table",
+  "pagination": "./components/pagination"
 }

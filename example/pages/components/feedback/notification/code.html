@@ -1,0 +1,13 @@
+function mainCtrl($scope, $timeout, $interval, $notification) {
+  $scope.showNotification = function() {
+    console.log($notification);
+    $notification({
+      title: 'Notification Title',  // 标题
+      delay: null,   // 是否自动关闭
+      message: 'hello the world!', // 通知文本
+      onClose: function() {   // 点击卡片回掉
+        $scope.test = '回掉成功'
+      },
+    });
+  };
+}
