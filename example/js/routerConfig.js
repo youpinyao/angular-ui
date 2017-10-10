@@ -268,7 +268,7 @@ const routers = [{
       url: '/table',
       ...table,
     }, {
-      title: 'Navigation 分页',
+      title: 'Pagination 分页',
       state: 'components.dataDisplay.pagination',
       url: '/pagination',
       ...pagination,
