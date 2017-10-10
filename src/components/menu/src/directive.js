@@ -55,9 +55,9 @@ function maFirstMenu($state, $rootScope) {
   };
 }
 
-maSecondMenu.$inject = ['$state', '$rootScope'];
+maSecondMenu.$inject = ['$state', '$rootScope', '$timeout'];
 
-function maSecondMenu($state, $rootScope) {
+function maSecondMenu($state, $rootScope, $timeout) {
   return {
     restrict: 'EA',
     replace: true,
@@ -118,6 +118,7 @@ function maSecondMenu($state, $rootScope) {
     }],
     link(scope, element, attrs, controllers) {
       $(window).on('resize', resize);
+      $(window).on('scroll', resize);
 
       scope.$watch(() => {
         return $(window).width();
@@ -127,17 +128,21 @@ function maSecondMenu($state, $rootScope) {
 
       scope.resize = resize;
 
-      resize();
+      $timeout(() => {
+        resize();
+      });
 
       function resize() {
-        let minWidth = parseInt($(element).parents('.header').css('min-width'), 10);
+        const header = $('.header').eq(0);
+        let minWidth = parseInt(header.css('min-width'), 10);
 
         if ($(window).width() > minWidth) {
           minWidth = $(window).width();
         }
 
         $(element).css({
-          'min-width': minWidth
+          'min-width': minWidth,
+          top: header.outerHeight() - $(window).scrollTop(),
         });
       }
     }
