@@ -8,8 +8,8 @@ notificationProvider.$inject = [];
 function notificationProvider() {
   this.options = {
     delay: 5000,
-    startTop: 10,
-    startRight: 10,
+    startTop: 20,
+    startRight: 20,
     verticalSpacing: 10,
     horizontalSpacing: 10,
     positionX: 'right',

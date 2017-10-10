@@ -47,6 +47,7 @@ import datepicker from '../pages/components/data-entry/datepicker';
 import dataDisplay from '../pages/components/data-display';
 import tooltip from '../pages/components/data-display/tooltip';
 import table from '../pages/components/data-display/table';
+import pagination from '../pages/components/data-display/pagination';
 
 import utils from '../pages/utils';
 
@@ -266,6 +267,11 @@ const routers = [{
       state: 'components.dataDisplay.table',
       url: '/table',
       ...table,
+    }, {
+      title: 'Navigation 分页',
+      state: 'components.dataDisplay.pagination',
+      url: '/pagination',
+      ...pagination,
     }]
   }]
 }, {

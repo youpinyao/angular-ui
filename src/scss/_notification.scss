@@ -1,6 +1,5 @@
 .ma-notification
 {
-    margin-right: 24px;
     position: fixed;
     z-index: 9999;
     box-sizing: border-box;
@@ -12,9 +11,9 @@
     box-shadow: 0 2px 8px rgba(0,0,0,.2);
     width: 335px;
     overflow: hidden;
-    -webkit-transition: all ease .5s;
-         -o-transition: all ease .5s;
-            transition: all ease .5s;
+    -webkit-transition: all ease .3s;
+         -o-transition: all ease .3s;
+            transition: all ease .3s;
 }
 .ma-notification.clickable
 {

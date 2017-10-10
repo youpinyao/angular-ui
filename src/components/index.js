@@ -27,7 +27,7 @@ import modal from './modal';
 import popconfirm from './popconfirm';
 import datepicker from './datepicker';
 import table from './table';
-
+import pagination from './pagination';
 import moduleName from './name.js';
 
 angular.module(moduleName, [
@@ -60,6 +60,7 @@ angular.module(moduleName, [
   popconfirm,
   datepicker,
   table,
+  pagination,
 ]).config(function() {}).run(function() {});
 
 export default moduleName;
