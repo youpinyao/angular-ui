@@ -59,46 +59,60 @@ maSecondMenu.$inject = ['$state', '$rootScope'];
 
 function maSecondMenu($state, $rootScope) {
   return {
-    restrict: 'E',
+    restrict: 'EA',
     replace: true,
-    require: ['^maFirstMenu'],
-    template: maSecondMenuTpl,
-    controller: ['$scope', function($scope) {
+    template: function(element, attrs) {
+      if (attrs.maSecondMenu !== undefined) {
+        element.removeAttr('ma-second-menu');
+        return element[0].outerHTML;
+      }
+      return maSecondMenuTpl;
+    },
+    controller: ['$scope', '$attrs', function($scope, $attrs) {
       const cls = 'has-second-nav';
 
-      $scope.$state = $state;
+      // 如果是通过元素标签初始化 E
+      if ($attrs.maSecondMenu === undefined) {
+        $scope.$state = $state;
 
-      if (!$rootScope.routerConfig) {
-        console.error('请在 $rootScope 下赋值 routerConfig');
-      }
-      $scope.routers = $rootScope.routerConfig;
-
-      $scope.$on('$stateChangeSuccess', function() {
-        let hasSecondNav = false;
-
-        $scope.routers.forEach(router => {
-          if (router.parent && (router.state + '').indexOf(router.parent.state + '.') !== -1 &&
-            ($state.current.name + '').indexOf(router.parent.state + '.') !== -1 &&
-            router.hidden !== true && router.hiddenSecond !== true && router.level <= 2
-          ) {
-            hasSecondNav = true;
-          }
-        });
-
-        if (hasSecondNav) {
-          $('body').addClass(cls);
-        } else {
-          $('body').removeClass(cls);
+        if (!$rootScope.routerConfig) {
+          console.error('请在 $rootScope 下赋值 routerConfig');
         }
+        $scope.routers = $rootScope.routerConfig;
 
+        $scope.$on('$stateChangeSuccess', function() {
+          let hasSecondNav = false;
+
+          $scope.routers.forEach(router => {
+            if (router.parent && (router.state + '').indexOf(router.parent.state + '.') !==
+              -1 &&
+              ($state.current.name + '').indexOf(router.parent.state + '.') !== -1 &&
+              router.hidden !== true && router.hiddenSecond !== true && router.level <=
+              2
+            ) {
+              hasSecondNav = true;
+            }
+          });
+
+          if (hasSecondNav) {
+            $('body').addClass(cls);
+          } else {
+            $('body').removeClass(cls);
+          }
+
+          $rootScope.$broadcast('update.second.menu');
+
+          $scope.hasSecondNav = hasSecondNav;
+        });
+      } else {
+        $('body').addClass(cls);
         $rootScope.$broadcast('update.second.menu');
-
-        $scope.hasSecondNav = hasSecondNav;
-      });
+      }
 
       $scope.$on('$destroy', e => {
         $('body').removeClass(cls);
         $(window).off('resize', $scope.resize);
+        $rootScope.$broadcast('update.second.menu');
       });
     }],
     link(scope, element, attrs, controllers) {
@@ -171,14 +185,21 @@ function maSiderMenu($state, $rootScope) {
       $(window).on('scroll', setTop);
       $(window).on('resize', setTop);
       $scope.$on('update.second.menu', setTop);
-      setTop();
+
+      $timeout(() => {
+        setTop();
+      });
 
       function setTop() {
         const header = $('body > .header');
         let top = header.height() - $(window).scrollTop();
 
+        if ($('.header-fixed').length) {
+          top = header.height();
+        }
+
         if ($('.has-second-nav').length) {
-          top += $('.header .second-nav').height();
+          top += $('.second-nav').height();
         }
 
         if (top < 0) {

@@ -1,47 +1,66 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <meta content="always" name="referrer">
-      <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-      <meta name="renderer" content="webkit|ie-stand|ie-comp">
-      <meta name="renderer" content="webkit">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-      <meta http-equiv="Content-Language" content="zh-CN" />
-      <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
-      <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
-      <meta HTTP-EQUIV="expires" CONTENT="0">
-      <meta http-equiv="Cache" content="no-cache">
-      <meta name="format-detection" content="telephone=no">
-      <title>Meetyou Angular UI</title>
-  </head>
 
-  <body class="header-fixed">
-    <div class="header clearfix">
-      <div class="container-fluid clearfix">
-        <div class="logo">
+<head>
+  <meta http-equiv="Content-Type"
+    content="text/html; charset=UTF-8" />
+  <meta content="always"
+    name="referrer">
+  <meta http-equiv="X-UA-Compatible"
+    content="IE=Edge,chrome=1">
+  <meta name="renderer"
+    content="webkit|ie-stand|ie-comp">
+  <meta name="renderer"
+    content="webkit">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Content-Language"
+    content="zh-CN" />
+  <meta HTTP-EQUIV="pragma"
+    CONTENT="no-cache">
+  <meta HTTP-EQUIV="Cache-Control"
+    CONTENT="no-cache, must-revalidate">
+  <meta HTTP-EQUIV="expires"
+    CONTENT="0">
+  <meta http-equiv="Cache"
+    content="no-cache">
+  <meta name="format-detection"
+    content="telephone=no">
+  <title>Meetyou Angular UI</title>
+</head>
+
+<body class="header-fixed">
+  <div class="header clearfix">
+    <div class="container-fluid clearfix">
+      <div class="logo">
+        <div>
+          <div class="logo-icon">
+            <img src="images/logo.jpg"
+              alt="">
+          </div>
           <div>
-            <div class="logo-icon">
-              <img src="images/logo.jpg" alt="">
-            </div>
-            <div>
-              <div>美柚广告</div>后台组件库
-            </div>
+            <div>美柚广告</div>后台组件库
           </div>
         </div>
-        <ma-first-menu class="container-fluid">
-           <!-- <ma-second-menu></ma-second-menu> -->
-        </ma-first-menu>
-        <div class="info">
-          <div class="head"><img src="./images/ybb-icon.png" /></div>
-          <span class="nickname">美柚</span> | <a class="logout-font" ma-click="$root.logout()"  href="javascript:void(0)">退出</a>
+      </div>
+      <ma-first-menu class="container-fluid">
+        <!-- <ma-second-menu></ma-second-menu> -->
+      </ma-first-menu>
+      <div class="info">
+        <div class="head">
+          <img src="./images/ybb-icon.png" />
         </div>
+        <span class="nickname">美柚</span> |
+        <a class="logout-font"
+          ma-click="$root.logout()"
+          href="javascript:void(0)">退出</a>
       </div>
     </div>
+  </div>
 
-    <div class="container-fluid col-22 main clearfix">
-      <div ui-view></div>
-    </div>
-  </body>
+  <div class="container-fluid col-22 main clearfix">
+    <div ui-view></div>
+  </div>
+</body>
 
 </html>
