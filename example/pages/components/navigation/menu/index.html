@@ -17,12 +17,12 @@
 
     <h3>代码演示</h3>
     <div class="p">
-      <h4>当路由只显示两级的时候使用</h4>
+      <h4>顶部菜单 当路由只显示两级的时候使用</h4>
       <div class="clearfix header-bg mb-20">${require('./code1.html')}</div>
       <code class="mt-20 mb-20"
         ng-bind="code1Text"></code>
 
-      <h4>非指令实现</h4>
+      <h4>顶部菜单 独立实现</h4>
       <div class="clearfix header-bg mb-20">${require('./code3.html')}</div>
       <code class="mt-20"
         ng-bind="code3Text"></code>
@@ -30,18 +30,29 @@
       <div>自动生成菜单需要在 $rootScope 下赋值 routerConfig，路由配置及赋值详见 example/js/routerConfig.js 和 example/js/app.js</div>
     </div>
     <div class="p">
-      <h3>侧边栏菜单</h3>
+      <h4>侧边栏菜单</h4>
       <div class="sider-menu-box clearfix">
         ${require('./code2.html')}
       </div>
-      <ma-code>
+      <ma-code class="mb-20">
         <div class="right">
           <a href="https://jsfiddle.net/youpinyao/n7n3bvop/"
             target="_blank">jsfiddle</a>
         </div>
         <code>
           <div ng-bind="code2Text"></div>
-          <div ng-bind="code3Js"></div>
+          <div ng-bind="code4Js"></div>
+        </code>
+      </ma-code>
+      <h4>侧边栏菜单 独立实现</h4>
+      <div class="sider-menu-box clearfix">${require('./code4.html')}</div>
+      <ma-code>
+        <div class="right">
+          <a href="https://jsfiddle.net/youpinyao/f5sj4xnh/"
+            target="_blank">jsfiddle</a>
+        </div>
+        <code>.sider-menu-content.hide // 隐藏菜单模块
+          <div ng-bind="code4Text"></div>
         </code>
       </ma-code>
     </div>
@@ -68,6 +79,13 @@
           <td>Array</td>
           <td>-</td>
           <td>YES</td>
+        </tr>
+        <tr>
+          <td>ma-toggle</td>
+          <td>侧边栏菜单 - 独立实现时可使用</td>
+          <td>-</td>
+          <td>-</td>
+          <td>NO</td>
         </tr>
       </table>
     </div>

@@ -10,7 +10,8 @@ function mainCtrl($scope) {
   $scope.code1Text = require('./code1.html');
   $scope.code2Text = require('./code2.html');
   $scope.code3Text = require('./code3.html');
-  $scope.code3Js = require('./code3.js');
+  $scope.code4Text = require('./code4.html');
+  $scope.code4Js = require('./code4.js');
 
   $scope.siderMenuConfig = [{
     title: 'General 一般',

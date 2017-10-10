@@ -178,18 +178,17 @@ body.has-sider-menu > .main {
           top: 0px;
           bottom: 0px;
           height: 100%;
-          line-height: 50px;
+          line-height: 52px;
           margin: auto;
         }
         &.arrow {
           padding-right: 30px !important;
         }
       }
-      .slide-menu-item {
+      .sider-menu-item {
         a {
           i.iconfont {
-            line-height: 40px;
-            height: 40px;
+            line-height: 42px;
           }
         }
       }

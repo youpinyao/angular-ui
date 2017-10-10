@@ -68,7 +68,7 @@ function maSecondMenu($state, $rootScope) {
       }
       return maSecondMenuTpl;
     },
-    controller: ['$scope', '$attrs', function($scope, $attrs) {
+    controller: ['$scope', '$attrs', '$element', function($scope, $attrs, $element) {
       const cls = 'has-second-nav';
 
       // 如果是通过元素标签初始化 E
@@ -98,6 +98,7 @@ function maSecondMenu($state, $rootScope) {
             $('body').addClass(cls);
           } else {
             $('body').removeClass(cls);
+            $element.addClass('second-nav').addClass('show');
           }
 
           $rootScope.$broadcast('update.second.menu');
@@ -147,13 +148,19 @@ maSiderMenu.$inject = ['$state', '$rootScope'];
 
 function maSiderMenu($state, $rootScope) {
   return {
-    restrict: 'E',
+    restrict: 'EA',
     replace: true,
     scope: {
       routers: '=maRouters',
       title: '@maTitle',
     },
-    template: maSiderMenuTpl,
+    template: function(element, attrs) {
+      if (attrs.maSiderMenu !== undefined) {
+        element.removeAttr('ma-sider-menu');
+        return element[0].outerHTML;
+      }
+      return maSiderMenuTpl;
+    },
     controller: ['$scope', '$element', '$timeout', function($scope, $element, $timeout) {
       const cls = 'has-sider-menu';
 
@@ -212,7 +219,44 @@ function maSiderMenu($state, $rootScope) {
       }
     }],
     link(scope, element, attrs, controllers) {
+      if (attrs.maSiderMenu !== undefined) {
+        const items = $(element).find('.sider-menu-item');
 
+        items.each((i) => {
+          if (items.eq(i).find('> a').next('.sider-menu-content').length) {
+            const icon = $('<i class="iconfont icon-down"></i>');
+            const a = items.eq(i).find('> a');
+            a.append(icon).addClass('arrow');
+
+            icon.bind('click', toggleMenu);
+            if (a.attr('ma-toggle') !== undefined) {
+              a.bind('click', toggleMenu);
+            }
+          }
+        });
+      }
+
+      function toggleMenu(e) {
+        e.stopPropagation();
+
+        let icon = $(this);
+        let a = icon.parent();
+
+        if (icon.get(0).tagName.toLowerCase() === 'a') {
+          icon = icon.find('.iconfont');
+          a = icon.parent();
+        }
+
+        if (icon.hasClass('icon-down')) {
+          icon.removeClass('icon-down');
+          icon.addClass('icon-up');
+        } else {
+          icon.addClass('icon-down');
+          icon.removeClass('icon-up');
+        }
+
+        a.next().toggleClass('hide');
+      }
     }
   };
 }
