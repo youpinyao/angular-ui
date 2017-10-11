@@ -9,6 +9,10 @@ mainCtrl.$inject = ['$scope', '$timeout', '$interval'];
 function mainCtrl($scope, $timeout, $interval) {
   $scope.selectCheckbox = '1';
   $scope.codeText = require('./code.html');
+
+  $scope.checkboxChange = function() {
+    console.log(arguments);
+  };
 }
 
 export default {

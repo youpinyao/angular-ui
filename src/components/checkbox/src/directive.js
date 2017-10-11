@@ -16,6 +16,7 @@ function maCheckbox($timeout) {
       value="{{value}}"
       data-name="{{name}}"
       ng-disabled="disabled"
+      ng-change="change()"
       ng-model="checked"
     />
     <i class="ma-checkbox-appearance"></i>
@@ -25,6 +26,7 @@ function maCheckbox($timeout) {
       name: '@name',
       value: '@value',
       model: '=ngModel',
+      ngChange: '&ngChange',
       disabled: '=ngDisabled',
     },
     link: function(scope, element, attrs, ctrl) {
@@ -42,6 +44,13 @@ function maCheckbox($timeout) {
         }
       });
 
+      scope.change = function() {
+        scope.ngChange({
+          $model: scope.model,
+          $checked: scope.checked,
+        });
+      };
+
       attrs.$observe('unclick', function() {
         element.bind('click', function(e) {
           e.preventDefault();
@@ -52,7 +61,8 @@ function maCheckbox($timeout) {
 
       scope.$watch('checked', d => {
         scope.$applyAsync(function() {
-          var checkboxs = $(element).parent().find('> .ma-checkbox input[type="checkbox"]');
+          var checkboxs = $(element).parent().find(
+            '> .ma-checkbox input[type="checkbox"]');
           var values = [];
 
           if (scope.name) {
