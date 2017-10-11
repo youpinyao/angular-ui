@@ -5,18 +5,20 @@
 </ma-crumb> -->
 <ma-crumb-auto></ma-crumb-auto>
 <div class="data-entry-checkbox-page">
-  <div class="container" ma-full-container>
+  <div class="container"
+    ma-full-container>
     <h2>Checkbox 多选框</h2>
     <p>
-      在一组可选项中进行多项选择时；<br/>
-      单独使用可以表示两种状态之间的切换，和 switch 类似。区别在于切换 switch 会直接触发状态改变，而 checkbox 一般用于状态标记，需要和提交操作配合。
+      在一组可选项中进行多项选择时；
+      <br/> 单独使用可以表示两种状态之间的切换，和 switch 类似。区别在于切换 switch 会直接触发状态改变，而 checkbox 一般用于状态标记，需要和提交操作配合。
     </p>
     <h3>代码演示</h3>
     <div class="p">
       ${require('./code.html')}
       <ma-code>
         <div class="right">
-          <a href="https://jsfiddle.net/youpinyao/duej1zms/" target="_blank">jsfiddle</a>
+          <a href="https://jsfiddle.net/youpinyao/duej1zms/"
+            target="_blank">jsfiddle</a>
         </div>
         <code ng-bind="codeText"></code>
       </ma-code>
@@ -46,6 +48,12 @@
           <td>ng-model</td>
           <td>必填</td>
           <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ng-change</td>
+          <td>非必填</td>
+          <td>Function</td>
           <td>-</td>
         </tr>
       </table>
