@@ -34,11 +34,12 @@ function maRadio() {
     restrict: 'E',
     transclude: true,
     replace: true,
-    template: '<label class="ma-radio">\n    <input type="radio"\n      ng-model="model"\n      value="{{value}}"\n      ng-disabled="disabled"\n    />\n    <i class="radio-appearance"></i>\n    <span ng-transclude></span>\n    </label>',
+    template: '<label class="ma-radio">\n    <input type="radio"\n      ng-model="model"\n      value="{{value}}"\n      ng-change="change()"\n      ng-disabled="disabled"\n    />\n    <i class="radio-appearance"></i>\n    <span ng-transclude></span>\n    </label>',
     scope: {
       name: '@name',
       value: '@value',
       model: '=ngModel',
+      ngChange: '&ngChange',
       disabled: '=ngDisabled'
     },
     link: function link(scope, element, attrs, ctrl) {
@@ -47,6 +48,11 @@ function maRadio() {
           scope.model = String(d);
         }
       });
+      scope.change = function () {
+        scope.ngChange({
+          $model: scope.model
+        });
+      };
     }
   };
 }

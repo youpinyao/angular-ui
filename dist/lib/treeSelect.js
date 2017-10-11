@@ -286,11 +286,12 @@ function maCheckbox($timeout) {
     restrict: 'E',
     transclude: true,
     replace: true,
-    template: '<label class="ma-checkbox">\n    <input type="checkbox"\n      value="{{value}}"\n      data-name="{{name}}"\n      ng-disabled="disabled"\n      ng-model="checked"\n    />\n    <i class="ma-checkbox-appearance"></i>\n    <span ng-transclude></span>\n    </label>',
+    template: '<label class="ma-checkbox">\n    <input type="checkbox"\n      value="{{value}}"\n      data-name="{{name}}"\n      ng-disabled="disabled"\n      ng-change="change()"\n      ng-model="checked"\n    />\n    <i class="ma-checkbox-appearance"></i>\n    <span ng-transclude></span>\n    </label>',
     scope: {
       name: '@name',
       value: '@value',
       model: '=ngModel',
+      ngChange: '&ngChange',
       disabled: '=ngDisabled'
     },
     link: function link(scope, element, attrs, ctrl) {
@@ -307,6 +308,13 @@ function maCheckbox($timeout) {
           scope.checked = false;
         }
       });
+
+      scope.change = function () {
+        scope.ngChange({
+          $model: scope.model,
+          $checked: scope.checked
+        });
+      };
 
       attrs.$observe('unclick', function () {
         element.bind('click', function (e) {
