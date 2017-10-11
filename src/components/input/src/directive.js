@@ -31,6 +31,8 @@ function maInput() {
       iconClick: '&maIconClick',
 
       clear: '=maClear',
+
+      ngChange: '&ngChange',
     },
     template: maInputTpl,
     controllerAs: '$ctrl',
@@ -41,6 +43,12 @@ function maInput() {
       $scope.$watch('placeholder', d => {
         $element.find('textarea').attr('placeholder', d || '');
       });
+
+      $scope.change = function() {
+        $scope.ngChange({
+          $model: $scope.model,
+        });
+      };
     }],
     link: function(scope, element, attrs, ctrl) {
       $(element).bind('click', e => {
@@ -148,6 +156,7 @@ function maNum($filter, $timeout, $parse) {
               '.')[1].length > decimal) {
             this.value = parseFloat(this.value).toFixed(decimal);
           }
+
           if (ngModel && typeof ngModel.assign === 'function') {
             ngModel.assign(scope, this.value);
           }

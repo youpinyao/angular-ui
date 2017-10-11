@@ -16,6 +16,10 @@ function mainCtrl($scope) {
   $scope.iconClick = function(e) {
     console.log('iconClick');
   };
+
+  $scope.inputChange = function() {
+    console.log(arguments);
+  };
 }
 
 export default {

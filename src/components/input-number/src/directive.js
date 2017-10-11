@@ -1,4 +1,5 @@
 import moduleName from './name.js';
+import debounce from 'debounce';
 
 angular.module(moduleName)
   .directive('maInputNumber', maInputNumber);
@@ -26,6 +27,8 @@ function maInputNumber() {
       disabled: '=ngDisabled',
 
       decimal: '@maDecimal',
+
+      ngChange: '&ngChange',
     },
     template: `<div class="ma-input-number-box">
       <ma-input
@@ -51,7 +54,10 @@ function maInputNumber() {
       </ma-input>
     </div>`,
     controllerAs: '$ctrl',
-    controller: ['$scope', '$interval', function ($scope) {
+    controller: ['$scope', '$interval', function($scope) {
+      const doChange = debounce(_doChange, 50);
+      let isFirst = true;
+
       var min = parseFloat($scope.min);
       var max = parseFloat($scope.max);
       var step = parseFloat($scope.step) || 1;
@@ -76,22 +82,29 @@ function maInputNumber() {
         if (numberValue) {
           numberValue += '';
         }
-        if (decimal && numberValue && (numberValue.indexOf('.') === -1 || numberValue.indexOf('.') !== numberValue.length - 1)) {
+        if (decimal && numberValue && (numberValue.indexOf('.') === -1 || numberValue.indexOf(
+            '.') !== numberValue.length - 1)) {
           numberValue = parseFloat(numberValue);
           $scope.numberValue = parseFloat(numberValue.toFixed(2));
         }
       };
 
       $scope.$watch('numberValue', d => {
-        if (($scope.numberValue || $scope.numberValue === 0) && !isNaN(min) && $scope.numberValue < min) {
+        if (($scope.numberValue || $scope.numberValue === 0) && !isNaN(min) && $scope.numberValue <
+          min) {
           $scope.numberValue = min;
         }
-        if (($scope.numberValue || $scope.numberValue === 0) && !isNaN(max) && $scope.numberValue > max) {
+        if (($scope.numberValue || $scope.numberValue === 0) && !isNaN(max) && $scope.numberValue >
+          max) {
           $scope.numberValue = max;
         }
         fix();
-      });
 
+        if (!isFirst) {
+          doChange();
+        }
+        isFirst = false;
+      });
 
       this.plusNumber = () => {
         $scope.numberValue = (parseFloat($scope.numberValue) || 0) + step;
@@ -99,8 +112,14 @@ function maInputNumber() {
       this.minusNumber = () => {
         $scope.numberValue = (parseFloat($scope.numberValue) || 0) - step;
       };
+
+      function _doChange() {
+        $scope.ngChange({
+          $model: $scope.numberValue,
+        });
+      }
     }],
-    link: function (scope, element, attrs, ctrl) {
+    link: function(scope, element, attrs, ctrl) {
 
     }
   };

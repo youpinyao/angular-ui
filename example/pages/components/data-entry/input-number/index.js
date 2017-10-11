@@ -11,6 +11,10 @@ function mainCtrl($scope) {
   $scope.numberTestValue2 = 4;
   $scope.placeholder = '提示文本';
   $scope.codeText = require('./code.html');
+
+  $scope.inputChange = function() {
+    console.log(arguments, $scope.numberTestValue1);
+  };
 }
 
 export default {
