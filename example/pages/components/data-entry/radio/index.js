@@ -9,6 +9,10 @@ mainCtrl.$inject = ['$scope'];
 function mainCtrl($scope) {
   $scope.selectRadio = '1';
   $scope.codeText = require('./code.html');
+
+  $scope.radioChange = function() {
+    console.log(arguments);
+  };
 }
 
 export default {

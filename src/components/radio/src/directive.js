@@ -14,6 +14,7 @@ function maRadio() {
     <input type="radio"
       ng-model="model"
       value="{{value}}"
+      ng-change="change()"
       ng-disabled="disabled"
     />
     <i class="radio-appearance"></i>
@@ -23,6 +24,7 @@ function maRadio() {
       name: '@name',
       value: '@value',
       model: '=ngModel',
+      ngChange: '&ngChange',
       disabled: '=ngDisabled',
     },
     link: function(scope, element, attrs, ctrl) {
@@ -31,6 +33,11 @@ function maRadio() {
           scope.model = String(d);
         }
       });
+      scope.change = function() {
+        scope.ngChange({
+          $model: scope.model
+        });
+      };
     }
   };
 }
