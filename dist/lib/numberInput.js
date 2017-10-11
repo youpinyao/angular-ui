@@ -46,7 +46,9 @@ function maInput() {
 
       iconClick: '&maIconClick',
 
-      clear: '=maClear'
+      clear: '=maClear',
+
+      ngChange: '&ngChange'
     },
     template: _maInputTpl2['default'],
     controllerAs: '$ctrl',
@@ -57,6 +59,12 @@ function maInput() {
       $scope.$watch('placeholder', function (d) {
         $element.find('textarea').attr('placeholder', d || '');
       });
+
+      $scope.change = function () {
+        $scope.ngChange({
+          $model: $scope.model
+        });
+      };
     }],
     link: function link(scope, element, attrs, ctrl) {
       (0, _jquery2['default'])(element).bind('click', function (e) {
@@ -163,6 +171,7 @@ function maNum($filter, $timeout, $parse) {
           if (!isNaN(decimal) && _this.value && _this.value.split('.')[1] && _this.value.split('.')[1].length > decimal) {
             _this.value = parseFloat(_this.value).toFixed(decimal);
           }
+
           if (ngModel && typeof ngModel.assign === 'function') {
             ngModel.assign(scope, _this.value);
           }
@@ -201,7 +210,7 @@ exports['default'] = _name2['default'];
 /***/ "6vUj":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-input\">\n  <input\n    ng-show=\"type !== 'textarea'\"\n    type=\"{{type || 'text'}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    placeholder=\"{{placeholder}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  />\n\n  <textarea\n    ng-show=\"type === 'textarea'\"\n    type=\"{{type || 'text'}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  ></textarea>\n\n  <ma-icon\n    class=\"clear\"\n    ng-show=\"clear && model\"\n    ma-type=\"close\"\n    ma-click=\"$ctrl.clearClick($event)\"\n  ></ma-icon>\n\n  <div ng-transclude></div>\n</div>\n";
+module.exports = "<div class=\"ma-input\">\n  <input\n    ng-show=\"type !== 'textarea'\"\n    type=\"{{type || 'text'}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    placeholder=\"{{placeholder}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-change=\"change()\"\n    ng-disabled=\"disabled\"\n  />\n\n  <textarea\n    ng-show=\"type === 'textarea'\"\n    type=\"{{type || 'text'}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    accept=\"{{accept}}\"\n    pattern=\"{{pattern}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-change=\"change()\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  ></textarea>\n\n  <ma-icon\n    class=\"clear\"\n    ng-show=\"clear && model\"\n    ma-type=\"close\"\n    ma-click=\"$ctrl.clearClick($event)\"\n  ></ma-icon>\n\n  <div ng-transclude></div>\n</div>\n";
 
 /***/ }),
 
@@ -378,6 +387,10 @@ var _name = __webpack_require__("XqJQ");
 
 var _name2 = _interopRequireDefault(_name);
 
+var _debounce = __webpack_require__("HhAh");
+
+var _debounce2 = _interopRequireDefault(_debounce);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 angular.module(_name2['default']).directive('maInputNumber', maInputNumber);
@@ -404,11 +417,16 @@ function maInputNumber() {
       readonly: '=ngReadonly',
       disabled: '=ngDisabled',
 
-      decimal: '@maDecimal'
+      decimal: '@maDecimal',
+
+      ngChange: '&ngChange'
     },
     template: '<div class="ma-input-number-box">\n      <ma-input\n        ma-num\n        ma-decimal="{{decimal}}"\n        class="ma-input-number"\n        type="{{type}}"\n        ng-model="numberValue"\n        maxlength="{{maxlength}}"\n        placeholder="{{placeholder}}"\n        accept="{{accept}}"\n        pattern="{{pattern}}"\n        min="{{min}}"\n        max="{{max}}"\n        step="{{step}}"\n        ng-readonly="readonly"\n        ng-disabled="disabled"\n      >\n        <div class="control" ng-disabled="disabled" >\n          <div ng-click="$ctrl.plusNumber($event)"></div>\n          <div ng-click="$ctrl.minusNumber($event)"></div>\n        </div>\n      </ma-input>\n    </div>',
     controllerAs: '$ctrl',
     controller: ['$scope', '$interval', function ($scope) {
+      var doChange = (0, _debounce2['default'])(_doChange, 50);
+      var isFirst = true;
+
       var min = parseFloat($scope.min);
       var max = parseFloat($scope.max);
       var step = parseFloat($scope.step) || 1;
@@ -447,6 +465,11 @@ function maInputNumber() {
           $scope.numberValue = max;
         }
         fix();
+
+        if (!isFirst) {
+          doChange();
+        }
+        isFirst = false;
       });
 
       this.plusNumber = function () {
@@ -455,6 +478,12 @@ function maInputNumber() {
       this.minusNumber = function () {
         $scope.numberValue = (parseFloat($scope.numberValue) || 0) - step;
       };
+
+      function _doChange() {
+        $scope.ngChange({
+          $model: $scope.numberValue
+        });
+      }
     }],
     link: function link(scope, element, attrs, ctrl) {}
   };

@@ -34,12 +34,19 @@ function maSwitch() {
     restrict: 'E',
     replace: true,
     transclude: true,
-    template: '<label class="ma-switch">\n      <input\n      type="checkbox"\n      ng-model="model"\n      ng-disabled="disabled" />\n      <i class="switch-appearance"></i>\n      <span ng-transclude></span>\n    </label>',
+    template: '<label class="ma-switch">\n      <input\n      type="checkbox"\n      ng-change="change()"\n      ng-model="model"\n      ng-disabled="disabled" />\n      <i class="switch-appearance"></i>\n      <span ng-transclude></span>\n    </label>',
     scope: {
       model: '=ngModel',
-      disabled: '=ngDisabled'
+      disabled: '=ngDisabled',
+      ngChange: '&ngChange'
     },
-    link: function link(scope, element, attrs, ctrl) {}
+    link: function link(scope, element, attrs, ctrl) {
+      scope.change = function () {
+        scope.ngChange({
+          $model: scope.model
+        });
+      };
+    }
   };
 }
 
