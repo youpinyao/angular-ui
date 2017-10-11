@@ -3,4 +3,5 @@
     ma-click="radioDisabled = !radioDisabled">Toggle disabled {{!!radioDisabled}} {{selectSwitch}}</ma-button>
 </div>
 <ma-switch ng-model="selectSwitch"
+  ng-change="doChange($model)"
   ng-disabled="radioDisabled"></ma-switch>

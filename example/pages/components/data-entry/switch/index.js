@@ -9,6 +9,10 @@ mainCtrl.$inject = ['$scope'];
 function mainCtrl($scope) {
   $scope.selectSwitch = true;
   $scope.codeText = require('./code.html');
+
+  $scope.doChange = function() {
+    console.log(arguments);
+  };
 }
 
 export default {

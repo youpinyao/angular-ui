@@ -5,18 +5,20 @@
 </ma-crumb> -->
 <ma-crumb-auto></ma-crumb-auto>
 <div class="data-entry-switch-page">
-  <div class="container" ma-full-container>
+  <div class="container"
+    ma-full-container>
     <h2>Switch 开关</h2>
     <p>
-      需要表示开关状态/两种状态之间的切换时；<br/>
-      和 checkbox的区别是，切换 switch 会直接触发状态改变，而 checkbox 一般用于状态标记，需要和提交操作配合。
+      需要表示开关状态/两种状态之间的切换时；
+      <br/> 和 checkbox的区别是，切换 switch 会直接触发状态改变，而 checkbox 一般用于状态标记，需要和提交操作配合。
     </p>
     <h3>代码演示</h3>
     <div class="p">
       ${require('./code.html')}
       <ma-code>
         <div class="right">
-          <a href="https://jsfiddle.net/youpinyao/3sd3nkbv/" target="_blank">jsfiddle</a>
+          <a href="https://jsfiddle.net/youpinyao/3sd3nkbv/"
+            target="_blank">jsfiddle</a>
         </div>
         <code ng-bind="codeText"></code>
       </ma-code>
@@ -34,6 +36,12 @@
           <td>ng-model</td>
           <td>必填</td>
           <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>ng-change</td>
+          <td>非必填, 参数：$model</td>
+          <td>Function</td>
           <td>-</td>
         </tr>
       </table>
