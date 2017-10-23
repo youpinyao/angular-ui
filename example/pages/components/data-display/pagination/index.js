@@ -9,7 +9,7 @@ mainCtrl.$inject = ['$scope', '$timeout', '$interval', '$message', '$q', '$table
 function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
   $scope.paginationConf = {
     currentPage: 1,
-    totalItems: 8000,
+    totalItems: 1000,
     itemsPerPageSize: 10,
     pagesLength: 5,
     // perPageOptions: [10, 20, 30, 40, 50],

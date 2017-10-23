@@ -126,7 +126,8 @@ function maPagination($timeout, $compile) {
         } else {
           // 总页数大于分页长度（此时分为三种情况：1.左边没有...2.右边没有...3.左右都有...）
           // 计算中心偏移量
-          var offset = (conf.pagesLength - 1) / 2;
+
+          var offset = (conf.pagesLength + 1) / 2;
           if (conf.currentPage <= offset) {
             // 左边没有...
             for (let i = 1; i <= offset + 1; i++) {
@@ -137,7 +138,7 @@ function maPagination($timeout, $compile) {
           } else if (conf.currentPage > conf.numberOfPages - offset) {
             scope.pageList.push(1);
             scope.pageList.push('...');
-            for (let i = offset + 1; i >= 1; i--) {
+            for (let i = offset; i >= 1; i--) {
               scope.pageList.push(conf.numberOfPages - i);
             }
             scope.pageList.push(conf.numberOfPages);
@@ -145,8 +146,7 @@ function maPagination($timeout, $compile) {
             // 最后一种情况，两边都有...
             scope.pageList.push(1);
             scope.pageList.push('...');
-
-            for (let i = Math.ceil(offset / 2); i >= 1; i--) {
+            for (let i = Math.floor(offset / 2); i >= 1; i--) {
               scope.pageList.push(conf.currentPage - i);
             }
             scope.pageList.push(conf.currentPage);
