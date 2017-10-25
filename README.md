@@ -44,14 +44,14 @@ $ yarn add meetyou-angular-ui
 
 ```
 
-1、未构建注入： 
-import meetyouAngular from ‘meetyou-angular-ui/src’
-angular.module(‘app’, meetyouAngular);
+未构建注入： 
+import meetyouAngular from 'meetyou-angular-ui/src'
+angular.module('app', meetyouAngular);
 
-2、已构建注入：
-import ‘meetyou-angular-ui’
-Import ‘meetyou-angular-ui/src/scss/app.scss’;
-angular.module(‘app’, ‘meetyou.angular’);
+已构建注入：
+import 'meetyou-angular-ui'
+Import 'meetyou-angular-ui/src/scss/app.scss';
+angular.module('app', 'meetyou.angular');
 
 ```
   
