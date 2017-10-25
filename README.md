@@ -43,11 +43,16 @@ $ yarn add meetyou-angular-ui
 > ## 项目注入
 
 ```
-import meetyou from 'meetyou-angular-ui';
 
-angular.module('app', [
-  meetyou,
-]);
+1、未构建注入： 
+import meetyouAngular from ‘meetyou-angular-ui/src’
+angular.module(‘app’, meetyouAngular);
+
+2、已构建注入：
+import ‘meetyou-angular-ui’
+Import ‘meetyou-angular-ui/src/scss/app.scss’;
+angular.module(‘app’, ‘meetyou.angular’);
+
 ```
   
 > ## 浏览器引入
