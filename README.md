@@ -69,6 +69,9 @@ angular.module('app', 'meetyou.angular');
 [meetyou-angular-cli](https://www.npmjs.com/package/meetyou-angular-cli)
 
 > ## demo
+[https://github.com/youpinyao/meetyou-angular-ui-demo](https://github.com/youpinyao/meetyou-angular-ui-demo)
+
+> ## 文档
 [https://youpinyao.github.io/meetyou-angular-ui/dist/example/index.html](https://youpinyao.github.io/meetyou-angular-ui/dist/example/index.html)
 
 > ## uirecorder
