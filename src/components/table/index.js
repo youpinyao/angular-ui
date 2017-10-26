@@ -1,4 +1,3 @@
-import './src/_table.scss';
 import moduleName from './src/name.js';
 import checkbox from '../checkbox';
 import select from '../select';

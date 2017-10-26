@@ -1,0 +1,72 @@
+$transferHeight: 236px;
+$inputHeight: 32px;
+
+.ma-transfer {
+  height: $transferHeight;
+
+  .ma-transfer-center {
+    padding: 75px 20px 0px 20px;
+    height: $transferHeight;
+
+    .ma-button {
+      letter-spacing: -0.31em;
+      > * {
+        letter-spacing: normal;
+      }
+    }
+  }
+
+  .ma-transfer-left-result,
+  .ma-transfer-right-result {
+    width: 240px;
+    border: 1px solid $outlines;
+    border-bottom-color: transparent;
+    height: $inputHeight;
+    line-height: $inputHeight;
+    padding: 0px 10px;
+    border-radius: 4px 4px 0px 0px;
+
+    .ma-transfer-title {
+      float: right;
+      color: $base;
+    }
+  }
+
+  .ma-tree-select {
+    position: relative;
+    top: -1px;
+
+    .custom-multi-select.custom-static-select .select2-drop {
+      min-height: $transferHeight - $inputHeight;
+      border-top: 1px solid $outlines;
+    }
+  }
+
+  .ma-select {
+    top: 0px;
+    height: 0px;
+    display: block;
+    > .ma-input {
+      height: 0px;
+      overflow: hidden;
+      border: 0px;
+      box-shadow: none;
+    }
+
+    .ma-dropdown {
+      height: 0px;
+      left: 0px;
+      right: 0px;
+    }
+
+    .ma-dropdown-container {
+      box-shadow: none;
+      border:1px solid $outlines;
+      overflow: hidden;
+      min-height: $transferHeight - $inputHeight;
+      opacity: 1;
+      visibility: visible;
+      @include transform(scaleY(1));
+    }
+  }
+}

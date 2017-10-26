@@ -10,8 +10,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-__webpack_require__("Gv2V");
-
 var _name = __webpack_require__("w0m/");
 
 var _name2 = _interopRequireDefault(_name);
@@ -23,13 +21,6 @@ angular.module(_name2['default'], []).config(function () {}).run(function () {})
 __webpack_require__("t4JU");
 
 exports['default'] = _name2['default'];
-
-/***/ }),
-
-/***/ "Gv2V":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 

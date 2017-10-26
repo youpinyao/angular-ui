@@ -1,2 +1,0 @@
-.ma-spin{text-align:center}.ma-spin svg{vertical-align:top}.ma-spin .gif{background:url(assets/spin.a178f37bb395795f22df5a9d8d0fb318.gif) no-repeat 50%;background-size:cover;margin:auto}.ma-loading{position:fixed;z-index:9999;left:0;top:0;width:100%;height:100%;opacity:0;visibility:hidden;transition:all .3s ease;-webkit-transtion:all .3s ease}.ma-loading.show{opacity:1;visibility:visible}.ma-loading .ma-spin{height:120px;position:absolute;width:100%;left:0;top:0;bottom:0;margin:auto}
-/*# sourceMappingURL=spin.min.js.map*/

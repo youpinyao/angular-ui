@@ -1,4 +1,3 @@
-import './src/_transfer.scss';
 import moduleName from './src/name.js';
 import select from '../select';
 import treeSelect from '../tree-select';

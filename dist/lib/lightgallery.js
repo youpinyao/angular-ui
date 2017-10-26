@@ -1,4 +1,4 @@
-webpackJsonp([16],{
+webpackJsonp([13],{
 
 /***/ "2cvB":
 /***/ (function(module, exports, __webpack_require__) {
@@ -1334,13 +1334,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 /***/ }),
 
-/***/ "Ovik":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ "WTIP":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1396,15 +1389,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-__webpack_require__("Fhdu");
-
-__webpack_require__("Ovik");
-
 var _name = __webpack_require__("WTIP");
 
 var _name2 = _interopRequireDefault(_name);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+__webpack_require__("Fhdu");
 
 angular.module(_name2['default'], []).config(function () {}).run(function () {});
 

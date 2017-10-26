@@ -1,4 +1,3 @@
-import './src/_tree-select.scss';
 import moduleName from './src/name.js';
 import button from '../button';
 import checkbox from '../checkbox';

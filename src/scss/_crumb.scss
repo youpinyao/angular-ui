@@ -1,0 +1,14 @@
+.crumb {
+  color: $grey;
+  padding: 10px 0px;
+  > .crumb-item {
+    &:last-child {
+      > span:first-child {
+        color: $black;
+      }
+      > span:last-child {
+        display: none;
+      }
+    }
+  }
+}

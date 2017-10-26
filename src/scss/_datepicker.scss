@@ -1,0 +1,141 @@
+
+@mixin inputIcon () {
+  display: block;
+  @include iconfont();
+  font-weight: normal;
+  position: absolute;
+  line-height: $inputHeight - 2px;
+  padding: 0px 8px;
+  background-color: $white;
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  margin: auto;
+  border-top-right-radius: $inputRadius;
+  border-bottom-right-radius: $inputRadius;
+  pointer-events: none;
+}
+
+.ma-date-range-picker,
+.ma-date-picker {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  i.icon-calendar {
+    @include inputIcon();
+  }
+
+  &[disabled] i.icon-calendar {
+    background-color: $disabled;
+  }
+
+  input,
+  input[readonly] {
+    background-color: #fff;
+    cursor: pointer;
+    padding-right: 32px;
+    &:focus {
+      -webkit-box-shadow: 0 0px 1px 0 rgba($black, 0.25);
+              box-shadow: 0 0px 1px 0 rgba($black, 0.25);
+      border-radius: 4px 4px 0 0;
+      border-color: rgba($black, 0.1);
+      border-bottom-color: $disabled;
+    }
+  }
+}
+
+.ma-date-picker {
+  [date-picker-wrapper] {
+    max-width: 240px;
+    > div {
+      -webkit-box-shadow: 0 1px 3px 0 rgba($black, 0.25);
+              box-shadow: 0 1px 3px 0 rgba($black, 0.25);
+    }
+  }
+  [date-picker] {
+    padding: 0px 4px 6px 4px;
+    thead tr:nth-child(1) {
+      border-bottom: 1px solid #eeeeee;
+    }
+    thead tr:nth-child(2) th {
+      padding-top: 8px;
+      &:hover {
+        color: #666 !important;
+        cursor: default;
+      }
+    }
+  }
+  [date-picker] .active:hover,
+  [date-picker] .now:active,
+  [date-picker] .active.active,
+  [date-picker] .now.active,
+  [date-picker] .now.active:hover,
+  [date-picker] .active.disabled,
+  [date-picker] .active[disabled],
+  [date-picker] [ng-switch-when="date"] td span.active:hover {
+    background-color: $primary !important;
+    color: $white !important;
+  }
+  [date-picker] th:hover {
+    background-color: inherit;
+    color: inherit;
+  }
+  table {
+    border: 0px;
+  }
+  table th {
+    background-color: transparent;
+    font-weight: bold;
+  }
+  [date-picker] td,
+  [date-picker] th {
+    text-align: center;
+  }
+  [date-picker] th {
+    color: #666;
+    font-size: 12px;
+    font-weight: normal;
+  }
+  [date-picker] [ng-switch-when="date"] td {
+    padding: 4px 0px;
+  }
+  [date-picker] [ng-switch-when="date"] span {
+    color: #666666;
+    font-size: $font12;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 2px;
+    margin: auto;
+    display: block;
+    float: none;
+    font-weight: normal;
+    border: 1px solid transparent;
+  }
+  [date-picker] [ng-switch-when="month"] .now,
+  [date-picker] [ng-switch-when="month"] .now:hover,
+  [date-picker] [ng-switch-when="year"] .now,
+  [date-picker] [ng-switch-when="year"] .now:hover,
+  [date-picker] [ng-switch-when="minutes"] .now,
+  [date-picker] [ng-switch-when="minutes"] .now:hover,
+  [date-picker] [ng-switch-when="hours"] .now,
+  [date-picker] [ng-switch-when="hours"] .now:hover,
+  [date-picker] [ng-switch-when="date"] .now,
+  [date-picker] [ng-switch-when="date"] .now:hover {
+    background-color: #fff;
+    border: 1px solid $primary;
+    color: $primary;
+  }
+  [date-picker] .disabled {
+    color: #ccc !important;
+  }
+  [date-picker] [ng-switch-when="year"] span,
+  [date-picker] [ng-switch-when="month"] span,
+  [date-picker] [ng-switch-when="minutes"] span {
+    line-height: 48px;
+    height: 50px;
+    border: 1px solid transparent;
+    height: auto;
+  }
+}

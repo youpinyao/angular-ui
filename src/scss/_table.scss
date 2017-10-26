@@ -1,0 +1,440 @@
+.ma-table {
+  display: block;
+  padding-bottom: 52px;
+  .ma-table .pagination > li > a[ng-switch-when="next"],
+  .ma-table .pagination > li > a[ng-switch-when="prev"] {
+    background-color: $white;
+  }
+  .data-table {
+    position: relative;
+  }
+  .data-table .pagination {
+    margin: 0;
+    position: absolute;
+    right: 250px;
+    bottom: -40px;
+  }
+  .data-table .data-table-loading {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+    left: 0px;
+    top: 40px;
+    right: 0px;
+    bottom: 0px;
+    margin: auto;
+    z-index: 998;
+    @include transition();
+    .ma-spin {
+      width: 100%;
+      height: 50px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+    &.show {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+  .data-table .table-number-col {
+    text-align: right;
+  }
+  .data-table .table-number-col .ng-table-header {
+    float: right;
+  }
+  .data-table .form-inline {
+    float: right;
+    margin-top: 7px;
+    .form-group {
+      display: inline-block;
+      margin-bottom: 0;
+      vertical-align: middle;
+      padding-left: 5px;
+    }
+  }
+  .data-table .form-inline input#page {
+    width: 32px;
+    height: 30px;
+    text-align: center;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    outline: none;
+    font-size: $font14;
+    border: 1px solid $outlines;
+    margin: 0px 4px;
+    padding: 5px;
+    border-radius: 4px;
+  }
+  .data-table .form-inline input:focus {
+    border: 1px solid $outlines;
+    -webkit-box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.25);
+            box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.25);
+  }
+  .table-bordered > thead > tr > td,
+  .table-bordered > thead > tr > th {
+    /*border-bottom-width: 1px;*/
+  }
+  .table {
+    margin-bottom: 0px;
+    width: 100%;
+  }
+  .table-striped > tbody > tr:hover {
+    background-color: $hover;
+  }
+  .table.table-striped > tbody > tr:nth-of-type(even) {
+    background-color: #F9FAFC;
+  }
+  .table-condensed > thead > tr > th .ma-checkbox,
+  .table-condensed > tbody > tr > td .ma-checkbox {
+    margin-bottom: 0px;
+    span {
+      display: none;
+    }
+  }
+  .ng-table-sort-header {
+    background-color: $hover;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -ms-touch-action: none;
+  }
+  .table > tbody td a {
+    color: #34abff;
+    display: inline-block;
+    white-space: nowrap;
+    padding: 2px 3px;
+  }
+  .table > tbody td a:hover {
+    color: #2a89cc;
+  }
+  .table > caption + thead > tr:first-child > td,
+  .table > caption + thead > tr:first-child > th,
+  .table > colgroup + thead > tr:first-child > td,
+  .table > colgroup + thead > tr:first-child > th,
+  .table > thead:first-child > tr:first-child > td,
+  .table > thead:first-child > tr:first-child > th {
+    height: 44px;
+    vertical-align: middle;
+  }
+  .table-bordered > tbody > tr > td,
+  .table-bordered > tbody > tr > th,
+  .table-bordered > tfoot > tr > td,
+  .table-bordered > tfoot > tr > th,
+  .table-bordered > thead > tr > td,
+  .table-bordered > thead > tr > th {
+    border-bottom-width: 1px !important;
+    border-left-width: 0 !important;
+    border-right-width: 0 !important;
+    border-top-width: 0 !important;
+  }
+  .table-bordered {
+    border-radius: 4px;
+    font-size: 14px;
+    color: $base;
+    border-collapse: initial;
+    border: 1px solid $disabled;
+    border-bottom-width: 0;
+  }
+  .table-condensed > tbody > tr > td,
+  .table-condensed > tbody > tr > th,
+  .table-condensed > tfoot > tr > td,
+  .table-condensed > tfoot > tr > th,
+  .table-condensed > thead > tr > td,
+  .table-condensed > thead > tr > th {
+    padding-left: 15px;
+    padding-top: 14px;
+    padding-right: 15px;
+    padding-bottom: 13px;
+    word-break: break-all;
+    text-align: left;
+    vertical-align: middle;
+    border: 1px solid $disabled;
+  }
+  .table-condensed > thead > tr > th {
+    padding-top: 14px;
+    padding-bottom: 13px;
+  }
+  .table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: $white;
+  }
+  .table.table-striped > tbody > tr.selected-row {
+    background-color: $disabled;
+  }
+  .table.table-striped > tbody > tr.selected-row td {
+    border-bottom-color: $background;
+  }
+  .pagination > .active > a,
+  .pagination > .active > a:focus,
+  .pagination > .active > a:hover,
+  .pagination > .active > span,
+  .pagination > .active > span:focus,
+  .pagination > .active > span:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: $primary;
+    border-color: #f2f2f2;
+  }
+  .pagination > li {
+    &.total-text {
+      span {
+        border: 0;
+        background: none;
+      }
+    }
+    display: inline-block;
+    vertical-align: top;
+  }
+  .pagination > li > a,
+  .pagination > li > span {
+    position: relative;
+    float: left;
+    padding: 5px 12px;
+    margin-left: 4px;
+    line-height: 1.42857143;
+    color: #323232;
+    border-radius: 4px;
+    text-decoration: none;
+    background-color: $white;
+    border: 1px solid $outlines;
+  }
+  .pagination > li > a[ng-switch-when="prev"] {
+    color: transparent;
+    border-radius: 4px;
+    background: url(../images/table/arrow-left.png) no-repeat center center;
+  }
+  .pagination > li > a[ng-switch-when="next"] {
+    color: transparent;
+    border-radius: 4px;
+    background: url(../images/table/arrow-right.png) no-repeat center center;
+  }
+  .pagination > .disabled > a,
+  .pagination > .disabled > a:focus,
+  .pagination > .disabled > a:hover,
+  .pagination > .disabled > span,
+  .pagination > .disabled > span:focus,
+  .pagination > .disabled > span:hover {
+    color: transparent;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #f2f2f2;
+  }
+  .pagination > .disabled > a[ng-switch-when="more"] {
+    color: #323232;
+  }
+  .ng-table-header {
+    float: left;
+  }
+  .sortable:before {
+    display: none;
+    /* display: inline-block;*/
+    font-family: "Glyphicons Halflings";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    margin-left: 10px;
+    -webkit-font-smoothing: antialiased;
+    background-image: url("../images/table/arrow-null.png");
+    color: transparent;
+    content: "\E114";
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    cursor: pointer;
+  }
+  .table-number-col.sortable:before {
+    float: right;
+  }
+  .sortable.sort-desc:before {
+    display: none;
+    /* display: inline-block;*/
+    font-family: "Glyphicons Halflings";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    margin-left: 10px;
+    -webkit-font-smoothing: antialiased;
+    background-image: url("../images/table/arrow-down.png");
+    color: transparent;
+    /* content: "\E114";*/
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    cursor: pointer;
+  }
+  .table-number-col.sortable.sort-desc:before {
+    float: right;
+  }
+  .sortable.sort-asc:before {
+    display: none;
+    /* display: inline-block;*/
+    font-family: "Glyphicons Halflings";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    margin-left: 10px;
+    -webkit-font-smoothing: antialiased;
+    background-image: url("../images/table/arrow-up.png");
+    color: transparent;
+    content: "\E114";
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    cursor: pointer;
+  }
+  .table-number-col.sortable.sort-asc:before {
+    float: right;
+  }
+  .page-select-form-group {
+    position: relative;
+    .ma-select {
+      width: 110px;
+      input {
+        padding-left: 10px;
+      }
+    }
+  }
+  .page-select-form-group select {
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    border: 1px solid $disabled;
+  }
+  .page-select-form-group select:focus {
+    border-color: $outlines;
+    -webkit-box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.25);
+            box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.25);
+  }
+  .page-select-form-group .page-select-arrow {
+    position: absolute;
+    width: 25px;
+    background-color: $white;
+    right: 5px;
+    top: 5px;
+    bottom: 5px;
+    margin: auto;
+    text-align: center;
+    pointer-events: none;
+  }
+  .page-select-form-group .page-select-arrow:before {
+    content: "";
+    display: block;
+    margin: 10px 0px 0px 7px;
+    width: 0px;
+    height: 0px;
+    border: 4px solid #808080;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+  }
+  .page-select-form-group .form-control.custom-select {
+    padding: 0px;
+    border: 0px;
+    margin-left: 5px;
+  }
+  .page-select-form-group .select2-container .select2-choice {
+    line-height: 30px;
+    min-height: 0px;
+  }
+  .page-select-form-group .select2-container.open .select2-choice {
+    overflow: visible;
+  }
+  .page-select-form-group .select2-results li.ui-select-choices-row .select2-result-label {
+    line-height: 20px;
+  }
+  .page-select-form-group .select2-container .select2-choice .select2-arrow {
+    background-color: #eeeeee;
+    width: 30px;
+  }
+  .page-select-form-group .select2-container.open .select2-choice .select2-arrow {
+    margin-top: -1px;
+    margin-right: -1px;
+    height: 31px;
+  }
+  .page-select-form-group .select2-drop {
+    border-left: 0px;
+    border-right: 0px;
+  }
+  .page-select-form-group .select2-container .select2-choice > .select2-chosen {
+    margin-right: 40px;
+  }
+  .page-select-form-group .select2-container .select2-choice .select2-arrow b {
+    background-position: center center;
+  }
+  .float-left-table div[ng-table-pagination],
+  .float-right-table div[ng-table-pagination] {
+    display: none;
+  }
+  .float-left-table,
+  .float-right-table {
+    position: absolute;
+    z-index: 1;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+    height: 100%;
+    -webkit-box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.8);
+            box-shadow: 0 0 5px 0 rgba(204, 204, 204, 0.8);
+  }
+  .float-left-table.none,
+  .float-right-table.none {
+    display: none;
+  }
+  .float-right-table {
+    left: auto;
+    right: 0px;
+  }
+  .float-left-table > div,
+  .float-right-table > div {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    margin-bottom: 10px;
+  }
+  .float-right-table > div {
+    right: 0px;
+    left: auto;
+  }
+  .main-table-container {
+    width: 100%;
+    overflow: auto;
+    margin-bottom: 0px;
+  }
+  .main-table-container table {
+    margin-bottom: 3px;
+  }
+  .main-table-container::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: $white;
+  }
+  /*定义滚动条轨道 内阴影+圆角*/
+  .main-table-container::-webkit-scrollbar-track {
+    border-radius: 3px;
+    background-color: $white;
+  }
+  /*定义滑块 内阴影+圆角*/
+  .main-table-container::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: #dddddd;
+  }
+  .ng-table th.sortable.sort-asc,
+  .ng-table th.sortable.sort-desc {
+    background-color: $hover;
+  }
+  .ng-table th.sortable .sort-indicator:after {
+    margin-top: -6px;
+  }
+  .ng-table th.sortable .sort-indicator:before {
+    margin-top: 0px;
+  }
+  .ng-table th.sortable.sort-asc .sort-indicator:after,
+  .ng-table th.sortable.sort-asc .sort-indicator:hover:after,
+  .ng-table th.sortable.sort-desc .sort-indicator:after {
+    margin-top: -3px;
+  }
+}

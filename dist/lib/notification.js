@@ -17,8 +17,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-__webpack_require__("eJ2A");
-
 var _name = __webpack_require__("mBbU");
 
 var _name2 = _interopRequireDefault(_name);
@@ -30,13 +28,6 @@ angular.module(_name2['default'], []).config(function () {}).run(function () {})
 __webpack_require__("wrGO");
 
 exports['default'] = _name2['default'];
-
-/***/ }),
-
-/***/ "eJ2A":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 

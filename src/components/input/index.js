@@ -1,4 +1,3 @@
-import './src/_input.scss';
 import moduleName from './src/name.js';
 
 import icons from '../icons';

@@ -1,4 +1,3 @@
-import './src/_alert.scss';
 import moduleName from './src/name.js';
 import icons from '../icons';
 import button from '../button';

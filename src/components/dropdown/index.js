@@ -1,4 +1,3 @@
-import './src/_dropdown.scss';
 import moduleName from './src/name.js';
 // import 'angular-sanitize';
 import button from '../button';

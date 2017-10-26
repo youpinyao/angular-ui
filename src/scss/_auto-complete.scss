@@ -1,0 +1,38 @@
+.ma-auto-complete {
+  display: inline-block;
+  position: relative;
+
+  &.show {
+    z-index: 10;
+  }
+
+  .ma-input {
+    position: relative;
+    z-index: 2;
+  }
+
+  .ma-dropdown {
+    display: block;
+    position: absolute;
+    left: 1px;
+    top: 0px;
+    right: 1px;
+    margin: auto;
+    height: 100%;
+    z-index: 1;
+
+    .ma-dropdown-container .ma-dropdown-item {
+      word-break: break-all;
+      white-space: normal;
+    }
+  }
+
+  /* input:focus,*/
+  /* textarea:focus {*/
+  /*   -webkit-box-shadow: 0 0px 1px 0 rgba($black, 0.25);*/
+  /*   box-shadow: 0 0px 1px 0 rgba($black, 0.25);*/
+  /*   border-radius: 4px 4px 0 0;*/
+  /*   border-color: rgba($black, 0.1);*/
+  /*   border-bottom: 1px solid $white;*/
+  /* }*/
+}

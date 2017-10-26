@@ -1,4 +1,4 @@
-webpackJsonp([29],{
+webpackJsonp([30],{
 
 /***/ "S1RN":
 /***/ (function(module, exports, __webpack_require__) {
@@ -62,13 +62,6 @@ function maButton() {
 
 /***/ }),
 
-/***/ "SJFQ":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ "g66R":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -91,8 +84,6 @@ exports['default'] = 'meetyou.angular.ui.button';
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-__webpack_require__("SJFQ");
 
 var _name = __webpack_require__("g66R");
 

@@ -1,0 +1,146 @@
+
+.ma-steps {
+  @include unselect();
+}
+
+.ma-steps.default {
+  letter-spacing: -0.31em;
+  text-align: center;
+  .ma-step {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    i {
+      $h: 26px;
+      display: inline-block;
+      width: $h;
+      height: $h;
+      line-height: $h - 4;
+      border-radius: $h/2;
+      background-color: $white;
+      font-size: $font16;
+      color: $disabled;
+      border: 2px solid $disabled;
+      font-style: normal;
+      text-align: center;
+      letter-spacing: normal;
+      vertical-align: middle;
+      margin-right: 10px;
+      @include transition();
+    }
+    i.iconfont {
+      font-weight: bold;
+    }
+    span.text {
+      display: inline-block;
+      vertical-align: middle;
+      text-align: left;
+      letter-spacing: normal;
+      margin-right: 10px;
+      max-width: 120px;
+      font-size: $font16;
+      color: $grey;
+      text-align: justify;
+      @include transition();
+      span {
+        display: block;
+        font-size: $font14;
+        color: $grey;
+        line-height: 18px;
+      }
+    }
+    span.line {
+      display: inline-block;
+      height: 2px;
+      border-radius: 2px;
+      width: 100px;
+      background-color: $disabled;
+      vertical-align: middle;
+      @include transition();
+    }
+
+    &:last-child {
+      span.line {
+        display: none;
+      }
+    }
+    &.active {
+      span.line {
+        background-color: $primary;
+      }
+    }
+
+    &.active,
+    &.current {
+      span.text {
+        color: $base;
+      }
+      i {
+        border-color: $primary;
+        background-color: $primary;
+        color: $white;
+      }
+    }
+  }
+}
+
+.ma-steps.mini {
+  text-align: center;
+  letter-spacing: -0.31em;
+  height: 4px;
+  padding: 5px 0px 40px 0px;
+
+  .ma-step {
+    height: 4px;
+    width: 150px;
+    position: relative;
+    letter-spacing: normal;
+    display: inline-block;
+    vertical-align: top;
+    background-color: $disabled;
+    @include transition();
+    &:last-child {
+      width: 0px;
+    }
+    &.active {
+      background-color: rgba($primary, 0.5);
+      i {
+        border-color: $primary;
+      }
+      span {
+        color: $base;
+      }
+    }
+    &.current {
+      i {
+        border-color: $primary;
+        background-color: $primary;
+      }
+      span {
+        color: $primary;
+      }
+    }
+    i {
+      width: 12px;
+      height: 12px;
+      position: relative;
+      left: -6px;
+      top: -4px;
+      display: block;
+      border-radius: 12px;
+      border: 2px solid $disabled;
+      background-color: $white;
+      @include transition();
+    }
+    span {
+      position: absolute;
+      left: 0px;
+      top: 15px;
+      width: 140px;
+      font-size: $font14;
+      color: $grey;
+      @include transition();
+      @include transform(translateX(-50%));
+    }
+  }
+}

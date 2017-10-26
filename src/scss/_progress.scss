@@ -1,0 +1,86 @@
+.ma-progress {
+  display: inline-block;
+  position: relative;
+  &.circle {
+    .ma-progress-content {
+      font-size: $font24;
+      color: $base;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      bottom: 0px;
+      margin: auto;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      line-height: 50px;
+      height: 50px;
+    }
+  }
+  &.line {
+    white-space: nowrap;
+    margin-right: 40px;
+    .ma-progress-content {
+      font-size: $font12;
+      color: $grey;
+      display: inline-block;
+    }
+  }
+  .ma-progress-line {
+    display: inline-block;
+    vertical-align: middle;
+    .ma-progress-line-trail {
+      position: relative;
+      background-color: $background;
+      border-radius: 100px;
+      .ma-progress-line-path {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        height: 100%;
+        width: 0%;
+        border-radius: 100px;
+        @include transition();
+      }
+    }
+  }
+  .ma-progress-circle {
+    vertical-align: middle;
+    overflow: hidden;
+    .ma-progress-circle-trail {
+      stroke-dashoffset: 0px;
+      stroke: $background;
+      -webkit-transition: stroke-dashoffset 0.3s ease 0s, stroke-dasharray 0.3s ease 0s, stroke 0.3s;
+      transition: stroke-dashoffset 0.3s ease 0s, stroke-dasharray 0.3s ease 0s, stroke 0.3s;
+    }
+    .ma-progress-circle-path {
+      stroke-dashoffset: 0px;
+      -webkit-transition: stroke-dashoffset 0.3s ease 0s, stroke-dasharray 0.3s ease 0s, stroke;
+      transition: stroke-dashoffset 0.3s ease 0s, stroke-dasharray 0.3s ease 0s, stroke;
+    }
+  }
+  &.success {
+    .ma-progress-circle-path {
+      stroke: $success;
+    }
+    .ma-progress-line-path {
+      background-color: $success;
+    }
+  }
+  &.warning {
+    .ma-progress-circle-path {
+      stroke: $warning;
+    }
+    .ma-progress-line-path {
+      background-color: $warning;
+    }
+  }
+  &.danger {
+    .ma-progress-circle-path {
+      stroke: $danger;
+    }
+    .ma-progress-line-path {
+      background-color: $danger;
+    }
+  }
+}

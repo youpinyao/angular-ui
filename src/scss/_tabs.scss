@@ -1,0 +1,64 @@
+.ma-tabs.default {
+  line-height: $font16;
+  font-size: $font16;
+  letter-spacing: -0.31em;
+  border-bottom: 1px solid $outlines;
+  color: $grey;
+  @include unselect();
+  .ma-tab {
+    letter-spacing: normal;
+    display: inline-block;
+    margin-right: 30px;
+    padding-bottom: 2px;
+    position: relative;
+    top: 1px;
+    cursor: pointer;
+    -webkit-transition: border-color 300ms ease, color 300ms ease;
+    transition: border-color 300ms ease, color 300ms ease;
+    > div {
+      padding: 10px 0px;
+    }
+    a {
+      color: $grey;
+    }
+    &.active {
+      border-bottom: 2px solid $primary;
+      color: $primary;
+      padding-bottom: 0;
+    }
+  }
+}
+
+.ma-tabs.ma-button-group {
+  > div {
+    display: inline-block;
+    &.active {
+      + div .ma-button {
+        border-left-color: $primary;
+      }
+    }
+    .ma-button {
+      letter-spacing: normal;
+      border-radius: 0px;
+      border-right-width: 0px;
+      color: $grey;
+      &.active {
+        background-color: transparent;
+        color: $primary;
+        border-color: $primary;
+      }
+      &:active {
+        background-color: transparent;
+      }
+    }
+    &:first-child .ma-button {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    &:last-child .ma-button {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      border-right-width: 1px;
+    }
+  }
+}
