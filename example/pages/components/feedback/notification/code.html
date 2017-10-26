@@ -1,13 +1,21 @@
-function mainCtrl($scope, $timeout, $interval, $notification) {
-  $scope.showNotification = function() {
-    console.log($notification);
-    $notification({
-      title: 'Notification Title',  // 标题
-      delay: null,   // 是否自动关闭
-      message: 'hello the world!', // 通知文本
-      onClose: function() {   // 点击卡片回掉
-        $scope.test = '回掉成功'
-      },
-    });
-  };
-}
+<h4>基本用法</h4>
+    <div class="p clearfix">
+      <ma-button ma-click="showNotification1()">可自动关闭</ma-button>
+      <ma-button ma-click="showNotification2()">不会自动关闭</ma-button>
+    </div>
+<!-- <script type="text/javascript">
+  function mainCtrl($scope, $timeout, $interval, $notification) {
+    $scope.showNotification = function() {
+      console.log($notification);
+      $notification({
+        title: 'Notification Title',  // 标题
+        delay: null,   // 是否自动关闭
+        message: 'hello the world!', // 通知文本
+        onClose: function() {   // 点击卡片回掉
+          $scope.test = '回掉成功'
+        },
+      });
+    };
+  }
+</script> -->
+
