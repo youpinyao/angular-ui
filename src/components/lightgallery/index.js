@@ -1,5 +1,7 @@
+
+import 'lightgallery.js/dist/css/lightgallery.css';
+import './src/_lightgallery.scss';
 import moduleName from './src/name.js';
-require('lightgallery.js/dist/css/lightgallery.css');
 
 angular.module(moduleName, []).config(function () {}).run(function () {});
 

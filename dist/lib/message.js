@@ -107,6 +107,13 @@ function messageFactory($rootScope, $q, $http, $timeout, $compile) {
 
 /***/ }),
 
+/***/ "AkYH":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "F7JF":
 /***/ (function(module, exports) {
 
@@ -136,6 +143,8 @@ exports['default'] = 'meetyou.angular.ui.message';
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+__webpack_require__("AkYH");
 
 var _name = __webpack_require__("HDDE");
 

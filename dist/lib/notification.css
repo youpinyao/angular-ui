@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+/* 全局字号 */
+
+/* 全局颜色 */
+
+/* 容器最小宽度 */
+
+/* 侧边栏宽度 */
+
+/* 头部高度 */
+
+/* 二级导航高度 */
+
+/* 输入框高度 */
+
+/* 输入宽幅度 */
+
+.ma-notification {
+  position: fixed;
+  z-index: 9999;
+  box-sizing: border-box;
+  border-radius: 2px;
+  right: 16px;
+  padding: 16px;
+  background: #fff;
+  border-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  width: 335px;
+  overflow: hidden;
+  transition: all ease .3s;
+}
+
+.ma-notification.clickable {
+  cursor: pointer;
+}
+
+.ma-notification.killed {
+  transition: opacity ease 1s;
+  opacity: 0;
+}
+
+.ma-notification .el-notification__icon {
+  float: left;
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  position: realtive;
+  top: 3px;
+}
+
+.ma-notification .ma-notification__group {
+  margin-left: 0;
+  padding-right: 60px;
+}
+
+.ma-notification .ma-notification__group.has_icon {
+  margin-left: 40px;
+}
+
+.ma-notification .ma-notification__title {
+  font-weight: 400;
+  font-size: 14px;
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.85);
+  line-height: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.ma-notification .ma-notification__content {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 10px 0 0;
+  color: rgba(0, 0, 0, 0.65);
+  text-align: justify;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.ma-notification .ma-notification__closeBtn {
+  top: 16px;
+  right: 16px;
+  position: absolute;
+  cursor: pointer;
+  font-family: anticon;
+  color: rgba(0, 0, 0, 0.43);
+  font-size: 12px;
+}
+/*# sourceMappingURL=notification.js.map*/

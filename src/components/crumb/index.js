@@ -1,3 +1,4 @@
+import './src/_crumb.scss';
 import moduleName from './src/name.js';
 
 import button from '../button';

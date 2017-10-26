@@ -1,3 +1,4 @@
+import './src/_upload.scss';
 import moduleName from './src/name.js';
 import button from '../button';
 import icons from '../icons';

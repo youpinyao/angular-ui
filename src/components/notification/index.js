@@ -1,3 +1,4 @@
+import './src/_notification.scss';
 import moduleName from './src/name.js';
 
 angular.module(moduleName, []).config(function () {}).run(function () {});

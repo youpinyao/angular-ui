@@ -10,6 +10,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+__webpack_require__("t40P");
+
 var _name = __webpack_require__("brJl");
 
 var _name2 = _interopRequireDefault(_name);
@@ -154,6 +156,13 @@ function maIcon() {
 //     }
 //   };
 // }
+
+/***/ }),
+
+/***/ "t40P":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 

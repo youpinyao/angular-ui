@@ -1,3 +1,4 @@
+import './src/_menu.scss';
 import moduleName from './src/name.js';
 import button from '../button';
 import icons from '../icons';

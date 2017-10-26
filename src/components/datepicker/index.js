@@ -1,3 +1,5 @@
+import './src/_datepicker.scss';
+import './src/_daterangepicker.scss';
 import moduleName from './src/name.js';
 import button from '../button';
 

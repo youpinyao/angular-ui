@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+/* 全局字号 */
+
+/* 全局颜色 */
+
+/* 容器最小宽度 */
+
+/* 侧边栏宽度 */
+
+/* 头部高度 */
+
+/* 二级导航高度 */
+
+/* 输入框高度 */
+
+/* 输入宽幅度 */
+
+/*弱提示*/
+
+.weak-tip {
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  z-index: 1100;
+  right: 0px;
+  top: 100px;
+  padding: 0px 10px 0px 10px;
+}
+
+.weak-tip > div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.weak-tip > div > div {
+  vertical-align: top;
+  display: inline-block;
+  opacity: 0;
+  position: relative;
+  line-height: 22px;
+  font-size: 14px;
+  color: #417505;
+  border-radius: 4px;
+  text-align: left;
+  overflow: hidden;
+  border: 1px solid #87D068;
+  background-color: #EDF8E9;
+  padding: 8px 65px 8px 20px;
+  box-shadow: 0 2px 5px 0 rgba(135, 208, 104, 0.2);
+  word-break: break-all;
+  min-width: 350px;
+  max-width: 900px;
+  pointer-events: none;
+  visibility: hidden;
+  transition: all 300ms ease;
+  -webkit-transtion: all 300ms ease;
+  transform: translateY(-30px);
+  -webkit-transform: translateY(-30px);
+  -ms-transform: translateY(-30px);
+  -moz-transform: translateY(-30px);
+}
+
+.weak-tip > div > div:after {
+  content: "\5173\95ED";
+  line-height: 38px;
+  display: block;
+  font-size: 14px;
+  position: absolute;
+  right: 20px;
+  top: 0px;
+  color: #417505;
+  cursor: pointer;
+}
+
+.weak-tip > div > div.show-in {
+  transform: translateY(0px);
+  -webkit-transform: translateY(0px);
+  -ms-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.weak-tip > div > div.weak-tip-danger {
+  border-color: #FF5073;
+  background-color: #FFE5EA;
+  color: #FF5073;
+  box-shadow: 0 2px 5px 0 rgba(255, 80, 115, 0.2);
+}
+
+.weak-tip > div > div.weak-tip-danger:after {
+  color: #FF5073;
+}
+
+.weak-tip > div > div.weak-tip-warning {
+  border-color: #F6A623;
+  background-color: #FEF8E1;
+  color: #F6A623;
+  box-shadow: 0 2px 5px 0 rgba(246, 166, 35, 0.2);
+}
+
+.weak-tip > div > div.weak-tip-warning:after {
+  color: #F6A623;
+}
+/*# sourceMappingURL=message.js.map*/

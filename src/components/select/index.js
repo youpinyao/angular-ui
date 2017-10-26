@@ -1,3 +1,4 @@
+import './src/_select.scss';
 import moduleName from './src/name.js';
 import dropdown from '../dropdown';
 import input from '../input';

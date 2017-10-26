@@ -10,6 +10,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+__webpack_require__("Z3Nl");
+
 var _name = __webpack_require__("wV6C");
 
 var _name2 = _interopRequireDefault(_name);
@@ -21,6 +23,13 @@ angular.module(_name2['default'], []).config(function () {}).run(function () {})
 __webpack_require__("wULG");
 
 exports['default'] = _name2['default'];
+
+/***/ }),
+
+/***/ "Z3Nl":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 

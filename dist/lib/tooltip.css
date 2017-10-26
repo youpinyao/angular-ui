@@ -1,0 +1,251 @@
+@charset "UTF-8";
+
+/* 全局字号 */
+
+/* 全局颜色 */
+
+/* 容器最小宽度 */
+
+/* 侧边栏宽度 */
+
+/* 头部高度 */
+
+/* 二级导航高度 */
+
+/* 输入框高度 */
+
+/* 输入宽幅度 */
+
+.ma-tooltip {
+  position: absolute;
+  z-index: 10;
+  top: 0px;
+  left: 0px;
+  color: #FFFFFF;
+  font-size: 12px;
+  padding: 10px;
+  transition: opacity 300ms ease, visibility 300ms ease, -webkit-transform 300ms ease;
+  transition: opacity 300ms ease, transform 300ms ease, visibility 300ms ease;
+  transition: opacity 300ms ease, transform 300ms ease, visibility 300ms ease, -webkit-transform 300ms ease;
+  opacity: 0;
+  visibility: hidden;
+  max-width: 200px;
+}
+
+.ma-tooltip[data-direction^="tc"] {
+  -webkit-transform-origin: bottom center;
+  transform-origin: bottom center;
+  transform: translate(0, -10px) scale(1);
+  -webkit-transform: translate(0, -10px) scale(1);
+  -ms-transform: translate(0, -10px) scale(1);
+  -moz-transform: translate(0, -10px) scale(1);
+}
+
+.ma-tooltip[data-direction^="tl"] {
+  -webkit-transform-origin: bottom left;
+  transform-origin: bottom left;
+  transform: translate(0, -10px) scale(1);
+  -webkit-transform: translate(0, -10px) scale(1);
+  -ms-transform: translate(0, -10px) scale(1);
+  -moz-transform: translate(0, -10px) scale(1);
+}
+
+.ma-tooltip[data-direction^="tr"] {
+  -webkit-transform-origin: bottom right;
+  transform-origin: bottom right;
+  transform: translate(0, -10px) scale(1);
+  -webkit-transform: translate(0, -10px) scale(1);
+  -ms-transform: translate(0, -10px) scale(1);
+  -moz-transform: translate(0, -10px) scale(1);
+}
+
+.ma-tooltip[data-direction^="lc"] {
+  -webkit-transform-origin: right center;
+  transform-origin: right center;
+  transform: translate(-10px, 0) scale(1);
+  -webkit-transform: translate(-10px, 0) scale(1);
+  -ms-transform: translate(-10px, 0) scale(1);
+  -moz-transform: translate(-10px, 0) scale(1);
+}
+
+.ma-tooltip[data-direction^="lt"] {
+  -webkit-transform-origin: right top;
+  transform-origin: right top;
+  transform: translate(-10px, 0) scale(1);
+  -webkit-transform: translate(-10px, 0) scale(1);
+  -ms-transform: translate(-10px, 0) scale(1);
+  -moz-transform: translate(-10px, 0) scale(1);
+}
+
+.ma-tooltip[data-direction^="lb"] {
+  -webkit-transform-origin: right bottom;
+  transform-origin: right bottom;
+  transform: translate(-10px, 0) scale(1);
+  -webkit-transform: translate(-10px, 0) scale(1);
+  -ms-transform: translate(-10px, 0) scale(1);
+  -moz-transform: translate(-10px, 0) scale(1);
+}
+
+.ma-tooltip[data-direction^="rc"] {
+  -webkit-transform-origin: left center;
+  transform-origin: left center;
+  transform: translate(10px, 0) scale(1);
+  -webkit-transform: translate(10px, 0) scale(1);
+  -ms-transform: translate(10px, 0) scale(1);
+  -moz-transform: translate(10px, 0) scale(1);
+}
+
+.ma-tooltip[data-direction^="rt"] {
+  -webkit-transform-origin: left top;
+  transform-origin: left top;
+  transform: translate(10px, 0) scale(1);
+  -webkit-transform: translate(10px, 0) scale(1);
+  -ms-transform: translate(10px, 0) scale(1);
+  -moz-transform: translate(10px, 0) scale(1);
+}
+
+.ma-tooltip[data-direction^="rb"] {
+  -webkit-transform-origin: left bottom;
+  transform-origin: left bottom;
+  transform: translate(10px, 0) scale(1);
+  -webkit-transform: translate(10px, 0) scale(1);
+  -ms-transform: translate(10px, 0) scale(1);
+  -moz-transform: translate(10px, 0) scale(1);
+}
+
+.ma-tooltip[data-direction^="bc"] {
+  -webkit-transform-origin: top center;
+  transform-origin: top center;
+  transform: translate(0, 10px) scale(1);
+  -webkit-transform: translate(0, 10px) scale(1);
+  -ms-transform: translate(0, 10px) scale(1);
+  -moz-transform: translate(0, 10px) scale(1);
+}
+
+.ma-tooltip[data-direction^="bl"] {
+  -webkit-transform-origin: top left;
+  transform-origin: top left;
+  transform: translate(0, 10px) scale(1);
+  -webkit-transform: translate(0, 10px) scale(1);
+  -ms-transform: translate(0, 10px) scale(1);
+  -moz-transform: translate(0, 10px) scale(1);
+}
+
+.ma-tooltip[data-direction^="br"] {
+  -webkit-transform-origin: top right;
+  transform-origin: top right;
+  transform: translate(0, 10px) scale(1);
+  -webkit-transform: translate(0, 10px) scale(1);
+  -ms-transform: translate(0, 10px) scale(1);
+  -moz-transform: translate(0, 10px) scale(1);
+}
+
+.ma-tooltip .ma-tooltip-content {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+  padding: 8px 10px 6px 10px;
+  word-break: break-all;
+  text-align: justify;
+}
+
+.ma-tooltip .ma-tooltip-content:after,
+.ma-tooltip .ma-tooltip-content:before {
+  position: absolute;
+  margin: auto;
+  content: "";
+  display: block;
+  width: 0px;
+  height: 0px;
+  border: 5px solid rgba(0, 0, 0, 0.8);
+}
+
+.ma-tooltip .ma-tooltip-content:after {
+  display: none;
+}
+
+.ma-tooltip .ma-tooltip-content[data-direction^="t"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction^="t"]:before {
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  bottom: -10px;
+}
+
+.ma-tooltip .ma-tooltip-content[data-direction^="l"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction^="l"]:before {
+  border-bottom-color: transparent;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  right: -10px;
+}
+
+.ma-tooltip .ma-tooltip-content[data-direction^="r"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction^="r"]:before {
+  border-bottom-color: transparent;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  left: -10px;
+}
+
+.ma-tooltip .ma-tooltip-content[data-direction^="b"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction^="b"]:before {
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  top: -10px;
+}
+
+.ma-tooltip .ma-tooltip-content[data-direction="bc"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction="tc"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction="bc"]:before,
+.ma-tooltip .ma-tooltip-content[data-direction="tc"]:before {
+  left: 0px;
+  right: 0px;
+}
+
+.ma-tooltip .ma-tooltip-content[data-direction="bl"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction="tl"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction="bl"]:before,
+.ma-tooltip .ma-tooltip-content[data-direction="tl"]:before {
+  left: 15%;
+}
+
+.ma-tooltip .ma-tooltip-content[data-direction="br"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction="tr"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction="br"]:before,
+.ma-tooltip .ma-tooltip-content[data-direction="tr"]:before {
+  right: 15%;
+}
+
+.ma-tooltip .ma-tooltip-content[data-direction="rc"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction="lc"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction="rc"]:before,
+.ma-tooltip .ma-tooltip-content[data-direction="lc"]:before {
+  top: 0px;
+  bottom: 0px;
+}
+
+.ma-tooltip .ma-tooltip-content[data-direction="rt"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction="lt"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction="rt"]:before,
+.ma-tooltip .ma-tooltip-content[data-direction="lt"]:before {
+  top: 15%;
+}
+
+.ma-tooltip .ma-tooltip-content[data-direction="rb"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction="lb"]:after,
+.ma-tooltip .ma-tooltip-content[data-direction="rb"]:before,
+.ma-tooltip .ma-tooltip-content[data-direction="lb"]:before {
+  bottom: 15%;
+}
+
+.ma-tooltip.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0px, 0px) scale(1);
+  -webkit-transform: translate(0px, 0px) scale(1);
+  -ms-transform: translate(0px, 0px) scale(1);
+  -moz-transform: translate(0px, 0px) scale(1);
+}
+/*# sourceMappingURL=tooltip.js.map*/

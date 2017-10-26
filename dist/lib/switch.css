@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+/* 全局字号 */
+
+/* 全局颜色 */
+
+/* 容器最小宽度 */
+
+/* 侧边栏宽度 */
+
+/* 头部高度 */
+
+/* 二级导航高度 */
+
+/* 输入框高度 */
+
+/* 输入宽幅度 */
+
+.ma-switch {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  height: 22px;
+  width: 44px;
+}
+
+.ma-switch input {
+  display: none;
+}
+
+.ma-switch .switch-appearance {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  border-radius: 22px;
+  background-color: #CCCCCC;
+  transition: all 300ms ease;
+  -webkit-transtion: all 300ms ease;
+}
+
+.ma-switch .switch-appearance:before {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 18px;
+  background-color: #FFFFFF;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  transition: all 300ms ease;
+  -webkit-transtion: all 300ms ease;
+}
+
+.ma-switch input:checked + .switch-appearance {
+  background-color: #FF74B9;
+}
+
+.ma-switch input:checked + .switch-appearance:before {
+  left: 24px;
+}
+
+.ma-switch input[disabled] + .switch-appearance {
+  background-color: #E5E5E5;
+  cursor: not-allowed;
+}
+
+.ma-switch input:checked[disabled] + .switch-appearance {
+  background-color: #FF74B9;
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+/*# sourceMappingURL=switch.js.map*/

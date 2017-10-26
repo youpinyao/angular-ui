@@ -1,3 +1,4 @@
+import './src/_tabs.scss';
 import moduleName from './src/name.js';
 import button from '../button';
 
