@@ -15,6 +15,17 @@ function mainCtrl($scope, $timeout, $interval, $notification) {
       },
     });
   };
+  $scope.codeText = '<ma-button ma-click="showNotification()">可自动关闭</ma-button>';
+  $scope.configText = `    $scope.showNotification = function() {
+      $notification({
+        title: 'Notification Title',  // 标题
+        delay: null,   // 是否自动关闭
+        message: 'hello the world!', // 通知文本
+        onClose: function() {   // 点击卡片回掉
+          $scope.test = '回掉成功'
+        },
+      });
+    };`;
   $scope.showNotification2 = function() {
     $notification({
       title: 'Notification Title',
