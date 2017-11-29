@@ -6,19 +6,52 @@
       模态对话框。
     </p>
     <h3>代码演示</h3>
-    <h4>基本用法</h4>
-    <div class="p clearfix">
-      <ma-button ma-click="showNotification1()">可自动关闭</ma-button>
-      <ma-button ma-click="showNotification2()">不会自动关闭</ma-button>
-      <p>回掉文字：<span ng-bind="test"></span></p>
+    ${require('./code.html')}
+    <div class="col-24 pb-20">
+      <ma-code>
+        <div class="right">
+          <a href="https://jsfiddle.net/youpinyao/s71uepxL/" target="_blank">jsfiddle</a>
+        </div>
+        <code ng-bind="codeText"></code>
+        <h3>ma-config</h3>
+        <code ng-bind="configText"></code>
+      </ma-code>
     </div>
-    <div class="p">
-      <code>
-
-      </code>
-    </div>
-
     <h3>API</h3>
+    <div class="p">
+      <table>
+        <tr>
+          <th>属性</th>
+          <th>说明</th>
+          <th>类型</th>
+          <th>默认值</th>
+        </tr>
+        <tr>
+          <td>title</td>
+          <td>标题</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>delay</td>
+          <td>null: 不会自动关闭 number: 延迟number时间关闭</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>message</td>
+          <td>正文</td>
+          <td>String</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>onClose</td>
+          <td>点击卡片回掉</td>
+          <td>Function</td>
+          <td>-</td>
+        </tr>
+      </table>
+    </div>
 </div>
   </div>
 </div>
