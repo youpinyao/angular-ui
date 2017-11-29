@@ -461,14 +461,14 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         if (self.floatLeftCols !== false && $(this).parents('.float-left-table').length) {
           // 如果是漂浮的checkbox 就不compile
           $compile(this)($scope);
-          console.log('compile');
+          // console.log('compile');
         } else if (self.floatLeftCols === false) {
           $compile(this)($scope);
-          console.log('compile');
+          // console.log('compile');
         }
       } else {
         $compile(this)($scope);
-        console.log('compile');
+        // console.log('compile');
       }
     });
     $timeout();
