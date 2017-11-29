@@ -68,7 +68,7 @@ function modalFactroy($rootScope, $compile, $timeout) {
       callback: function callback($ctrl, config) {
         // 点击回调
         if (typeof config.okCallback === 'function') {
-          config.okCallback($ctrl, config);
+          config.okCallback.apply(this, arguments);
         }
       }
     }, {
@@ -79,7 +79,7 @@ function modalFactroy($rootScope, $compile, $timeout) {
       callback: function callback($ctrl, config) {
         // 点击回调
         if (typeof config.okCallback === 'function') {
-          config.cancelCallback($ctrl, config);
+          config.cancelCallback.apply(this, arguments);
         }
       }
     }] // 底部按钮
@@ -105,7 +105,7 @@ function modalFactroy($rootScope, $compile, $timeout) {
         callback: function callback($ctrl, config) {
           // 点击回调
           if (typeof config.okCallback === 'function') {
-            config.okCallback($ctrl, config);
+            config.okCallback.apply(this, arguments);
           }
         }
       }];
@@ -134,7 +134,7 @@ function modalFactroy($rootScope, $compile, $timeout) {
         callback: function callback($ctrl, config) {
           // 点击回调
           if (typeof config.okCallback === 'function') {
-            config.okCallback($ctrl, config);
+            config.okCallback.apply(this, arguments);
           }
         }
       }, {
@@ -145,7 +145,7 @@ function modalFactroy($rootScope, $compile, $timeout) {
         callback: function callback($ctrl, config) {
           // 点击回调
           if (typeof config.okCallback === 'function') {
-            config.cancelCallback($ctrl, config);
+            config.cancelCallback.apply(this, arguments);
           }
         }
       }];
@@ -164,7 +164,7 @@ function modalFactroy($rootScope, $compile, $timeout) {
         callback: function callback($ctrl, config) {
           // 点击回调
           if (typeof config.okCallback === 'function') {
-            config.okCallback($ctrl, config);
+            config.okCallback.apply(this, arguments);
           }
         }
       }, {
@@ -175,7 +175,7 @@ function modalFactroy($rootScope, $compile, $timeout) {
         callback: function callback($ctrl, config) {
           // 点击回调
           if (typeof config.okCallback === 'function') {
-            config.cancelCallback($ctrl, config);
+            config.cancelCallback.apply(this, arguments);
           }
         }
       }];

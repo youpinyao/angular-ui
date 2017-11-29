@@ -33,10 +33,10 @@ const defaultConfig = {
     type: 'primary',
     size: 'default',
     disabled: false,
-    callback($ctrl, config) {
+    callback($ctrl, config, $event) {
       // 点击回调
       if (typeof config.okCallback === 'function') {
-        config.okCallback($ctrl, config);
+        config.okCallback($ctrl, config, $event);
       }
     },
   }, {
@@ -47,7 +47,7 @@ const defaultConfig = {
     callback($ctrl, config) {
       // 点击回调
       if (typeof config.okCallback === 'function') {
-        config.cancelCallback($ctrl, config);
+        config.cancelCallback($ctrl, config, $event);
       }
     },
   }], // 底部按钮
