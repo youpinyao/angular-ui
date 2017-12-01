@@ -158,6 +158,7 @@ function maSiderMenu($state, $rootScope) {
     scope: {
       routers: '=maRouters',
       title: '@maTitle',
+      offsetTop: '@maOffsetTop'
     },
     template: function(element, attrs) {
       if (attrs.maSiderMenu !== undefined) {
@@ -204,6 +205,7 @@ function maSiderMenu($state, $rootScope) {
 
       function setTop() {
         const header = $('body > .header');
+        const offsetTop = parseFloat($scope.offsetTop) || 0;
         let top = header.height() - $(window).scrollTop();
 
         if ($('.header-fixed').length) {
@@ -213,6 +215,8 @@ function maSiderMenu($state, $rootScope) {
         if ($('.has-second-nav').length) {
           top += $('.second-nav').height();
         }
+
+        top += offsetTop;
 
         if (top < 0) {
           top = 0;
