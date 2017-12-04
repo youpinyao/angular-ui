@@ -36221,7 +36221,9 @@ function maSiderMenu($state, $rootScope) {
     replace: true,
     scope: {
       routers: '=maRouters',
-      title: '@maTitle'
+      title: '@maTitle',
+      offsetTop: '@maOffsetTop',
+      leftScroll: '@maLeftScroll'
     },
     template: function template(element, attrs) {
       if (attrs.maSiderMenu !== undefined) {
@@ -36268,6 +36270,8 @@ function maSiderMenu($state, $rootScope) {
 
       function setTop() {
         var header = (0, _jquery2['default'])('body > .header');
+        var offsetTop = parseFloat($scope.offsetTop) || 0;
+        var leftScroll = $scope.leftScroll !== undefined;
         var top = header.height() - (0, _jquery2['default'])(window).scrollTop();
 
         if ((0, _jquery2['default'])('.header-fixed').length) {
@@ -36278,6 +36282,8 @@ function maSiderMenu($state, $rootScope) {
           top += (0, _jquery2['default'])('.second-nav').height();
         }
 
+        top += offsetTop;
+
         if (top < 0) {
           top = 0;
         }
@@ -36285,6 +36291,12 @@ function maSiderMenu($state, $rootScope) {
         (0, _jquery2['default'])($element).css({
           top: top
         });
+
+        if (leftScroll) {
+          (0, _jquery2['default'])($element).css({
+            left: -(0, _jquery2['default'])(window).scrollLeft()
+          });
+        }
       }
     }],
     link: function link(scope, element, attrs, controllers) {
@@ -48400,14 +48412,14 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         if (self.floatLeftCols !== false && (0, _jquery2['default'])(this).parents('.float-left-table').length) {
           // 如果是漂浮的checkbox 就不compile
           $compile(this)($scope);
-          console.log('compile');
+          // console.log('compile');
         } else if (self.floatLeftCols === false) {
           $compile(this)($scope);
-          console.log('compile');
+          // console.log('compile');
         }
       } else {
         $compile(this)($scope);
-        console.log('compile');
+        // console.log('compile');
       }
     });
     $timeout();
@@ -52720,7 +52732,7 @@ function maDateRangePicker($timeout) {
       var seperator = '~';
       var init = (0, _debounce2['default'])(_init, 100);
 
-      scope.$watch('$destroy', function () {
+      scope.$on('$destroy', function () {
         if (scope.dateRangePicker) {
           scope.dateRangePicker.destroy();
           scope.dateRangePicker = null;

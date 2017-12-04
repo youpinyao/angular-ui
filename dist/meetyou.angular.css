@@ -9442,11 +9442,13 @@ disabled look for disabled choices in the results dropdown
   visibility: hidden;
   transition: all 300ms ease;
   -webkit-transtion: all 300ms ease;
+  display: none;
 }
 
 .ma-loading.show {
   opacity: 1;
   visibility: visible;
+  display: block;
 }
 
 .ma-loading .ma-spin {

@@ -21,9 +21,11 @@
   opacity: 0;
   visibility: hidden;
   @include transition();
+  display: none;
   &.show {
     opacity: 1;
     visibility: visible;
+    display: block;
   }
   .ma-spin {
     height: 120px;

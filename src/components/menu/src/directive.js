@@ -158,7 +158,8 @@ function maSiderMenu($state, $rootScope) {
     scope: {
       routers: '=maRouters',
       title: '@maTitle',
-      offsetTop: '@maOffsetTop'
+      offsetTop: '@maOffsetTop',
+      leftScroll: '@maLeftScroll',
     },
     template: function(element, attrs) {
       if (attrs.maSiderMenu !== undefined) {
@@ -206,6 +207,7 @@ function maSiderMenu($state, $rootScope) {
       function setTop() {
         const header = $('body > .header');
         const offsetTop = parseFloat($scope.offsetTop) || 0;
+        const leftScroll = $scope.leftScroll !== undefined;
         let top = header.height() - $(window).scrollTop();
 
         if ($('.header-fixed').length) {
@@ -225,6 +227,12 @@ function maSiderMenu($state, $rootScope) {
         $($element).css({
           top
         });
+
+        if (leftScroll) {
+          $($element).css({
+            left: -$(window).scrollLeft(),
+          });
+        }
       }
     }],
     link(scope, element, attrs, controllers) {
