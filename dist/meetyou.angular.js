@@ -36056,8 +36056,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /**!
  * lg-zoom.js | 1.0.1 | December 22nd 2016
  * http://sachinchoolur.github.io/lg-zoom.js
- * Copyright (c) 2016 Sachin N; 
- * @license GPLv3 
+ * Copyright (c) 2016 Sachin N;
+ * @license GPLv3
  */(function (f) {
     if (( false ? "undefined" : _typeof(exports)) === "object" && typeof module !== "undefined") {
         module.exports = f();
@@ -36497,6 +36497,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                             // execute only on .lg-object
                             var image = _this.core.___slide[_this.core.index].querySelector('.lg-object');
+
+                            if (!image) {
+                                return;
+                            }
 
                             allowY = image.offsetHeight * image.getAttribute('data-scale') > _this.core.outer.querySelector('.lg').clientHeight;
                             allowX = image.offsetWidth * image.getAttribute('data-scale') > _this.core.outer.querySelector('.lg').clientWidth;
@@ -55170,10 +55174,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                     html: _html
                 });
             } else {
-                if (/\.(jpg|jpeg|png|gif)/g.test(("" + _src).toLowerCase())) {
+                if (!/\.(jpg|jpeg|png|gif)/g.test(("" + _src).toLowerCase())) {
                     _this.___slide[index].insertAdjacentHTML('beforeend', '<div class="lg-img-wrap"><img class="lg-object lg-image" src="' + _src + '" /></div>');
                 } else {
-                    _this.___slide[index].insertAdjacentHTML('beforeend', '<div class="lg-img-wrap"><a target="_blank" style=" color:#ffffff;" href="' + _src + '"><i class="iconfont icon-eyeo" style="font-size: 60px;"></i><div>点击查看</div></a></div>');
+                    _this.___slide[index].insertAdjacentHTML('beforeend', '<div class="lg-img-wrap"><a target="_blank" style=" color:#ffffff;" href="' + _src + '"><i class="iconfont icon-eyeo" style="font-size: 60px;"></i><div>点击查看文件</div></a></div>');
                     _this.___slide[index].style.background = 'none';
                 }
             }
