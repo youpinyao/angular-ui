@@ -689,7 +689,7 @@
                     html: _html
                 });
             } else {
-              if (!/\.(jpg|jpeg|png|gif)/g.test(`${_src}`.toLowerCase())) {
+              if (/\.(jpg|jpeg|png|gif)/g.test(`${_src}`.toLowerCase())) {
                 _this.___slide[index].insertAdjacentHTML('beforeend', '<div class="lg-img-wrap"><img class="lg-object lg-image" src="' + _src + '" /></div>');
               } else {
                 _this.___slide[index].insertAdjacentHTML('beforeend', '<div class="lg-img-wrap"><a target="_blank" style=" color:#ffffff;" href="' + _src + '"><i class="iconfont icon-eyeo" style="font-size: 60px;"></i><div>点击查看文件</div></a></div>');
