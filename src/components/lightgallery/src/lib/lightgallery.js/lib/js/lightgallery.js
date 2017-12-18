@@ -692,8 +692,8 @@
               if (/\.(jpg|jpeg|png|gif)/g.test(`${_src}`.toLowerCase())) {
                 _this.___slide[index].insertAdjacentHTML('beforeend', '<div class="lg-img-wrap"><img class="lg-object lg-image" src="' + _src + '" /></div>');
               } else {
-                _this.___slide[index].insertAdjacentHTML('beforeend', '<div class="lg-img-wrap"><a target="_blank" style=" color:#ffffff;" href="' + _src + '"><i class="iconfont icon-eyeo" style="font-size: 60px;"></i><div>点击查看文件</div></a></div>');
-                _this.___slide[index].style.background = 'none';
+                _this.___slide[index].insertAdjacentHTML('beforeend', '<div class="lg-img-wrap"><a target="_blank" style=" color:#ffffff;" href="' + _src + '"><i class="iconfont icon-file" style="font-size: 60px;"></i><br/><div style="padding-top:10px; display:inline-block">点击查看文件</div></a></div>');
+                _lgUtils2.default.addClass(_this.___slide[index], 'lg-is-file');
               }
             }
 

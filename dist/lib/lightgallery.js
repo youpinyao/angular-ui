@@ -2236,8 +2236,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 if (/\.(jpg|jpeg|png|gif)/g.test(("" + _src).toLowerCase())) {
                     _this.___slide[index].insertAdjacentHTML('beforeend', '<div class="lg-img-wrap"><img class="lg-object lg-image" src="' + _src + '" /></div>');
                 } else {
-                    _this.___slide[index].insertAdjacentHTML('beforeend', '<div class="lg-img-wrap"><a target="_blank" style=" color:#ffffff;" href="' + _src + '"><i class="iconfont icon-eyeo" style="font-size: 60px;"></i><div>点击查看文件</div></a></div>');
-                    _this.___slide[index].style.background = 'none';
+                    _this.___slide[index].insertAdjacentHTML('beforeend', '<div class="lg-img-wrap"><a target="_blank" style=" color:#ffffff;" href="' + _src + '"><i class="iconfont icon-file" style="font-size: 60px;"></i><br/><div style="padding-top:10px; display:inline-block">点击查看文件</div></a></div>');
+                    _lgUtils2["default"].addClass(_this.___slide[index], 'lg-is-file');
                 }
             }
 
@@ -3020,7 +3020,7 @@ var _name2 = _interopRequireDefault(_name);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-__webpack_require__("Fhdu");
+__webpack_require__("tU0I");
 
 angular.module(_name2['default'], []).config(function () {}).run(function () {});
 
@@ -3028,6 +3028,13 @@ __webpack_require__("j6O1");
 __webpack_require__("zXSm");
 
 exports['default'] = _name2['default'];
+
+/***/ }),
+
+/***/ "tU0I":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 
