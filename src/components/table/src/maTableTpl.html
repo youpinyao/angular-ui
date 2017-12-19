@@ -20,7 +20,7 @@
             <!-- <tr ng-repeat="row in $tableCtrl.$data"> -->
             <tbody class="tr-content"></tbody>
             <tr ng-if="$data.length <= 0">
-              <td colspan="{{$columns.length}}"
+              <td colspan="{{t$ableCtrl.tableParams.getShowCols().length}}"
                 style="text-align:center;">暂无数据</td>
             </tr>
           </table>
@@ -47,7 +47,7 @@
             <!-- <tr ng-repeat="row in $tableCtrl.$data"> -->
             <tbody class="tr-content"></tbody>
             <tr ng-if="$data.length <= 0">
-              <td colspan="{{$columns.length}}"
+              <td colspan="{{t$ableCtrl.tableParams.getShowCols().length}}"
                 style="text-align:center;">暂无数据</td>
             </tr>
           </table>
@@ -71,7 +71,7 @@
           <tbody class="tr-content"></tbody>
 
           <tr ng-if="$data.length <= 0">
-            <td colspan="{{$columns.length}}"
+            <td colspan="{{t$ableCtrl.tableParams.getShowCols().length}}"
               style="text-align:center;">暂无数据</td>
           </tr>
         </table>

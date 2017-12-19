@@ -337,6 +337,9 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     self.tableParams.setSelect(false);
   };
 
+  self.tableParams.getShowCols = function () {
+    return $scope.tableConfig.cols.filter(col => col.show);
+  };
 
   $scope.tableConfig.tableIns = self.tableParams;
   self.tableParams.tableId = self.tableId;
