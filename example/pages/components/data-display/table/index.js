@@ -67,11 +67,8 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
       },
       show: true
     }, {
-      field: 'shows2',
+      field: 'shows',
       title: '曝光数2',
-      renderHtml() {
-        return 6666;
-      },
       show: true
     }, {
       field: 'shows3',
@@ -183,7 +180,7 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
     return [{
       user_id: 1,
       real_name: 'dsfd',
-      shows: 103,
+      shows: 0,
       remain_amount: 101
     }, {
       user_id: 2,
