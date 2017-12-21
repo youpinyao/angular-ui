@@ -47146,7 +47146,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
             col: item[d[2].field]
           }));
         } else {
-          el.html('<div>' + (item[d[2].field] || '') + '</div>');
+          el.html('<div>' + item[d[2].field] + '</div>');
         }
       });
 

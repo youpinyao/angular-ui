@@ -5,3 +5,15 @@ config
 example
 node_modules
 app.js
+.babelrc
+.editorconfig
+.eslintignore
+.eslintrc.json
+.gitattributes
+.gitignore
+.jsbeautify
+.npmignore
+.stylelintrc
+favicon.ico
+
+
