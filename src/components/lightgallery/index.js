@@ -1,5 +1,5 @@
 import moduleName from './src/name.js';
-require('./src/lib/lightgallery.js/dist/css/lightgallery.css');
+require('./src/lib/add-to-vendor/lightgallery.js/dist/css/lightgallery.css');
 
 angular.module(moduleName, []).config(function () {}).run(function () {});
 

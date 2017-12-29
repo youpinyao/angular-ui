@@ -3990,188 +3990,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 /***/ }),
 
-/***/ "7epe":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
-
-(function (global, factory) {
-    if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-    } else if (typeof exports !== "undefined") {
-        factory(exports);
-    } else {
-        var mod = {
-            exports: {}
-        };
-        factory(mod.exports);
-        global.lgUtils = mod.exports;
-    }
-})(undefined, function (exports) {
-    'use strict';
-
-    Object.defineProperty(exports, "__esModule", {
-        value: true
-    });
-
-    /*
-     *@todo remove function from window and document. Update on and off functions
-     */
-    window.getAttribute = function (label) {
-        return window[label];
-    };
-
-    window.setAttribute = function (label, value) {
-        window[label] = value;
-    };
-
-    document.getAttribute = function (label) {
-        return document[label];
-    };
-
-    document.setAttribute = function (label, value) {
-        document[label] = value;
-    };
-
-    var utils = {
-        wrap: function wrap(el, className) {
-            if (!el) {
-                return;
-            }
-
-            var wrapper = document.createElement('div');
-            wrapper.className = className;
-            el.parentNode.insertBefore(wrapper, el);
-            el.parentNode.removeChild(el);
-            wrapper.appendChild(el);
-        },
-
-        addClass: function addClass(el, className) {
-            if (!el) {
-                return;
-            }
-
-            if (el.classList) {
-                el.classList.add(className);
-            } else {
-                el.className += ' ' + className;
-            }
-        },
-
-        removeClass: function removeClass(el, className) {
-            if (!el) {
-                return;
-            }
-
-            if (el.classList) {
-                el.classList.remove(className);
-            } else {
-                el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-            }
-        },
-
-        hasClass: function hasClass(el, className) {
-            if (el.classList) {
-                return el.classList.contains(className);
-            } else {
-                return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
-            }
-
-            return false;
-        },
-
-        // ex Transform
-        // ex TransitionTimingFunction
-        setVendor: function setVendor(el, property, value) {
-            if (!el) {
-                return;
-            }
-
-            el.style[property.charAt(0).toLowerCase() + property.slice(1)] = value;
-            el.style['webkit' + property] = value;
-            el.style['moz' + property] = value;
-            el.style['ms' + property] = value;
-            el.style['o' + property] = value;
-        },
-
-        trigger: function trigger(el, event) {
-            var detail = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
-            if (!el) {
-                return;
-            }
-
-            var customEvent = new CustomEvent(event, {
-                detail: detail
-            });
-            el.dispatchEvent(customEvent);
-        },
-
-        Listener: {
-            uid: 0
-        },
-        on: function on(el, events, fn) {
-            if (!el) {
-                return;
-            }
-
-            events.split(' ').forEach(function (event) {
-                var _id = el.getAttribute('lg-event-uid') || '';
-                utils.Listener.uid++;
-                _id += '&' + utils.Listener.uid;
-                el.setAttribute('lg-event-uid', _id);
-                utils.Listener[event + utils.Listener.uid] = fn;
-                el.addEventListener(event.split('.')[0], fn, false);
-            });
-        },
-
-        off: function off(el, event) {
-            if (!el) {
-                return;
-            }
-
-            var _id = el.getAttribute('lg-event-uid');
-            if (_id) {
-                _id = _id.split('&');
-                for (var i = 0; i < _id.length; i++) {
-                    if (_id[i]) {
-                        var _event = event + _id[i];
-                        if (_event.substring(0, 1) === '.') {
-                            for (var key in utils.Listener) {
-                                if (utils.Listener.hasOwnProperty(key)) {
-                                    if (key.split('.').indexOf(_event.split('.')[1]) > -1) {
-                                        el.removeEventListener(key.split('.')[0], utils.Listener[key]);
-                                        el.setAttribute('lg-event-uid', el.getAttribute('lg-event-uid').replace('&' + _id[i], ''));
-                                        delete utils.Listener[key];
-                                    }
-                                }
-                            }
-                        } else {
-                            el.removeEventListener(_event.split('.')[0], utils.Listener[_event]);
-                            el.setAttribute('lg-event-uid', el.getAttribute('lg-event-uid').replace('&' + _id[i], ''));
-                            delete utils.Listener[_event];
-                        }
-                    }
-                }
-            }
-        },
-
-        param: function param(obj) {
-            return Object.keys(obj).map(function (k) {
-                return encodeURIComponent(k) + '=' + encodeURIComponent(obj[k]);
-            }).join('&');
-        }
-    };
-
-    exports["default"] = utils;
-});
-
-/***/ }),
-
 /***/ "7fJ5":
 /***/ (function(module, exports) {
 
@@ -36652,6 +36470,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 /***/ }),
 
+/***/ "IjNy":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "Jj4W":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -46667,6 +46492,188 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 /***/ }),
 
+/***/ "SrLh":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(exports);
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports);
+        global.lgUtils = mod.exports;
+    }
+})(undefined, function (exports) {
+    'use strict';
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    /*
+     *@todo remove function from window and document. Update on and off functions
+     */
+    window.getAttribute = function (label) {
+        return window[label];
+    };
+
+    window.setAttribute = function (label, value) {
+        window[label] = value;
+    };
+
+    document.getAttribute = function (label) {
+        return document[label];
+    };
+
+    document.setAttribute = function (label, value) {
+        document[label] = value;
+    };
+
+    var utils = {
+        wrap: function wrap(el, className) {
+            if (!el) {
+                return;
+            }
+
+            var wrapper = document.createElement('div');
+            wrapper.className = className;
+            el.parentNode.insertBefore(wrapper, el);
+            el.parentNode.removeChild(el);
+            wrapper.appendChild(el);
+        },
+
+        addClass: function addClass(el, className) {
+            if (!el) {
+                return;
+            }
+
+            if (el.classList) {
+                el.classList.add(className);
+            } else {
+                el.className += ' ' + className;
+            }
+        },
+
+        removeClass: function removeClass(el, className) {
+            if (!el) {
+                return;
+            }
+
+            if (el.classList) {
+                el.classList.remove(className);
+            } else {
+                el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+            }
+        },
+
+        hasClass: function hasClass(el, className) {
+            if (el.classList) {
+                return el.classList.contains(className);
+            } else {
+                return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+            }
+
+            return false;
+        },
+
+        // ex Transform
+        // ex TransitionTimingFunction
+        setVendor: function setVendor(el, property, value) {
+            if (!el) {
+                return;
+            }
+
+            el.style[property.charAt(0).toLowerCase() + property.slice(1)] = value;
+            el.style['webkit' + property] = value;
+            el.style['moz' + property] = value;
+            el.style['ms' + property] = value;
+            el.style['o' + property] = value;
+        },
+
+        trigger: function trigger(el, event) {
+            var detail = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+            if (!el) {
+                return;
+            }
+
+            var customEvent = new CustomEvent(event, {
+                detail: detail
+            });
+            el.dispatchEvent(customEvent);
+        },
+
+        Listener: {
+            uid: 0
+        },
+        on: function on(el, events, fn) {
+            if (!el) {
+                return;
+            }
+
+            events.split(' ').forEach(function (event) {
+                var _id = el.getAttribute('lg-event-uid') || '';
+                utils.Listener.uid++;
+                _id += '&' + utils.Listener.uid;
+                el.setAttribute('lg-event-uid', _id);
+                utils.Listener[event + utils.Listener.uid] = fn;
+                el.addEventListener(event.split('.')[0], fn, false);
+            });
+        },
+
+        off: function off(el, event) {
+            if (!el) {
+                return;
+            }
+
+            var _id = el.getAttribute('lg-event-uid');
+            if (_id) {
+                _id = _id.split('&');
+                for (var i = 0; i < _id.length; i++) {
+                    if (_id[i]) {
+                        var _event = event + _id[i];
+                        if (_event.substring(0, 1) === '.') {
+                            for (var key in utils.Listener) {
+                                if (utils.Listener.hasOwnProperty(key)) {
+                                    if (key.split('.').indexOf(_event.split('.')[1]) > -1) {
+                                        el.removeEventListener(key.split('.')[0], utils.Listener[key]);
+                                        el.setAttribute('lg-event-uid', el.getAttribute('lg-event-uid').replace('&' + _id[i], ''));
+                                        delete utils.Listener[key];
+                                    }
+                                }
+                            }
+                        } else {
+                            el.removeEventListener(_event.split('.')[0], utils.Listener[_event]);
+                            el.setAttribute('lg-event-uid', el.getAttribute('lg-event-uid').replace('&' + _id[i], ''));
+                            delete utils.Listener[_event];
+                        }
+                    }
+                }
+            }
+        },
+
+        param: function param(obj) {
+            return Object.keys(obj).map(function (k) {
+                return encodeURIComponent(k) + '=' + encodeURIComponent(obj[k]);
+            }).join('&');
+        }
+    };
+
+    exports["default"] = utils;
+});
+
+/***/ }),
+
 /***/ "TDF1":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -54473,7 +54480,118 @@ function maAutoComplete($timeout) {
 
 /***/ }),
 
-/***/ "fp4c":
+/***/ "g5ku":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports['default'] = 'meetyou.angular.ui.input';
+
+/***/ }),
+
+/***/ "g66R":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports['default'] = 'meetyou.angular.ui.button';
+
+/***/ }),
+
+/***/ "g7KF":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+//! moment.js locale configuration
+//! locale : Frisian [fy]
+//! author : Robin van der Vliet : https://github.com/robin0van0der0v
+
+;(function (global, factory) {
+    ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' && "function" === 'function' ? factory(__webpack_require__("PJh5")) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__("PJh5")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.moment);
+})(undefined, function (moment) {
+    'use strict';
+
+    var monthsShortWithDots = 'jan._feb._mrt._apr._mai_jun._jul._aug._sep._okt._nov._des.'.split('_');
+    var monthsShortWithoutDots = 'jan_feb_mrt_apr_mai_jun_jul_aug_sep_okt_nov_des'.split('_');
+
+    var fy = moment.defineLocale('fy', {
+        months: 'jannewaris_febrewaris_maart_april_maaie_juny_july_augustus_septimber_oktober_novimber_desimber'.split('_'),
+        monthsShort: function monthsShort(m, format) {
+            if (!m) {
+                return monthsShortWithDots;
+            } else if (/-MMM-/.test(format)) {
+                return monthsShortWithoutDots[m.month()];
+            } else {
+                return monthsShortWithDots[m.month()];
+            }
+        },
+        monthsParseExact: true,
+        weekdays: 'snein_moandei_tiisdei_woansdei_tongersdei_freed_sneon'.split('_'),
+        weekdaysShort: 'si._mo._ti._wo._to._fr._so.'.split('_'),
+        weekdaysMin: 'Si_Mo_Ti_Wo_To_Fr_So'.split('_'),
+        weekdaysParseExact: true,
+        longDateFormat: {
+            LT: 'HH:mm',
+            LTS: 'HH:mm:ss',
+            L: 'DD-MM-YYYY',
+            LL: 'D MMMM YYYY',
+            LLL: 'D MMMM YYYY HH:mm',
+            LLLL: 'dddd D MMMM YYYY HH:mm'
+        },
+        calendar: {
+            sameDay: '[hjoed om] LT',
+            nextDay: '[moarn om] LT',
+            nextWeek: 'dddd [om] LT',
+            lastDay: '[juster om] LT',
+            lastWeek: '[ôfrûne] dddd [om] LT',
+            sameElse: 'L'
+        },
+        relativeTime: {
+            future: 'oer %s',
+            past: '%s lyn',
+            s: 'in pear sekonden',
+            m: 'ien minút',
+            mm: '%d minuten',
+            h: 'ien oere',
+            hh: '%d oeren',
+            d: 'ien dei',
+            dd: '%d dagen',
+            M: 'ien moanne',
+            MM: '%d moannen',
+            y: 'ien jier',
+            yy: '%d jierren'
+        },
+        dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
+        ordinal: function ordinal(number) {
+            return number + (number === 1 || number === 8 || number >= 20 ? 'ste' : 'de');
+        },
+        week: {
+            dow: 1, // Monday is the first day of the week.
+            doy: 4 // The week that contains Jan 4th is the first week of the year.
+        }
+    });
+
+    return fy;
+});
+
+/***/ }),
+
+/***/ "gAXP":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54481,7 +54599,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 (function (global, factory) {
     if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__("7epe")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__("SrLh")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -55908,117 +56026,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             console.error('lightGallery has not initiated properly');
         }
     };
-});
-
-/***/ }),
-
-/***/ "g5ku":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports['default'] = 'meetyou.angular.ui.input';
-
-/***/ }),
-
-/***/ "g66R":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports['default'] = 'meetyou.angular.ui.button';
-
-/***/ }),
-
-/***/ "g7KF":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-//! moment.js locale configuration
-//! locale : Frisian [fy]
-//! author : Robin van der Vliet : https://github.com/robin0van0der0v
-
-;(function (global, factory) {
-    ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' && "function" === 'function' ? factory(__webpack_require__("PJh5")) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__("PJh5")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.moment);
-})(undefined, function (moment) {
-    'use strict';
-
-    var monthsShortWithDots = 'jan._feb._mrt._apr._mai_jun._jul._aug._sep._okt._nov._des.'.split('_');
-    var monthsShortWithoutDots = 'jan_feb_mrt_apr_mai_jun_jul_aug_sep_okt_nov_des'.split('_');
-
-    var fy = moment.defineLocale('fy', {
-        months: 'jannewaris_febrewaris_maart_april_maaie_juny_july_augustus_septimber_oktober_novimber_desimber'.split('_'),
-        monthsShort: function monthsShort(m, format) {
-            if (!m) {
-                return monthsShortWithDots;
-            } else if (/-MMM-/.test(format)) {
-                return monthsShortWithoutDots[m.month()];
-            } else {
-                return monthsShortWithDots[m.month()];
-            }
-        },
-        monthsParseExact: true,
-        weekdays: 'snein_moandei_tiisdei_woansdei_tongersdei_freed_sneon'.split('_'),
-        weekdaysShort: 'si._mo._ti._wo._to._fr._so.'.split('_'),
-        weekdaysMin: 'Si_Mo_Ti_Wo_To_Fr_So'.split('_'),
-        weekdaysParseExact: true,
-        longDateFormat: {
-            LT: 'HH:mm',
-            LTS: 'HH:mm:ss',
-            L: 'DD-MM-YYYY',
-            LL: 'D MMMM YYYY',
-            LLL: 'D MMMM YYYY HH:mm',
-            LLLL: 'dddd D MMMM YYYY HH:mm'
-        },
-        calendar: {
-            sameDay: '[hjoed om] LT',
-            nextDay: '[moarn om] LT',
-            nextWeek: 'dddd [om] LT',
-            lastDay: '[juster om] LT',
-            lastWeek: '[ôfrûne] dddd [om] LT',
-            sameElse: 'L'
-        },
-        relativeTime: {
-            future: 'oer %s',
-            past: '%s lyn',
-            s: 'in pear sekonden',
-            m: 'ien minút',
-            mm: '%d minuten',
-            h: 'ien oere',
-            hh: '%d oeren',
-            d: 'ien dei',
-            dd: '%d dagen',
-            M: 'ien moanne',
-            MM: '%d moannen',
-            y: 'ien jier',
-            yy: '%d jierren'
-        },
-        dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
-        ordinal: function ordinal(number) {
-            return number + (number === 1 || number === 8 || number >= 20 ? 'ste' : 'de');
-        },
-        week: {
-            dow: 1, // Monday is the first day of the week.
-            doy: 4 // The week that contains Jan 4th is the first week of the year.
-        }
-    });
-
-    return fy;
 });
 
 /***/ }),
@@ -62837,7 +62844,7 @@ var _name2 = _interopRequireDefault(_name);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-__webpack_require__("tU0I");
+__webpack_require__("IjNy");
 
 angular.module(_name2['default'], []).config(function () {}).run(function () {});
 
@@ -64433,13 +64440,6 @@ function maPagination($timeout, $compile) {
     }
   };
 }
-
-/***/ }),
-
-/***/ "tU0I":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 
@@ -69479,7 +69479,7 @@ var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-__webpack_require__("fp4c");
+__webpack_require__("gAXP");
 
 __webpack_require__("2cvB");
 

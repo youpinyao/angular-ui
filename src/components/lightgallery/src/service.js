@@ -1,6 +1,6 @@
 import moduleName from './name.js';
 import $ from 'jquery';
-import './lib/lightgallery.js/lib/js/lightgallery.js';
+import './lib//add-to-vendor/lightgallery.js/lib/js/lightgallery.js';
 import './lib/lg-fullscreen';
 import './lib/lg-zoom';
 import './lib/lg-pager';

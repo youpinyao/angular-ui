@@ -21,7 +21,7 @@ module.exports = function () {
         name: ['vendor'],
         minChunks(module) {
           // this assumes your vendor imports exist in the node_modules directory
-          return module.context && module.context.indexOf('node_modules') !== -1;
+          return module.context && (module.context.indexOf('node_modules') !== -1 || module.context.indexOf('add-to-vendor') !== -1);
         }
       }),
 
