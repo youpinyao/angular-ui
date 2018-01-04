@@ -231,6 +231,16 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
   }
 
   $scope.configText = `<ma-table ma-config="tableConfig"></ma-table>
+
+  $table.getTableById('table1').getSelected()
+
+  $table.getTableById('table1').selectAll()
+
+  $table.getTableById('table1').unSelectAll()
+
+  $table.getTableById('table1').setSelect([1, 2]) // id array
+
+  $table.getTableById('table1').setUnSelect([1, 2]) // id array
 /**
   数据表组件
   @param： {
