@@ -34,7 +34,7 @@ var _maProgressTpl = __webpack_require__("PHaT");
 
 var _maProgressTpl2 = _interopRequireDefault(_maProgressTpl);
 
-var _jquery = __webpack_require__("slT5");
+var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 

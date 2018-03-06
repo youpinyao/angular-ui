@@ -48,7 +48,7 @@ var _name = __webpack_require__("WC0F");
 
 var _name2 = _interopRequireDefault(_name);
 
-var _jquery = __webpack_require__("slT5");
+var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -102,7 +102,7 @@ var _maSpinTpl = __webpack_require__("mvPg");
 
 var _maSpinTpl2 = _interopRequireDefault(_maSpinTpl);
 
-var _jquery = __webpack_require__("slT5");
+var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 

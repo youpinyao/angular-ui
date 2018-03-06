@@ -66,7 +66,7 @@ var _name = __webpack_require__("ZPr7");
 
 var _name2 = _interopRequireDefault(_name);
 
-var _jquery = __webpack_require__("slT5");
+var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -710,7 +710,7 @@ var _maCircleTpl = __webpack_require__("UX8a");
 
 var _maCircleTpl2 = _interopRequireDefault(_maCircleTpl);
 
-var _jquery = __webpack_require__("slT5");
+var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 

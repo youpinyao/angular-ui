@@ -1420,7 +1420,7 @@ var _name = __webpack_require__("WTIP");
 
 var _name2 = _interopRequireDefault(_name);
 
-var _jquery = __webpack_require__("slT5");
+var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 

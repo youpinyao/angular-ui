@@ -183,6 +183,8 @@ function maDateRangePicker($timeout) {
           }
         }, scope.config || {});
 
+        window.$ = $;
+
         $(element).find('input').dateRangePicker(defaultConfig).bind('datepicker-change',
           function(
             evt, obj) {
