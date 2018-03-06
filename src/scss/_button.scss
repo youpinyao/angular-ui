@@ -24,6 +24,15 @@ $disabledOpacity: 0.6;
   }
 }
 
+@keyframes ani-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .ma-button {
   display: inline-block;
   background: $white;
@@ -47,6 +56,15 @@ $disabledOpacity: 0.6;
     + .iconfont {
       margin-right: 0px;
       margin-left: 5px;
+    }
+  }
+  &.loading {
+    &:before {
+      content: "\EEE3";
+      font-family: "iconfont" !important;
+      margin-right: 5px;
+      animation: ani-spin 1s linear infinite;
+      display: inline-block;
     }
   }
   &.large {

@@ -44,13 +44,14 @@ function maButton() {
       disabled: disabled,
       flat: flat === 'true',
       active: active === 'true',
-    }"
-    ng-transclude></div>`,
+      loading: loading === 'true',
+    }" ng-transclude></div>`,
     scope: {
       size: '@maSize',
       type: '@maType',
       flat: '@maFlat',
       active: '@maActive',
+      loading: '@maLoading',
       disabled: '=ngDisabled',
     },
     replace: true,
