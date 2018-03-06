@@ -192,12 +192,13 @@ function maButton() {
   return {
     restrict: 'E',
     transclude: true,
-    template: '<div\n    class="ma-button {{size}} {{type}}"\n    ng-class="{\n      disabled: disabled,\n      flat: flat === \'true\',\n      active: active === \'true\',\n    }"\n    ng-transclude></div>',
+    template: '<div\n    class="ma-button {{size}} {{type}}"\n    ng-class="{\n      disabled: disabled,\n      flat: flat === \'true\',\n      active: active === \'true\',\n      loading: loading === \'true\',\n    }" ng-transclude></div>',
     scope: {
       size: '@maSize',
       type: '@maType',
       flat: '@maFlat',
       active: '@maActive',
+      loading: '@maLoading',
       disabled: '=ngDisabled'
     },
     replace: true,

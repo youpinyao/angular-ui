@@ -6,7 +6,7 @@ webpackJsonp([1,4,6,11,25,29,30],{
 "use strict";
 
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -283,7 +283,7 @@ var _button = __webpack_require__("lkey");
 
 var _button2 = _interopRequireDefault(_button);
 
-__webpack_require__("MHen");
+__webpack_require__("t1+K");
 
 __webpack_require__("gU1X");
 
@@ -320,7 +320,7 @@ var _name = __webpack_require__("HuZX");
 
 var _name2 = _interopRequireDefault(_name);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -434,15 +434,15 @@ var _name = __webpack_require__("YO30");
 
 var _name2 = _interopRequireDefault(_name);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _v = __webpack_require__("DtRx");
+var _v = __webpack_require__("t6hx");
 
 var _v2 = _interopRequireDefault(_v);
 
-var _debounce = __webpack_require__("HhAh");
+var _debounce = __webpack_require__("wt18");
 
 var _debounce2 = _interopRequireDefault(_debounce);
 
@@ -755,11 +755,11 @@ var _name = __webpack_require__("DAut");
 
 var _name2 = _interopRequireDefault(_name);
 
-var _debounce = __webpack_require__("HhAh");
+var _debounce = __webpack_require__("wt18");
 
 var _debounce2 = _interopRequireDefault(_debounce);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -995,12 +995,13 @@ function maButton() {
   return {
     restrict: 'E',
     transclude: true,
-    template: '<div\n    class="ma-button {{size}} {{type}}"\n    ng-class="{\n      disabled: disabled,\n      flat: flat === \'true\',\n      active: active === \'true\',\n    }"\n    ng-transclude></div>',
+    template: '<div\n    class="ma-button {{size}} {{type}}"\n    ng-class="{\n      disabled: disabled,\n      flat: flat === \'true\',\n      active: active === \'true\',\n      loading: loading === \'true\',\n    }" ng-transclude></div>',
     scope: {
       size: '@maSize',
       type: '@maType',
       flat: '@maFlat',
       active: '@maActive',
+      loading: '@maLoading',
       disabled: '=ngDisabled'
     },
     replace: true,
@@ -1020,15 +1021,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _debounce = __webpack_require__("HhAh");
+var _debounce = __webpack_require__("wt18");
 
 var _debounce2 = _interopRequireDefault(_debounce);
 
-var _templateWeb = __webpack_require__("H+C6");
+var _templateWeb = __webpack_require__("DFKt");
 
 var _templateWeb2 = _interopRequireDefault(_templateWeb);
 
@@ -1525,7 +1526,7 @@ var _name = __webpack_require__("NuF/");
 
 var _name2 = _interopRequireDefault(_name);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -1664,7 +1665,7 @@ exports['default'] = 'meetyou.angular.ui.button';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -1929,7 +1930,7 @@ var _name = __webpack_require__("NuF/");
 
 var _name2 = _interopRequireDefault(_name);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -2173,7 +2174,7 @@ __webpack_require__("m79q");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-__webpack_require__("dTNh");
+__webpack_require__("i7bQ");
 
 angular.module(_name2['default'], ['ngTable', _checkbox2['default'], _select2['default']]).config(function () {}).run(function () {});
 
@@ -2193,7 +2194,7 @@ exports['default'] = _name2['default'];
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (( false ? 'undefined' : _typeof(exports)) === 'object' && ( false ? 'undefined' : _typeof(module)) === 'object') module.exports = factory(__webpack_require__("/jXN"));else if (true) !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__("/jXN")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+  if (( false ? 'undefined' : _typeof(exports)) === 'object' && ( false ? 'undefined' : _typeof(module)) === 'object') module.exports = factory(__webpack_require__("aDs4"));else if (true) !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__("aDs4")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') exports["ng-table"] = factory(require("angular"));else root["ng-table"] = factory(root["angular"]);
@@ -4777,7 +4778,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   );
 });;
 //# sourceMappingURL=ng-table.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("3IRH")(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("0gP4")(module)))
 
 /***/ }),
 
@@ -4795,7 +4796,7 @@ var _maCircleTpl = __webpack_require__("UX8a");
 
 var _maCircleTpl2 = _interopRequireDefault(_maCircleTpl);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 

@@ -10,7 +10,7 @@ var _name = __webpack_require__("HDDE");
 
 var _name2 = _interopRequireDefault(_name);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -161,7 +161,7 @@ var _message = __webpack_require__("WB2H");
 
 var _message2 = _interopRequireDefault(_message);
 
-__webpack_require__("v2oE");
+__webpack_require__("yWek");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -267,12 +267,13 @@ function maButton() {
   return {
     restrict: 'E',
     transclude: true,
-    template: '<div\n    class="ma-button {{size}} {{type}}"\n    ng-class="{\n      disabled: disabled,\n      flat: flat === \'true\',\n      active: active === \'true\',\n    }"\n    ng-transclude></div>',
+    template: '<div\n    class="ma-button {{size}} {{type}}"\n    ng-class="{\n      disabled: disabled,\n      flat: flat === \'true\',\n      active: active === \'true\',\n      loading: loading === \'true\',\n    }" ng-transclude></div>',
     scope: {
       size: '@maSize',
       type: '@maType',
       flat: '@maFlat',
       active: '@maActive',
+      loading: '@maLoading',
       disabled: '=ngDisabled'
     },
     replace: true,
@@ -341,7 +342,7 @@ var _maProgressTpl = __webpack_require__("PHaT");
 
 var _maProgressTpl2 = _interopRequireDefault(_maProgressTpl);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -512,7 +513,7 @@ var _name = __webpack_require__("N6Gv");
 
 var _name2 = _interopRequireDefault(_name);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -956,7 +957,7 @@ var _maCircleTpl = __webpack_require__("UX8a");
 
 var _maCircleTpl2 = _interopRequireDefault(_maCircleTpl);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 

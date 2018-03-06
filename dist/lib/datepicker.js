@@ -25,15 +25,15 @@ var _button = __webpack_require__("lkey");
 
 var _button2 = _interopRequireDefault(_button);
 
-__webpack_require__("PJh5");
+__webpack_require__("hsap");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 __webpack_require__("smqO");
-__webpack_require__("jiZd");
-__webpack_require__("rSyc");
+__webpack_require__("G/im");
+__webpack_require__("Kq3W");
 
-__webpack_require__("btq2");
+__webpack_require__("UHSJ");
 
 angular.module(_name2['default'], ['datePicker', _button2['default']]).config(function () {}).run(function () {});
 
@@ -97,12 +97,13 @@ function maButton() {
   return {
     restrict: 'E',
     transclude: true,
-    template: '<div\n    class="ma-button {{size}} {{type}}"\n    ng-class="{\n      disabled: disabled,\n      flat: flat === \'true\',\n      active: active === \'true\',\n    }"\n    ng-transclude></div>',
+    template: '<div\n    class="ma-button {{size}} {{type}}"\n    ng-class="{\n      disabled: disabled,\n      flat: flat === \'true\',\n      active: active === \'true\',\n      loading: loading === \'true\',\n    }" ng-transclude></div>',
     scope: {
       size: '@maSize',
       type: '@maType',
       flat: '@maFlat',
       active: '@maActive',
+      loading: '@maLoading',
       disabled: '=ngDisabled'
     },
     replace: true,
@@ -135,19 +136,19 @@ var _name = __webpack_require__("SciG");
 
 var _name2 = _interopRequireDefault(_name);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _v = __webpack_require__("DtRx");
+var _v = __webpack_require__("t6hx");
 
 var _v2 = _interopRequireDefault(_v);
 
-var _debounce = __webpack_require__("HhAh");
+var _debounce = __webpack_require__("wt18");
 
 var _debounce2 = _interopRequireDefault(_debounce);
 
-var _moment = __webpack_require__("PJh5");
+var _moment = __webpack_require__("hsap");
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -393,7 +394,7 @@ exports['default'] = _name2['default'];
 //! author : suupic : https://github.com/suupic
 //! author : Zeno Zeng : https://github.com/zenozeng
 
-var moment = __webpack_require__("PJh5");
+var moment = __webpack_require__("hsap");
 moment.defineLocale('zh-cn', {
   months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
   monthsShort: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),

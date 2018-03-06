@@ -41,7 +41,7 @@ var _name = __webpack_require__("wcTH");
 
 var _name2 = _interopRequireDefault(_name);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -280,12 +280,13 @@ function maButton() {
   return {
     restrict: 'E',
     transclude: true,
-    template: '<div\n    class="ma-button {{size}} {{type}}"\n    ng-class="{\n      disabled: disabled,\n      flat: flat === \'true\',\n      active: active === \'true\',\n    }"\n    ng-transclude></div>',
+    template: '<div\n    class="ma-button {{size}} {{type}}"\n    ng-class="{\n      disabled: disabled,\n      flat: flat === \'true\',\n      active: active === \'true\',\n      loading: loading === \'true\',\n    }" ng-transclude></div>',
     scope: {
       size: '@maSize',
       type: '@maType',
       flat: '@maFlat',
       active: '@maActive',
+      loading: '@maLoading',
       disabled: '=ngDisabled'
     },
     replace: true,
@@ -399,7 +400,7 @@ var _maCircleTpl = __webpack_require__("UX8a");
 
 var _maCircleTpl2 = _interopRequireDefault(_maCircleTpl);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -512,7 +513,7 @@ var _maModalTpl = __webpack_require__("DafX");
 
 var _maModalTpl2 = _interopRequireDefault(_maModalTpl);
 
-var _jquery = __webpack_require__("7t+N");
+var _jquery = __webpack_require__("slT5");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
