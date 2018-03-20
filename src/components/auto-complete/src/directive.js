@@ -22,7 +22,6 @@ function maAutoComplete($timeout) {
       maxlength: '@maxlength',
       placeholder: '@placeholder',
       accept: '@accept',
-      pattern: '@pattern',
       min: '@min',
       max: '@max',
       step: '@step',

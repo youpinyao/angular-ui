@@ -19,7 +19,6 @@ function maInputNumber() {
       maxlength: '@maxlength',
       placeholder: '@placeholder',
       accept: '@accept',
-      pattern: '@pattern',
       min: '@min',
       max: '@max',
       step: '@step',
@@ -40,7 +39,6 @@ function maInputNumber() {
         maxlength="{{maxlength}}"
         placeholder="{{placeholder}}"
         accept="{{accept}}"
-        pattern="{{pattern}}"
         min="{{min}}"
         max="{{max}}"
         step="{{step}}"
