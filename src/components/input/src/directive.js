@@ -32,6 +32,7 @@ function maInput() {
       clear: '=maClear',
 
       ngChange: '&ngChange',
+      ngBlur: '&ngBlur',
     },
     template: maInputTpl,
     controllerAs: '$ctrl',
@@ -45,6 +46,17 @@ function maInput() {
 
       $scope.change = function() {
         $scope.ngChange({
+          $model: $scope.model,
+        });
+      };
+
+      $scope.blur = function() {
+        const evObj = document.createEvent('MouseEvents');
+
+        evObj.initEvent('blur', true, false);
+        $element[0].dispatchEvent(evObj);
+
+        $scope.ngBlur({
           $model: $scope.model,
         });
       };

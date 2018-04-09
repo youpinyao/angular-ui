@@ -47,7 +47,8 @@ function maInput() {
 
       clear: '=maClear',
 
-      ngChange: '&ngChange'
+      ngChange: '&ngChange',
+      ngBlur: '&ngBlur'
     },
     template: _maInputTpl2['default'],
     controllerAs: '$ctrl',
@@ -61,6 +62,17 @@ function maInput() {
 
       $scope.change = function () {
         $scope.ngChange({
+          $model: $scope.model
+        });
+      };
+
+      $scope.blur = function () {
+        var evObj = document.createEvent('MouseEvents');
+
+        evObj.initEvent('blur', true, false);
+        $element[0].dispatchEvent(evObj);
+
+        $scope.ngBlur({
           $model: $scope.model
         });
       };
@@ -209,7 +221,7 @@ exports['default'] = _name2['default'];
 /***/ "6vUj":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-input\">\n  <input\n    ng-show=\"type !== 'textarea'\"\n    type=\"{{type || 'text'}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    placeholder=\"{{placeholder}}\"\n    accept=\"{{accept}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-change=\"change()\"\n    ng-disabled=\"disabled\"\n  />\n\n  <textarea\n    ng-show=\"type === 'textarea'\"\n    type=\"{{type || 'text'}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    accept=\"{{accept}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-change=\"change()\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  ></textarea>\n\n  <ma-icon\n    class=\"clear\"\n    ng-show=\"clear && model\"\n    ma-type=\"close\"\n    ma-click=\"$ctrl.clearClick($event)\"\n  ></ma-icon>\n\n  <div ng-transclude></div>\n</div>\n";
+module.exports = "<div class=\"ma-input\">\n  <input\n    ng-show=\"type !== 'textarea'\"\n    type=\"{{type || 'text'}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    placeholder=\"{{placeholder}}\"\n    accept=\"{{accept}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-readonly=\"readonly\"\n    ng-change=\"change()\"\n    ng-blur=\"blur()\"\n    ng-disabled=\"disabled\"\n  />\n\n  <textarea\n    ng-show=\"type === 'textarea'\"\n    type=\"{{type || 'text'}}\"\n    ng-model=\"model\"\n    maxlength=\"{{maxlength}}\"\n    accept=\"{{accept}}\"\n    min=\"{{min}}\"\n    max=\"{{max}}\"\n    step=\"{{step}}\"\n    ng-change=\"change()\"\n    ng-blur=\"blur()\"\n    ng-readonly=\"readonly\"\n    ng-disabled=\"disabled\"\n  ></textarea>\n\n  <ma-icon\n    class=\"clear\"\n    ng-show=\"clear && model\"\n    ma-type=\"close\"\n    ma-click=\"$ctrl.clearClick($event)\"\n  ></ma-icon>\n\n  <div ng-transclude></div>\n</div>\n";
 
 /***/ }),
 
