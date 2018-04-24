@@ -996,7 +996,7 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
       if (!value) {
         return false;
       }
-      if (isNaN(value)) {
+      if (isNaN(value) && !/-/g.test(value)) {
         return false;
       }
       // 固话 位数
