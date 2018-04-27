@@ -317,6 +317,7 @@ function maCheckbox($timeout) {
     link: function link(scope, element, attrs, ctrl) {
       scope.$watch('model', function (d) {
         if (angular.isArray(d)) {
+          scope.checked = false;
           angular.each(d, function (v, k) {
             if (String(v) === element.find('input').val() || v === true) {
               scope.checked = true;
