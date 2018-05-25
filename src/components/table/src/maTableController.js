@@ -211,17 +211,23 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
 
       if (deferred && deferred.then) {
         deferred.then(function(data) {
-          self.isLoading = false;
           setFloatTable();
           updateHtmlItems(data);
+          setTimeout(() => {
+            self.isLoading = false;
+          });
         }, function() {
-          self.isLoading = false;
           setFloatTable();
           updateHtmlItems();
+          setTimeout(() => {
+            self.isLoading = false;
+          });
         });
       } else {
-        self.isLoading = false;
         updateHtmlItems(deferred);
+        setTimeout(() => {
+          self.isLoading = false;
+        });
       }
 
       return deferred;
@@ -395,8 +401,9 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     let tdItems = [];
     let index = -1;
     let colIndex = -1;
+    let allHtml = '';
 
-    target.html('');
+    target.html(allHtml);
 
     angular.each(self.tableConfig.cols, col => {
       if (col.show !== false) {
@@ -447,8 +454,10 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         }
       });
 
-      target.append(trElement);
+      allHtml += trElement.prop('outerHTML');
     });
+
+    target.append(allHtml);
 
     if (angular.isEmpty(data)) {
       target.html(

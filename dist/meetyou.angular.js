@@ -47692,17 +47692,23 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
 
       if (deferred && deferred.then) {
         deferred.then(function (data) {
-          self.isLoading = false;
           setFloatTable();
           updateHtmlItems(data);
+          setTimeout(function () {
+            self.isLoading = false;
+          });
         }, function () {
-          self.isLoading = false;
           setFloatTable();
           updateHtmlItems();
+          setTimeout(function () {
+            self.isLoading = false;
+          });
         });
       } else {
-        self.isLoading = false;
         updateHtmlItems(deferred);
+        setTimeout(function () {
+          self.isLoading = false;
+        });
       }
 
       return deferred;
@@ -47875,8 +47881,9 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     var tdItems = [];
     var index = -1;
     var colIndex = -1;
+    var allHtml = '';
 
-    target.html('');
+    target.html(allHtml);
 
     angular.each(self.tableConfig.cols, function (col) {
       if (col.show !== false) {
@@ -47921,8 +47928,10 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         }
       });
 
-      target.append(trElement);
+      allHtml += trElement.prop('outerHTML');
     });
+
+    target.append(allHtml);
 
     if (angular.isEmpty(data)) {
       target.html('\n      <tr>\n        <td colspan="' + (colIndex + 1) + '" style="text-align:center;">\u6682\u65E0\u6570\u636E</td>\n      </tr>');
