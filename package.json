@@ -1,6 +1,6 @@
 {
   "name": "meetyou-angular-ui",
-  "version": "0.0.171",
+  "version": "0.0.172",
   "description": "Here is the Meetyou presents implementation, product development and service in the enterprise the background",
   "main": "dist/meetyou.angular.min.js",
   "scripts": {
@@ -23,7 +23,7 @@
   "dependencies": {
     "angular-datepicker-custom": "2.1.14",
     "angular-file-upload": "2.5.0",
-    "angular-validation-custom": "1.4.5",
+    "angular-validation-custom": "1.4.6",
     "art-template": "4.12.1",
     "body-parser": "1.13.2",
     "compression": "^1.5.2",
