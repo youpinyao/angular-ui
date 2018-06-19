@@ -59686,7 +59686,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 var moduleName = __webpack_require__("KidU");
 
-angular.module(moduleName, [_utils2['default'], _index2['default']]).config(['$qProvider', function ($qProvider) {
+angular.module(moduleName, [_utils2['default'], _index2['default']]).config(['$qProvider', '$compileProvider', function ($qProvider, $compileProvider) {
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);
   if ($qProvider && typeof $qProvider.errorOnUnhandledRejections === 'function') {
     $qProvider.errorOnUnhandledRejections(false);
   }

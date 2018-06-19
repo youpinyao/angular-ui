@@ -10,7 +10,8 @@ import components from './components/index.js';
 angular.module(moduleName, [
   utils,
   components,
-]).config(['$qProvider', function($qProvider) {
+]).config(['$qProvider', '$compileProvider', function($qProvider, $compileProvider) {
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);
   if ($qProvider && typeof $qProvider.errorOnUnhandledRejections === 'function') {
     $qProvider.errorOnUnhandledRejections(false);
   }
