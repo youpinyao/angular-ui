@@ -47,9 +47,10 @@ function mainCtrl($scope, $timeout, $interval, $utils) {
     },
   };
 
+  const OSSAccessKeyId = 'IkOF7oy0XNr3Kbco';
   const accesskey = 'FDd6C9CK8xatXjuXYQNGm4QkbIMWiQ';
-  const policyBase64 = $utils.Base64.encode(JSON.stringify(policyText));
-  const bytes = Crypto.HMAC(Crypto.SHA1, policyBase64, accesskey, { asBytes: true });
+  const policy = $utils.Base64.encode(JSON.stringify(policyText));
+  const bytes = Crypto.HMAC(Crypto.SHA1, policy, accesskey, { asBytes: true });
   const signature = Crypto.util.bytesToBase64(bytes);
 
   $scope.uploadConfigOss = {
@@ -64,9 +65,9 @@ function mainCtrl($scope, $timeout, $interval, $utils) {
     url: 'http://wxleborn.oss-cn-shenzhen.aliyuncs.com',
     ossConfig: {
       dir: 'upload',
-      OSSAccessKeyId: 'IkOF7oy0XNr3Kbco',
+      OSSAccessKeyId,
       signature,
-      policy: policyBase64,
+      policy,
     },
   };
 
