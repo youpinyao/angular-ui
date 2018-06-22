@@ -2,7 +2,7 @@
   <div class="upload-image-item"
     ng-class="{error: file.error}"
     data-id="{{file.id}}"
-    ng-repeat="file in ngModel">
+    ng-repeat="file in ngModel track by $index">
 
     <div class="image"
       ng-if="file.url && isImg(file)"

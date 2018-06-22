@@ -1,42 +1,51 @@
 import moduleName from './name.js';
 import $ from 'jquery';
+import moment from 'moment';
 import maUploadTpl from './maUploadTpl.html';
 import maUploadImageTpl from './maUploadImageTpl.html';
 
 angular.module(moduleName)
   .directive('maUpload', maUpload)
-  .directive('maUploadImage', maUploadImage);
+  .directive('maUploadImage', maUploadImage)
+  .directive('maUploadOss', maUploadOss)
+  .directive('maUploadImageOss', maUploadImageOss);
 
 // config
 // {
 //  url: '/upload/index',
-// viewUrl: '/upload/download',
-// alias: 'file',
-// headers: {},
-// queue: [],
-// progress: 0,
-// autoUpload: true,
-// removeAfterUpload: false,
-// method: 'POST',
-// filters: [],
-// formData: [],
-// queueLimit: Number.MAX_VALUE,
-// withCredentials: false,
-// disableMultipart: false
+//  viewUrl: '/upload/download',
+//  alias: 'file',
+//  headers: {},
+//  queue: [],
+//  progress: 0,
+//  autoUpload: true,
+//  removeAfterUpload: false,
+//  method: 'POST',
+//  filters: [],
+//  formData: [],
+//  queueLimit: Number.MAX_VALUE,
+//  withCredentials: false,
+//  disableMultipart: false
 
-// 非插件额外配置
-// multiple: false
-// limit: Number.MAX_VALUE,
-// size: 10 * 1024 * 1024,
-// size: {
-//   gif: 10 * 1024 * 1024,
-//   png: 10 * 1024 * 1024,
-//   jpg: 10 * 1024 * 1024
-// },
-// accept: '',
-// convert: function(data, response){}, // 上传成功后回调
-// uploadText: '上传照片',
-// buttonBaseOnLimit: false,
+//  非插件额外配置
+//  multiple: false
+//  limit: Number.MAX_VALUE,
+//  size: 10 * 1024 * 1024,
+//  size: {
+//    gif: 10 * 1024 * 1024,
+//    png: 10 * 1024 * 1024,
+//    jpg: 10 * 1024 * 1024
+//  },
+//  accept: '',
+//  convert: function(data, response){}, // 上传成功后回调
+//  uploadText: '上传照片',
+//  buttonBaseOnLimit: false,
+
+//  oss配置
+//  ossConfig: {
+//   OSSAccessKeyId: '',
+//   signature: '',
+//  }
 // }
 
 // ngModel data format
@@ -52,20 +61,32 @@ angular.module(moduleName)
 //   showDelete: false, //选填
 // }]
 
-maUpload.$inject = ['$compile', 'FileUploader', '$message'];
-maUploadImage.$inject = ['$compile', 'FileUploader', '$message'];
+maUpload.$inject = ['$compile', 'FileUploader', '$message', '$utils'];
+maUploadImage.$inject = ['$compile', 'FileUploader', '$message', '$utils'];
+maUploadOss.$inject = ['$compile', 'FileUploader', '$message', '$utils'];
+maUploadImageOss.$inject = ['$compile', 'FileUploader', '$message', '$utils'];
 
-function maUpload($compile, FileUploader, $message) {
-  return _maUpload($compile, FileUploader, $message, maUploadTpl, {});
+function maUpload($compile, FileUploader, $message, $utils) {
+  return _maUpload($compile, FileUploader, $message, $utils, maUploadTpl, {});
 }
 
-function maUploadImage($compile, FileUploader, $message) {
-  return _maUpload($compile, FileUploader, $message, maUploadImageTpl, {
+function maUploadImage($compile, FileUploader, $message, $utils) {
+  return _maUpload($compile, FileUploader, $message, $utils, maUploadImageTpl, {
     accept: 'image/*'
   });
 }
 
-function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
+function maUploadOss($compile, FileUploader, $message, $utils) {
+  return _maUpload($compile, FileUploader, $message, $utils, maUploadTpl, {});
+}
+
+function maUploadImageOss($compile, FileUploader, $message, $utils) {
+  return _maUpload($compile, FileUploader, $message, $utils, maUploadImageTpl, {
+    accept: 'image/*'
+  });
+}
+
+function _maUpload($compile, FileUploader, $message, $utils, template, defaultConfig) {
   return {
     restrict: 'EA',
     require: 'ngModel',
@@ -161,10 +182,32 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
         filters: [],
         size: 10 * 1024 * 1024,
         accept: '',
+        formData: [],
         convertData(data) {
 
         },
       }, $.extend(true, $.extend(true, {}, defaultConfig), scope.uploadConfig || {}));
+
+      // 如果有oss配置
+      if (config.ossConfig) {
+        const ossConfig = config.ossConfig;
+        // eslint-disable-next-line
+        let key = '${filename}';
+
+        key = `${$utils.uuid()}_${key}`;
+
+        if (ossConfig.dir) {
+          key = `${ossConfig.dir}/${key}`;
+        }
+
+        config.formData.push({
+          key,
+          policy: ossConfig.policy,
+          success_action_status: 200,
+          OSSAccessKeyId: ossConfig.OSSAccessKeyId,
+          signature: ossConfig.signature,
+        });
+      }
 
       if (config.limit !== Number.MAX_VALUE && config.buttonBaseOnLimit) {
         config.limitArray = new Array(config.limit);
@@ -282,12 +325,24 @@ function _maUpload($compile, FileUploader, $message, template, defaultConfig) {
     function onSuccessItem(fileItem, response, status, headers) {
       // console.log('onSuccessItem---', '[', fileItem._file.name, ']');
 
+      console.log(666, fileItem);
+
       angular.forEach(scope.ngModel, d => {
         if (d.file === fileItem._file) {
           d.progress = 100;
           if (response.data) {
             d.id = response.data.file_id;
+          } else {
+            d.id = $utils.uuid();
           }
+          // 如果是oss
+          if (config.ossConfig) {
+            const formData = fileItem.formData || [];
+            const fileConfig = formData.filter(item => item.OSSAccessKeyId)[0];
+
+            d.url = `${config.url}/${fileConfig.key.replace(/\${filename}/g, fileItem.file.name)}`;
+          }
+
           if (config.convert) {
             config.convert(d, response, scope.ngModel);
           }

@@ -1,12 +1,18 @@
 import './index.scss';
 
+import moment from 'moment';
+
+import '../../../../js/lib/crypto1/crypto/crypto.js';
+import '../../../../js/lib/crypto1/hmac/hmac.js';
+import '../../../../js/lib/crypto1/sha1/sha1.js';
+
 const controller = 'uploadCtrl';
 
 angular.module('app').controller(controller, mainCtrl);
 
-mainCtrl.$inject = ['$scope', '$timeout', '$interval'];
+mainCtrl.$inject = ['$scope', '$timeout', '$interval', '$utils'];
 
-function mainCtrl($scope, $timeout, $interval) {
+function mainCtrl($scope, $timeout, $interval, $utils) {
   $scope.uploadValue = [{
     id: 1,
     name: '666.jpg',
@@ -24,12 +30,43 @@ function mainCtrl($scope, $timeout, $interval) {
     progress: 100,
   }];
 
+  const policyText = {
+    expiration: moment().add('year', 5)._d.toISOString(), // 设置该Policy的失效时间，超过这个失效时间之后，就没有办法通过这个policy上传文件了
+    conditions: [
+      ['content-length-range', 0, 1048576000] // 设置上传文件的大小限制
+    ]
+  };
+
   $scope.uploadConfig = {
     accept: 'image/gif,image/jpeg,image/bmp,image/jpg,image/png,image/svg,application/pdf',
     size: {
-      gif: 0.5 * 1024 * 1000,
-      png: 0.5 * 1024 * 1000,
-      pdf: 5 * 1024 * 1000
+      gif: 0.5 * 1024 * 1024,
+      png: 0.5 * 1024 * 1024,
+      jpg: 0.5 * 1024 * 1024,
+      pdf: 5 * 1024 * 1024
+    },
+  };
+
+  const accesskey = 'FDd6C9CK8xatXjuXYQNGm4QkbIMWiQ';
+  const policyBase64 = $utils.Base64.encode(JSON.stringify(policyText));
+  const bytes = Crypto.HMAC(Crypto.SHA1, policyBase64, accesskey, { asBytes: true });
+  const signature = Crypto.util.bytesToBase64(bytes);
+
+  $scope.uploadConfigOss = {
+    accept: 'image/gif,image/jpeg,image/bmp,image/jpg,image/png,image/svg,application/pdf',
+    size: {
+      gif: 0.5 * 1024 * 1024,
+      png: 0.5 * 1024 * 1024,
+      jpg: 0.5 * 1024 * 1024,
+      pdf: 5 * 1024 * 1024
+    },
+    multiple: true,
+    url: 'http://wxleborn.oss-cn-shenzhen.aliyuncs.com',
+    ossConfig: {
+      dir: 'upload',
+      OSSAccessKeyId: 'IkOF7oy0XNr3Kbco',
+      signature,
+      policy: policyBase64,
     },
   };
 

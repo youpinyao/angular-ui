@@ -12,8 +12,14 @@
     </ma-button>
   </div>
 </div>
-<div class="col-24">
+<div class="col-24 mb-20">
   <div ma-upload-image
     ma-upload-config="uploadConfig"
+    ng-model="uploadValue"></div>
+</div>
+<h3>aliyun oss</h3>
+<div class="col-24">
+  <div ma-upload-oss
+    ma-upload-config="uploadConfigOss"
     ng-model="uploadValue"></div>
 </div>
