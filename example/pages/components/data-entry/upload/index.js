@@ -54,12 +54,13 @@ function mainCtrl($scope, $timeout, $interval, $utils) {
   const signature = Crypto.util.bytesToBase64(bytes);
 
   $scope.uploadConfigOss = {
-    accept: 'image/gif,image/jpeg,image/bmp,image/jpg,image/png,image/svg,application/pdf',
+    accept: 'image/gif,image/jpeg,image/bmp,image/jpg,image/png,image/svg,application/pdf,video/mp4',
     size: {
       gif: 0.5 * 1024 * 1024,
       png: 0.5 * 1024 * 1024,
       jpg: 0.5 * 1024 * 1024,
-      pdf: 5 * 1024 * 1024
+      pdf: 5 * 1024 * 1024,
+      mp4: 50 * 1024 * 1024,
     },
     multiple: true,
     url: 'http://wxleborn.oss-cn-shenzhen.aliyuncs.com',

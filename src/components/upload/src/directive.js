@@ -109,21 +109,9 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
     let accept = '';
     let uploader = 'uploader';
     let config = getConfig();
-    let newUploader = new FileUploader(config);
 
     const allImageAccept =
       'image/gif,image/jpeg,image/bmp,image/jpg,image/png,image/svg';
-
-    scope.$ctrl.uploadConfig = config;
-
-    scope[uploader] = newUploader;
-    newUploader.onBeforeUploadItem = onBeforeUploadItem;
-    newUploader.onProgressItem = onProgressItem;
-    newUploader.onSuccessItem = onSuccessItem;
-    newUploader.onErrorItem = onErrorItem;
-    newUploader.onCompleteItem = onCompleteItem;
-    newUploader.onCancelItem = onCompleteItem;
-    newUploader.onWhenAddingFileFailed = onCompleteItem;
 
     // 初始化元素
     if (config.multiple) {
@@ -138,13 +126,29 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
       accept = 'accept=' + config.accept;
     }
 
-    const fileInput =
+    const fileInput = $(
       `<input
-      type="file"
-      nv-file-select=""
-      ${multiple}
-      ${accept}
-      uploader='${uploader}'/>`;
+    type="file"
+    nv-file-select=""
+    ${multiple}
+    ${accept}
+    uploader='${uploader}'/>`
+    );
+
+    config.target = angular.element(fileInput);
+
+    scope.$ctrl.uploadConfig = config;
+
+    const newUploader = new FileUploader(config);
+
+    scope[uploader] = newUploader;
+    newUploader.onBeforeUploadItem = onBeforeUploadItem;
+    newUploader.onProgressItem = onProgressItem;
+    newUploader.onSuccessItem = onSuccessItem;
+    newUploader.onErrorItem = onErrorItem;
+    newUploader.onCompleteItem = onCompleteItem;
+    newUploader.onCancelItem = onCompleteItem;
+    newUploader.onWhenAddingFileFailed = onCompleteItem;
 
     if ($(element).parents('.ma-button').length) {
       element = $(element).parents('.ma-button');
@@ -325,8 +329,6 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
     function onSuccessItem(fileItem, response, status, headers) {
       // console.log('onSuccessItem---', '[', fileItem._file.name, ']');
 
-      console.log(666, fileItem);
-
       angular.forEach(scope.ngModel, d => {
         if (d.file === fileItem._file) {
           d.progress = 100;
@@ -340,7 +342,8 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
             const formData = fileItem.formData || [];
             const fileConfig = formData.filter(item => item.OSSAccessKeyId)[0];
 
-            d.url = `${config.url}/${fileConfig.key.replace(/\${filename}/g, fileItem.file.name)}`;
+            d.url =
+              `${config.url}/${fileConfig.key.replace(/\${filename}/g, fileItem.file.name)}`;
           }
 
           if (config.convert) {
@@ -390,8 +393,20 @@ function maUploadController($scope, $lightGallery, $element) {
   $scope.viewFile = viewFile;
   $scope.delFile = delFile;
   $scope.isImg = isImg;
+  $scope.isVideo = isVideo;
   $scope.getFileIcon = getFileIcon;
   $scope.clickInput = clickInput;
+  $scope.getSnapshot = getSnapshot;
+
+  function getSnapshot(file) {
+    let snapshotUrl = '';
+
+    // 转换视频封面图
+    if (isVideo(file) && file.url) {
+      snapshotUrl = `${file.url}?x-oss-process=video/snapshot,t_0,f_jpg,w_0,h_0,m_fast`;
+    }
+    return snapshotUrl;
+  }
 
   function clickInput($event) {
     $($element).find('input').trigger('click', {
@@ -425,6 +440,22 @@ function maUploadController($scope, $lightGallery, $element) {
     }
 
     window.open(file.url);
+  }
+
+  function isVideo(file) {
+    file = $.extend(true, {}, file);
+
+    const reg = /\.(mp4)$/g;
+    file.name += '';
+    file.url += '';
+
+    file.name = file.name.toLowerCase();
+    file.url = file.url.toLowerCase();
+
+    if (reg.test(file.name) || reg.test(file.url)) {
+      return true;
+    }
+    return false;
   }
 
   function isImg(file) {

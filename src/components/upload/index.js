@@ -3,7 +3,7 @@ import button from '../button';
 import icons from '../icons';
 import progress from '../progress';
 import message from '../message';
-import 'angular-file-upload';
+import './src/lib/angular-file-upload';
 
 
 angular.module(moduleName, [
