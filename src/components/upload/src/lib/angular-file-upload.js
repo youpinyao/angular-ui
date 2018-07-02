@@ -1314,7 +1314,7 @@
             _classCallCheck(this, FileItem);
 
             var isInput = isElement(some);
-            var input = isInput ? element(some) : (uploader.target || null);
+            var input = isInput ? element(some) : (uploader.target.clone() || null);
             var file = !isInput ? some : null;
 
             extend(this, {
@@ -1341,7 +1341,7 @@
               _input: input
             });
 
-            if (input) this._replaceNode(input);
+            // if (input) this._replaceNode(input);
           }
           /**********************
            * PUBLIC

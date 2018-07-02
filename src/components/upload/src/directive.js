@@ -363,11 +363,7 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
       }
 
       if (typeof response === 'string') {
-        const message = response.match(/<Message[^>]*>([^<]*)<\/Message>/g);
-
-        if (message.length) {
-          $message.danger(message[0].replace(/<Message>/g, '').replace(/<\/Message>/g, ''));
-        }
+        $message.danger($(response).text());
       }
 
       let newFiles = [];
