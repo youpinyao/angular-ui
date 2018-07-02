@@ -271,17 +271,13 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
           if (!config.accept) {
             return true;
           }
-          if (!config.accept.indexOf('image') === -1) {
-            return true;
-          }
 
           let types = '|jpg|png|jpeg|bmp|gif|svg|';
-          const type = '|' + item.type.slice(item.type.lastIndexOf('/') +
-            1) + '|';
+          const type = ('|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|').toLowerCase();
 
           if (config.accept !== 'image/*' && config.accept !==
             allImageAccept) {
-            types = config.accept;
+            types = config.accept.toLowerCase();
             types = types.replace(/image\//g, '');
             types = types.split(',');
             types = `|${types.join('|')}|`;
@@ -290,13 +286,17 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
             if (/application/g.test(config.accept)) {
               return true;
             }
+            if (/video/g.test(config.accept)) {
+              types = config.accept.toLowerCase();
+              types = types.replace(/video\//g, '');
+              types = types.split(',');
+              types = `|${types.join('|')}|`;
+            }
           }
-
-          types += types.toUpperCase();
-
           if (types.indexOf(type) === -1) {
-            $message.danger('请选择图片');
+            $message.danger(/video/g.test(config.accept) ? '请选择视频' : '请选择图片');
           }
+
           return types.indexOf(type) !== -1;
         }
       });
