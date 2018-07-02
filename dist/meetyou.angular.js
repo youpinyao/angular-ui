@@ -62101,6 +62101,14 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
         $message.danger(response.message);
       }
 
+      if (typeof response === 'string') {
+        var message = response.match(/<Message[^>]*>([^<]*)<\/Message>/g);
+
+        if (message.length) {
+          $message.danger(message[0].replace(/<Message>/g, '').replace(/<\/Message>/g, ''));
+        }
+      }
+
       var newFiles = [];
       angular.forEach(scope.ngModel, function (d) {
         if (d.file !== fileItem._file) {
