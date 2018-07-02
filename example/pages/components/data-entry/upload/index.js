@@ -63,7 +63,7 @@ function mainCtrl($scope, $timeout, $interval, $utils) {
       mp4: 50 * 1024 * 1024,
     },
     multiple: true,
-    url: 'http://wxleborn.oss-cn-shenzhen.aliyuncs.com',
+    url: `${window.location.protocol}//wxleborn.oss-cn-shenzhen.aliyuncs.com`,
     ossConfig: {
       dir: 'upload',
       OSSAccessKeyId,
