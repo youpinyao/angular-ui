@@ -45,6 +45,8 @@ angular.module(moduleName)
 //  ossConfig: {
 //   OSSAccessKeyId: '',
 //   signature: '',
+//   policy: '',
+//   dir: '',
 //  }
 // }
 
