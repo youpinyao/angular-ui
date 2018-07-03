@@ -399,10 +399,18 @@ function maUploadController($scope, $lightGallery, $element) {
   $scope.viewFile = viewFile;
   $scope.delFile = delFile;
   $scope.isImg = isImg;
+  $scope.isSnapshot = isSnapshot;
   $scope.isVideo = isVideo;
   $scope.getFileIcon = getFileIcon;
   $scope.clickInput = clickInput;
   $scope.getSnapshot = getSnapshot;
+
+  function isSnapshot(file) {
+    if (file && file.url) {
+      return /x-oss-process=video\/snapshot/g.test(file.url);
+    }
+    return false;
+  }
 
   function getSnapshot(file) {
     let snapshotUrl = '';

@@ -5,7 +5,7 @@
     ng-repeat="file in ngModel track by $index">
 
     <div class="image"
-      ng-if="file.url && isImg(file)"
+      ng-if="file.url && (isImg(file) || isSnapshot(file))"
       ng-style="{
         'background-image': 'url({{file.url}})'
       }"></div>
