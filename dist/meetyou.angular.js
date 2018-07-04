@@ -58071,7 +58071,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                     html: _html
                 });
             } else {
-                if (/\.(jpg|jpeg|png|gif)/g.test(("" + _src).toLowerCase())) {
+                if (/\.(jpg|jpeg|png|gif)|x-oss-process=video\/snapshot/g.test(("" + _src).toLowerCase())) {
                     _this.___slide[index].insertAdjacentHTML('beforeend', '<div class="lg-img-wrap"><img class="lg-object lg-image" src="' + _src + '" /></div>');
                 } else {
                     _this.___slide[index].insertAdjacentHTML('beforeend', '<div class="lg-img-wrap"><a target="_blank" style=" color:#ffffff;" href="' + _src + '"><i class="iconfont icon-file" style="font-size: 60px;"></i><br/><div style="padding-top:10px; display:inline-block">点击查看文件</div></a></div>');
@@ -62180,7 +62180,7 @@ function maUploadController($scope, $lightGallery, $element) {
       if (d === file) {
         index = urls.length;
       }
-      if (isImg(d)) {
+      if (isImg(d) || isSnapshot(d)) {
         urls.push(d.url || $scope.uploaderConfig.viewUrl + '?file_id=' + d.id);
       }
     });

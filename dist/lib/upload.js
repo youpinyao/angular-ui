@@ -3203,7 +3203,7 @@ function maUploadController($scope, $lightGallery, $element) {
       if (d === file) {
         index = urls.length;
       }
-      if (isImg(d)) {
+      if (isImg(d) || isSnapshot(d)) {
         urls.push(d.url || $scope.uploaderConfig.viewUrl + '?file_id=' + d.id);
       }
     });
