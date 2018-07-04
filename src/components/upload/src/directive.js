@@ -446,7 +446,7 @@ function maUploadController($scope, $lightGallery, $element) {
       }
     });
 
-    if (isImg(file)) {
+    if (isImg(file) || isSnapshot(file)) {
       $lightGallery.preview(urls, {
         index,
       });
