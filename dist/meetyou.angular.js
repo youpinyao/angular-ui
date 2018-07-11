@@ -61939,8 +61939,6 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
         // eslint-disable-next-line
         var key = '${filename}';
 
-        key = $utils.uuid() + '_' + key;
-
         if (ossConfig.dir) {
           key = ossConfig.dir + '/' + key;
         }
@@ -62046,6 +62044,12 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
 
     function onBeforeUploadItem(fileItem) {
       // console.log('onBeforeUploadItem---', '[', fileItem._file.name, ']');
+      // 中文编码
+      var name = fileItem.file.name || '';
+      name = name.split('.');
+
+      fileItem.file.name = $utils.uuid() + '.' + name[name.length - 1];
+
       scope.ngModel.push({
         file: fileItem._file,
         name: fileItem._file.name,
