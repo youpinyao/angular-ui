@@ -110,6 +110,15 @@ input.ma-input {
 }
 
 .ma-input {
+  width: 240px;
+}
+
+.ma-input input,
+.ma-input textarea {
+  width: 100%;
+}
+
+.ma-input {
   &[ng-disabled="true"] {
     &:before {
       display: none !important;
