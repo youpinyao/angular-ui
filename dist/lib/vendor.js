@@ -49395,7 +49395,7 @@ var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "sym
         };
 
         isSame = function isSame(date1, date2) {
-          return date1.isSame(date2, datePickerConfig.momentNames[scope.view]) ? true : false;
+          return date1 && date1.isSame(date2, datePickerConfig.momentNames[scope.view]) ? true : false;
         };
 
         clipDate = function clipDate(date) {
