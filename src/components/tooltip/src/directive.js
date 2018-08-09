@@ -28,6 +28,7 @@ function maTooltip($timeout, $compile) {
       $('body').append(el);
 
       $(element).hover(d => {
+        updateSize();
         if (isClickHide) {
           return;
         }
@@ -67,14 +68,7 @@ function maTooltip($timeout, $compile) {
 
       attrs.$observe('maTooltip', d => {
         content.html(d);
-        el.css({
-          width: '',
-          height: '',
-        });
-        $timeout(() => {
-          el.width(el.width() + 1);
-          el.height(el.height() + 1);
-        }, 50);
+        updateSize();
         $compile(content.contents())(scope.contentScope || scope);
       });
       attrs.$observe('maClickHide', d => {
@@ -110,6 +104,17 @@ function maTooltip($timeout, $compile) {
       scope.$on('tooltip.hide', hideTip);
 
       setDirection(defaultDirection);
+
+      function updateSize() {
+        el.css({
+          width: '',
+          height: '',
+        });
+        $timeout(() => {
+          el.width(el.width() + 1);
+          el.height(el.height() + 1);
+        }, 50);
+      }
 
       function setDirection(d) {
         direction = d || defaultDirection;
