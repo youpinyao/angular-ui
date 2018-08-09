@@ -2044,8 +2044,9 @@
               var maxPage, maxPivotPages, minPage, numPages;
               maxBlocks = maxBlocks && maxBlocks < 6 ? 6 : maxBlocks;
               var pages = [];
-              numPages = Math.ceil(totalItems / pageSize);
-              if (numPages > 1) {
+              numPages = Math.ceil(totalItems / pageSize) || 1;
+
+              if (numPages >= 1) {
                 pages.push({
                   type: 'prev',
                   number: Math.max(1, currentPage - 1),
