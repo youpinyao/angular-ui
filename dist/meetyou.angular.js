@@ -63980,12 +63980,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 number: Math.max(1, currentPage - 1),
                 active: currentPage > 1
               });
-              pages.push({
-                type: 'first',
-                number: 1,
-                active: currentPage > 1,
-                current: currentPage === 1
-              });
+
+              if (numPages !== 1) {
+                pages.push({
+                  type: 'first',
+                  number: 1,
+                  active: currentPage > 1,
+                  current: currentPage === 1
+                });
+              }
               maxPivotPages = Math.round((_settings.paginationMaxBlocks - _settings.paginationMinBlocks) / 2);
               minPage = Math.max(2, currentPage - maxPivotPages);
               maxPage = Math.min(numPages - 1, currentPage + maxPivotPages * 2 - (currentPage - minPage));
