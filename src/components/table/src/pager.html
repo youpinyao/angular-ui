@@ -1,4 +1,5 @@
-<div class="ng-cloak ng-table-pager">
+<div class="ng-cloak ng-table-pager"
+  ng-show="params.settings().enablePagination">
   <div ng-if="params.settings().counts.length"
     class="ng-table-counts btn-group pull-right">
     <button ng-repeat="count in params.settings().counts"
@@ -13,7 +14,8 @@
   </div>
   <ul ng-if="pages.length"
     class="pagination ng-table-pagination">
-    <li class="total-text" ng-if="params.settings().totalText !== false">
+    <li class="total-text"
+      ng-if="params.settings().totalText !== false">
       <span ng-compile="params.settings().totalText"></span>
     </li>
     <li class="page-item"

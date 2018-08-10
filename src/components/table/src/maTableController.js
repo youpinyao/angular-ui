@@ -193,6 +193,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
   }, {
     counts: [],
     totalText: self.totalText,
+    enablePagination: self.enablePagination,
     templateHeader: 'header1.html',
     paginationMaxBlocks: 4,
     paginationMinBlocks: 1,
