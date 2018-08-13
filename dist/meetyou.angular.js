@@ -61321,6 +61321,10 @@ __webpack_require__("Vp6e");
 
 __webpack_require__("I+HS");
 
+var _moment = __webpack_require__("PJh5");
+
+var _moment2 = _interopRequireDefault(_moment);
+
 var _utils = __webpack_require__("0xDb");
 
 var _utils2 = _interopRequireDefault(_utils);
@@ -61332,6 +61336,8 @@ var _index2 = _interopRequireDefault(_index);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var moduleName = __webpack_require__("KidU");
+
+_moment2['default'].locale('zh-cn');
 
 angular.module(moduleName, [_utils2['default'], _index2['default']]).config(['$qProvider', '$compileProvider', function ($qProvider, $compileProvider) {
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);
