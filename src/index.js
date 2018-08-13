@@ -2,10 +2,14 @@ import './scss/app.scss';
 
 import './utils/src/angular-locale_zh-ch.js';
 
+import moment from 'moment';
+
 const moduleName = require('./name.js');
 
 import utils from './utils';
 import components from './components/index.js';
+
+moment.locale('zh-cn');
 
 angular.module(moduleName, [
   utils,
