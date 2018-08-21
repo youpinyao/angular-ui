@@ -13,6 +13,7 @@ function maTooltip($timeout, $compile) {
     restrict: 'A',
     scope: {
       contentScope: '=maScope',
+      contentWidth: '@maWidth',
       changeCallback: '&maChangeCallback',
     },
     link: function(scope, element, attrs, ctrl) {
@@ -106,13 +107,20 @@ function maTooltip($timeout, $compile) {
       setDirection(defaultDirection);
 
       function updateSize() {
+        const customWidth = parseInt(scope.contentWidth, 10);
         el.css({
           width: '',
           height: '',
+          maxWidth: '',
         });
         $timeout(() => {
-          el.width(el.width() + 1);
+          el.width((customWidth || el.width()) + 1);
           el.height(el.height() + 1);
+          if (customWidth) {
+            el.css({
+              maxWidth: customWidth,
+            });
+          }
         }, 50);
       }
 

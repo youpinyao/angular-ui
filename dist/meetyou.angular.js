@@ -61337,8 +61337,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 var moduleName = __webpack_require__("KidU");
 
-_moment2['default'].locale('zh-cn');
-
 angular.module(moduleName, [_utils2['default'], _index2['default']]).config(['$qProvider', '$compileProvider', function ($qProvider, $compileProvider) {
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);
   if ($qProvider && typeof $qProvider.errorOnUnhandledRejections === 'function') {
@@ -68367,6 +68365,7 @@ function maTooltip($timeout, $compile) {
     restrict: 'A',
     scope: {
       contentScope: '=maScope',
+      contentWidth: '@maWidth',
       changeCallback: '&maChangeCallback'
     },
     link: function link(scope, element, attrs, ctrl) {
@@ -68459,13 +68458,20 @@ function maTooltip($timeout, $compile) {
       setDirection(defaultDirection);
 
       function updateSize() {
+        var customWidth = parseInt(scope.contentWidth, 10);
         el.css({
           width: '',
-          height: ''
+          height: '',
+          maxWidth: ''
         });
         $timeout(function () {
-          el.width(el.width() + 1);
+          el.width((customWidth || el.width()) + 1);
           el.height(el.height() + 1);
+          if (customWidth) {
+            el.css({
+              maxWidth: customWidth
+            });
+          }
         }, 50);
       }
 
