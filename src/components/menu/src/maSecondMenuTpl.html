@@ -8,11 +8,29 @@
       router.hiddenSecond !== true &&
       router.level <= 2"
 
-      ng-class="{active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params) || $state.current.name.indexOf(router.state + '.') !== -1 || (router.childState && router.childState.indexOf($state.current.name) !== -1)}">
+      ng-class="{
+        active: $state.href($state.current.name, $state.params) === $state.href(router.state, router.params) || $state.current.name.indexOf(router.state + '.') !== -1 || (router.childState && router.childState.indexOf($state.current.name) !== -1),
+        child: router.children,
+      }">
       <a
         href="javascript:void(0)"
         ma-click="$state.go(router.state, router.params)"
       >{{router.title}}</a>
+      <ma-icon ma-type="down" ng-if="router.children"></ma-icon>
+      <ul ng-if="router.children">
+        <li
+          ng-repeat="child in router.children"
+          ng-if="routchilder.hidden !== true && child.hiddenSecond !== true"
+          ng-class="{
+            active: $state.href($state.current.name, $state.params) === $state.href(child.state, child.params) || $state.current.name.indexOf(child.state + '.') !== -1 || (child.childState && child.childState.indexOf($state.current.name) !== -1),
+          }"
+        >
+          <a
+            href="javascript:void(0)"
+            ma-click="$state.go(child.state, child.params)"
+          >{{child.title}}</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </div>

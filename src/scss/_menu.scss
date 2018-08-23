@@ -62,6 +62,7 @@
     padding-left: 250px;
     ul {
       li {
+        position: relative;
         float: left;
         line-height: $secondNavHeight;
         font-size: $font16;
@@ -71,9 +72,43 @@
           color: $base;
           @include transition(color 300ms ease);
         }
-        &:hover a,
-        &.active a {
+        &:hover > a,
+        &.active > a {
           color: $primary;
+        }
+        &.child {
+          padding-right: 15px;
+        }
+        .iconfont {
+          position: absolute;
+          right: 10px;
+          top: 0;
+          color: $grey;
+        }
+        ul {
+          min-width: 100%;
+          position: absolute;
+          left: 0;
+          top: 100%;
+          background-color: $white;
+          padding: 10px 0;
+          box-shadow: 0 4px 12px 0 rgba($black ,0.15);
+          border-radius: 4px;
+          display: none;
+          li {
+            line-height: $secondNavHeight - 10px;
+            float: none;
+            white-space: nowrap;
+            a {
+              color: $grey;
+              font-size: $font14;
+            }
+          }
+        }
+        &:hover {
+          ul {
+            display: block;
+          }
         }
       }
     }
