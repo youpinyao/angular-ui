@@ -5547,6 +5547,7 @@ body > .main div.container {
 }
 
 .nav .second-nav ul li {
+  position: relative;
   float: left;
   line-height: 40px;
   font-size: 16px;
@@ -5560,9 +5561,47 @@ body > .main div.container {
   -webkit-transtion: color 300ms ease;
 }
 
-.nav .second-nav ul li:hover a,
-.nav .second-nav ul li.active a {
+.nav .second-nav ul li:hover > a,
+.nav .second-nav ul li.active > a {
   color: #FF74B9;
+}
+
+.nav .second-nav ul li.child {
+  padding-right: 15px;
+}
+
+.nav .second-nav ul li .iconfont {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  color: #999999;
+}
+
+.nav .second-nav ul li ul {
+  min-width: 100%;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background-color: #FFFFFF;
+  padding: 10px 0;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  display: none;
+}
+
+.nav .second-nav ul li ul li {
+  line-height: 30px;
+  float: none;
+  white-space: nowrap;
+}
+
+.nav .second-nav ul li ul li a {
+  color: #999999;
+  font-size: 14px;
+}
+
+.nav .second-nav ul li:hover ul {
+  display: block;
 }
 
 .nav .second-nav.show {
