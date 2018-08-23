@@ -154,6 +154,7 @@ function flattenRouter(routers, level, parent) {
     flattenRoutes.push(router);
 
     router.level = level;
+    router.children = router.routers;
     router.parent = parent;
 
     if (router.routers && router.routers.length) {
