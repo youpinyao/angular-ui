@@ -96,6 +96,7 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
       ngModel: '=',
       uploadConfig: '=maUploadConfig',
       showDelete: '@maShowDelete',
+      extra: '<maExtra',
     },
     controllerAs: '$ctrl',
     controller: maUploadController,

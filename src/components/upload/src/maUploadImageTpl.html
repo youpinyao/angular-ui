@@ -46,6 +46,10 @@
       ma-stroke-width="5"
       ma-percent="{{file.progress}}"
       ng-show="file.progress !== undefined && file.progress !== 100"></ma-progress>
+
+    <div class="extra" ng-if="extra">
+      <div ng-compile="extra" ng-params="{$index: $index}"></div>
+    </div>
   </div>
 
 
