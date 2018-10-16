@@ -1475,6 +1475,13 @@ function lightGalleryService() {
       images = [images];
     }
 
+    images = images.map(function (image) {
+      return {
+        src: typeof image === 'string' ? image : image.src,
+        title: typeof image === 'string' ? '' : image.title
+      };
+    });
+
     var div = (0, _jquery2['default'])('<div></div>');
     div.css({
       width: 0,
@@ -1486,15 +1493,19 @@ function lightGalleryService() {
 
     (0, _jquery2['default'])('body').append(div);
 
-    images.forEach(function (d) {
-      if (/.gif/g.test(('' + d).toLowerCase())) {
-        if (/\?/g.test(('' + d).toLowerCase())) {
-          d += '&t=' + +new Date();
+    images.forEach(function (_ref) {
+      var src = _ref.src,
+          _ref$title = _ref.title,
+          title = _ref$title === undefined ? '' : _ref$title;
+
+      if (/.gif/g.test(('' + src).toLowerCase())) {
+        if (/\?/g.test(('' + src).toLowerCase())) {
+          src += '&t=' + +new Date();
         } else {
-          d += '?t=' + +new Date();
+          src += '?t=' + +new Date();
         }
       }
-      div.append('<div data-src="' + d + '"></div>');
+      div.append('<div data-sub-html="' + title + '" data-src="' + src + '"></div>');
     });
 
     this.LightGallery(div[0], _jquery2['default'].extend(_jquery2['default'].extend({}, this.defaultConfig), config));
