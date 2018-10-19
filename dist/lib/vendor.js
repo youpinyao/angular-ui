@@ -36016,14 +36016,23 @@ angular.module('validation.directive', ['validation.provider']);
         return deferred.promise;
       };
 
-      $timeout(function () {
-        updateValid(form);
-
+      var checkSuccess = function checkSuccess() {
         if (_this.checkValid(form)) {
-          deferred.resolve('success');
+          if (document.querySelectorAll('.ng-validing').length) {
+            $timeout(function () {
+              checkSuccess();
+            }, 300);
+          } else {
+            deferred.resolve('success');
+          }
         } else {
           deferred.reject('error');
         }
+      };
+
+      $timeout(function () {
+        updateValid(form);
+        checkSuccess();
       });
 
       function updateValid(form) {
@@ -36060,6 +36069,12 @@ angular.module('validation.directive', ['validation.provider']);
      * @param element
      */
     this.resetCallback = null;
+
+    /**
+     * Do this function when validing is performed
+     * @param element
+     */
+    this.validingCallback = null;
 
     /**
      * reset the specific form
@@ -36386,7 +36401,11 @@ angular.module('validation.directive', ['validation.provider']);
       }
       // Check with Function
       if (expression.constructor === Function) {
+        if ($validationProvider.validingCallback) $validationProvider.validingCallback(element);
+        element.addClass('ng-validing');
         return $q.all([$validationProvider.getExpression(validator)(value, scope, element, attrs, validatorParam)]).then(function (data) {
+          element.removeClass('ng-validing');
+
           var resultObj = getResultObj(data);
           var message = resultObj.message;
           if (resultObj.result) {
@@ -36408,6 +36427,7 @@ angular.module('validation.directive', ['validation.provider']);
             }
           } else return valid.error(message);
         }, function () {
+          element.removeClass('ng-validing');
           return valid.error();
         });
       }

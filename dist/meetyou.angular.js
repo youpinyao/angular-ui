@@ -42179,14 +42179,23 @@ angular.module('validation.directive', ['validation.provider']);
         return deferred.promise;
       };
 
-      $timeout(function () {
-        updateValid(form);
-
+      var checkSuccess = function checkSuccess() {
         if (_this.checkValid(form)) {
-          deferred.resolve('success');
+          if (document.querySelectorAll('.ng-validing').length) {
+            $timeout(function () {
+              checkSuccess();
+            }, 300);
+          } else {
+            deferred.resolve('success');
+          }
         } else {
           deferred.reject('error');
         }
+      };
+
+      $timeout(function () {
+        updateValid(form);
+        checkSuccess();
       });
 
       function updateValid(form) {
@@ -42223,6 +42232,12 @@ angular.module('validation.directive', ['validation.provider']);
      * @param element
      */
     this.resetCallback = null;
+
+    /**
+     * Do this function when validing is performed
+     * @param element
+     */
+    this.validingCallback = null;
 
     /**
      * reset the specific form
@@ -42549,7 +42564,11 @@ angular.module('validation.directive', ['validation.provider']);
       }
       // Check with Function
       if (expression.constructor === Function) {
+        if ($validationProvider.validingCallback) $validationProvider.validingCallback(element);
+        element.addClass('ng-validing');
         return $q.all([$validationProvider.getExpression(validator)(value, scope, element, attrs, validatorParam)]).then(function (data) {
+          element.removeClass('ng-validing');
+
           var resultObj = getResultObj(data);
           var message = resultObj.message;
           if (resultObj.result) {
@@ -42571,6 +42590,7 @@ angular.module('validation.directive', ['validation.provider']);
             }
           } else return valid.error(message);
         }, function () {
+          element.removeClass('ng-validing');
           return valid.error();
         });
       }
@@ -58908,15 +58928,19 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
   _jquery2['default'].extend(true, $validationProvider, {
     validCallback: function validCallback(element) {
       // console.log(element, 'validCallback');
-      element.addClass('ma-input-success').removeClass('ma-input-error');
+      element.addClass('ma-input-success').removeClass('ma-input-error').removeClass('ma-input-warning');
     },
     invalidCallback: function invalidCallback(element) {
       // console.log(element, 'invalidCallback');
-      element.removeClass('ma-input-success').addClass('ma-input-error');
+      element.removeClass('ma-input-success').addClass('ma-input-error').removeClass('ma-input-warning');
     },
     resetCallback: function resetCallback(element) {
       // console.log(element, 'resetCallback');
-      element.removeClass('ma-input-success').removeClass('ma-input-error');
+      element.removeClass('ma-input-success').removeClass('ma-input-error').removeClass('ma-input-warning');
+    },
+    validingCallback: function validingCallback(element) {
+      // console.log(element, 'resetCallback');
+      element.addClass('ma-input-warning').removeClass('ma-input-success').removeClass('ma-input-error');
     }
   });
 }]);

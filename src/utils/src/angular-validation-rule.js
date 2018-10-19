@@ -237,15 +237,19 @@ angular
     $.extend(true, $validationProvider, {
       validCallback: function(element) {
         // console.log(element, 'validCallback');
-        element.addClass('ma-input-success').removeClass('ma-input-error');
+        element.addClass('ma-input-success').removeClass('ma-input-error').removeClass('ma-input-warning');
       },
       invalidCallback: function(element) {
         // console.log(element, 'invalidCallback');
-        element.removeClass('ma-input-success').addClass('ma-input-error');
+        element.removeClass('ma-input-success').addClass('ma-input-error').removeClass('ma-input-warning');
       },
       resetCallback: function(element) {
         // console.log(element, 'resetCallback');
-        element.removeClass('ma-input-success').removeClass('ma-input-error');
+        element.removeClass('ma-input-success').removeClass('ma-input-error').removeClass('ma-input-warning');
+      },
+      validingCallback: function(element) {
+        // console.log(element, 'resetCallback');
+        element.addClass('ma-input-warning').removeClass('ma-input-success').removeClass('ma-input-error');
       }
     });
   }]);

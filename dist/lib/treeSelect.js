@@ -1824,15 +1824,19 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
   _jquery2['default'].extend(true, $validationProvider, {
     validCallback: function validCallback(element) {
       // console.log(element, 'validCallback');
-      element.addClass('ma-input-success').removeClass('ma-input-error');
+      element.addClass('ma-input-success').removeClass('ma-input-error').removeClass('ma-input-warning');
     },
     invalidCallback: function invalidCallback(element) {
       // console.log(element, 'invalidCallback');
-      element.removeClass('ma-input-success').addClass('ma-input-error');
+      element.removeClass('ma-input-success').addClass('ma-input-error').removeClass('ma-input-warning');
     },
     resetCallback: function resetCallback(element) {
       // console.log(element, 'resetCallback');
-      element.removeClass('ma-input-success').removeClass('ma-input-error');
+      element.removeClass('ma-input-success').removeClass('ma-input-error').removeClass('ma-input-warning');
+    },
+    validingCallback: function validingCallback(element) {
+      // console.log(element, 'resetCallback');
+      element.addClass('ma-input-warning').removeClass('ma-input-success').removeClass('ma-input-error');
     }
   });
 }]);
