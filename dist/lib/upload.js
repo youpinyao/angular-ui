@@ -2869,7 +2869,8 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
       ngModel: '=',
       uploadConfig: '=maUploadConfig',
       showDelete: '@maShowDelete',
-      extra: '<maExtra'
+      extra: '<maExtra',
+      onDelete: '&maOnDelete'
     },
     controllerAs: '$ctrl',
     controller: maUploadController,
@@ -3296,6 +3297,11 @@ function maUploadController($scope, $lightGallery, $element) {
       }
     });
     $scope.ngModel = newFiles;
+
+    $scope.onDelete({
+      file: file,
+      index: index
+    });
   }
 }
 
