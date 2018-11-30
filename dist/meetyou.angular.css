@@ -6123,6 +6123,10 @@ textarea.ma-input {
   display: inline-block;
 }
 
+.ma-input-number-box .ma-input-number {
+  width: auto;
+}
+
 .ma-input-number input {
   padding-right: 40px;
   width: 100px;

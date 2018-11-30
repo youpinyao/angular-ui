@@ -260,6 +260,9 @@ textarea.ma-input {
 
 .ma-input-number-box {
   display: inline-block;
+  .ma-input-number {
+    width: auto;
+  }
 }
 
 .ma-input-number input {
