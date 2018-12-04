@@ -738,20 +738,20 @@ function cmultiselect($parse, $window, $document, $timeout) {
         const target = $($element).find('.ui-select-choices-content');
         let index = -1;
 
-        target.html('');
-
         angular.each($select.selectItems, item => {
           updateItem(item);
 
           if (item.isHidden !== true || $select.hasSubNotHidden(item)) {
             index++;
-            const itemElement = $(itemTpl.replace(/&&\{index\}/g, index));
+            const itemElement = itemTpl.replace(/&&\{index\}/g, index);
 
             $scope[`item${index}`] = item;
-            target.append(itemElement);
+            htmlItems += itemElement;
+            // target.append(itemElement);
           }
         });
 
+        target.html(htmlItems);
         $compile(target.contents())($scope);
 
         $timeout(() => {
