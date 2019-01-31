@@ -58,7 +58,7 @@
     <div class="upload-img-item-add-box">
       <div class="upload-img-item-add-box-container">
         <ma-icon ma-type="plus"></ma-icon>
-        <div>{{$ctrl.uploadConfig.uploadText || '上传照片'}}</div>
+        <div ng-bind-html="$ctrl.uploadConfig.uploadText || '上传照片'"></div>
       </div>
     </div>
   </div>
@@ -70,7 +70,7 @@
     <div class="upload-img-item-add-box">
         <div class="upload-img-item-add-box-container">
           <ma-icon ma-type="plus"></ma-icon>
-          <div>{{$ctrl.uploadConfig.uploadText || '上传照片'}}</div>
+          <div ng-bind-html="$ctrl.uploadConfig.uploadText || '上传照片'"></div>
         </div>
     </div>
   </div>

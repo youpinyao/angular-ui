@@ -1213,20 +1213,20 @@ function cmultiselect($parse, $window, $document, $timeout) {
         var target = (0, _jquery2['default'])($element).find('.ui-select-choices-content');
         var index = -1;
 
-        target.html('');
-
         angular.each($select.selectItems, function (item) {
           updateItem(item);
 
           if (item.isHidden !== true || $select.hasSubNotHidden(item)) {
             index++;
-            var itemElement = (0, _jquery2['default'])(_itemTpl2['default'].replace(/&&\{index\}/g, index));
+            var itemElement = _itemTpl2['default'].replace(/&&\{index\}/g, index);
 
             $scope['item' + index] = item;
-            target.append(itemElement);
+            htmlItems += itemElement;
+            // target.append(itemElement);
           }
         });
 
+        target.html(htmlItems);
         $compile(target.contents())($scope);
 
         $timeout(function () {
