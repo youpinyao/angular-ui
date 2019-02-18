@@ -3220,8 +3220,11 @@ function maUploadController($scope, $lightGallery, $element) {
       });
       return;
     }
-
-    window.open(file.url);
+    if (file.url) {
+      window.open(file.url);
+    } else {
+      console.error('file.url is empty');
+    }
   }
 
   function isVideo(file) {
