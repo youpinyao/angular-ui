@@ -61898,7 +61898,7 @@ function maUploadController($scope, $lightGallery, $element) {
     file.name = file.name.toLowerCase();
     file.url = file.url.toLowerCase();
 
-    if (reg.test(file.name) || reg.test(file.url)) {
+    if (reg.test(('' + file.name).split('?')[0].toLowerCase()) || reg.test(('' + file.url).split('?')[0].toLowerCase())) {
       return true;
     }
     return false;
