@@ -10,7 +10,7 @@
         'background-image': 'url({{file.url}})'
       }"></div>
     <div class="image"
-      ng-if="file.url && isVideo(file)"
+      ng-if="(file.url || file.cover_url) && isVideo(file)"
       ng-style="{
         'background-image': 'url({{file.cover_url || getSnapshot(file)}})'
       }"
