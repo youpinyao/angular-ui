@@ -10,7 +10,7 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
   $scope.paginationConf = {
     currentPage: 1,
     totalItems: 1000,
-    itemsPerPageSize: 10,
+    itemsPerPage: 10,
     pagesLength: 5,
     // perPageOptions: [10, 20, 30, 40, 50],
     onChange: function(page, size) {
@@ -21,7 +21,7 @@ function mainCtrl($scope, $timeout, $interval, $message, $q, $table) {
   $scope.configText = `$scope.paginationConf = {
     currentPage: 1,                        // 当前页码
     totalItems: 8000,                      // 数据总数
-    itemsPerPageSize: 10,                  // 每页数据条数
+    itemsPerPage: 10,                  // 每页数据条数
     pagesLength: 5,                        // 分页按钮显示个数
     perPageOptions: [10, 20, 30, 40, 50],  // 每页数据条数选择列表
     onChange: function(page, size) {                 // 页码变化后的回掉, page:页码, size: 每页数据量大小
