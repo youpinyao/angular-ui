@@ -551,7 +551,13 @@ function maModal($timeout, $compile) {
 
         $timeout(function () {
           (0, _jquery2['default'])($element).remove();
-          if (!(0, _jquery2['default'])('.ma-modal.show').length) {
+          var staticCount = 0;
+          (0, _jquery2['default'])('.ma-modal.show').each(function () {
+            if ((0, _jquery2['default'])(this).css('position') === 'static') {
+              staticCount += 1;
+            }
+          });
+          if (!((0, _jquery2['default'])('.ma-modal.show').length - staticCount)) {
             (0, _jquery2['default'])('body').removeClass('has-ma-modal');
           }
         }, isIE9 ? 0 : 310);

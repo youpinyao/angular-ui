@@ -35,7 +35,13 @@ function maModal($timeout, $compile) {
 
         $timeout(() => {
           $($element).remove();
-          if (!$('.ma-modal.show').length) {
+          let staticCount = 0;
+          $('.ma-modal.show').each(function() {
+            if ($(this).css('position') === 'static') {
+              staticCount += 1;
+            }
+          });
+          if (!($('.ma-modal.show').length - staticCount)) {
             $('body').removeClass('has-ma-modal');
           }
         }, isIE9 ? 0 : 310);
