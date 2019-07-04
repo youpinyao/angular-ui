@@ -212,21 +212,22 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
 
       if (deferred && deferred.then) {
         deferred.then(function(data) {
-          setFloatTable();
           updateHtmlItems(data);
           setTimeout(() => {
+            setFloatTable(true);
             self.isLoading = false;
           });
         }, function() {
-          setFloatTable();
           updateHtmlItems();
           setTimeout(() => {
+            setFloatTable(true);
             self.isLoading = false;
           });
         });
       } else {
         updateHtmlItems(deferred);
         setTimeout(() => {
+          setFloatTable(true);
           self.isLoading = false;
         });
       }
@@ -374,7 +375,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     setFloatTable();
   }, 2000);
 
-  function setFloatTable() {
+  function setFloatTable(isFirst) {
     $timeout(() => {
       let floatLeftBoxWidth = 0;
       let floatRightBoxWidth = 0;
@@ -392,6 +393,10 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
 
       self.floatLeftBoxWidth = floatLeftBoxWidth;
       self.floatRightBoxWidth = floatRightBoxWidth;
+
+      if (isFirst) {
+        self.showFloatTable = true;
+      }
     });
   }
 

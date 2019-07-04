@@ -5,6 +5,7 @@
       <!-- 左边漂浮 table -->
       <div class="float-left-table"
         ng-style="{width: $tableCtrl.floatLeftBoxWidth + 'px', height:$tableCtrl.floatTableHeight + 'px'}"
+        ng-show="$tableCtrl.showFloatTable"
         ng-if="$tableCtrl.floatLeftCols !== false">
         <div ng-style="{width: $tableCtrl.floatTableWidth + 'px'}">
           <table template-header='header1.html'
@@ -31,6 +32,7 @@
       <!-- 右边漂浮 table -->
       <div class="float-right-table"
         ng-style="{width: $tableCtrl.floatRightBoxWidth + 'px', height:$tableCtrl.floatTableHeight + 'px'}"
+        ng-show="$tableCtrl.showFloatTable"
         ng-if="$tableCtrl.floatRightCols !== false">
 
         <div ng-style="{width: $tableCtrl.floatTableWidth + 'px'}">
