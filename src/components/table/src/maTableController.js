@@ -394,7 +394,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       self.floatLeftBoxWidth = floatLeftBoxWidth;
       self.floatRightBoxWidth = floatRightBoxWidth;
 
-      if (isFirst) {
+      if (isFirst === true) {
         self.showFloatTable = true;
       }
     });
