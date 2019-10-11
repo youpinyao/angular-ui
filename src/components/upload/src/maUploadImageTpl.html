@@ -6,21 +6,17 @@
 
     <div class="image"
       ng-if="file.url && (isImg(file) || isSnapshot(file))"
-      ng-style="{
-        'background-image': 'url({{file.url}})'
-      }"></div>
+      style="background-image:url({{file.url}})"
+    ></div>
     <div class="image"
       ng-if="(file.url || file.cover_url) && isVideo(file)"
-      ng-style="{
-        'background-image': 'url({{file.cover_url || getSnapshot(file)}})'
-      }"
+      style="background-image:url({{file.cover_url || getSnapshot(file)}})"
     >
     </div>
     <div class="image"
       ng-if="!file.url && file.id && isImg(file)"
-      ng-style="{
-        'background-image': 'url({{$ctrl.uploadConfig.viewUrl + '?file_id=' + file.id}})'
-      }"></div>
+      style="background-image:url({{$ctrl.uploadConfig.viewUrl + '?file_id=' + file.id}})"
+    ></div>
 
     <div class="image"
       ng-if="!isImg(file) && !isVideo(file) && !isSnapshot(file)">
