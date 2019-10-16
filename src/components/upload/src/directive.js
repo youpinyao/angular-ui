@@ -319,6 +319,8 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
         name: fileItem._file.name,
         progress: fileItem.progress,
       });
+      // eslint-disable-next-line
+      scope.uploadConfig.onBeforeUploadItem && scope.uploadConfig.onBeforeUploadItem(...arguments);
     }
 
     function onProgressItem(fileItem, progress) {
@@ -332,6 +334,8 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
           }
         }
       });
+      // eslint-disable-next-line
+      scope.uploadConfig.onProgressItem && scope.uploadConfig.onProgressItem(...arguments);
     }
 
     function onSuccessItem(fileItem, response, status, headers) {
@@ -359,6 +363,8 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
           }
         }
       });
+      // eslint-disable-next-line
+      scope.uploadConfig.onSuccessItem && scope.uploadConfig.onSuccessItem(...arguments);
     }
 
     function onErrorItem(fileItem, response, status, headers) {
@@ -379,10 +385,14 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
         }
       });
       scope.ngModel = newFiles;
+      // eslint-disable-next-line
+      scope.uploadConfig.onErrorItem && scope.uploadConfig.onErrorItem(...arguments);
     }
 
     function onCompleteItem(fileItem, response, status, headers) {
       $(element).find('input[type="file"]').val('');
+      // eslint-disable-next-line
+      scope.uploadConfig.onCompleteItem && scope.uploadConfig.onCompleteItem(...arguments);
     }
 
     function showSizeTip(size, type) {

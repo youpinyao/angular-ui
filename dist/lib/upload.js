@@ -3068,6 +3068,8 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
     }
 
     function onBeforeUploadItem(fileItem) {
+      var _scope$uploadConfig;
+
       // console.log('onBeforeUploadItem---', '[', fileItem._file.name, ']');
       // 中文编码
       var name = fileItem.file.name || '';
@@ -3080,9 +3082,13 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
         name: fileItem._file.name,
         progress: fileItem.progress
       });
+      // eslint-disable-next-line
+      scope.uploadConfig.onBeforeUploadItem && (_scope$uploadConfig = scope.uploadConfig).onBeforeUploadItem.apply(_scope$uploadConfig, arguments);
     }
 
     function onProgressItem(fileItem, progress) {
+      var _scope$uploadConfig2;
+
       // console.log('onProgressItem---', '[', fileItem._file.name, ']');
 
       angular.forEach(scope.ngModel, function (d) {
@@ -3093,9 +3099,13 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
           }
         }
       });
+      // eslint-disable-next-line
+      scope.uploadConfig.onProgressItem && (_scope$uploadConfig2 = scope.uploadConfig).onProgressItem.apply(_scope$uploadConfig2, arguments);
     }
 
     function onSuccessItem(fileItem, response, status, headers) {
+      var _scope$uploadConfig3;
+
       // console.log('onSuccessItem---', '[', fileItem._file.name, ']');
 
       angular.forEach(scope.ngModel, function (d) {
@@ -3121,9 +3131,13 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
           }
         }
       });
+      // eslint-disable-next-line
+      scope.uploadConfig.onSuccessItem && (_scope$uploadConfig3 = scope.uploadConfig).onSuccessItem.apply(_scope$uploadConfig3, arguments);
     }
 
     function onErrorItem(fileItem, response, status, headers) {
+      var _scope$uploadConfig4;
+
       // console.log('onErrorItem---', '[', fileItem._file.name, ']');
 
       if (response.message) {
@@ -3141,10 +3155,16 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
         }
       });
       scope.ngModel = newFiles;
+      // eslint-disable-next-line
+      scope.uploadConfig.onErrorItem && (_scope$uploadConfig4 = scope.uploadConfig).onErrorItem.apply(_scope$uploadConfig4, arguments);
     }
 
     function onCompleteItem(fileItem, response, status, headers) {
+      var _scope$uploadConfig5;
+
       (0, _jquery2['default'])(element).find('input[type="file"]').val('');
+      // eslint-disable-next-line
+      scope.uploadConfig.onCompleteItem && (_scope$uploadConfig5 = scope.uploadConfig).onCompleteItem.apply(_scope$uploadConfig5, arguments);
     }
 
     function showSizeTip(size, type) {
