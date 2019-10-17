@@ -66773,6 +66773,10 @@ var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _v = __webpack_require__("DtRx");
+
+var _v2 = _interopRequireDefault(_v);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 angular.module(_name2['default']).directive('maPagination', maPagination);
@@ -66790,6 +66794,8 @@ function maPagination($timeout, $compile) {
     link: function link(scope, element, attrs) {
       var conf = scope.conf;
 
+      var uuid = 'ma-pagination-' + (0, _v2['default'])();
+
       // 默认分页长度
       var defaultPagesLength = 5;
 
@@ -66798,6 +66804,8 @@ function maPagination($timeout, $compile) {
 
       // 默认每页的个数
       var defaultPerPage = 10;
+
+      scope.uuid = uuid;
 
       // 获取分页长度
       if (conf.pagesLength) {
@@ -67013,6 +67021,9 @@ function maPagination($timeout, $compile) {
         }
       };
       scope.$watch('conf.totalItems', function (value, oldValue) {
+        if (!inDocument()) {
+          return;
+        }
         // if (!value || value == oldValue) {
         //   if (conf.onChange) {
         //     conf.onChange();
@@ -67021,11 +67032,21 @@ function maPagination($timeout, $compile) {
         getPagination();
       });
       scope.$watch('conf.selectItem', function (value, oldValue) {
+        if (!inDocument()) {
+          return;
+        }
         if (value || value !== oldValue) {
           conf.itemsPerPage = value.value;
           scope.changeItemsPerPage();
         }
       });
+
+      function inDocument() {
+        if (!document.querySelector('#' + uuid)) {
+          return false;
+        }
+        return true;
+      }
       // scope.$watch('conf.currentPage', function(value, oldValue) {
       //   if (value || conf.currentPage !== conf.jumpPageNum) {
       //     // conf.jumpPageNum = value;
