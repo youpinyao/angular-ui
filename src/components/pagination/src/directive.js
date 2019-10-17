@@ -1,6 +1,7 @@
 import moduleName from './name.js';
 import maPaginationTpl from './maPaginationTpl.html';
 import $ from 'jquery';
+import getUuid from 'uuid/v4';
 
 angular.module(moduleName)
   .directive('maPagination', maPagination);
@@ -18,6 +19,8 @@ function maPagination($timeout, $compile) {
     link: function(scope, element, attrs) {
       var conf = scope.conf;
 
+      var uuid = `ma-pagination-${getUuid()}`;
+
       // 默认分页长度
       var defaultPagesLength = 5;
 
@@ -26,6 +29,8 @@ function maPagination($timeout, $compile) {
 
       // 默认每页的个数
       var defaultPerPage = 10;
+
+      scope.uuid = uuid;
 
       // 获取分页长度
       if (conf.pagesLength) {
@@ -239,6 +244,9 @@ function maPagination($timeout, $compile) {
         }
       };
       scope.$watch('conf.totalItems', function(value, oldValue) {
+        if (!inDocument()) {
+          return;
+        }
         // if (!value || value == oldValue) {
         //   if (conf.onChange) {
         //     conf.onChange();
@@ -247,11 +255,21 @@ function maPagination($timeout, $compile) {
         getPagination();
       });
       scope.$watch('conf.selectItem', function(value, oldValue) {
+        if (!inDocument()) {
+          return;
+        }
         if (value || value !== oldValue) {
           conf.itemsPerPage = value.value;
           scope.changeItemsPerPage();
         }
       });
+
+      function inDocument() {
+        if (!document.querySelector(`#${uuid}`)) {
+          return false;
+        }
+        return true;
+      }
       // scope.$watch('conf.currentPage', function(value, oldValue) {
       //   if (value || conf.currentPage !== conf.jumpPageNum) {
       //     // conf.jumpPageNum = value;
