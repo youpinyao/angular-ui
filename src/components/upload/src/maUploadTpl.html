@@ -1,6 +1,6 @@
 
 <div class="upload-file-items">
-  <div class="upload-file-item" ng-class="{error: file.error}" data-id="{{file.id}}" ng-repeat="file in ngModel track by file.id">
+  <div class="upload-file-item" ng-class="{error: file.error}" data-id="{{file.id}}" ng-repeat="file in ngModel track by $index">
     <ma-progress
       ma-type="circle"
       ma-status="danger"
