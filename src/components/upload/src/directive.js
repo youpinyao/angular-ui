@@ -158,7 +158,7 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
     // 赋值到root
     if (id) {
       if (!scope.$root.maUploadConfigs) {
-        scope.$root.maUploadConfigs = {}
+        scope.$root.maUploadConfigs = {};
       }
       scope.$root.maUploadConfigs[id] = newUploader;
     }
