@@ -144,6 +144,7 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
     scope.$ctrl.uploadConfig = config;
 
     const newUploader = new FileUploader(config);
+    const id = scope.uploadConfig.id;
 
     scope[uploader] = newUploader;
     newUploader.onBeforeUploadItem = onBeforeUploadItem;
@@ -153,6 +154,14 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
     newUploader.onCompleteItem = onCompleteItem;
     newUploader.onCancelItem = onCompleteItem;
     newUploader.onWhenAddingFileFailed = onCompleteItem;
+
+    // 赋值到root
+    if (id) {
+      if (!scope.$root.maUploadConfigs) {
+        scope.$root.maUploadConfigs = {}
+      }
+      scope.$root.maUploadConfigs[id] = newUploader;
+    }
 
     if ($(element).parents('.ma-button').length) {
       element = $(element).parents('.ma-button');
