@@ -588,6 +588,10 @@ function maDropdown($timeout, $compile) {
 "use strict";
 
 
+var _jquery = __webpack_require__("7t+N");
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
 var _name = __webpack_require__("g66R");
 
 var _name2 = _interopRequireDefault(_name);
@@ -602,7 +606,7 @@ function maClick($parse, $timeout) {
   return {
     restrict: 'A',
     link: function link(scope, element, attrs, ctrl) {
-      element.bind('click', function (e) {
+      (0, _jquery2['default'])(element).bind('click', function (e) {
         if (element.hasClass('ma-click-disabled') || element.hasClass('disabled')) {
           return;
         }

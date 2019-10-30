@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import moduleName from './name.js';
 
 angular.module(moduleName)
@@ -10,7 +11,7 @@ function maClick($parse, $timeout) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs, ctrl) {
-      element.bind('click', function(e) {
+      $(element).bind('click', function(e) {
         if (element.hasClass('ma-click-disabled') || element.hasClass(
             'disabled')) {
           return;
