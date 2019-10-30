@@ -443,6 +443,7 @@ function maClick($parse, $timeout) {
 
         if (attrs.maClick) {
           scope.$event = e;
+          scope.$args = arguments;
           $parse(attrs.maClick)(scope);
         }
 
