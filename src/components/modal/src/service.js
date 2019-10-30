@@ -165,21 +165,24 @@ function modalFactroy($rootScope, $compile, $timeout) {
     const maModalEl = $(`<ma-modal ma-config="modals.${uuid}" ma-uuid="${uuid}"></ma-modal>`);
 
     delete config.scope;
+
     $.extend(true, newConfig, config || {});
 
     if (config.buttons) {
       newConfig.buttons = $.extend([], config.buttons);
     }
 
-    newConfig.scope = scope || $rootScope;
+    const newScope = scope && scope.$new ? scope : $rootScope;
 
-    if (newConfig.scope && !newConfig.scope.modals) {
-      newConfig.scope.modals = {};
+    if (newScope && !newScope.modals) {
+      newScope.modals = {};
     }
-    newConfig.scope.modals[uuid] = newConfig;
+
+    newConfig.scope = scope || $rootScope;
+    newScope.modals[uuid] = newConfig;
 
     $('body').append(maModalEl).addClass('has-ma-modal');
-    $compile(maModalEl)(newConfig.scope);
+    $compile(maModalEl)(newScope);
 
     $timeout(() => {
       newConfig.show = true;

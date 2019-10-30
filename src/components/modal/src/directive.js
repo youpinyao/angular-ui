@@ -27,7 +27,9 @@ function maModal($timeout, $compile) {
       // 渲染弹窗内容
       $timeout(() => {
         $($element).find('.ma-modal-body').html(config.template);
-        $compile($($element).find('.ma-modal-body'))(config.scope);
+
+        $scope.scope = config.scope;
+        $compile($($element).find('.ma-modal-body'))(config.scope.$new ? config.scope : $scope);
       });
 
       function close($event) {
