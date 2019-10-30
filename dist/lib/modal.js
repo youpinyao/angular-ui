@@ -209,21 +209,24 @@ function modalFactroy($rootScope, $compile, $timeout) {
     var maModalEl = (0, _jquery2['default'])('<ma-modal ma-config="modals.' + uuid + '" ma-uuid="' + uuid + '"></ma-modal>');
 
     delete config.scope;
+
     _jquery2['default'].extend(true, newConfig, config || {});
 
     if (config.buttons) {
       newConfig.buttons = _jquery2['default'].extend([], config.buttons);
     }
 
-    newConfig.scope = scope || $rootScope;
+    var newScope = scope && scope.$new ? scope : $rootScope;
 
-    if (newConfig.scope && !newConfig.scope.modals) {
-      newConfig.scope.modals = {};
+    if (newScope && !newScope.modals) {
+      newScope.modals = {};
     }
-    newConfig.scope.modals[uuid] = newConfig;
+
+    newConfig.scope = scope || $rootScope;
+    newScope.modals[uuid] = newConfig;
 
     (0, _jquery2['default'])('body').append(maModalEl).addClass('has-ma-modal');
-    $compile(maModalEl)(newConfig.scope);
+    $compile(maModalEl)(newScope);
 
     $timeout(function () {
       newConfig.show = true;
@@ -548,7 +551,9 @@ function maModal($timeout, $compile) {
       // 渲染弹窗内容
       $timeout(function () {
         (0, _jquery2['default'])($element).find('.ma-modal-body').html(config.template);
-        $compile((0, _jquery2['default'])($element).find('.ma-modal-body'))(config.scope);
+
+        $scope.scope = config.scope;
+        $compile((0, _jquery2['default'])($element).find('.ma-modal-body'))(config.scope.$new ? config.scope : $scope);
       });
 
       function close($event) {
