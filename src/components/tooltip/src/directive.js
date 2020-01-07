@@ -26,6 +26,9 @@ function maTooltip($timeout, $compile) {
       let prevDirection = '';
       let isClickHide = false;
 
+      // 模拟trigger 触发元素
+      let triggerElement;
+
       $('body').append(el);
 
       $(element).hover(d => {
@@ -78,8 +81,13 @@ function maTooltip($timeout, $compile) {
           // $(element).on('click', stopp);
           el.on('click', stopp);
           $('body').off('mousemove', hideTip);
-          $('body').on('click', e => {
-            if (!($(e.target).parents('.ma-popconfirm').length && $(e.target).parents(
+
+          $('body').on('click', (e, a) => {
+            // a 控制主动trigger 传当前触发元素
+            if (a) {
+              triggerElement = a;
+            }
+            if (!a && !($(e.target).parents('.ma-popconfirm').length && $(e.target).parents(
                 '.ma-popconfirm').get(0) === element[0])) {
               hideTip(e);
             }
@@ -91,7 +99,9 @@ function maTooltip($timeout, $compile) {
           isPopconfirm = true;
           el.addClass('ma-popconfirm-tooltip');
           element.on('click', () => {
-            showTip();
+            showTip(undefined, triggerElement);
+
+            triggerElement = undefined;
           });
         }
       });
@@ -134,16 +144,18 @@ function maTooltip($timeout, $compile) {
         });
       }
 
-      function showTip(newDirection) {
+      function showTip(newDirection, e) {
         $timeout.cancel(scope.hideTimer);
         $timeout.cancel(scope.hidePosTimer);
 
-        const offsetTop = $(element).offset().top;
-        const offsetLeft = $(element).offset().left;
+        const targetElement = e || element;
+
+        const offsetTop = $(targetElement).offset().top;
+        const offsetLeft = $(targetElement).offset().left;
         const elHeight = el.outerHeight();
         const elWidth = el.outerWidth();
-        const elementHeight = $(element).outerHeight();
-        const elementWidth = $(element).outerWidth();
+        const elementHeight = $(targetElement).outerHeight();
+        const elementWidth = $(targetElement).outerWidth();
 
         const boxPadding = 10;
 
@@ -228,7 +240,7 @@ function maTooltip($timeout, $compile) {
 
         // $timeout(function() {
         if (!hasNew) {
-          checkPositon();
+          checkPositon(e);
         }
         if (!el.hasClass('show')) {
           scope.changeCallback({
@@ -239,7 +251,7 @@ function maTooltip($timeout, $compile) {
         // }, 10);
       }
 
-      function checkPositon() {
+      function checkPositon(e) {
         const offsetTop = el.offset().top - $(window).scrollTop();
         const offsetLeft = el.offset().left - $(window).scrollLeft();
         const wh = $(window).height();
@@ -290,7 +302,7 @@ function maTooltip($timeout, $compile) {
 
         if (newDirection !== direction) {
           prevDirection = '';
-          showTip(newDirection);
+          showTip(newDirection, e);
         }
       }
 

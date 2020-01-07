@@ -77,6 +77,9 @@ function maTooltip($timeout, $compile) {
       var prevDirection = '';
       var isClickHide = false;
 
+      // 模拟trigger 触发元素
+      var triggerElement = void 0;
+
       (0, _jquery2['default'])('body').append(el);
 
       (0, _jquery2['default'])(element).hover(function (d) {
@@ -129,8 +132,13 @@ function maTooltip($timeout, $compile) {
           // $(element).on('click', stopp);
           el.on('click', stopp);
           (0, _jquery2['default'])('body').off('mousemove', hideTip);
-          (0, _jquery2['default'])('body').on('click', function (e) {
-            if (!((0, _jquery2['default'])(e.target).parents('.ma-popconfirm').length && (0, _jquery2['default'])(e.target).parents('.ma-popconfirm').get(0) === element[0])) {
+
+          (0, _jquery2['default'])('body').on('click', function (e, a) {
+            // a 控制主动trigger 传当前触发元素
+            if (a) {
+              triggerElement = a;
+            }
+            if (!a && !((0, _jquery2['default'])(e.target).parents('.ma-popconfirm').length && (0, _jquery2['default'])(e.target).parents('.ma-popconfirm').get(0) === element[0])) {
               hideTip(e);
             }
           });
@@ -141,7 +149,9 @@ function maTooltip($timeout, $compile) {
           isPopconfirm = true;
           el.addClass('ma-popconfirm-tooltip');
           element.on('click', function () {
-            showTip();
+            showTip(undefined, triggerElement);
+
+            triggerElement = undefined;
           });
         }
       });
@@ -184,16 +194,18 @@ function maTooltip($timeout, $compile) {
         });
       }
 
-      function showTip(newDirection) {
+      function showTip(newDirection, e) {
         $timeout.cancel(scope.hideTimer);
         $timeout.cancel(scope.hidePosTimer);
 
-        var offsetTop = (0, _jquery2['default'])(element).offset().top;
-        var offsetLeft = (0, _jquery2['default'])(element).offset().left;
+        var targetElement = e || element;
+
+        var offsetTop = (0, _jquery2['default'])(targetElement).offset().top;
+        var offsetLeft = (0, _jquery2['default'])(targetElement).offset().left;
         var elHeight = el.outerHeight();
         var elWidth = el.outerWidth();
-        var elementHeight = (0, _jquery2['default'])(element).outerHeight();
-        var elementWidth = (0, _jquery2['default'])(element).outerWidth();
+        var elementHeight = (0, _jquery2['default'])(targetElement).outerHeight();
+        var elementWidth = (0, _jquery2['default'])(targetElement).outerWidth();
 
         var boxPadding = 10;
 
@@ -278,7 +290,7 @@ function maTooltip($timeout, $compile) {
 
         // $timeout(function() {
         if (!hasNew) {
-          checkPositon();
+          checkPositon(e);
         }
         if (!el.hasClass('show')) {
           scope.changeCallback({
@@ -289,7 +301,7 @@ function maTooltip($timeout, $compile) {
         // }, 10);
       }
 
-      function checkPositon() {
+      function checkPositon(e) {
         var offsetTop = el.offset().top - (0, _jquery2['default'])(window).scrollTop();
         var offsetLeft = el.offset().left - (0, _jquery2['default'])(window).scrollLeft();
         var wh = (0, _jquery2['default'])(window).height();
@@ -340,7 +352,7 @@ function maTooltip($timeout, $compile) {
 
         if (newDirection !== direction) {
           prevDirection = '';
-          showTip(newDirection);
+          showTip(newDirection, e);
         }
       }
 
