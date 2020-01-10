@@ -9697,6 +9697,15 @@ disabled look for disabled choices in the results dropdown
   max-width: 200px;
 }
 
+.ma-tooltip-mask {
+  position: fixed;
+  z-index: 99;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .ma-tooltip[data-direction^="tc"] {
   -webkit-transform-origin: bottom center;
   transform-origin: bottom center;

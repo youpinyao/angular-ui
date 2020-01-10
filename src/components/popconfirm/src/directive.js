@@ -14,6 +14,7 @@ function maPopconfirm() {
       direction: '@maDirection',
       clickHide: '@maClickHide',
       changeCallback: '&maChangeCallback',
+      showMask: '@maShowMask',
     },
     transclude: true,
     template: maPopconfirmTpl,

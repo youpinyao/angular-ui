@@ -14,6 +14,16 @@ $arrowWidth: 5px;
   opacity: 0;
   visibility: hidden;
   max-width: 200px;
+
+  &-mask {
+    position: fixed;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
   &[data-direction^="tc"] {
     -webkit-transform-origin: bottom center;
     transform-origin: bottom center;

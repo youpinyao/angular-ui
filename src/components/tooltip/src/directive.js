@@ -1,6 +1,7 @@
 import moduleName from './name.js';
 import $ from 'jquery';
 import debounce from 'debounce';
+import uuid from 'uuid/v4';
 import maTooltipTpl from './maTooltipTpl.html';
 
 angular.module(moduleName)
@@ -15,8 +16,10 @@ function maTooltip($timeout, $compile) {
       contentScope: '=maScope',
       contentWidth: '@maWidth',
       changeCallback: '&maChangeCallback',
+      showMask: '@maShowMask',
     },
     link: function(scope, element, attrs, ctrl) {
+      const uid = uuid();
       const el = $(maTooltipTpl);
       const content = el.find('.ma-tooltip-content');
       const defaultDirection = 'tc';
@@ -249,6 +252,8 @@ function maTooltip($timeout, $compile) {
         }
         el.addClass('show');
         // }, 10);
+
+        showMask();
       }
 
       function checkPositon(e) {
@@ -323,10 +328,25 @@ function maTooltip($timeout, $compile) {
             el.removeClass('show');
           }, 10);
         }
+        hideMask();
       }
 
       function stopp(e) {
         e.stopPropagation();
+      }
+      function showMask() {
+        const ifShowMask = scope.showMask == 'true';
+
+        console.log('showMask', ifShowMask);
+        if (ifShowMask) {
+          $('body').append(`<div class="ma-tooltip-mask id_${uid}"></div>`);
+        }
+      }
+      function hideMask() {
+        const ifShowMask = scope.showMask == 'true';
+        if (ifShowMask) {
+          $(`.ma-tooltip-mask.id_${uid}`).remove();
+        }
       }
     }
   };

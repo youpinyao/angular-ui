@@ -49,6 +49,10 @@ var _debounce = __webpack_require__("HhAh");
 
 var _debounce2 = _interopRequireDefault(_debounce);
 
+var _v = __webpack_require__("DtRx");
+
+var _v2 = _interopRequireDefault(_v);
+
 var _maTooltipTpl = __webpack_require__("pSmv");
 
 var _maTooltipTpl2 = _interopRequireDefault(_maTooltipTpl);
@@ -65,9 +69,11 @@ function maTooltip($timeout, $compile) {
     scope: {
       contentScope: '=maScope',
       contentWidth: '@maWidth',
-      changeCallback: '&maChangeCallback'
+      changeCallback: '&maChangeCallback',
+      showMask: '@maShowMask'
     },
     link: function link(scope, element, attrs, ctrl) {
+      var uid = (0, _v2['default'])();
       var el = (0, _jquery2['default'])(_maTooltipTpl2['default']);
       var content = el.find('.ma-tooltip-content');
       var defaultDirection = 'tc';
@@ -299,6 +305,8 @@ function maTooltip($timeout, $compile) {
         }
         el.addClass('show');
         // }, 10);
+
+        showMask();
       }
 
       function checkPositon(e) {
@@ -373,10 +381,25 @@ function maTooltip($timeout, $compile) {
             el.removeClass('show');
           }, 10);
         }
+        hideMask();
       }
 
       function stopp(e) {
         e.stopPropagation();
+      }
+      function showMask() {
+        var ifShowMask = scope.showMask == 'true';
+
+        console.log('showMask', ifShowMask);
+        if (ifShowMask) {
+          (0, _jquery2['default'])('body').append('<div class="ma-tooltip-mask id_' + uid + '"></div>');
+        }
+      }
+      function hideMask() {
+        var ifShowMask = scope.showMask == 'true';
+        if (ifShowMask) {
+          (0, _jquery2['default'])('.ma-tooltip-mask.id_' + uid).remove();
+        }
       }
     }
   };

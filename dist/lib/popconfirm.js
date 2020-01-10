@@ -3,7 +3,7 @@ webpackJsonp([19],{
 /***/ "4iKR":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ma-popconfirm\"\n  ma-tooltip=\"{{template}}\"\n  ma-direction=\"{{direction}}\"\n  ma-popconfirm=\"true\"\n  ma-click-hide=\"{{clickHide}}\"\n  ma-change-callback=\"changeCallbackLink(show)\"\n  ma-scope=\"$parent\"\n  ng-transclude=\"\"></div>\n";
+module.exports = "<div class=\"ma-popconfirm\"\n  ma-tooltip=\"{{template}}\"\n  ma-direction=\"{{direction}}\"\n  ma-show-mask=\"{{showMask}}\"\n  ma-popconfirm=\"true\"\n  ma-click-hide=\"{{clickHide}}\"\n  ma-change-callback=\"changeCallbackLink(show)\"\n  ma-scope=\"$parent\"\n  ng-transclude=\"\"></div>\n";
 
 /***/ }),
 
@@ -83,7 +83,8 @@ function maPopconfirm() {
       template: '=maTemplate',
       direction: '@maDirection',
       clickHide: '@maClickHide',
-      changeCallback: '&maChangeCallback'
+      changeCallback: '&maChangeCallback',
+      showMask: '@maShowMask'
     },
     transclude: true,
     template: _maPopconfirmTpl2['default'],
