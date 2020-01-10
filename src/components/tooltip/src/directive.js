@@ -337,7 +337,6 @@ function maTooltip($timeout, $compile) {
       function showMask() {
         const ifShowMask = scope.showMask == 'true';
 
-        console.log('showMask', ifShowMask);
         if (ifShowMask) {
           $('body').append(`<div class="ma-tooltip-mask id_${uid}"></div>`);
         }
