@@ -144,7 +144,7 @@ function maNum($filter, $timeout, $parse) {
               d = '.';
             }
 
-            if (decimal && k !== 0 && d == '.' && decimalCount === 0) {
+            if (k !== 0 && d == '.' && decimalCount === 0) {
               str.push(d);
               decimalCount++;
             }

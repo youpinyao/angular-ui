@@ -390,7 +390,6 @@ function maTooltip($timeout, $compile) {
       function showMask() {
         var ifShowMask = scope.showMask == 'true';
 
-        console.log('showMask', ifShowMask);
         if (ifShowMask) {
           (0, _jquery2['default'])('body').append('<div class="ma-tooltip-mask id_' + uid + '"></div>');
         }
