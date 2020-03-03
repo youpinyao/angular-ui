@@ -95,7 +95,7 @@ function maNum($filter, $timeout, $parse) {
   return {
     restrict: 'A',
     link: function link(scope, elem, attrs, controller) {
-      var decimal = attrs.maDecimal !== undefined;
+      var decimal;
       var ngModel = $parse(attrs.ngModel);
       var min = parseFloat(attrs.min);
       var max = parseFloat(attrs.max);
@@ -106,17 +106,26 @@ function maNum($filter, $timeout, $parse) {
       attrs.$observe('max', function (d) {
         max = d || undefined;
       });
+      attrs.$observe('maDecimal', function (d) {
+        getDecimal(d);
+      });
 
-      if (!isNaN(parseInt(attrs.maDecimal, 10))) {
-        decimal = parseInt(attrs.maDecimal, 10);
-      }
+      getDecimal(attrs.maDecimal);
 
-      if (decimal === 0 || attrs.maDecimal === '') {
-        decimal = false;
-      }
+      function getDecimal(maDecimal) {
+        decimal = maDecimal !== undefined;
 
-      if (decimal === true) {
-        decimal = 2;
+        if (!isNaN(parseInt(maDecimal, 10))) {
+          decimal = parseInt(maDecimal, 10);
+        }
+
+        if (decimal === 0 || maDecimal === '') {
+          decimal = false;
+        }
+
+        if (decimal === true) {
+          decimal = 2;
+        }
       }
 
       if (elem[0].tagName.toLowerCase() !== 'input') {
