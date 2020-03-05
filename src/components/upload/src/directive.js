@@ -410,9 +410,9 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
       const k = size / 1024;
 
       if (m < 1) {
-        $message.danger(`${type || ''}最大只能上传${parseInt(k, 10)}K的文件`);
+        $message.danger(`最大只能上传${parseInt(k, 10)}K的${type || ''}文件`);
       } else {
-        $message.danger(`${type || ''}最大只能上传${mText}M的文件`);
+        $message.danger(`最大只能上传${mText}M的${type || ''}文件`);
       }
     }
   }

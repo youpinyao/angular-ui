@@ -61850,9 +61850,9 @@ function _maUpload($compile, FileUploader, $message, $utils, template, defaultCo
       var k = size / 1024;
 
       if (m < 1) {
-        $message.danger((type || '') + '\u6700\u5927\u53EA\u80FD\u4E0A\u4F20' + parseInt(k, 10) + 'K\u7684\u6587\u4EF6');
+        $message.danger('\u6700\u5927\u53EA\u80FD\u4E0A\u4F20' + parseInt(k, 10) + 'K\u7684' + (type || '') + '\u6587\u4EF6');
       } else {
-        $message.danger((type || '') + '\u6700\u5927\u53EA\u80FD\u4E0A\u4F20' + mText + 'M\u7684\u6587\u4EF6');
+        $message.danger('\u6700\u5927\u53EA\u80FD\u4E0A\u4F20' + mText + 'M\u7684' + (type || '') + '\u6587\u4EF6');
       }
     }
   }
