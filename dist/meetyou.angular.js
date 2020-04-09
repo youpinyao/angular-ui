@@ -59781,6 +59781,9 @@ var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "sym
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.angular, global.moment);
 })(undefined, function (angular, moment) {
+  if (moment.locale() === 'en') {
+    console.error('angular datepicker moment locale en, 如果要中文请执行 moment.locale("zh-cn")');
+  }
   //(function (global, factory) {
   //  'use strict';
   //  var fnc;
@@ -66919,9 +66922,7 @@ function maPagination($timeout, $compile) {
         }
 
         // 对选项进行sort
-        conf.perPageOptions.sort(function (a, b) {
-          return a - b;
-        });
+        // conf.perPageOptions.sort(function(a, b) { return a - b; });
         if (!conf.selectItem) {
           conf.selectItem = conf.perPageOptions[0];
         }

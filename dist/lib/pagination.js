@@ -168,9 +168,7 @@ function maPagination($timeout, $compile) {
         }
 
         // 对选项进行sort
-        conf.perPageOptions.sort(function (a, b) {
-          return a - b;
-        });
+        // conf.perPageOptions.sort(function(a, b) { return a - b; });
         if (!conf.selectItem) {
           conf.selectItem = conf.perPageOptions[0];
         }
