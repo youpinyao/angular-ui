@@ -68507,6 +68507,7 @@ function maTooltip($timeout, $compile) {
 
       (0, _jquery2['default'])(element).hover(function (d) {
         updateSize();
+        triggerElement = undefined;
         if (isClickHide) {
           return;
         }
