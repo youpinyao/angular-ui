@@ -36,6 +36,7 @@ function maTooltip($timeout, $compile) {
 
       $(element).hover(d => {
         updateSize();
+        triggerElement = undefined;
         if (isClickHide) {
           return;
         }
