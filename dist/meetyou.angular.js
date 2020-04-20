@@ -49078,6 +49078,10 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     });
   }
 
+  $scope.$watch('tableConfig.tableWidth', function (d) {
+    self.tableWidth = d || 0;
+  });
+
   function getColsGroupFromCols(cols) {
     var colsGroup = [];
     angular.forEach(cols, function (d) {
