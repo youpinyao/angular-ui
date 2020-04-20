@@ -49366,6 +49366,14 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     });
   };
 
+  self.tableParams.updateContent = function () {
+    updateHtmlItems(self.data);
+    setTimeout(function () {
+      setFloatTable(true);
+      self.isLoading = false;
+    });
+  };
+
   $scope.tableConfig.tableIns = self.tableParams;
   self.tableParams.tableId = self.tableId;
 
@@ -49424,6 +49432,8 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     var index = -1;
     var colIndex = -1;
     var allHtml = '';
+
+    self.data = data;
 
     target.html(allHtml);
 
