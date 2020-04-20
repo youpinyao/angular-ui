@@ -350,6 +350,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
   };
 
   self.tableParams.updateContent = function() {
+    self.isLoading = true;
     updateHtmlItems(self.data);
     setTimeout(() => {
       setFloatTable(true);
