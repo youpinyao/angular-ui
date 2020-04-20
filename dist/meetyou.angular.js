@@ -49404,6 +49404,9 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     $timeout(function () {
       var floatLeftBoxWidth = 0;
       var floatRightBoxWidth = 0;
+      var showColrs = self.cols.filter(function (item) {
+        return item.show !== false;
+      });
       self.floatTableWidth = (0, _jquery2['default'])($element).find('.main-table').outerWidth();
       self.floatTableHeight = (0, _jquery2['default'])($element).find('.main-table').outerHeight();
       self.mainContainerWidth = (0, _jquery2['default'])($element).find('.main-table-container').width();
@@ -49412,7 +49415,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         floatLeftBoxWidth += (0, _jquery2['default'])($element).find('.main-table tr th').eq(i).outerWidth();
       }
 
-      for (var j = self.cols.length - 1; j >= self.cols.length - self.floatRightCols.length; j--) {
+      for (var j = showColrs.length - 1; j >= showColrs.length - self.floatRightCols.length; j--) {
         floatRightBoxWidth += (0, _jquery2['default'])($element).find('.main-table tr th').eq(j).outerWidth();
       }
 

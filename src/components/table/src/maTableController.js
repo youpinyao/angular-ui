@@ -388,6 +388,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     $timeout(() => {
       let floatLeftBoxWidth = 0;
       let floatRightBoxWidth = 0;
+      const showColrs = self.cols.filter(item => item.show !== false);
       self.floatTableWidth = $($element).find('.main-table').outerWidth();
       self.floatTableHeight = $($element).find('.main-table').outerHeight();
       self.mainContainerWidth = $($element).find('.main-table-container').width();
@@ -396,7 +397,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
         floatLeftBoxWidth += $($element).find('.main-table tr th').eq(i).outerWidth();
       }
 
-      for (var j = self.cols.length - 1; j >= self.cols.length - self.floatRightCols.length; j--) {
+      for (var j = showColrs.length - 1; j >= showColrs.length - self.floatRightCols.length; j--) {
         floatRightBoxWidth += $($element).find('.main-table tr th').eq(j).outerWidth();
       }
 
