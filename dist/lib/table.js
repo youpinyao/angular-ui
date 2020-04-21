@@ -1266,6 +1266,8 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       self.isLoading = true;
       var deferred = $scope.tableConfig.getData.apply(this, arguments);
 
+      updateFloatCols();
+
       if (deferred && deferred.then) {
         deferred.then(function (data) {
           updateHtmlItems(data);
@@ -1290,6 +1292,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
 
       return deferred;
     } : function () {
+      updateFloatCols();
       return [];
       // return [];
     },
