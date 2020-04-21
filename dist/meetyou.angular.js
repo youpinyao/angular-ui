@@ -49118,33 +49118,7 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
   self.tableId = $scope.tableConfig.tableId || +new Date();
   self.tableConfig = $scope.tableConfig;
 
-  // 左右漂浮列
-  self.floatLeftCols = [];
-  self.floatRightCols = [];
-
-  angular.forEach(self.cols, function (v, k) {
-    if (v.fLeft) {
-      self.floatLeftCols.push(v);
-    }
-    if (v.fRight) {
-      self.floatRightCols.push(v);
-    }
-  });
-
-  if (angular.isEmpty(self.floatLeftCols)) {
-    self.floatLeftCols = false;
-  }
-  if (angular.isEmpty(self.floatRightCols)) {
-    self.floatRightCols = false;
-  }
-
-  // 如果不存在左右漂浮
-  // if (!self.floatLeftCols.length) {
-  //   $($element).find('.float-left-table').addClass('none');
-  // }
-  // if (!self.floatRightCols.length) {
-  //   $($element).find('.float-right-table').addClass('none');
-  // }
+  updateFloatCols();
 
   // 如果要checkbox
   if (self.enableCheckbox) {
@@ -49154,12 +49128,34 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
       headerTemplateURL: 'headerCheckbox.html',
       show: true
     });
+  }
+  function updateFloatCols() {
+    self.floatLeftCols = [];
+    self.floatRightCols = [];
 
-    if (self.floatLeftCols.length) {
-      self.floatLeftCols.push(self.cols[0]);
+    angular.forEach(self.cols, function (v, k) {
+      if (v.fLeft) {
+        self.floatLeftCols.push(v);
+      }
+      if (v.fRight) {
+        self.floatRightCols.push(v);
+      }
+    });
+
+    if (angular.isEmpty(self.floatLeftCols)) {
+      self.floatLeftCols = false;
+    }
+    if (angular.isEmpty(self.floatRightCols)) {
+      self.floatRightCols = false;
+    }
+
+    // 如果要checkbox
+    if (self.enableCheckbox) {
+      if (self.floatLeftCols.length) {
+        self.floatLeftCols.push(self.cols[0]);
+      }
     }
   }
-
   if (!self.enablePagination) {
     // 当不需要分页时提供一个无限大的值
     self.count = 10000000000000;
@@ -49375,6 +49371,9 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
     self.isFullLoading = true;
     self.floatTableHeight = 0;
     self.floatLeftBoxWidth = 0;
+
+    updateFloatCols();
+
     $timeout(function () {
       updateHtmlItems(self.data);
       $timeout(function () {
