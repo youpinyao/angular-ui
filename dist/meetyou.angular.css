@@ -10733,8 +10733,8 @@ body.has-ma-modal {
   bottom: 0px;
   margin: auto;
   z-index: 998;
-  transition: all 300ms ease;
-  -webkit-transtion: all 300ms ease;
+  transition: opacity 300ms ease;
+  -webkit-transtion: opacity 300ms ease;
 }
 
 .ma-table .data-table .data-table-loading .ma-spin {
@@ -10750,6 +10750,11 @@ body.has-ma-modal {
 .ma-table .data-table .data-table-loading.show {
   visibility: visible;
   opacity: 1;
+}
+
+.ma-table .data-table .data-table-loading.full {
+  top: 0;
+  background-color: #ffffff;
 }
 
 .ma-table .data-table .table-number-col {

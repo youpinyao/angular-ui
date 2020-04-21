@@ -355,10 +355,16 @@ function maTableController(NgTableParams, $scope, $element, $interpolate, $sce, 
 
   self.tableParams.updateContent = function() {
     self.isLoading = true;
-    updateHtmlItems(self.data);
-    setTimeout(() => {
-      setFloatTable(true);
-      self.isLoading = false;
+    self.isFullLoading = true;
+    self.floatTableHeight = 0;
+    self.floatLeftBoxWidth = 0;
+    $timeout(() => {
+      updateHtmlItems(self.data);
+      $timeout(() => {
+        setFloatTable(true);
+        self.isLoading = false;
+        self.isFullLoading = false;
+      });
     });
   };
 
