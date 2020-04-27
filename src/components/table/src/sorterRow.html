@@ -8,6 +8,7 @@
     }"
     ng-click="sortBy($column, $event)"
     ng-if="$column.show(this)"
+    width="{{$column.field == 'selector' ? '1' : ''}}"
     ng-init="template = $column.headerTemplateURL(this)"
     class="header {{$column.class(this)}}">
     <div ng-if="!template"
