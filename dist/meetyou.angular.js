@@ -484,7 +484,7 @@ function maNum($filter, $timeout, $parse) {
         var str = [];
         var decimalCount = 0;
 
-        if (v[0] === '-' && v.length === 1 || v.join('') === '0.' + Array(decimal - 1).fill('0').join('')) {
+        if (v[0] === '-' && v.length === 1 || (decimal ? v.join('') === '0.' + Array(decimal - 1).fill('0').join('') : false)) {
           // 为一个负号时不处理
           str = v;
         } else {
