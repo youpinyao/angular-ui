@@ -9,15 +9,47 @@ const utils = {
   isArray,
   uuid,
   Base64: getBase64(),
+  getLengthWithEn,
+  cutStringWithEn,
 };
 
-angular.module(moduleName).factory('$utils', function() {
+angular.module(moduleName).factory('$utils', function () {
   return utils;
 });
 
 Object.assign(angular, utils);
 
 export default utils;
+
+export function getCnReg() {
+  return /[\u4e00-\u9fa5\u3002\uff1b\uff0c\uff1a\u201c\u201d\uff08\uff09\u3001\uff1f\u300a\u300b]/g;
+}
+
+export function getLengthWithEn(value) {
+  const length = value.length;
+  const cnLength = (value.match(getCnReg()) || []).length;
+  const withEnLength = cnLength + ((length - cnLength) * 0.5);
+  return withEnLength;
+}
+
+export function cutStringWithEn(value, length) {
+  let count = 0;
+  const arr = value.split('');
+  const newArr = [];
+
+  arr.forEach(item => {
+    if (getCnReg().test(item)) {
+      count += 1;
+    } else {
+      count += 0.5;
+    }
+    if (count <= length) {
+      newArr.push(item);
+    }
+  });
+  return newArr.join('');
+}
+
 
 function each(data, callback) {
   if (!data) {
@@ -51,7 +83,7 @@ function isEmpty(data) {
   }
   let count = 0;
 
-  angular.forEach(data, function(d) {
+  angular.forEach(data, function (d) {
     count++;
   });
 
@@ -86,7 +118,7 @@ function getBase64() {
     _keyStr: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
 
     // public method for encoding
-    encode: function(input) {
+    encode: function (input) {
       var output = '';
       // eslint-disable-next-line
       var chr1,
@@ -129,7 +161,7 @@ function getBase64() {
     },
 
     // public method for decoding
-    decode: function(input) {
+    decode: function (input) {
       var output = '';
       // eslint-disable-next-line
       var chr1,
@@ -174,7 +206,7 @@ function getBase64() {
     },
 
     // private method for UTF-8 encoding
-    _utf8_encode: function(string) {
+    _utf8_encode: function (string) {
       string = string.replace(/\r\n/g, '\n');
       var utftext = '';
 
@@ -202,7 +234,7 @@ function getBase64() {
     },
 
     // private method for UTF-8 decoding
-    _utf8_decode: function(utftext) {
+    _utf8_decode: function (utftext) {
       var string = '';
       var i = 0;
       // eslint-disable-next-line

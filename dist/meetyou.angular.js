@@ -350,6 +350,8 @@ var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _utils = __webpack_require__("YkQ5");
+
 var _name = __webpack_require__("g5ku");
 
 var _name2 = _interopRequireDefault(_name);
@@ -54292,6 +54294,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+exports.getCnReg = getCnReg;
+exports.getLengthWithEn = getLengthWithEn;
+exports.cutStringWithEn = cutStringWithEn;
+
 var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
@@ -54312,7 +54318,9 @@ var utils = {
   isEmpty: isEmpty,
   isArray: isArray,
   uuid: uuid,
-  Base64: getBase64()
+  Base64: getBase64(),
+  getLengthWithEn: getLengthWithEn,
+  cutStringWithEn: cutStringWithEn
 };
 
 angular.module(_name2['default']).factory('$utils', function () {
@@ -54322,7 +54330,35 @@ angular.module(_name2['default']).factory('$utils', function () {
 Object.assign(angular, utils);
 
 exports['default'] = utils;
+function getCnReg() {
+  return (/[\u4e00-\u9fa5\u3002\uff1b\uff0c\uff1a\u201c\u201d\uff08\uff09\u3001\uff1f\u300a\u300b]/g
+  );
+}
 
+function getLengthWithEn(value) {
+  var length = value.length;
+  var cnLength = (value.match(getCnReg()) || []).length;
+  var withEnLength = cnLength + (length - cnLength) * 0.5;
+  return withEnLength;
+}
+
+function cutStringWithEn(value, length) {
+  var count = 0;
+  var arr = value.split('');
+  var newArr = [];
+
+  arr.forEach(function (item) {
+    if (getCnReg().test(item)) {
+      count += 1;
+    } else {
+      count += 0.5;
+    }
+    if (count <= length) {
+      newArr.push(item);
+    }
+  });
+  return newArr.join('');
+}
 
 function each(data, callback) {
   if (!data) {
@@ -58741,6 +58777,8 @@ var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _utils = __webpack_require__("YkQ5");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 angular.module('validation.rule', []).config(['$validationProvider', function ($validationProvider) {
@@ -58765,6 +58803,12 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
     },
     maxlength: function maxlength(value, scope, element, attrs, param) {
       return value.length <= param;
+    },
+    minlengthwithen: function minlengthwithen(value, scope, element, attrs, param) {
+      return (0, _utils.getLengthWithEn)(value) >= param;
+    },
+    maxlengthwithen: function maxlengthwithen(value, scope, element, attrs, param) {
+      return (0, _utils.getLengthWithEn)(value) <= param;
     },
     cellphone: function cellphone(value, scope, element, attrs, param) {
       value += '';
@@ -58901,6 +58945,20 @@ angular.module('validation.rule', []).config(['$validationProvider', function ($
       success: 'OK'
     },
     maxlength: {
+      error: function error(element, attrs, param) {
+        var len = parseInt(param, 10);
+        return errorMsgTemplate(element, attrs, param, '\u6700\u957F\u4E3A' + len + '\u4E2A\u5B57\u7B26');
+      },
+      success: 'OK'
+    },
+    minlengthwithen: {
+      error: function error(element, attrs, param) {
+        var len = parseInt(param, 10);
+        return errorMsgTemplate(element, attrs, param, '\u6700\u77ED\u4E3A' + len + '\u4E2A\u5B57\u7B26');
+      },
+      success: 'OK'
+    },
+    maxlengthwithen: {
       error: function error(element, attrs, param) {
         var len = parseInt(param, 10);
         return errorMsgTemplate(element, attrs, param, '\u6700\u957F\u4E3A' + len + '\u4E2A\u5B57\u7B26');

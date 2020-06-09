@@ -49,6 +49,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+exports.getCnReg = getCnReg;
+exports.getLengthWithEn = getLengthWithEn;
+exports.cutStringWithEn = cutStringWithEn;
+
 var _jquery = __webpack_require__("7t+N");
 
 var _jquery2 = _interopRequireDefault(_jquery);
@@ -69,7 +73,9 @@ var utils = {
   isEmpty: isEmpty,
   isArray: isArray,
   uuid: uuid,
-  Base64: getBase64()
+  Base64: getBase64(),
+  getLengthWithEn: getLengthWithEn,
+  cutStringWithEn: cutStringWithEn
 };
 
 angular.module(_name2['default']).factory('$utils', function () {
@@ -79,7 +85,35 @@ angular.module(_name2['default']).factory('$utils', function () {
 Object.assign(angular, utils);
 
 exports['default'] = utils;
+function getCnReg() {
+  return (/[\u4e00-\u9fa5\u3002\uff1b\uff0c\uff1a\u201c\u201d\uff08\uff09\u3001\uff1f\u300a\u300b]/g
+  );
+}
 
+function getLengthWithEn(value) {
+  var length = value.length;
+  var cnLength = (value.match(getCnReg()) || []).length;
+  var withEnLength = cnLength + (length - cnLength) * 0.5;
+  return withEnLength;
+}
+
+function cutStringWithEn(value, length) {
+  var count = 0;
+  var arr = value.split('');
+  var newArr = [];
+
+  arr.forEach(function (item) {
+    if (getCnReg().test(item)) {
+      count += 1;
+    } else {
+      count += 0.5;
+    }
+    if (count <= length) {
+      newArr.push(item);
+    }
+  });
+  return newArr.join('');
+}
 
 function each(data, callback) {
   if (!data) {

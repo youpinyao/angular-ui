@@ -1,4 +1,9 @@
 import $ from 'jquery';
+
+import {
+  getLengthWithEn,
+  cutStringWithEn,
+} from '../../../utils/src/utils';
 import moduleName from './name.js';
 import maInputTpl from './maInputTpl.html';
 
@@ -36,21 +41,21 @@ function maInput() {
     },
     template: maInputTpl,
     controllerAs: '$ctrl',
-    controller: ['$scope', '$element', function($scope, $element) {
-      this.clearClick = function() {
+    controller: ['$scope', '$element', function ($scope, $element) {
+      this.clearClick = function () {
         $scope.model = '';
       };
       $scope.$watch('placeholder', d => {
         $element.find('textarea').attr('placeholder', d || '');
       });
 
-      $scope.change = function() {
+      $scope.change = function () {
         $scope.ngChange({
           $model: $scope.model,
         });
       };
 
-      $scope.blur = function() {
+      $scope.blur = function () {
         const evObj = document.createEvent('MouseEvents');
 
         evObj.initEvent('blur', true, false);
@@ -61,7 +66,7 @@ function maInput() {
         });
       };
     }],
-    link: function(scope, element, attrs, ctrl) {
+    link: function (scope, element, attrs, ctrl) {
       $(element).bind('click', e => {
         if (e.eventPhase === 2) {
           scope.iconClick({
@@ -79,25 +84,25 @@ maNum.$inject = ['$filter', '$timeout', '$parse'];
 function maNum($filter, $timeout, $parse) {
   return {
     restrict: 'A',
-    link: function(scope, elem, attrs, controller) {
+    link: function (scope, elem, attrs, controller) {
       var decimal;
       var ngModel = $parse(attrs.ngModel);
       var min = parseFloat(attrs.min);
       var max = parseFloat(attrs.max);
 
-      attrs.$observe('min', function(d) {
+      attrs.$observe('min', function (d) {
         min = d || undefined;
       });
-      attrs.$observe('max', function(d) {
+      attrs.$observe('max', function (d) {
         max = d || undefined;
       });
-      attrs.$observe('maDecimal', function(d) {
+      attrs.$observe('maDecimal', function (d) {
         getDecimal(d);
       });
 
       getDecimal(attrs.maDecimal);
 
-      function getDecimal (maDecimal) {
+      function getDecimal(maDecimal) {
         decimal = maDecimal !== undefined;
 
         if (!isNaN(parseInt(maDecimal, 10))) {
@@ -131,7 +136,7 @@ function maNum($filter, $timeout, $parse) {
           // 为一个负号时不处理
           str = v;
         } else {
-          angular.forEach(v, function(d, k) {
+          angular.forEach(v, function (d, k) {
             if (decimal && d == '。') {
               d = '.';
             }
@@ -173,7 +178,7 @@ function maNum($filter, $timeout, $parse) {
           this.value = str.join('') || '';
 
           if (!isNaN(decimal) && this.value && this.value.split('.')[1] && this.value.split(
-              '.')[1].length > decimal) {
+            '.')[1].length > decimal) {
             this.value = parseFloat(this.value).toFixed(decimal);
           }
 
