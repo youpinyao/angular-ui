@@ -47,8 +47,8 @@ function mainCtrl($scope, $timeout, $interval, $utils) {
     },
   };
 
-  const OSSAccessKeyId = 'IkOF7oy0XNr3Kbco';
-  const accesskey = 'FDd6C9CK8xatXjuXYQNGm4QkbIMWiQ';
+  const OSSAccessKeyId = '';
+  const accesskey = '';
   const policy = $utils.Base64.encode(JSON.stringify(policyText));
   const bytes = Crypto.HMAC(Crypto.SHA1, policy, accesskey, { asBytes: true });
   const signature = Crypto.util.bytesToBase64(bytes);
