@@ -89,7 +89,7 @@
     "sass-loader": "6.0.3",
     "style-loader": "0.16.1",
     "to-string-loader": "1.1.5",
-    "underscore": "1.8.3",
+    "underscore": "1.12.1",
     "url-loader": "0.5.8",
     "webpack": "2.3.3",
     "webpack-chunk-hash": "0.4.0",
