@@ -34,7 +34,7 @@
     "jquery": "^1.12.4",
     "jquery-date-range-picker": "^1.0.0",
     "lightgallery.js": "1.0.1",
-    "moment": "2.18.1",
+    "moment": "2.29.4",
     "ng-table": "3.0.1",
     "ui-select": "0.19.8",
     "uuid": "3.0.1"
